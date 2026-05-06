@@ -3,728 +3,569 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>原野日常 · Wildland Living — 戶外服飾</title>
+<title>原野日常 · Wildland Living</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&family=Noto+Sans+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+TC:wght@200;300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --clay:    #B5896A;
-  --bark:    #6B4F3A;
-  --moss:    #697A5D;
-  --stone:   #9E9B8E;
-  --linen:   #F2EDE5;
-  --cream:   #FAF7F2;
-  --charcoal:#2C2A26;
-  --mist:    #D4CEC4;
-  --serif:   'Cormorant Garamond', 'Noto Serif TC', serif;
-  --sans:    'Noto Sans TC', sans-serif;
-  --nav-h:   56px;
-  --max-w:   430px;
+  --ink:    #1E1C19;
+  --bark:   #6B4F3A;
+  --clay:   #B5896A;
+  --stone:  #9E9B8E;
+  --mist:   #D4CEC4;
+  --linen:  #F2EDE5;
+  --cream:  #FAF7F2;
+  --serif:  'Cormorant Garamond', 'Noto Serif TC', serif;
+  --max:    430px;
 }
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 14px; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 14px; scroll-behavior: smooth; }
+
 body {
   background: var(--cream);
-  color: var(--charcoal);
-  font-family: var(--sans);
+  color: var(--ink);
+  font-family: var(--serif);
   font-weight: 300;
-  line-height: 1.8;
-  max-width: var(--max-w);
+  max-width: var(--max);
   margin: 0 auto;
   overflow-x: hidden;
 }
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 2px; }
+
+a { text-decoration: none; color: inherit; }
 
 /* ── NAV ── */
-.nav {
+nav {
   position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: var(--max-w); height: var(--nav-h);
-  background: rgba(250,247,242,0.93);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--mist);
-  z-index: 100; display: flex; align-items: center;
-  justify-content: space-between; padding: 0 20px;
+  width: 100%; max-width: var(--max);
+  padding: 0 24px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(250,247,242,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
 }
-.nav-logo { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--bark); letter-spacing: 0.08em; text-decoration: none; line-height: 1.2; }
-.nav-logo span { display: block; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); font-style: italic; }
-.nav-actions { display: flex; gap: 4px; }
-.nav-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: var(--bark); border-radius: 50%; position: relative; }
-.nav-btn svg { width: 20px; height: 20px; stroke-width: 1.5; }
-.cart-badge { position: absolute; top: 8px; right: 8px; width: 14px; height: 14px; background: var(--clay); border-radius: 50%; font-size: 9px; color: white; display: flex; align-items: center; justify-content: center; font-weight: 400; }
-
-main { padding-top: var(--nav-h); padding-bottom: 64px; }
+.nav-brand { font-size: 15px; letter-spacing: 0.12em; color: var(--ink); }
+.nav-right { display: flex; gap: 2px; }
+.nav-icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; color: var(--ink); }
+.nav-icon svg { width: 18px; height: 18px; stroke-width: 1.2; }
 
 /* ── HERO ── */
-.hero { height: calc(100svh - var(--nav-h)); min-height: 560px; position: relative; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: var(--bark); }
-.hero-bg::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 20% 110%, rgba(181,137,106,0.4) 0%, transparent 65%),
-              radial-gradient(ellipse 40% 40% at 85% 20%, rgba(105,122,93,0.2) 0%, transparent 60%);
+.hero {
+  height: 100svh;
+  min-height: 600px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 64px;
+  padding-top: 52px;
+  position: relative;
 }
-.hero-grain { position: absolute; inset: 0; opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px; }
-.hero-mountain { position: absolute; bottom: 0; left: 0; right: 0; height: 180px; }
-.hero-content { position: relative; z-index: 2; padding: 0 28px 52px; }
-.hero-eyebrow { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--clay); font-family: var(--serif); font-style: italic; margin-bottom: 14px; display: block; opacity: 0; animation: fadeUp 0.8s 0.3s ease forwards; }
-.hero-title { font-family: var(--serif); font-size: clamp(48px, 14vw, 72px); font-weight: 300; color: var(--linen); line-height: 0.95; letter-spacing: -0.01em; opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards; }
-.hero-title em { display: block; font-style: italic; color: var(--clay); }
-.hero-tagline { margin-top: 20px; font-size: 12px; color: var(--mist); line-height: 1.9; letter-spacing: 0.05em; max-width: 240px; opacity: 0; animation: fadeUp 0.8s 0.7s ease forwards; }
-.hero-cta { margin-top: 32px; display: flex; gap: 12px; align-items: center; opacity: 0; animation: fadeUp 0.8s 0.9s ease forwards; }
-.btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--clay); color: var(--cream); font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; border-radius: 1px; transition: background 0.2s, transform 0.2s; }
-.btn-primary:active { background: var(--bark); transform: scale(0.98); }
-.btn-ghost { font-family: var(--serif); font-size: 13px; font-style: italic; color: var(--mist); text-decoration: none; border-bottom: 1px solid rgba(212,206,196,0.4); padding-bottom: 1px; }
-.hero-scroll { position: absolute; bottom: 20px; right: 28px; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; animation: fadeIn 1s 1.4s ease forwards; }
-.hero-scroll span { font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); writing-mode: vertical-rl; }
-.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--stone), transparent); animation: scrollPulse 2s 2s infinite; }
+.hero-season {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0;
+  animation: up 1s 0.2s ease forwards;
+}
+.hero-h1 {
+  font-size: clamp(56px, 17vw, 80px);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  opacity: 0;
+  animation: up 1s 0.4s ease forwards;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--clay);
+  display: block;
+}
+.hero-line {
+  width: 1px; height: 60px;
+  background: var(--mist);
+  margin: 36px 0;
+  opacity: 0;
+  animation: up 1s 0.6s ease forwards;
+}
+.hero-desc {
+  font-size: 13px;
+  color: var(--stone);
+  line-height: 2;
+  letter-spacing: 0.04em;
+  max-width: 220px;
+  opacity: 0;
+  animation: up 1s 0.8s ease forwards;
+}
+.hero-cta {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  opacity: 0;
+  animation: up 1s 1s ease forwards;
+}
+.cta-main {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--ink);
+  padding: 13px 28px;
+  display: inline-block;
+}
+.cta-sub {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--stone);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--mist);
+  padding-bottom: 1px;
+}
 
-/* ── ANNOUNCE ── */
-.announce { background: var(--bark); color: var(--mist); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; text-align: center; padding: 10px 20px; font-family: var(--serif); font-style: italic; }
+/* floating scroll indicator */
+.scroll-hint {
+  position: absolute;
+  right: 24px;
+  bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fade 1s 1.6s ease forwards;
+}
+.scroll-hint span {
+  font-size: 8px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--mist);
+  writing-mode: vertical-rl;
+}
+.scroll-hint-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--mist), transparent);
+  animation: pulse 2.5s 2s infinite;
+}
 
-/* ── VALUES ── */
-.values { display: flex; overflow-x: auto; padding: 28px; gap: 0; border-top: 1px solid var(--mist); border-bottom: 1px solid var(--mist); scrollbar-width: none; }
-.values::-webkit-scrollbar { display: none; }
-.val-item { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; padding-right: 28px; margin-right: 28px; border-right: 1px solid var(--mist); }
-.val-item:last-child { border-right: none; margin-right: 0; }
-.val-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.val-icon svg { width: 20px; height: 20px; stroke-width: 1.2; color: var(--clay); }
-.val-title { font-family: var(--serif); font-size: 13px; font-weight: 300; color: var(--bark); display: block; white-space: nowrap; }
-.val-sub { font-size: 9px; color: var(--stone); letter-spacing: 0.15em; text-transform: uppercase; display: block; white-space: nowrap; }
+/* ── DIVIDER ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--mist);
+}
 
-/* ── SECTION LABELS ── */
-.sec-eyebrow { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--clay); font-family: var(--serif); font-style: italic; display: block; margin-bottom: 8px; }
-.sec-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--bark); line-height: 1.2; letter-spacing: 0.03em; }
-
-/* ── CATEGORY SCROLL ── */
-.cat-section { padding: 48px 0 48px 28px; }
-.cat-scroll { display: flex; gap: 12px; overflow-x: auto; padding-right: 28px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.cat-scroll::-webkit-scrollbar { display: none; }
-.cat-card { flex: 0 0 140px; border-radius: 2px; overflow: hidden; cursor: pointer; text-decoration: none; display: block; transition: transform 0.3s; }
-.cat-card:active { transform: scale(0.97); }
-.cat-img { height: 175px; display: flex; align-items: center; justify-content: center; }
-.cat-info { background: white; padding: 10px 12px; border: 1px solid var(--mist); border-top: none; }
-.cat-name { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--bark); display: block; }
-.cat-en { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-style: italic; font-family: var(--serif); }
-.bg-jacket { background: linear-gradient(145deg, #4A5240, #2D3328); }
-.bg-top    { background: linear-gradient(145deg, #6B5C4E, #4A3B2E); }
-.bg-pants  { background: linear-gradient(145deg, #697A5D, #445240); }
-.bg-acc    { background: linear-gradient(145deg, #9B8E7E, #7A6A58); }
-
-/* ── STORY BLOCK ── */
-.story-block { background: var(--linen); padding: 48px 28px; position: relative; overflow: hidden; }
-.story-block::before { content: '野'; font-family: var(--serif); font-size: 200px; font-weight: 300; color: rgba(107,79,58,0.04); position: absolute; top: -20px; right: -20px; line-height: 1; pointer-events: none; user-select: none; }
-.story-num { font-family: var(--serif); font-size: 11px; color: var(--stone); letter-spacing: 0.3em; display: block; margin-bottom: 24px; }
-.story-quote { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--bark); line-height: 1.6; margin-bottom: 18px; }
-.story-quote em { font-style: italic; color: var(--clay); }
-.story-body { font-size: 12px; color: var(--stone); line-height: 2; margin-bottom: 28px; }
-.story-link { font-family: var(--serif); font-size: 12px; font-style: italic; color: var(--clay); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(181,137,106,0.4); padding-bottom: 2px; }
-.story-link svg { width: 14px; height: 14px; }
+/* ── CATEGORY ── */
+.cat-section { padding: 72px 24px; }
+.section-label {
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--mist);
+  display: block;
+  margin-bottom: 48px;
+}
+.cat-list { display: flex; flex-direction: column; gap: 0; }
+.cat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--mist);
+  cursor: pointer;
+}
+.cat-row:first-child { border-top: 1px solid var(--mist); }
+.cat-name-zh { font-size: 22px; font-weight: 300; color: var(--ink); letter-spacing: 0.05em; }
+.cat-name-en { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stone); margin-top: 2px; display: block; }
+.cat-arrow { color: var(--mist); transition: transform 0.3s, color 0.3s; }
+.cat-arrow svg { width: 16px; height: 16px; stroke-width: 1; }
+.cat-row:active .cat-arrow { transform: translateX(4px); color: var(--clay); }
 
 /* ── PRODUCTS ── */
-.product-section { padding: 56px 28px; }
-.prod-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid var(--mist); }
-.tab-btn { background: none; border: none; font-family: var(--serif); font-size: 13px; font-weight: 300; color: var(--stone); padding: 8px 0; margin-right: 20px; cursor: pointer; position: relative; transition: color 0.2s; }
-.tab-btn.active { color: var(--bark); }
-.tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--clay); }
-.prod-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
-.prod-card { cursor: pointer; text-decoration: none; display: block; transition: transform 0.3s; }
-.prod-card:active { transform: scale(0.98); }
-.prod-img { position: relative; padding-bottom: 118%; overflow: hidden; border-radius: 1px; }
-.prod-img-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.4s; }
-.prod-card:active .prod-img-bg { transform: scale(1.04); }
-.prod-tag { position: absolute; top: 10px; left: 10px; background: var(--clay); color: white; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; padding: 3px 8px; z-index: 1; }
-.prod-tag.eco { background: var(--moss); }
-.prod-fav { position: absolute; bottom: 10px; right: 10px; width: 28px; height: 28px; background: rgba(250,247,242,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1; }
-.prod-fav svg { width: 13px; height: 13px; color: var(--stone); stroke-width: 1.5; }
-.prod-info { padding: 10px 2px; }
-.prod-name { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--bark); display: block; line-height: 1.4; margin-bottom: 2px; }
-.prod-sub { font-size: 10px; color: var(--stone); letter-spacing: 0.08em; display: block; margin-bottom: 5px; }
-.prod-price { font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--clay); }
-.prod-orig { font-size: 11px; color: var(--mist); text-decoration: line-through; margin-left: 4px; }
-.view-all-wrap { text-align: center; margin-top: 32px; }
-.btn-outline { font-family: var(--serif); font-size: 12px; font-style: italic; color: var(--clay); text-decoration: none; border-bottom: 1px solid rgba(181,137,106,0.4); padding-bottom: 2px; }
+.prod-section { padding: 0 24px 72px; }
+.prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 16px; margin-top: 48px; }
+.prod-item { cursor: pointer; }
+.prod-img {
+  width: 100%;
+  padding-bottom: 125%;
+  position: relative;
+  overflow: hidden;
+  background: var(--linen);
+  margin-bottom: 14px;
+}
+.prod-img-inner {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.5s ease;
+}
+.prod-item:active .prod-img-inner { transform: scale(1.03); }
+.prod-img-inner svg { opacity: 0.18; }
+.prod-badge {
+  position: absolute; top: 12px; left: 12px;
+  font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cream); background: var(--ink);
+  padding: 3px 8px;
+}
+.prod-badge.eco { background: #697A5D; }
+.prod-title { font-size: 14px; font-weight: 300; color: var(--ink); line-height: 1.4; margin-bottom: 4px; }
+.prod-mat { font-size: 10px; color: var(--stone); letter-spacing: 0.08em; margin-bottom: 6px; display: block; }
+.prod-price { font-size: 15px; color: var(--ink); }
+.prod-orig { font-size: 11px; color: var(--mist); text-decoration: line-through; margin-left: 6px; }
 
-/* Product image backgrounds */
-.pb1 { background: linear-gradient(160deg, #4A5240 0%, #2D3328 100%); }
-.pb2 { background: linear-gradient(160deg, #5E6B58 0%, #3A4535 100%); }
-.pb3 { background: linear-gradient(160deg, #9B8E7E 0%, #7A6A58 100%); }
-.pb4 { background: linear-gradient(160deg, #7A8471 0%, #565E50 100%); }
-.pb5 { background: linear-gradient(160deg, #6B5C4E 0%, #4A3B2E 100%); }
-.pb6 { background: linear-gradient(160deg, #8A7B6A 0%, #6A5B4A 100%); }
+/* img bg tones */
+.t1 { background: #DDD8CF; }
+.t2 { background: #D2CECC; }
+.t3 { background: #D8D4CA; }
+.t4 { background: #CFD5CC; }
+.t5 { background: #D4CBC3; }
+.t6 { background: #D5D0C8; }
 
-/* ── BANNER ── */
-.banner { position: relative; height: 260px; overflow: hidden; display: flex; align-items: flex-end; }
-.banner-bg { position: absolute; inset: 0; background: var(--moss); }
-.banner-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(43,40,36,0.75) 0%, transparent 55%); }
-.banner-pattern { position: absolute; inset: 0; opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 50 L5 50Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: 60px 60px; }
-.banner-content { position: relative; z-index: 2; padding: 28px; }
-.banner-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(212,206,196,0.65); font-family: var(--serif); font-style: italic; margin-bottom: 8px; display: block; }
-.banner-title { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--linen); line-height: 1.2; margin-bottom: 18px; }
-.banner-title em { font-style: italic; color: var(--clay); }
-
-/* ── STORIES ── */
-.journal-section { background: var(--linen); padding: 56px 0 56px 28px; }
-.stories-scroll { display: flex; gap: 14px; overflow-x: auto; padding-right: 28px; scrollbar-width: none; -webkit-overflow-scrolling: touch; margin-top: 28px; }
-.stories-scroll::-webkit-scrollbar { display: none; }
-.story-card { flex: 0 0 210px; background: white; border: 1px solid var(--mist); border-radius: 2px; overflow: hidden; text-decoration: none; }
-.story-card-img { height: 130px; }
-.story-card-body { padding: 14px; }
-.story-card-cat { font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--clay); font-family: var(--serif); font-style: italic; display: block; margin-bottom: 5px; }
-.story-card-title { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--bark); line-height: 1.5; display: block; }
-.sc1 { background: linear-gradient(140deg, #6B7C62, #4A5A42); }
-.sc2 { background: linear-gradient(140deg, #7A6858, #5A4C40); }
-.sc3 { background: linear-gradient(140deg, #4A5240, #2D3328); }
-
-/* ── NEWSLETTER ── */
-.newsletter { padding: 56px 28px; text-align: center; background: var(--bark); position: relative; overflow: hidden; }
-.newsletter::before { content: '原'; font-family: var(--serif); font-size: 260px; font-weight: 300; color: rgba(255,255,255,0.03); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; user-select: none; }
-.nl-eyebrow { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--clay); font-family: var(--serif); font-style: italic; margin-bottom: 14px; display: block; }
-.nl-title { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--linen); line-height: 1.4; margin-bottom: 8px; position: relative; }
-.nl-sub { font-size: 11px; color: var(--stone); margin-bottom: 28px; line-height: 1.8; position: relative; }
-.nl-form { display: flex; flex-direction: column; gap: 10px; position: relative; }
-.nl-input { width: 100%; padding: 14px 16px; background: rgba(242,237,229,0.1); border: 1px solid rgba(212,206,196,0.3); color: var(--linen); font-family: var(--sans); font-size: 13px; font-weight: 300; outline: none; border-radius: 1px; }
-.nl-input::placeholder { color: var(--stone); }
-.nl-input:focus { border-color: var(--clay); }
-.nl-btn { padding: 14px; background: var(--clay); color: var(--cream); font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; border: none; cursor: pointer; border-radius: 1px; }
-.nl-btn:active { background: #9d7459; }
-.nl-note { font-size: 10px; color: rgba(158,155,142,0.55); margin-top: 10px; position: relative; }
+/* ── PHILOSOPHY ── */
+.philosophy {
+  padding: 88px 24px;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.philosophy::after {
+  content: '野';
+  position: absolute;
+  right: -10px; bottom: -40px;
+  font-size: 220px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.phil-label { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(212,206,196,0.45); display: block; margin-bottom: 40px; }
+.phil-quote {
+  font-size: clamp(22px, 6vw, 28px);
+  font-weight: 300;
+  color: var(--linen);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  margin-bottom: 36px;
+}
+.phil-quote em { font-style: italic; color: var(--clay); }
+.phil-link {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.phil-link svg { width: 16px; height: 16px; stroke-width: 1.2; }
 
 /* ── FOOTER ── */
-footer { background: var(--charcoal); padding: 48px 28px 32px; }
-.ft-logo { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--linen); letter-spacing: 0.08em; display: block; margin-bottom: 2px; }
-.ft-logo-en { font-family: var(--serif); font-size: 10px; font-style: italic; letter-spacing: 0.3em; color: var(--stone); display: block; margin-bottom: 22px; }
-.ft-tagline { font-family: var(--serif); font-size: 13px; font-style: italic; color: var(--stone); line-height: 1.8; margin-bottom: 32px; padding-bottom: 26px; border-bottom: 1px solid rgba(212,206,196,0.12); }
-.ft-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 16px; margin-bottom: 32px; }
-.ft-nav-group h5 { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--clay); font-family: var(--serif); font-style: italic; margin-bottom: 14px; }
-.ft-nav-group ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.ft-nav-group li a { font-size: 12px; color: var(--stone); text-decoration: none; }
-.ft-social { display: flex; gap: 10px; margin-bottom: 28px; padding-bottom: 26px; border-bottom: 1px solid rgba(212,206,196,0.12); }
-.ft-soc-btn { width: 36px; height: 36px; border: 1px solid rgba(212,206,196,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--stone); text-decoration: none; }
-.ft-soc-btn svg { width: 15px; height: 15px; stroke-width: 1.5; }
-.ft-copy { font-size: 10px; color: rgba(158,155,142,0.45); letter-spacing: 0.08em; margin-top: 2px; }
-
-/* ── BOTTOM NAV ── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: var(--max-w);
-  background: rgba(250,247,242,0.96);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--mist);
-  display: grid; grid-template-columns: repeat(5,1fr);
-  padding: 8px 0 max(8px, env(safe-area-inset-bottom));
-  z-index: 99;
+footer {
+  padding: 64px 24px 48px;
+  background: var(--cream);
 }
-.bn-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 4px 0; color: var(--stone); }
-.bn-btn.active { color: var(--bark); }
-.bn-btn svg { width: 22px; height: 22px; stroke-width: 1.3; }
-.bn-label { font-size: 9px; letter-spacing: 0.1em; font-weight: 300; }
-.bn-btn.active .bn-label { color: var(--clay); font-weight: 400; }
+.ft-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--mist);
+}
+.ft-brand-name { font-size: 20px; letter-spacing: 0.1em; color: var(--ink); display: block; margin-bottom: 4px; }
+.ft-brand-en { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); font-style: italic; }
+.ft-links { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.ft-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); }
+.ft-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ft-social { display: flex; gap: 16px; }
+.ft-social a { color: var(--mist); }
+.ft-social svg { width: 16px; height: 16px; stroke-width: 1.2; display: block; }
+.ft-copy { font-size: 9px; letter-spacing: 0.12em; color: var(--mist); }
 
-/* ── SEARCH OVERLAY ── */
-.search-overlay { position: fixed; inset: 0; background: rgba(44,42,38,0.6); z-index: 200; display: none; align-items: flex-start; padding-top: 72px; }
-.search-overlay.open { display: flex; }
-.search-box { background: var(--cream); width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 20px; }
-.search-input-wrap { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--clay); padding-bottom: 12px; }
-.search-input { flex: 1; background: none; border: none; font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--bark); outline: none; }
-.search-input::placeholder { color: var(--mist); }
-.search-close { background: none; border: none; color: var(--stone); cursor: pointer; }
-.search-close svg { width: 20px; height: 20px; }
-.suggest-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin: 18px 0 10px; font-family: var(--serif); font-style: italic; display: block; }
-.suggest-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.suggest-tag { padding: 6px 14px; border: 1px solid var(--mist); font-family: var(--serif); font-size: 13px; font-weight: 300; color: var(--bark); background: none; cursor: pointer; border-radius: 1px; }
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: var(--max);
+  height: 52px;
+  background: rgba(250,247,242,0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--mist);
+  display: flex; align-items: center; justify-content: space-around;
+  z-index: 99;
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+}
+.bb-btn { background: none; border: none; cursor: pointer; color: var(--stone); display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 12px; }
+.bb-btn.active { color: var(--ink); }
+.bb-btn svg { width: 20px; height: 20px; stroke-width: 1.2; }
+.bb-label { font-family: var(--serif); font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; }
+.bb-btn.active .bb-label { color: var(--clay); }
 
-/* ── CART DRAWER ── */
-.backdrop { position: fixed; inset: 0; background: rgba(44,42,38,0.5); z-index: 190; display: none; }
-.backdrop.open { display: block; }
-.cart-drawer { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%); width: 100%; max-width: var(--max-w); background: var(--cream); z-index: 200; transition: transform 0.36s cubic-bezier(0.32,0,0.15,1); border-radius: 14px 14px 0 0; border-top: 1px solid var(--mist); max-height: 85vh; overflow-y: auto; }
-.cart-drawer.open { transform: translateX(-50%) translateY(0); }
-.cart-handle { width: 36px; height: 4px; background: var(--mist); border-radius: 2px; margin: 14px auto 18px; }
-.cart-header { padding: 0 24px 18px; border-bottom: 1px solid var(--mist); display: flex; align-items: baseline; justify-content: space-between; }
-.cart-title { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--bark); }
-.cart-count { font-size: 11px; color: var(--stone); letter-spacing: 0.15em; }
-.cart-items { padding: 16px 24px; }
-.cart-empty { text-align: center; padding: 36px 0; font-family: var(--serif); font-size: 14px; color: var(--stone); font-style: italic; }
-.cart-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--mist); align-items: center; }
-.cart-item:last-child { border-bottom: none; }
-.cart-item-img { width: 60px; height: 60px; border-radius: 1px; flex-shrink: 0; }
-.cart-item-name { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--bark); display: block; margin-bottom: 2px; }
-.cart-item-spec { font-size: 10px; color: var(--stone); }
-.cart-item-price { font-family: var(--serif); font-size: 15px; color: var(--clay); margin-left: auto; flex-shrink: 0; }
-.cart-footer { padding: 16px 24px; border-top: 1px solid var(--mist); background: var(--cream); position: sticky; bottom: 0; }
-.cart-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
-.cart-total-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
-.cart-total-price { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--bark); }
-.cart-checkout-btn { display: block; width: 100%; padding: 15px; background: var(--bark); color: var(--cream); font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; border-radius: 1px; }
-.cart-checkout-btn:active { background: var(--clay); }
+main { padding-top: 52px; padding-bottom: 52px; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.on { opacity: 1; transform: none; }
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:0.65; } }
-@keyframes scrollPulse { 0%,100% { opacity:0.35; } 50% { opacity:1; } }
-.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
+@keyframes up   { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+@keyframes fade { from { opacity:0; } to { opacity:0.5; } }
+@keyframes pulse { 0%,100% { opacity:0.3; } 50% { opacity:0.9; } }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="#" class="nav-logo">原野日常<span>Wildland Living</span></a>
-  <div class="nav-actions">
-    <button class="nav-btn" id="searchBtn" aria-label="搜尋">
+<nav>
+  <a href="#" class="nav-brand">原野日常</a>
+  <div class="nav-right">
+    <button class="nav-icon" aria-label="搜尋">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
     </button>
-    <button class="nav-btn" id="cartBtn" aria-label="購物車">
+    <button class="nav-icon" aria-label="購物車">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      <span class="cart-badge" id="cartBadge">0</span>
     </button>
   </div>
 </nav>
 
 <main>
-<!-- ANNOUNCE -->
-<div class="announce">全館滿 NT$3,000 免運 · 首購折 NT$200 · 代碼 WILDLAND</div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="hero-grain"></div>
-    <svg class="hero-mountain" viewBox="0 0 430 180" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 180 L80 80 L140 120 L200 40 L260 100 L320 60 L380 110 L430 70 L430 180Z" fill="rgba(250,247,242,0.10)"/>
-      <path d="M0 180 L60 130 L120 150 L180 90 L240 130 L300 100 L360 140 L430 110 L430 180Z" fill="rgba(250,247,242,0.05)"/>
-    </svg>
+  <span class="hero-season">AW 2025 · Autumn Winter</span>
+  <h1 class="hero-h1">穿進<em>自然裡</em></h1>
+  <div class="hero-line"></div>
+  <p class="hero-desc">為荒野而生，為日常而留。<br>簡約戶外服飾，台灣製造。</p>
+  <div class="hero-cta">
+    <a href="#products" class="cta-main">探索新品</a>
+    <a href="#philosophy" class="cta-sub">品牌理念</a>
   </div>
-  <div class="hero-content">
-    <span class="hero-eyebrow">2025 秋冬系列 · AW Collection</span>
-    <div class="hero-title">穿進<em>自然裡</em></div>
-    <p class="hero-tagline">為荒野而生，<br>為日常而留。</p>
-    <div class="hero-cta">
-      <a href="#products" class="btn-primary">
-        探索新品
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:13px;height:13px;stroke-width:2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#story" class="btn-ghost">品牌理念</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
     <span>Scroll</span>
   </div>
 </section>
 
-<!-- VALUES -->
-<div class="values">
-  <div class="val-item">
-    <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div><span class="val-title">再生纖維材質</span><span class="val-sub">永續製造</span></div>
-  </div>
-  <div class="val-item">
-    <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div><span class="val-title">台灣在地縫製</span><span class="val-sub">職人工藝</span></div>
-  </div>
-  <div class="val-item">
-    <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-    <div><span class="val-title">功能與美學並重</span><span class="val-sub">戶外日常兩用</span></div>
-  </div>
-  <div class="val-item">
-    <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div><span class="val-title">慢製，耐穿</span><span class="val-sub">終身修補服務</span></div>
-  </div>
-</div>
+<div class="divider"></div>
 
 <!-- CATEGORIES -->
-<div class="cat-section reveal">
-  <div style="padding-right:28px; margin-bottom:28px;">
-    <span class="sec-eyebrow">Shop by Category</span>
-    <h2 class="sec-title">服飾品類</h2>
+<section class="cat-section reveal">
+  <span class="section-label">Shop by Category · 品類</span>
+  <div class="cat-list">
+    <div class="cat-row">
+      <div>
+        <span class="cat-name-zh">外套</span>
+        <span class="cat-name-en">Outerwear</span>
+      </div>
+      <span class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+    <div class="cat-row">
+      <div>
+        <span class="cat-name-zh">上衣</span>
+        <span class="cat-name-en">Tops</span>
+      </div>
+      <span class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+    <div class="cat-row">
+      <div>
+        <span class="cat-name-zh">褲子</span>
+        <span class="cat-name-en">Bottoms</span>
+      </div>
+      <span class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+    <div class="cat-row">
+      <div>
+        <span class="cat-name-zh">配件</span>
+        <span class="cat-name-en">Accessories</span>
+      </div>
+      <span class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
   </div>
-  <div class="cat-scroll">
-    <a href="#" class="cat-card">
-      <div class="cat-img bg-jacket">
-        <svg width="58" height="68" viewBox="0 0 58 68" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.2">
-          <path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/>
-          <line x1="16" y1="38" x2="42" y2="38"/>
-        </svg>
-      </div>
-      <div class="cat-info"><span class="cat-name">外套</span><span class="cat-en">Outerwear</span></div>
-    </a>
-    <a href="#" class="cat-card">
-      <div class="cat-img bg-top">
-        <svg width="54" height="62" viewBox="0 0 54 62" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.2">
-          <path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/>
-        </svg>
-      </div>
-      <div class="cat-info"><span class="cat-name">上衣</span><span class="cat-en">Tops</span></div>
-    </a>
-    <a href="#" class="cat-card">
-      <div class="cat-img bg-pants">
-        <svg width="48" height="68" viewBox="0 0 48 68" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.2">
-          <path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/>
-          <line x1="6" y1="4" x2="42" y2="4"/>
-        </svg>
-      </div>
-      <div class="cat-info"><span class="cat-name">褲子</span><span class="cat-en">Bottoms</span></div>
-    </a>
-    <a href="#" class="cat-card">
-      <div class="cat-img bg-acc">
-        <svg width="50" height="62" viewBox="0 0 50 62" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.2">
-          <circle cx="25" cy="22" r="14"/>
-          <path d="M11 22 L4 42 L46 42 L39 22"/>
-        </svg>
-      </div>
-      <div class="cat-info"><span class="cat-name">配件</span><span class="cat-en">Accessories</span></div>
-    </a>
-  </div>
-</div>
+</section>
 
-<!-- BRAND STORY -->
-<div class="story-block reveal" id="story">
-  <span class="story-num">Vol. 01 · 品牌理念</span>
-  <p class="story-quote">每一件衣服，<br>都是對<em>自然</em>的承諾。</p>
-  <p class="story-body">原野日常的服飾，誕生於山徑與城市的邊界。我們相信一件好的戶外外套，應該在攻頂之後，也能走進咖啡館；一條登山褲，穿了十年仍值得修補而非丟棄。</p>
-  <a href="#" class="story-link">閱讀品牌故事 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-</div>
+<div class="divider"></div>
 
 <!-- PRODUCTS -->
-<div class="product-section reveal" id="products">
-  <div style="margin-bottom:24px;">
-    <span class="sec-eyebrow">Selected Products</span>
-    <h2 class="sec-title">精選服飾</h2>
-  </div>
-  <div class="prod-tabs">
-    <button class="tab-btn active" onclick="switchTab(this)">全部</button>
-    <button class="tab-btn" onclick="switchTab(this)">外套</button>
-    <button class="tab-btn" onclick="switchTab(this)">上衣</button>
-    <button class="tab-btn" onclick="switchTab(this)">褲子</button>
-  </div>
+<section class="prod-section reveal" id="products">
+  <span class="section-label" style="margin-top:72px;display:block;">Selected Products · 精選</span>
   <div class="prod-grid">
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'山野防風外套','NT$4,800',4800)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb1">
-          <svg width="62" height="72" viewBox="0 0 58 68" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t1">
+        <div class="prod-img-inner">
+          <svg width="70" height="84" viewBox="0 0 58 68" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/>
+          </svg>
         </div>
-        <span class="prod-tag">New</span>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <span class="prod-badge">New</span>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">山野防風外套</span>
-        <span class="prod-sub">再生尼龍 · 防風防潑水</span>
-        <span class="prod-price">NT$4,800</span>
-      </div>
-    </a>
+      <div class="prod-title">山野防風外套</div>
+      <span class="prod-mat">再生尼龍 · 防潑水</span>
+      <span class="prod-price">NT$4,800</span>
+    </div>
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'苔原刷毛外套','NT$3,200',3200)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb2">
-          <svg width="62" height="72" viewBox="0 0 58 68" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/><line x1="16" y1="38" x2="42" y2="38"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t2">
+        <div class="prod-img-inner">
+          <svg width="70" height="84" viewBox="0 0 58 68" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/>
+            <line x1="16" y1="38" x2="42" y2="38"/>
+          </svg>
         </div>
-        <span class="prod-tag eco">永續</span>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <span class="prod-badge eco">永續</span>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">苔原刷毛外套</span>
-        <span class="prod-sub">回收羊毛絨 · 雙面穿</span>
-        <span class="prod-price">NT$3,200</span>
-      </div>
-    </a>
+      <div class="prod-title">苔原刷毛外套</div>
+      <span class="prod-mat">回收羊毛絨 · 雙面穿</span>
+      <span class="prod-price">NT$3,200</span>
+    </div>
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'曠野長袖上衣','NT$1,480',1480)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb3">
-          <svg width="58" height="68" viewBox="0 0 54 62" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t3">
+        <div class="prod-img-inner">
+          <svg width="66" height="76" viewBox="0 0 54 62" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/>
+          </svg>
         </div>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">曠野長袖上衣</span>
-        <span class="prod-sub">有機棉 · 抗UV</span>
-        <span class="prod-price">NT$1,480 <span class="prod-orig">NT$1,880</span></span>
-      </div>
-    </a>
+      <div class="prod-title">曠野長袖上衣</div>
+      <span class="prod-mat">有機棉 · 抗UV</span>
+      <span class="prod-price">NT$1,480 <span class="prod-orig">NT$1,880</span></span>
+    </div>
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'林徑短袖T恤','NT$980',980)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb4">
-          <svg width="58" height="68" viewBox="0 0 54 62" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M10 6 L2 20 L16 24 L16 56 L38 56 L38 24 L52 20 L44 6 L34 12C31 15 23 15 20 12Z"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t4">
+        <div class="prod-img-inner">
+          <svg width="66" height="76" viewBox="0 0 54 62" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M10 6 L2 20 L16 24 L16 56 L38 56 L38 24 L52 20 L44 6 L34 12C31 15 23 15 20 12Z"/>
+          </svg>
         </div>
-        <span class="prod-tag">Best</span>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <span class="prod-badge">Best</span>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">林徑短袖 T 恤</span>
-        <span class="prod-sub">100% 有機棉 · 極簡剪裁</span>
-        <span class="prod-price">NT$980</span>
-      </div>
-    </a>
+      <div class="prod-title">林徑短袖 T 恤</div>
+      <span class="prod-mat">100% 有機棉</span>
+      <span class="prod-price">NT$980</span>
+    </div>
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'溪谷工裝褲','NT$3,600',3600)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb5">
-          <svg width="50" height="72" viewBox="0 0 48 68" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/><line x1="6" y1="4" x2="42" y2="4"/><rect x="8" y="12" width="10" height="7" rx="1"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t5">
+        <div class="prod-img-inner">
+          <svg width="56" height="84" viewBox="0 0 48 68" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/>
+            <line x1="6" y1="4" x2="42" y2="4"/>
+            <rect x="8" y="12" width="10" height="7" rx="1"/>
+          </svg>
         </div>
-        <span class="prod-tag eco">永續</span>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <span class="prod-badge eco">永續</span>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">溪谷工裝褲</span>
-        <span class="prod-sub">再生棉混紡 · 多口袋</span>
-        <span class="prod-price">NT$3,600</span>
-      </div>
-    </a>
+      <div class="prod-title">溪谷工裝褲</div>
+      <span class="prod-mat">再生棉混紡 · 多口袋</span>
+      <span class="prod-price">NT$3,600</span>
+    </div>
 
-    <a href="#" class="prod-card" onclick="addToCart(event,'岩壁輕量長褲','NT$2,800',2800)">
-      <div class="prod-img">
-        <div class="prod-img-bg pb6">
-          <svg width="50" height="72" viewBox="0 0 48 68" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.1"><path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/><line x1="6" y1="4" x2="42" y2="4"/></svg>
+    <div class="prod-item">
+      <div class="prod-img t6">
+        <div class="prod-img-inner">
+          <svg width="56" height="84" viewBox="0 0 48 68" fill="none" stroke="var(--bark)" stroke-width="1">
+            <path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/>
+            <line x1="6" y1="4" x2="42" y2="4"/>
+          </svg>
         </div>
-        <div class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
       </div>
-      <div class="prod-info">
-        <span class="prod-name">岩壁輕量長褲</span>
-        <span class="prod-sub">彈性尼龍 · 快乾</span>
-        <span class="prod-price">NT$2,800</span>
-      </div>
-    </a>
+      <div class="prod-title">岩壁輕量長褲</div>
+      <span class="prod-mat">彈性尼龍 · 快乾</span>
+      <span class="prod-price">NT$2,800</span>
+    </div>
 
   </div>
-  <div class="view-all-wrap"><a href="#" class="btn-outline">查看全部服飾 →</a></div>
-</div>
+</section>
 
-<!-- BANNER -->
-<div class="banner reveal">
-  <div class="banner-bg"></div>
-  <div class="banner-overlay"></div>
-  <div class="banner-pattern"></div>
-  <div class="banner-content">
-    <span class="banner-label">AW 2025 · Limited Edition</span>
-    <div class="banner-title">走入山林，<br><em>穿對衣服</em>。</div>
-    <a href="#" class="btn-primary" style="font-size:10px;padding:10px 20px;">探索秋冬系列</a>
-  </div>
-</div>
+<div class="divider"></div>
 
-<!-- JOURNAL -->
-<div class="journal-section reveal">
-  <div style="padding-right:28px;">
-    <span class="sec-eyebrow">Journal & Stories</span>
-    <h2 class="sec-title">原野誌</h2>
-  </div>
-  <div class="stories-scroll">
-    <a href="#" class="story-card">
-      <div class="story-card-img sc1"></div>
-      <div class="story-card-body">
-        <span class="story-card-cat">穿搭指南</span>
-        <span class="story-card-title">一件外套，從百岳到市區的穿法</span>
-      </div>
-    </a>
-    <a href="#" class="story-card">
-      <div class="story-card-img sc2"></div>
-      <div class="story-card-body">
-        <span class="story-card-cat">永續製衣</span>
-        <span class="story-card-title">再生纖維如何變成你身上這件衣服</span>
-      </div>
-    </a>
-    <a href="#" class="story-card">
-      <div class="story-card-img sc3"></div>
-      <div class="story-card-body">
-        <span class="story-card-cat">職人訪談</span>
-        <span class="story-card-title">與台灣縫製師傅的一日工坊</span>
-      </div>
-    </a>
-  </div>
-</div>
-
-<!-- NEWSLETTER -->
-<div class="newsletter reveal">
-  <span class="nl-eyebrow">Join the Community</span>
-  <h2 class="nl-title">穿對衣服，<br>走更遠的路。</h2>
-  <p class="nl-sub">訂閱品牌通訊，每月收到新品資訊、戶外穿搭靈感與限定優惠。</p>
-  <div class="nl-form">
-    <input class="nl-input" type="email" placeholder="your@email.com">
-    <button class="nl-btn">訂閱通訊</button>
-  </div>
-  <p class="nl-note">不定期寄出，品質優先於數量。可隨時取消。</p>
-</div>
+<!-- PHILOSOPHY -->
+<section class="philosophy reveal" id="philosophy">
+  <span class="phil-label">Philosophy · 品牌理念</span>
+  <p class="phil-quote">
+    每一件衣服，<br>
+    都是對<em>自然</em>的承諾。<br>
+    慢製，耐穿，<br>
+    值得修補。
+  </p>
+  <a href="#" class="phil-link">
+    閱讀更多
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</section>
 
 <!-- FOOTER -->
-<footer>
-  <span class="ft-logo">原野日常</span>
-  <span class="ft-logo-en">Wildland Living Co., Ltd.</span>
-  <p class="ft-tagline">為荒野而生，為日常而留。<br><em style="font-family:var(--serif);font-size:11px;color:rgba(158,155,142,0.55)">Born for the wild. Made for the everyday.</em></p>
-  <div class="ft-nav">
-    <div class="ft-nav-group">
-      <h5>服飾</h5>
-      <ul>
-        <li><a href="#">外套</a></li>
-        <li><a href="#">上衣</a></li>
-        <li><a href="#">褲子</a></li>
-        <li><a href="#">配件</a></li>
-        <li><a href="#">特惠專區</a></li>
-      </ul>
+<footer class="reveal">
+  <div class="ft-top">
+    <div>
+      <span class="ft-brand-name">原野日常</span>
+      <span class="ft-brand-en">Wildland Living</span>
     </div>
-    <div class="ft-nav-group">
-      <h5>品牌</h5>
-      <ul>
-        <li><a href="#">品牌故事</a></li>
-        <li><a href="#">永續承諾</a></li>
-        <li><a href="#">原野誌</a></li>
-        <li><a href="#">職人訪談</a></li>
-      </ul>
-    </div>
-    <div class="ft-nav-group">
-      <h5>服務</h5>
-      <ul>
-        <li><a href="#">訂單查詢</a></li>
-        <li><a href="#">退換貨政策</a></li>
-        <li><a href="#">修補服務</a></li>
-        <li><a href="#">尺寸指南</a></li>
-      </ul>
-    </div>
-    <div class="ft-nav-group">
-      <h5>資訊</h5>
-      <ul>
-        <li><a href="#">隱私權政策</a></li>
-        <li><a href="#">服務條款</a></li>
-        <li><a href="#">聯絡我們</a></li>
-      </ul>
+    <div class="ft-links">
+      <a href="#">外套</a>
+      <a href="#">上衣</a>
+      <a href="#">褲子</a>
+      <a href="#">品牌故事</a>
+      <a href="#">聯絡我們</a>
     </div>
   </div>
-  <div class="ft-social">
-    <a href="#" class="ft-soc-btn" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="#" class="ft-soc-btn" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-    </a>
-    <a href="#" class="ft-soc-btn" aria-label="LINE">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-    </a>
+  <div class="ft-bottom">
+    <div class="ft-social">
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" aria-label="LINE">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      </a>
+    </div>
+    <span class="ft-copy">© 2025 原野日常 · 台灣製造</span>
   </div>
-  <p class="ft-copy">© 2025 原野日常有限公司 · Wildland Living Co., Ltd.</p>
-  <p class="ft-copy">台灣製造 · Made in Taiwan</p>
 </footer>
+
 </main>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="bn-btn active" onclick="setActive(this)">
+<!-- BOTTOM BAR -->
+<nav class="bottom-bar" aria-label="主導覽">
+  <button class="bb-btn active" onclick="setTab(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span class="bn-label">首頁</span>
+    <span class="bb-label">首頁</span>
   </button>
-  <button class="bn-btn" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <span class="bn-label">探索</span>
+  <button class="bb-btn" onclick="setTab(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    <span class="bb-label">品類</span>
   </button>
-  <button class="bn-btn" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    <span class="bn-label">原野誌</span>
-  </button>
-  <button class="bn-btn" onclick="setActive(this)">
+  <button class="bb-btn" onclick="setTab(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-    <span class="bn-label">收藏</span>
+    <span class="bb-label">收藏</span>
   </button>
-  <button class="bn-btn" onclick="setActive(this)">
+  <button class="bb-btn" onclick="setTab(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span class="bn-label">我的</span>
+    <span class="bb-label">我的</span>
   </button>
 </nav>
 
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay">
-  <div class="search-box">
-    <div class="search-input-wrap">
-      <input class="search-input" type="text" placeholder="搜尋服飾、品牌故事…" id="searchInput">
-      <button class="search-close" id="searchClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <span class="suggest-label">熱門搜尋</span>
-    <div class="suggest-tags">
-      <button class="suggest-tag">防風外套</button>
-      <button class="suggest-tag">刷毛外套</button>
-      <button class="suggest-tag">工裝褲</button>
-      <button class="suggest-tag">有機棉</button>
-      <button class="suggest-tag">登山褲</button>
-      <button class="suggest-tag">長袖上衣</button>
-    </div>
-  </div>
-</div>
-
-<!-- CART DRAWER -->
-<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-handle"></div>
-  <div class="cart-header">
-    <span class="cart-title">購物車</span>
-    <span class="cart-count" id="cartCountText">0 件商品</span>
-  </div>
-  <div class="cart-items" id="cartItems">
-    <p class="cart-empty">購物車是空的</p>
-  </div>
-  <div class="cart-footer">
-    <div class="cart-total-row">
-      <span class="cart-total-label">小計</span>
-      <span class="cart-total-price" id="cartTotal">NT$0</span>
-    </div>
-    <button class="cart-checkout-btn">前往結帳</button>
-  </div>
-</div>
-
 <script>
-let cartCount = 0, cartTotalAmt = 0;
-
-function setActive(btn) {
-  document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('active'));
+function setTab(btn) {
+  document.querySelectorAll('.bb-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
-
-document.getElementById('searchBtn').addEventListener('click', () => {
-  document.getElementById('searchOverlay').classList.add('open');
-  setTimeout(() => document.getElementById('searchInput').focus(), 80);
-});
-document.getElementById('searchClose').addEventListener('click', () => {
-  document.getElementById('searchOverlay').classList.remove('open');
-});
-document.getElementById('searchOverlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('searchOverlay'))
-    document.getElementById('searchOverlay').classList.remove('open');
-});
-
-document.getElementById('cartBtn').addEventListener('click', openCart);
-function openCart() {
-  document.getElementById('cartDrawer').classList.add('open');
-  document.getElementById('backdrop').classList.add('open');
-}
-function closeCart() {
-  document.getElementById('cartDrawer').classList.remove('open');
-  document.getElementById('backdrop').classList.remove('open');
-}
-
-const bgs = ['pb1','pb2','pb3','pb4','pb5','pb6'];
-function addToCart(e, name, priceStr, priceNum) {
-  e.preventDefault();
-  if (cartCount === 0) document.getElementById('cartItems').innerHTML = '';
-  cartCount++; cartTotalAmt += priceNum;
-  document.getElementById('cartBadge').textContent = cartCount;
-  document.getElementById('cartCountText').textContent = cartCount + ' 件商品';
-  document.getElementById('cartTotal').textContent = 'NT$' + cartTotalAmt.toLocaleString();
-  const bg = bgs[cartCount % bgs.length];
-  const el = document.createElement('div');
-  el.className = 'cart-item';
-  el.innerHTML = `<div class="cart-item-img ${bg}"></div><div class="cart-item-info"><span class="cart-item-name">${name}</span><span class="cart-item-spec">標準款 · 1 件</span></div><span class="cart-item-price">${priceStr}</span>`;
-  document.getElementById('cartItems').appendChild(el);
-  openCart();
-}
-
-function switchTab(btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
