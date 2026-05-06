@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>原野日常 · Wildland Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400&family=Noto+Sans+TC:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --clay:    #B5896A;
+  --bark:    #6B4F3A;
+  --moss:    #697A5D;
+  --stone:   #9E9B8E;
+  --linen:   #F2EDE5;
+  --cream:   #FAF7F2;
+  --charcoal:#2C2A26;
+  --mist:    #D4CEC4;
+  --white:   #FFFFFF;
+
+  --serif:   'Cormorant Garamond', 'Noto Serif TC', serif;
+  --sans:    'Noto Sans TC', sans-serif;
+
+  --nav-h: 56px;
+  --max-w: 430px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 14px; }
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 2px; }
+
+/* ── TOP NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-w);
+  height: var(--nav-h);
+  background: rgba(250,247,242,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--mist);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--bark);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.nav-logo span {
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  font-family: var(--serif);
+  font-style: italic;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-btn {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer;
+  color: var(--bark);
+  border-radius: 50%;
+  transition: background 0.2s;
+  position: relative;
+}
+.nav-btn:active { background: var(--linen); }
+.nav-btn svg { width: 20px; height: 20px; stroke-width: 1.5; }
+.cart-badge {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 14px; height: 14px;
+  background: var(--clay);
+  border-radius: 50%;
+  font-size: 9px;
+  color: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans);
+  font-weight: 400;
+}
+
+/* ── MAIN CONTENT ── */
+main {
+  padding-top: var(--nav-h);
+}
+
+/* ── HERO ── */
+.hero {
+  height: calc(100svh - var(--nav-h));
+  min-height: 560px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--bark);
+  overflow: hidden;
+}
+.hero-texture {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 110%, rgba(181,137,106,0.4) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 85% 20%, rgba(105,122,93,0.2) 0%, transparent 60%);
+}
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 28px 48px;
+}
+.hero-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-style: italic;
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s ease forwards;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(48px, 14vw, 72px);
+  font-weight: 300;
+  color: var(--linen);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s ease forwards;
+}
+.hero-title em {
+  display: block;
+  font-style: italic;
+  color: var(--clay);
+}
+.hero-tagline {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--mist);
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  max-width: 240px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s ease forwards;
+}
+.hero-cta {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.9s ease forwards;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--clay);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+  text-decoration: none;
+  border-radius: 1px;
+}
+.btn-primary:active { background: var(--bark); transform: scale(0.98); }
+.btn-ghost {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--mist);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212,206,196,0.4);
+  padding-bottom: 1px;
+  letter-spacing: 0.03em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:active { color: var(--clay); border-color: var(--clay); }
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  right: 28px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeIn 1s 1.4s ease forwards;
+}
+.hero-scroll-hint span {
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--stone), transparent);
+  animation: scrollPulse 2s 2s infinite;
+}
+
+/* ── SECTION HEADERS ── */
+.sec {
+  padding: 64px 28px;
+}
+.sec + .sec { padding-top: 0; }
+.sec-header {
+  margin-bottom: 32px;
+}
+.sec-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-style: italic;
+  display: block;
+  margin-bottom: 8px;
+}
+.sec-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--bark);
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+/* ── ANNOUNCEMENT BAR ── */
+.announce {
+  background: var(--bark);
+  color: var(--mist);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px 20px;
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* ── FEATURED STORY ── */
+.story-block {
+  background: var(--linen);
+  padding: 48px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.story-block::before {
+  content: '林';
+  font-family: var(--serif);
+  font-size: 200px;
+  font-weight: 300;
+  color: rgba(107,79,58,0.04);
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.story-num {
+  font-family: var(--serif);
+  font-size: 11px;
+  color: var(--stone);
+  letter-spacing: 0.3em;
+  display: block;
+  margin-bottom: 24px;
+}
+.story-quote {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--bark);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.story-quote em {
+  font-style: italic;
+  color: var(--clay);
+}
+.story-body {
+  font-size: 12px;
+  color: var(--stone);
+  line-height: 2;
+  margin-bottom: 28px;
+}
+.story-link {
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--clay);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(181,137,106,0.4);
+  padding-bottom: 2px;
+}
+.story-link svg { width: 14px; height: 14px; }
+
+/* ── CATEGORY SCROLL ── */
+.cat-section {
+  padding: 48px 0 48px 28px;
+}
+.cat-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-right: 28px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.cat-scroll::-webkit-scrollbar { display: none; }
+.cat-card {
+  flex: 0 0 140px;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+.cat-card:active { transform: scale(0.97); }
+.cat-img {
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+.cat-img-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.4s ease;
+}
+.cat-card:active .cat-img-inner { transform: scale(1.04); }
+.cat-name-wrap {
+  background: white;
+  padding: 10px 12px;
+  border: 1px solid var(--mist);
+  border-top: none;
+}
+.cat-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--bark);
+  display: block;
+}
+.cat-en {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  font-style: italic;
+  font-family: var(--serif);
+}
+
+/* ── PRODUCT GRID ── */
+.product-section {
+  padding: 64px 28px;
+}
+.products-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--mist);
+}
+.tab-btn {
+  background: none;
+  border: none;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--stone);
+  padding: 8px 0;
+  margin-right: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+  letter-spacing: 0.05em;
+}
+.tab-btn.active {
+  color: var(--bark);
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--clay);
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 12px;
+}
+.prod-card {
+  cursor: pointer;
+  transition: transform 0.3s;
+  text-decoration: none;
+}
+.prod-card:active { transform: scale(0.98); }
+.prod-img {
+  position: relative;
+  padding-bottom: 120%;
+  overflow: hidden;
+  border-radius: 1px;
+}
+.prod-img-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.4s ease;
+}
+.prod-card:active .prod-img-bg { transform: scale(1.04); }
+.prod-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--moss);
+  color: var(--cream);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  font-family: var(--sans);
+  z-index: 1;
+}
+.prod-fav {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 30px; height: 30px;
+  background: rgba(250,247,242,0.85);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1;
+}
+.prod-fav svg { width: 14px; height: 14px; color: var(--stone); stroke-width: 1.5; }
+.prod-info {
+  padding: 10px 4px;
+}
+.prod-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--bark);
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 2px;
+}
+.prod-sub {
+  font-size: 10px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+.prod-price {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--clay);
+}
+.prod-price-orig {
+  font-size: 11px;
+  color: var(--mist);
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+
+/* ── FULL-WIDTH BANNER ── */
+.banner {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.banner-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--moss);
+}
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(43,40,36,0.7) 0%, transparent 60%);
+}
+.banner-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+.banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 28px;
+}
+.banner-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(212,206,196,0.7);
+  font-family: var(--serif);
+  font-style: italic;
+  margin-bottom: 8px;
+  display: block;
+}
+.banner-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--linen);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.banner-title em { font-style: italic; color: var(--clay); }
+
+/* ── VALUES STRIP ── */
+.values {
+  display: flex;
+  overflow-x: auto;
+  padding: 32px 28px;
+  gap: 0;
+  border-top: 1px solid var(--mist);
+  border-bottom: 1px solid var(--mist);
+  scrollbar-width: none;
+}
+.values::-webkit-scrollbar { display: none; }
+.value-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 32px;
+  margin-right: 32px;
+  border-right: 1px solid var(--mist);
+}
+.value-item:last-child { border-right: none; margin-right: 0; }
+.value-icon {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.value-icon svg { width: 22px; height: 22px; stroke-width: 1.2; color: var(--clay); }
+.value-text { white-space: nowrap; }
+.value-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--bark);
+  display: block;
+}
+.value-sub {
+  font-size: 9px;
+  color: var(--stone);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ── STORY CAROUSEL ── */
+.stories-section {
+  background: var(--linen);
+  padding: 56px 0 56px 28px;
+}
+.stories-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-right: 28px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 28px;
+}
+.stories-scroll::-webkit-scrollbar { display: none; }
+.story-card {
+  flex: 0 0 220px;
+  background: white;
+  border: 1px solid var(--mist);
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+}
+.story-card-img {
+  height: 140px;
+}
+.story-card-body {
+  padding: 16px;
+}
+.story-card-cat {
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-style: italic;
+  display: block;
+  margin-bottom: 6px;
+}
+.story-card-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--bark);
+  line-height: 1.5;
+  display: block;
+}
+
+/* ── NEWSLETTER ── */
+.newsletter {
+  padding: 56px 28px;
+  text-align: center;
+  background: var(--bark);
+  position: relative;
+  overflow: hidden;
+}
+.newsletter::before {
+  content: '野';
+  font-family: var(--serif);
+  font-size: 280px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+.nl-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-style: italic;
+  margin-bottom: 14px;
+  display: block;
+}
+.nl-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--linen);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.nl-sub {
+  font-size: 11px;
+  color: var(--stone);
+  margin-bottom: 28px;
+  line-height: 1.8;
+  position: relative;
+}
+.nl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+.nl-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(242,237,229,0.1);
+  border: 1px solid rgba(212,206,196,0.3);
+  color: var(--linen);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 1px;
+}
+.nl-input::placeholder { color: var(--stone); }
+.nl-input:focus { border-color: var(--clay); }
+.nl-btn {
+  padding: 14px;
+  background: var(--clay);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  border-radius: 1px;
+}
+.nl-btn:active { background: #9d7459; transform: scale(0.99); }
+.nl-note {
+  font-size: 10px;
+  color: rgba(158,155,142,0.6);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--charcoal);
+  padding: 48px 28px 32px;
+}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--linen);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  display: block;
+}
+.footer-logo-en {
+  font-family: var(--serif);
+  font-size: 10px;
+  font-style: italic;
+  letter-spacing: 0.3em;
+  color: var(--stone);
+  display: block;
+  margin-bottom: 24px;
+}
+.footer-tagline {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--stone);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(212,206,196,0.15);
+}
+.footer-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 16px;
+  margin-bottom: 36px;
+}
+.footer-nav-group h5 {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-style: italic;
+  margin-bottom: 14px;
+}
+.footer-nav-group ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-nav-group li a {
+  font-size: 12px;
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.03em;
+}
+.footer-nav-group li a:active { color: var(--clay); }
+.footer-social {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(212,206,196,0.15);
+}
+.social-btn {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(212,206,196,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.social-btn:active { border-color: var(--clay); color: var(--clay); }
+.social-btn svg { width: 16px; height: 16px; stroke-width: 1.5; }
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer-copy {
+  font-size: 10px;
+  color: rgba(158,155,142,0.5);
+  letter-spacing: 0.1em;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-w);
+  background: rgba(250,247,242,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--mist);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+  z-index: 99;
+}
+.bn-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--stone);
+  transition: color 0.2s;
+}
+.bn-btn.active { color: var(--bark); }
+.bn-btn svg { width: 22px; height: 22px; stroke-width: 1.3; }
+.bn-label {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  font-family: var(--sans);
+  font-weight: 300;
+}
+.bn-btn.active .bn-label { color: var(--clay); font-weight: 400; }
+
+/* Padding for bottom nav */
+main { padding-bottom: 64px; }
+
+/* ── SEARCH OVERLAY ── */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44,42,38,0.6);
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+.search-overlay.open { display: flex; }
+.search-box {
+  background: var(--cream);
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 20px;
+}
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--clay);
+  padding-bottom: 12px;
+}
+.search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--bark);
+  outline: none;
+  letter-spacing: 0.03em;
+}
+.search-input::placeholder { color: var(--mist); }
+.search-close {
+  background: none;
+  border: none;
+  color: var(--stone);
+  cursor: pointer;
+  padding: 4px;
+}
+.search-close svg { width: 20px; height: 20px; }
+.search-suggest {
+  padding-top: 20px;
+}
+.search-suggest p {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 12px;
+  font-style: italic;
+  font-family: var(--serif);
+}
+.suggest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.suggest-tag {
+  padding: 6px 14px;
+  border: 1px solid var(--mist);
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--bark);
+  background: none;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.2s;
+}
+.suggest-tag:active { background: var(--linen); border-color: var(--clay); }
+
+/* ── CART DRAWER ── */
+.cart-drawer {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: var(--max-w);
+  background: var(--cream);
+  z-index: 200;
+  transition: transform 0.35s cubic-bezier(0.32, 0, 0.15, 1);
+  border-radius: 16px 16px 0 0;
+  border-top: 1px solid var(--mist);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.cart-drawer.open {
+  transform: translateX(-50%) translateY(0);
+}
+.cart-handle {
+  width: 36px; height: 4px;
+  background: var(--mist);
+  border-radius: 2px;
+  margin: 14px auto 20px;
+}
+.cart-header {
+  padding: 0 24px 20px;
+  border-bottom: 1px solid var(--mist);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.cart-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--bark);
+}
+.cart-count {
+  font-size: 11px;
+  color: var(--stone);
+  letter-spacing: 0.15em;
+}
+.cart-items {
+  padding: 20px 24px;
+}
+.cart-item {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--mist);
+  align-items: center;
+}
+.cart-item:last-child { border-bottom: none; }
+.cart-item-img {
+  width: 64px; height: 64px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.cart-item-info { flex: 1; }
+.cart-item-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--bark);
+  display: block;
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+.cart-item-spec {
+  font-size: 10px;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+}
+.cart-item-price {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--clay);
+}
+.cart-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--mist);
+  background: var(--cream);
+  position: sticky;
+  bottom: 0;
+}
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+.cart-total-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.cart-total-price {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--bark);
+}
+.cart-checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--bark);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 1px;
+  text-align: center;
+}
+.cart-checkout-btn:active { background: var(--clay); }
+
+/* ── OVERLAY BACKDROP ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44,42,38,0.5);
+  z-index: 190;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.backdrop.open { display: block; opacity: 1; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 0.6; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PRODUCT COLORS */
+.pc-1 { background: #C5A882; }
+.pc-2 { background: #8B7B6B; }
+.pc-3 { background: #7A8C70; }
+.pc-4 { background: #A89070; }
+.pc-5 { background: #9C8878; }
+.pc-6 { background: #6B7C62; }
+.pc-7 { background: #B8956A; }
+.pc-8 { background: #857060; }
+
+/* Cat colors */
+.cc-1 { background: linear-gradient(145deg, #8B7350 0%, #6B4F3A 100%); }
+.cc-2 { background: linear-gradient(145deg, #8A9B7E 0%, #697A5D 100%); }
+.cc-3 { background: linear-gradient(145deg, #C5A882 0%, #B5896A 100%); }
+.cc-4 { background: linear-gradient(145deg, #A0947E 0%, #9E9B8E 100%); }
+
+/* Story card colors */
+.sc-1 { background: #8B7B6B; }
+.sc-2 { background: #697A5D; }
+.sc-3 { background: #9E8870; }
+</style>
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    原野日常
+    <span>Wildland Living</span>
+  </a>
+  <div class="nav-actions">
+    <button class="nav-btn" id="searchBtn" aria-label="搜尋">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 L21 21"/></svg>
+    </button>
+    <button class="nav-btn" id="cartBtn" aria-label="購物車">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">2</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ── ANNOUNCEMENT ── -->
+<div class="announce">
+  免運門檻 NT$1,800 · 首購 9 折 · 使用代碼 WILDLAND
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-texture"></div>
+    <div class="hero-grain"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">2025 初夏新品 · New Arrivals</div>
+    <div class="hero-title">
+      原野<em>日常</em>
+    </div>
+    <div class="hero-tagline">
+      在自然中生活，<br>在生活裡自然。
+    </div>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary">
+        探索選品
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px;stroke-width:2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#story" class="btn-ghost">品牌故事</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── VALUES ── -->
+<div class="values">
+  <div class="value-item">
+    <div class="value-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="value-text">
+      <span class="value-title">FSC 認證材質</span>
+      <span class="value-sub">永續林業</span>
+    </div>
+  </div>
+  <div class="value-item">
+    <div class="value-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="value-text">
+      <span class="value-title">台灣在地製作</span>
+      <span class="value-sub">本地工藝</span>
+    </div>
+  </div>
+  <div class="value-item">
+    <div class="value-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+    </div>
+    <div class="value-text">
+      <span class="value-title">零碳包裝</span>
+      <span class="value-sub">再生材質</span>
+    </div>
+  </div>
+  <div class="value-item">
+    <div class="value-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    </div>
+    <div class="value-text">
+      <span class="value-title">慢慢用，用很久</span>
+      <span class="value-sub">終身保修</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── CATEGORY SCROLL ── -->
+<div class="cat-section reveal">
+  <div class="sec-header" style="padding-right:28px">
+    <span class="sec-eyebrow">Shop by Category</span>
+    <h2 class="sec-title">選品分類</h2>
+  </div>
+  <div class="cat-scroll">
+    <a href="#" class="cat-card">
+      <div class="cat-img"><div class="cat-img-inner cc-1"></div></div>
+      <div class="cat-name-wrap">
+        <span class="cat-name">廚房器具</span>
+        <span class="cat-en">Kitchen</span>
+      </div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-img"><div class="cat-img-inner cc-2"></div></div>
+      <div class="cat-name-wrap">
+        <span class="cat-name">居家佈置</span>
+        <span class="cat-en">Home</span>
+      </div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-img"><div class="cat-img-inner cc-3"></div></div>
+      <div class="cat-name-wrap">
+        <span class="cat-name">個人護理</span>
+        <span class="cat-en">Personal</span>
+      </div>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-img"><div class="cat-img-inner cc-4"></div></div>
+      <div class="cat-name-wrap">
+        <span class="cat-name">野外用品</span>
+        <span class="cat-en">Outdoor</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── BRAND STORY BLOCK ── -->
+<div class="story-block reveal" id="story">
+  <span class="story-num">Vol. 01 · 品牌故事</span>
+  <p class="story-quote">
+    每一件物品，<br>
+    都是與地球的<em>和解</em>。
+  </p>
+  <p class="story-body">
+    原野日常誕生於一個簡單的信念：好的設計不應該以地球為代價。我們從台灣山林取材，交付給每一雙願意慢下來的手。
+  </p>
+  <a href="#" class="story-link">
+    閱讀完整故事
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<!-- ── PRODUCT GRID ── -->
+<div class="product-section reveal" id="products">
+  <div class="sec-header">
+    <span class="sec-eyebrow">Selected Products</span>
+    <h2 class="sec-title">精選選品</h2>
+  </div>
+  <div class="products-tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'all')">全部</button>
+    <button class="tab-btn" onclick="switchTab(this,'new')">新品</button>
+    <button class="tab-btn" onclick="switchTab(this,'best')">熱銷</button>
+    <button class="tab-btn" onclick="switchTab(this,'eco')">永續</button>
+  </div>
+  <div class="product-grid">
+    <a href="#" class="prod-card" onclick="addToCart(event, '橡木餐碗', 'NT$880')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-1" style="display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px">
+          <div style="width:80px;height:60px;background:rgba(255,255,255,0.15);border-radius:50% 50% 10px 10px;"></div>
+        </div>
+        <span class="prod-tag">New</span>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">橡木餐碗</span>
+        <span class="prod-sub">FSC 認證 · 手工車製</span>
+        <span class="prod-price">NT$880</span>
+      </div>
+    </a>
+    <a href="#" class="prod-card" onclick="addToCart(event, '苔蘚香氛蠟燭', 'NT$650')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-3" style="display:flex;align-items:center;justify-content:center">
+          <div style="width:55px;height:70px;background:rgba(255,255,255,0.2);border-radius:3px;position:relative">
+            <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:2px;height:16px;background:rgba(255,255,255,0.5)"></div>
+          </div>
+        </div>
+        <span class="prod-tag" style="background:var(--moss)">永續</span>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">苔蘚香氛蠟燭</span>
+        <span class="prod-sub">大豆蠟 · 天然精油</span>
+        <span class="prod-price">NT$650</span>
+      </div>
+    </a>
+    <a href="#" class="prod-card" onclick="addToCart(event, '亞麻餐墊組', 'NT$480')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-4" style="display:flex;align-items:center;justify-content:center">
+          <div style="width:90px;height:60px;background:rgba(255,255,255,0.18);border-radius:2px;transform:rotate(-5deg)"></div>
+        </div>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">亞麻餐墊組</span>
+        <span class="prod-sub">有機亞麻 · 2 入</span>
+        <span class="prod-price">NT$480 <span class="prod-price-orig">NT$620</span></span>
+      </div>
+    </a>
+    <a href="#" class="prod-card" onclick="addToCart(event, '竹製砧板', 'NT$1,200')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-2" style="display:flex;align-items:center;justify-content:center">
+          <div style="width:75px;height:55px;background:rgba(255,255,255,0.15);border-radius:3px"></div>
+        </div>
+        <span class="prod-tag">Best</span>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">竹製砧板</span>
+        <span class="prod-sub">竹炭防黴 · 雙面設計</span>
+        <span class="prod-price">NT$1,200</span>
+      </div>
+    </a>
+    <a href="#" class="prod-card" onclick="addToCart(event, '陶瓷馬克杯', 'NT$720')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-7" style="display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px">
+          <div style="width:52px;height:58px;background:rgba(255,255,255,0.2);border-radius:6px 6px 8px 8px;position:relative">
+            <div style="position:absolute;right:-14px;top:16px;width:14px;height:20px;border:2px solid rgba(255,255,255,0.3);border-radius:0 8px 8px 0;border-left:none"></div>
+          </div>
+        </div>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">陶瓷馬克杯</span>
+        <span class="prod-sub">手拉坯 · 限量 200 個</span>
+        <span class="prod-price">NT$720</span>
+      </div>
+    </a>
+    <a href="#" class="prod-card" onclick="addToCart(event, '苧麻收納籃', 'NT$960')">
+      <div class="prod-img">
+        <div class="prod-img-bg pc-6" style="display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px">
+          <div style="width:72px;height:52px;background:rgba(255,255,255,0.18);border-radius:4px 4px 8px 8px;border-top:none"></div>
+        </div>
+        <span class="prod-tag" style="background:var(--moss)">永續</span>
+        <div class="prod-fav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+      </div>
+      <div class="prod-info">
+        <span class="prod-name">苧麻收納籃</span>
+        <span class="prod-sub">手工編織 · 大</span>
+        <span class="prod-price">NT$960</span>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:32px">
+    <a href="#" class="btn-ghost" style="font-size:12px;color:var(--clay);border-color:rgba(181,137,106,0.4)">查看全部選品 →</a>
+  </div>
+</div>
+
+<!-- ── FULL BANNER ── -->
+<div class="banner reveal">
+  <div class="banner-bg"></div>
+  <div class="banner-overlay"></div>
+  <div class="banner-pattern"></div>
+  <div class="banner-content">
+    <span class="banner-label">Limited Collection</span>
+    <div class="banner-title">
+      取自大地，<br><em>回到日常</em>。
+    </div>
+    <a href="#" class="btn-primary" style="font-size:10px;">探索秋季新系列</a>
+  </div>
+</div>
+
+<!-- ── STORIES ── -->
+<div class="stories-section reveal">
+  <div style="padding-right:28px">
+    <span class="sec-eyebrow">Journal & Stories</span>
+    <h2 class="sec-title">原野誌</h2>
+  </div>
+  <div class="stories-scroll">
+    <a href="#" class="story-card">
+      <div class="story-card-img sc-1"></div>
+      <div class="story-card-body">
+        <span class="story-card-cat">永續生活</span>
+        <span class="story-card-title">從換一個杯子開始的改變</span>
+      </div>
+    </a>
+    <a href="#" class="story-card">
+      <div class="story-card-img sc-2"></div>
+      <div class="story-card-body">
+        <span class="story-card-cat">工藝訪談</span>
+        <span class="story-card-title">與陶藝師林俊亨的一日</span>
+      </div>
+    </a>
+    <a href="#" class="story-card">
+      <div class="story-card-img sc-3"></div>
+      <div class="story-card-body">
+        <span class="story-card-cat">產品故事</span>
+        <span class="story-card-title">這只碗前一段旅程的故事</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── NEWSLETTER ── -->
+<div class="newsletter reveal">
+  <span class="nl-eyebrow">Join the Community</span>
+  <h2 class="nl-title">慢慢用，<br>用很久。</h2>
+  <p class="nl-sub">訂閱品牌通訊，每月收到一封關於生活、自然與選品的手寫信。</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="your@email.com">
+    <button class="nl-btn">訂閱通訊</button>
+  </div>
+  <p class="nl-note">不定期寄出，品質優先於數量。可隨時取消。</p>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-logo">原野日常</span>
+  <span class="footer-logo-en">Wildland Living Co., Ltd.</span>
+  <p class="footer-tagline">
+    在自然中生活，在生活裡自然。<br>
+    <em style="font-style:italic;font-family:var(--serif);font-size:12px;color:rgba(158,155,142,0.6)">Live in nature. Let nature live in you.</em>
+  </p>
+  <div class="footer-nav">
+    <div class="footer-nav-group">
+      <h5>選品</h5>
+      <ul>
+        <li><a href="#">廚房器具</a></li>
+        <li><a href="#">居家佈置</a></li>
+        <li><a href="#">個人護理</a></li>
+        <li><a href="#">野外用品</a></li>
+        <li><a href="#">特惠專區</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <h5>品牌</h5>
+      <ul>
+        <li><a href="#">品牌故事</a></li>
+        <li><a href="#">永續承諾</a></li>
+        <li><a href="#">原野誌</a></li>
+        <li><a href="#">工藝訪談</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <h5>服務</h5>
+      <ul>
+        <li><a href="#">訂單查詢</a></li>
+        <li><a href="#">退換貨政策</a></li>
+        <li><a href="#">保固說明</a></li>
+        <li><a href="#">聯絡我們</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav-group">
+      <h5>資訊</h5>
+      <ul>
+        <li><a href="#">隱私權政策</a></li>
+        <li><a href="#">服務條款</a></li>
+        <li><a href="#">Cookie 設定</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-social">
+    <a href="#" class="social-btn" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="#" class="social-btn" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </a>
+    <a href="#" class="social-btn" aria-label="LINE">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 原野日常有限公司 · Wildland Living Co., Ltd.</p>
+    <p class="footer-copy" style="margin-top:2px">台灣製造 · Made in Taiwan</p>
+  </div>
+</footer>
+
+</main>
+
+<!-- ── BOTTOM NAV ── -->
+<nav class="bottom-nav" aria-label="主導覽">
+  <button class="bn-btn active" onclick="setActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="bn-label">首頁</span>
+  </button>
+  <button class="bn-btn" onclick="setActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span class="bn-label">探索</span>
+  </button>
+  <button class="bn-btn" onclick="setActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <span class="bn-label">原野誌</span>
+  </button>
+  <button class="bn-btn" onclick="setActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    <span class="bn-label">收藏</span>
+  </button>
+  <button class="bn-btn" onclick="setActive(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="bn-label">我的</span>
+  </button>
+</nav>
+
+<!-- ── SEARCH OVERLAY ── -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="搜尋">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <input class="search-input" type="text" placeholder="搜尋選品、故事…" id="searchInput" autofocus>
+      <button class="search-close" id="searchClose" aria-label="關閉">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="search-suggest">
+      <p>熱門搜尋</p>
+      <div class="suggest-tags">
+        <button class="suggest-tag">橡木餐具</button>
+        <button class="suggest-tag">蠟燭</button>
+        <button class="suggest-tag">亞麻</button>
+        <button class="suggest-tag">陶瓷</button>
+        <button class="suggest-tag">竹製品</button>
+        <button class="suggest-tag">收納</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CART DRAWER ── -->
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer" role="dialog" aria-label="購物車">
+  <div class="cart-handle"></div>
+  <div class="cart-header">
+    <span class="cart-title">購物車</span>
+    <span class="cart-count" id="cartCountText">2 件商品</span>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-item">
+      <div class="cart-item-img pc-1" style="border-radius:2px"></div>
+      <div class="cart-item-info">
+        <span class="cart-item-name">橡木餐碗</span>
+        <span class="cart-item-spec">原色 · 1 個</span>
+      </div>
+      <span class="cart-item-price">NT$880</span>
+    </div>
+    <div class="cart-item">
+      <div class="cart-item-img pc-3" style="border-radius:2px"></div>
+      <div class="cart-item-info">
+        <span class="cart-item-name">苔蘚香氛蠟燭</span>
+        <span class="cart-item-spec">森林 · 1 個</span>
+      </div>
+      <span class="cart-item-price">NT$650</span>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">小計</span>
+      <span class="cart-total-price" id="cartTotal">NT$1,530</span>
+    </div>
+    <button class="cart-checkout-btn">前往結帳</button>
+  </div>
+</div>
+
+<script>
+let cartCount = 2;
+let cartTotalAmount = 1530;
+
+function setActive(btn) {
+  document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+document.getElementById('searchBtn').addEventListener('click', () => {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 100);
+});
+document.getElementById('searchClose').addEventListener('click', () => {
+  document.getElementById('searchOverlay').classList.remove('open');
+});
+document.getElementById('searchOverlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('searchOverlay')) {
+    document.getElementById('searchOverlay').classList.remove('open');
+  }
+});
+
+document.getElementById('cartBtn').addEventListener('click', openCart);
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('backdrop').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+}
+
+function addToCart(e, name, price) {
+  e.preventDefault();
+  cartCount++;
+  const priceNum = parseInt(price.replace(/[^0-9]/g, ''));
+  cartTotalAmount += priceNum;
+  document.getElementById('cartBadge').textContent = cartCount;
+  document.getElementById('cartCountText').textContent = cartCount + ' 件商品';
+  document.getElementById('cartTotal').textContent = 'NT$' + cartTotalAmount.toLocaleString();
+  const newItem = document.createElement('div');
+  newItem.className = 'cart-item';
+  const colorClass = ['pc-1','pc-2','pc-3','pc-4','pc-5','pc-6','pc-7'][Math.floor(Math.random()*7)];
+  newItem.innerHTML = `
+    <div class="cart-item-img ${colorClass}" style="border-radius:2px"></div>
+    <div class="cart-item-info">
+      <span class="cart-item-name">${name}</span>
+      <span class="cart-item-spec">標準款 · 1 個</span>
+    </div>
+    <span class="cart-item-price">${price}</span>
+  `;
+  document.getElementById('cartItems').appendChild(newItem);
+  openCart();
+}
+
+function switchTab(btn, tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
