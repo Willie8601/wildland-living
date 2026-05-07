@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="原野日常 Wildland Living — 取之大地，用之日常，還之自然。永續選品，簡約美學，為移動與探索而生。">
+<meta name="theme-color" content="#4A5240">
+<meta property="og:title" content="原野日常 Wildland Living">
+<meta property="og:description" content="取之大地，用之日常，還之自然。">
+<meta property="og:url" content="https://willie8601.github.io/wildland-living/">
+<meta property="og:type" content="website">
+<title>原野日常 Wildland Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#4A5240;
+  --sand:#C8B89A;
+  --cream:#E8E2D8;
+  --dark:#2C2C2A;
+  --light:#F4F1EC;
+  --white:#FDFCFA;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--dark);font-family:'Noto Sans TC',sans-serif;font-weight:300;max-width:390px;margin:0 auto;position:relative;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:100;background:rgba(253,252,250,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(74,82,64,0.15);padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo-mark{display:flex;flex-direction:column;line-height:1}
+.logo-cn{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:400;color:var(--green);letter-spacing:2px}
+.logo-en{font-size:9px;letter-spacing:3px;color:var(--sand);font-weight:400;text-transform:uppercase;margin-top:2px}
+.nav-icons{display:flex;gap:18px;align-items:center}
+.nav-icon{cursor:pointer;color:var(--dark);font-size:20px;position:relative;background:none;border:none;padding:4px;-webkit-tap-highlight-color:transparent}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
+
+/* ── HERO ── */
+.hero{margin-top:60px;height:480px;background:linear-gradient(180deg,#3d4535 0%,#4A5240 40%,#5a6350 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 28px}
+.hero-texture{position:absolute;inset:0;opacity:0.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.3) 2px,rgba(255,255,255,0.3) 3px),repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(255,255,255,0.1) 8px,rgba(255,255,255,0.1) 9px)}
+.hero-leaf{position:absolute;top:40px;right:-20px;width:200px;height:200px;border-radius:50% 0 50% 0;background:rgba(200,184,154,0.12);transform:rotate(20deg)}
+.hero-leaf2{position:absolute;top:80px;right:20px;width:120px;height:120px;border-radius:50% 0 50% 0;background:rgba(200,184,154,0.08);transform:rotate(-10deg)}
+.hero-tag{font-size:9px;letter-spacing:4px;color:var(--sand);text-transform:uppercase;margin-bottom:14px;opacity:0.8}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:30px;font-weight:300;color:var(--white);line-height:1.4;margin-bottom:12px}
+.hero-sub{font-size:11px;color:rgba(232,226,216,0.65);letter-spacing:2px;margin-bottom:28px}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--sand);color:var(--dark);padding:12px 22px;font-size:12px;letter-spacing:2px;font-weight:400;cursor:pointer;border:none;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent}
+
+/* ── SECTIONS ── */
+section{padding:44px 24px}
+.sec-label{font-size:9px;letter-spacing:4px;color:var(--sand);text-transform:uppercase;margin-bottom:10px}
+.sec-title{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:300;color:var(--green);line-height:1.5;margin-bottom:8px}
+.sec-desc{font-size:13px;color:#6a6860;line-height:1.9;margin-bottom:28px}
+
+/* ── PHILOSOPHY ── */
+.phil-band{background:var(--light);padding:44px 24px}
+.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.phil-card{background:var(--white);padding:20px 16px;border:0.5px solid rgba(74,82,64,0.12)}
+.phil-icon{width:32px;height:32px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.phil-icon i{font-size:16px;color:var(--green)}
+.phil-kw{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:400;color:var(--green);margin-bottom:4px}
+.phil-kw-en{font-size:9px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin-bottom:8px}
+.phil-desc{font-size:11px;color:#888;line-height:1.7}
+
+/* ── PRODUCTS ── */
+.products-section{padding:44px 0}
+.products-header{padding:0 24px 24px}
+.product-scroll{display:flex;gap:14px;padding:0 24px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.product-scroll::-webkit-scrollbar{display:none}
+.product-card{min-width:210px;scroll-snap-align:start;cursor:pointer}
+.product-img{height:260px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.product-img-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.prod-placeholder{width:80px;height:80px;border-radius:50%;background:rgba(74,82,64,0.1);display:flex;align-items:center;justify-content:center}
+.prod-placeholder i{font-size:32px;color:var(--green);opacity:0.4}
+.product-tag{position:absolute;top:12px;left:12px;background:var(--green);color:var(--white);font-size:9px;letter-spacing:2px;padding:4px 8px}
+.product-info{padding:14px 0 6px}
+.product-name{font-size:14px;color:var(--dark);margin-bottom:3px;font-weight:400}
+.product-desc{font-size:11px;color:#999;line-height:1.6;margin-bottom:10px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-size:15px;color:var(--green);font-weight:500}
+.add-btn{width:32px;height:32px;background:var(--green);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background 0.2s;-webkit-tap-highlight-color:transparent}
+.add-btn:active{background:#3a4132}
+.scroll-dots{display:flex;gap:6px;padding:16px 24px 0;justify-content:center}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--cream);transition:all 0.3s}
+.dot.active{background:var(--green);width:16px;border-radius:3px}
+
+/* ── STORY ── */
+.story-band{background:var(--green);padding:52px 28px;text-align:center}
+.story-quote{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:300;color:var(--white);line-height:1.8;margin-bottom:18px}
+.story-quote-en{font-size:10px;letter-spacing:2.5px;color:var(--sand);opacity:0.7;line-height:1.9}
+.story-divider{width:32px;height:0.5px;background:var(--sand);margin:22px auto;opacity:0.4}
+.story-body{font-size:12px;color:rgba(232,226,216,0.7);line-height:2;max-width:300px;margin:0 auto 28px}
+.story-link{display:inline-flex;align-items:center;gap:6px;color:var(--sand);font-size:11px;letter-spacing:2px;text-decoration:none;border-bottom:0.5px solid rgba(200,184,154,0.4);padding-bottom:3px}
+
+/* ── CART ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.5);z-index:200}
+.cart-panel{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;background:var(--white);z-index:201;border-radius:16px 16px 0 0;max-height:78vh;display:none;flex-direction:column}
+.cart-header{padding:20px 24px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid var(--cream);flex-shrink:0}
+.cart-title{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--green);font-weight:300}
+.cart-close{background:none;border:none;color:var(--dark);cursor:pointer;font-size:22px;padding:4px}
+.cart-body{padding:16px 24px;overflow-y:auto;flex:1}
+.cart-empty{text-align:center;padding:40px 0;color:#aaa;font-size:13px}
+.cart-empty i{font-size:40px;color:var(--cream);display:block;margin-bottom:12px}
+.cart-item{display:flex;gap:14px;padding:14px 0;border-bottom:0.5px solid var(--cream);align-items:center}
+.cart-item-img{width:56px;height:56px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cart-item-img i{font-size:22px;color:var(--green);opacity:0.4}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:13px;color:var(--dark);margin-bottom:3px;font-weight:400}
+.cart-item-price{font-size:12px;color:var(--green)}
+.cart-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty-btn{width:26px;height:26px;background:var(--cream);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--dark);-webkit-tap-highlight-color:transparent}
+.qty-num{font-size:13px;min-width:20px;text-align:center}
+.cart-remove{color:#ccc;cursor:pointer;background:none;border:none;font-size:18px;padding:4px}
+.cart-footer{padding:20px 24px;border-top:0.5px solid var(--cream);background:var(--white);flex-shrink:0}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:16px;align-items:baseline}
+.cart-total-label{font-size:13px;color:#888}
+.cart-total-price{font-size:18px;font-weight:500;color:var(--green)}
+.checkout-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:15px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent}
+.checkout-btn:active{background:#3a4132}
+
+/* ── SOCIAL ── */
+.social-section{padding:40px 24px;background:var(--light)}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.social-card{background:var(--white);border:0.5px solid rgba(74,82,64,0.12);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.social-icon{width:36px;height:36px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.social-icon i{font-size:18px;color:var(--green)}
+.social-info{min-width:0}
+.social-name{font-size:12px;color:var(--dark);font-weight:400;margin-bottom:1px}
+.social-handle{font-size:10px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.social-full{background:var(--white);border:0.5px solid rgba(74,82,64,0.12);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;margin-top:10px}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55);font-size:11px}
+.footer-logo{font-family:'Noto Serif TC',serif;font-size:16px;color:var(--sand);font-weight:300;margin-bottom:6px;letter-spacing:2px}
+.footer-slogan{font-size:10px;color:rgba(200,184,154,0.5);letter-spacing:2px;margin-bottom:28px}
+.footer-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.footer-link{color:rgba(232,226,216,0.5);text-decoration:none;font-size:11px;letter-spacing:1px}
+.footer-divider{height:0.5px;background:rgba(232,226,216,0.1);margin-bottom:20px}
+.footer-copy{font-size:10px;color:rgba(232,226,216,0.25);text-align:center;letter-spacing:1px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--green);color:var(--white);padding:10px 20px;font-size:12px;letter-spacing:1px;opacity:0;transition:all 0.3s;z-index:300;pointer-events:none;white-space:nowrap;border-radius:2px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp 0.8s ease both}
+.hero-cta{transition:opacity 0.2s}
+.hero-cta:active{opacity:0.8}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-mark">
+    <span class="logo-cn">原野日常</span>
+    <span class="logo-en">Wildland Living</span>
+  </div>
+  <div class="nav-icons">
+    <button class="nav-icon" onclick="openCart()" aria-label="購物車">
+      <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+      <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-icon" onclick="toggleMenu()" aria-label="選單">
+      <i class="ti ti-menu-2" aria-hidden="true"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-leaf"></div>
+  <div class="hero-leaf2"></div>
+  <p class="hero-tag">Wildland Living 2025</p>
+  <h1 class="hero-title">取之大地<br>用之日常</h1>
+  <p class="hero-sub">From the earth. For the everyday. Back to nature.</p>
+  <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+    探索選品 &nbsp;→
+  </button>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="phil-band">
+  <p class="sec-label">Our Philosophy</p>
+  <h2 class="sec-title">四大品牌核心</h2>
+  <div class="phil-grid">
+    <div class="phil-card">
+      <div class="phil-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
+      <p class="phil-kw">永續</p>
+      <p class="phil-kw-en">Sustainable</p>
+      <p class="phil-desc">以自然為本，選材誠實，回歸大地的循環</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon"><i class="ti ti-minimize" aria-hidden="true"></i></div>
+      <p class="phil-kw">簡約</p>
+      <p class="phil-kw-en">Minimal</p>
+      <p class="phil-desc">少而精，去除不必要，讓本質自己說話</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon"><i class="ti ti-diamond" aria-hidden="true"></i></div>
+      <p class="phil-kw">質感</p>
+      <p class="phil-kw-en">Crafted</p>
+      <p class="phil-desc">材質真實，工藝用心，值得長期使用</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon"><i class="ti ti-mountain" aria-hidden="true"></i></div>
+      <p class="phil-kw">戶外</p>
+      <p class="phil-kw-en">Outdoor</p>
+      <p class="phil-desc">扎根自然場景，為移動與探索而生</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section" id="products">
+  <div class="products-header">
+    <p class="sec-label">Selected Items</p>
+    <h2 class="sec-title">本季選品</h2>
+    <p class="sec-desc" style="margin-bottom:0">來自植物萃取，用完可以安心入土。<br>少帶一點，走得更遠。</p>
+  </div>
+  <div class="product-scroll" id="productScroll">
+    <div class="product-card">
+      <div class="product-img" style="background:#DDD8CE">
+        <div class="product-img-bg">
+          <div class="prod-placeholder"><i class="ti ti-backpack" aria-hidden="true"></i></div>
+        </div>
+        <span class="product-tag">NEW</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">帆布野地托特包</p>
+        <p class="product-desc">天然厚磅帆布，耐用日常通勤與短途健行</p>
+        <div class="product-bottom">
+          <span class="product-price">NT$880</span>
+          <button class="add-btn" onclick="addToCart('帆布野地托特包',880)" aria-label="加入購物車">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#E2DACE">
+        <div class="product-img-bg">
+          <div class="prod-placeholder"><i class="ti ti-bottle" aria-hidden="true"></i></div>
+        </div>
+        <span class="product-tag">熱銷</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">竹纖維輕量水瓶</p>
+        <p class="product-desc">可分解材質，輕量設計，長途旅行的好夥伴</p>
+        <div class="product-bottom">
+          <span class="product-price">NT$560</span>
+          <button class="add-btn" onclick="addToCart('竹纖維輕量水瓶',560)" aria-label="加入購物車">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#D8D0C4">
+        <div class="product-img-bg">
+          <div class="prod-placeholder"><i class="ti ti-sock" aria-hidden="true"></i></div>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-name">羊毛機能健行襪</p>
+        <p class="product-desc">美麗諾羊毛，自然抗菌，山徑城市兩相宜</p>
+        <div class="product-bottom">
+          <span class="product-price">NT$360</span>
+          <button class="add-btn" onclick="addToCart('羊毛機能健行襪',360)" aria-label="加入購物車">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#E5DFD5">
+        <div class="product-img-bg">
+          <div class="prod-placeholder"><i class="ti ti-notebook" aria-hidden="true"></i></div>
+        </div>
+        <span class="product-tag">限量</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">再生紙野地筆記本</p>
+        <p class="product-desc">100% 再生紙，無酸不泛黃，記錄每一步</p>
+        <div class="product-bottom">
+          <span class="product-price">NT$280</span>
+          <button class="add-btn" onclick="addToCart('再生紙野地筆記本',280)" aria-label="加入購物車">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-dots">
+    <div class="dot active" id="d0"></div>
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="story-band">
+  <p class="story-quote">一條布、一個包，<br>少帶一點，走得更遠。</p>
+  <p class="story-quote-en">One cloth, one bag.<br>Carry less. Go further.</p>
+  <div class="story-divider"></div>
+  <p class="story-body">原野日常不販賣生活風格，而是陪伴你建立一種與自然和解的日常節奏。讓永續成為習慣，而非負擔。</p>
+  <a class="story-link" href="https://willie8601.github.io/wildland-living/" target="_blank" rel="noopener">
+    了解我們的故事 →
+  </a>
+</div>
+
+<!-- SOCIAL -->
+<div class="social-section">
+  <p class="sec-label">Connect With Us</p>
+  <h2 class="sec-title">找到我們</h2>
+  <div class="social-grid">
+    <a class="social-card" href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+      <div class="social-info">
+        <p class="social-name">Instagram</p>
+        <p class="social-handle">@wildland__living</p>
+      </div>
+    </a>
+    <a class="social-card" href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="ti ti-brand-facebook" aria-hidden="true"></i></div>
+      <div class="social-info">
+        <p class="social-name">Facebook</p>
+        <p class="social-handle">原野日常</p>
+      </div>
+    </a>
+    <a class="social-card" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="ti ti-brand-line" aria-hidden="true"></i></div>
+      <div class="social-info">
+        <p class="social-name">LINE</p>
+        <p class="social-handle">官方帳號</p>
+      </div>
+    </a>
+    <a class="social-card" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
+      <div class="social-icon"><i class="ti ti-shopping-cart" aria-hidden="true"></i></div>
+      <div class="social-info">
+        <p class="social-name">Shopee</p>
+        <p class="social-handle">蝦皮購物</p>
+      </div>
+    </a>
+  </div>
+  <a class="social-full" href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">
+    <div class="social-icon"><i class="ti ti-link" aria-hidden="true"></i></div>
+    <div class="social-info">
+      <p class="social-name">所有連結 Linktree</p>
+      <p class="social-handle">linktr.ee/wildland_living</p>
+    </div>
+    <i class="ti ti-chevron-right" style="margin-left:auto;color:#ccc;font-size:16px" aria-hidden="true"></i>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">原野日常</p>
+  <p class="footer-slogan">取之大地，用之日常，還之自然</p>
+  <div class="footer-links">
+    <a class="footer-link" href="https://willie8601.github.io/wildland-living/" target="_blank" rel="noopener">官方網站</a>
+    <a class="footer-link" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">蝦皮商店</a>
+    <a class="footer-link" href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">市場問卷</a>
+    <a class="footer-link" href="https://willie8601.github.io/feedback-form/customer-feedback.html" target="_blank" rel="noopener">售後調查</a>
+  </div>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">© 2025 原野日常有限公司 · Wildland Living Co., Ltd.</p>
+</footer>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <span class="cart-title">購物清單</span>
+    <button class="cart-close" onclick="closeCart()" aria-label="關閉">
+      <i class="ti ti-x" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+      <p>購物車是空的</p>
+      <p style="font-size:11px;margin-top:4px;color:#ccc">少帶一點，走得更遠</p>
+    </div>
+    <div id="cartItems"></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">小計</span>
+      <span class="cart-total-price" id="cartTotal">NT$0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">前往蝦皮結帳 →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) { existing.qty++; } else { cart.push({ name, price, qty: 1 }); }
+  updateCartUI();
+  showToast('已加入：' + name);
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+  const empty = document.getElementById('cartEmpty');
+  const itemsEl = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const totalEl = document.getElementById('cartTotal');
+  if (cart.length === 0) {
+    empty.style.display = 'block';
+    itemsEl.innerHTML = '';
+    footer.style.display = 'none';
+  } else {
+    empty.style.display = 'none';
+    footer.style.display = 'block';
+    totalEl.textContent = 'NT$' + total.toLocaleString();
+    itemsEl.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <div class="cart-item-img"><i class="ti ti-leaf" aria-hidden="true"></i></div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-price">NT$${item.price.toLocaleString()}</p>
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="changeQty(${idx},-1)" aria-label="減少">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${idx},1)" aria-label="增加">+</button>
+          </div>
+        </div>
+        <button class="cart-remove" onclick="removeItem(${idx})" aria-label="移除">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+    `).join('');
+  }
+}
+
+function changeQty(idx, delta) {
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').style.display = 'block';
+  const panel = document.getElementById('cartPanel');
+  panel.style.display = 'flex';
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').style.display = 'none';
+  document.getElementById('cartPanel').style.display = 'none';
+}
+
+function checkout() {
+  window.open('https://shopee.tw/pohaohuang86', '_blank');
+}
+
+function toggleMenu() {
+  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+const scroll = document.getElementById('productScroll');
+scroll.addEventListener('scroll', () => {
+  const w = scroll.scrollWidth / 4;
+  const idx = Math.min(3, Math.round(scroll.scrollLeft / w));
+  [0,1,2,3].forEach(i => {
+    const d = document.getElementById('d'+i);
+    if(d){ d.style.background = i===idx ? 'var(--green)' : 'var(--cream)'; d.style.width = i===idx ? '16px' : '5px'; }
+  });
+});
+</script>
+</body>
+</html>
