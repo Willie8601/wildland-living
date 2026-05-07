@@ -224,7 +224,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <div class="product-scroll" id="productScroll">
     <div class="product-card">
       <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
-        <img src="images/xxx-tee-v3.png" alt="Men's XXX Organic Tee">
+        <img src="images/xxx-tee-v4.png" alt="Men's XXX Organic Tee">
         <span class="product-tag">熱銷</span>
         <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：L｜庫存：1</span>
       </div>
@@ -244,7 +244,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
     </div>
     <div class="product-card">
       <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
-        <img src="images/mrt-tee-v3.png" alt="Men's Mr T Organic T-shirt">
+        <img src="images/mrt-tee-v4.png" alt="Men's Mr T Organic T-shirt">
         <span class="product-tag">熱銷</span>
         <span style="position:absolute;bottom:10px;right:10px;background:rgba(26,42,64,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：L｜庫存：1</span>
       </div>
@@ -264,7 +264,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
     </div>
     <div class="product-card">
       <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
-        <img src="images/greta-v1.png" alt="Women's Greta Organic Hoody">
+        <img src="images/greta-v2.png" alt="Women's Greta Organic Hoody">
         <span class="product-tag">熱銷</span>
         <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：M｜庫存：1</span>
       </div>
@@ -282,11 +282,32 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
         </div>
       </div>
     </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
+        <img src="images/ystwyth-v1.png" alt="Ystwyth Active Jacket">
+        <span class="product-tag">熱銷</span>
+        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：M｜庫存：1</span>
+      </div>
+      <div class="product-info">
+        <p class="product-name">Ystwyth Active Jacket</p>
+        <p class="product-desc">再生塑料製成，無氟撥水，輕便好收納的永續戶外外套</p>
+        <div class="product-bottom">
+          <div>
+            <span class="product-price">NT$2,500</span>
+            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$3,685</span>
+          </div>
+          <button class="add-btn" onclick="addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物車">
+            <i class="ti ti-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="scroll-dots">
     <div class="dot active" id="d0"></div>
     <div class="dot" id="d1"></div>
     <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
   </div>
 </div>
 
@@ -475,9 +496,9 @@ function showToast(msg) {
 
 const scroll = document.getElementById('productScroll');
 scroll.addEventListener('scroll', () => {
-  const w = scroll.scrollWidth / 3;
-  const idx = Math.min(2, Math.round(scroll.scrollLeft / w));
-  [0,1,2].forEach(i => {
+  const w = scroll.scrollWidth / 4;
+  const idx = Math.min(3, Math.round(scroll.scrollLeft / w));
+  [0,1,2,3].forEach(i => {
     const d = document.getElementById('d'+i);
     if(d){ d.style.background = i===idx ? 'var(--green)' : 'var(--cream)'; d.style.width = i===idx ? '16px' : '5px'; }
   });
