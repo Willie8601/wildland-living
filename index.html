@@ -222,71 +222,39 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   </div>
   <div class="product-scroll" id="productScroll">
     <div class="product-card">
-      <div class="product-img" style="background:#DDD8CE">
-        <div class="product-img-bg">
-          <div class="prod-placeholder"><i class="ti ti-backpack" aria-hidden="true"></i></div>
-        </div>
-        <span class="product-tag">NEW</span>
-      </div>
-      <div class="product-info">
-        <p class="product-name">帆布野地托特包</p>
-        <p class="product-desc">天然厚磅帆布，耐用日常通勤與短途健行</p>
-        <div class="product-bottom">
-          <span class="product-price">NT$880</span>
-          <button class="add-btn" onclick="addToCart('帆布野地托特包',880)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#E2DACE">
-        <div class="product-img-bg">
-          <div class="prod-placeholder"><i class="ti ti-bottle" aria-hidden="true"></i></div>
-        </div>
+      <div class="product-img" style="background:#2C2C2A;position:relative;overflow:hidden">
+        <img src="images/xxx-tee-model.png" alt="Men's XXX Organic Tee 穿著圖" style="width:100%;height:100%;object-fit:cover;object-position:top">
         <span class="product-tag">熱銷</span>
+        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.7);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：L｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">竹纖維輕量水瓶</p>
-        <p class="product-desc">可分解材質，輕量設計，長途旅行的好夥伴</p>
+        <p class="product-name">Men's XXX Organic Tee</p>
+        <p class="product-desc">三十年製衣經驗，重磅有機棉，越穿越有質感的經典單品</p>
         <div class="product-bottom">
-          <span class="product-price">NT$560</span>
-          <button class="add-btn" onclick="addToCart('竹纖維輕量水瓶',560)" aria-label="加入購物車">
+          <div>
+            <span class="product-price">NT$1,100</span>
+            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$1,579</span>
+          </div>
+          <button class="add-btn" onclick="addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
     <div class="product-card">
-      <div class="product-img" style="background:#D8D0C4">
-        <div class="product-img-bg">
-          <div class="prod-placeholder"><i class="ti ti-sock" aria-hidden="true"></i></div>
-        </div>
+      <div class="product-img" style="background:#E8E4DE;position:relative;overflow:hidden">
+        <img src="images/xxx-tee-flat.png" alt="Men's XXX Organic Tee 平鋪圖" style="width:100%;height:100%;object-fit:cover">
+        <span class="product-tag" style="background:#C8B89A;color:#2C2C2A">平鋪</span>
       </div>
       <div class="product-info">
-        <p class="product-name">羊毛機能健行襪</p>
-        <p class="product-desc">美麗諾羊毛，自然抗菌，山徑城市兩相宜</p>
+        <p class="product-name">Men's XXX Organic Tee</p>
+        <p class="product-desc">Moonless Night — 深夜炭色，百搭日常</p>
         <div class="product-bottom">
-          <span class="product-price">NT$360</span>
-          <button class="add-btn" onclick="addToCart('羊毛機能健行襪',360)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#E5DFD5">
-        <div class="product-img-bg">
-          <div class="prod-placeholder"><i class="ti ti-notebook" aria-hidden="true"></i></div>
-        </div>
-        <span class="product-tag">限量</span>
-      </div>
-      <div class="product-info">
-        <p class="product-name">再生紙野地筆記本</p>
-        <p class="product-desc">100% 再生紙，無酸不泛黃，記錄每一步</p>
-        <div class="product-bottom">
-          <span class="product-price">NT$280</span>
-          <button class="add-btn" onclick="addToCart('再生紙野地筆記本',280)" aria-label="加入購物車">
+          <div>
+            <span class="product-price">NT$1,100</span>
+            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$1,579</span>
+          </div>
+          <button class="add-btn" onclick="addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
@@ -296,8 +264,6 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <div class="scroll-dots">
     <div class="dot active" id="d0"></div>
     <div class="dot" id="d1"></div>
-    <div class="dot" id="d2"></div>
-    <div class="dot" id="d3"></div>
   </div>
 </div>
 
@@ -486,9 +452,9 @@ function showToast(msg) {
 
 const scroll = document.getElementById('productScroll');
 scroll.addEventListener('scroll', () => {
-  const w = scroll.scrollWidth / 4;
-  const idx = Math.min(3, Math.round(scroll.scrollLeft / w));
-  [0,1,2,3].forEach(i => {
+  const w = scroll.scrollWidth / 2;
+  const idx = Math.min(1, Math.round(scroll.scrollLeft / w));
+  [0,1].forEach(i => {
     const d = document.getElementById('d'+i);
     if(d){ d.style.background = i===idx ? 'var(--green)' : 'var(--cream)'; d.style.width = i===idx ? '16px' : '5px'; }
   });
