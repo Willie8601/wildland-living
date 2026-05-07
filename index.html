@@ -3,712 +3,1202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>原野日常</title>
+<title>原野日常 · Wildland Living</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Noto+Serif+TC:wght@200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400&family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
 :root {
-  --ash:    #E8E4DF;   /* 灰白底 */
-  --fog:    #D0CBC3;   /* 薄霧邊線 */
-  --dust:   #B0A89E;   /* 塵色輔助 */
-  --soil:   #7A6E63;   /* 大地中調 */
-  --charr:  #2E2A26;   /* 深炭主文 */
-  --rust:   #9B6E52;   /* 鏽陶點綴 */
-  --paper:  #F0EDE8;   /* 和紙底 */
-  --serif:  'Cormorant Garamond','Noto Serif TC',serif;
-  --max:    430px;
+  --night:   #0D0F0E;   /* near-black */
+  --deep:    #141815;   /* card bg */
+  --panel:   #1C211D;   /* panel */
+  --border:  #2A302B;   /* grid lines */
+  --mid:     #4A5449;   /* muted */
+  --muted:   #6B7A6A;   /* secondary text */
+  --base:    #A8B5A6;   /* body text */
+  --light:   #D4DDD2;   /* headings */
+  --white:   #ECF0EB;   /* bright text */
+  --signal:  #8FBF4A;   /* acid green accent */
+  --signal2: #5C9E1A;   /* signal darker */
+  --amber:   #D4883A;   /* warmth accent */
+  --danger:  #C45A3A;   /* sale / warning */
+
+  --mono:    'Share Tech Mono', monospace;
+  --cond:    'Barlow Condensed', 'Noto Sans TC', sans-serif;
+  --body:    'Barlow', 'Noto Sans TC', sans-serif;
+  --max:     430px;
 }
 
-/* ── RESET ── */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{font-size:14px;scroll-behavior:smooth;}
-body{
-  background:var(--ash);
-  color:var(--charr);
-  font-family:var(--serif);
-  font-weight:300;
-  max-width:var(--max);
-  margin:0 auto;
-  overflow-x:hidden;
-  /* subtle paper grain */
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:14px; scroll-behavior:smooth; }
+body {
+  background: var(--night);
+  color: var(--base);
+  font-family: var(--body);
+  font-weight: 300;
+  max-width: var(--max);
+  margin: 0 auto;
+  overflow-x: hidden;
+  /* subtle scan-line texture */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.008) 2px,
+    rgba(255,255,255,0.008) 4px
+  );
 }
-a{text-decoration:none;color:inherit;}
-img{display:block;max-width:100%;}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; }
 
-/* ── NAV ── */
-.nav{
-  position:fixed;top:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:var(--max);
-  height:50px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;
-  background:rgba(232,228,223,0.9);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  z-index:100;
+/* ─────────────────────────────────────────
+   UTILITY
+───────────────────────────────────────── */
+.mono { font-family: var(--mono); }
+.tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--signal);
+  background: rgba(143,191,74,0.1);
+  border: 1px solid rgba(143,191,74,0.25);
+  padding: 2px 7px;
+  display: inline-block;
 }
-/* intentionally uneven border — wabi-sabi asymmetry */
-.nav::after{
-  content:'';
-  position:absolute;bottom:0;left:20px;right:20px;
-  height:1px;
-  background:linear-gradient(90deg, transparent 0%, var(--fog) 30%, var(--fog) 70%, transparent 100%);
-}
-.nav-brand{
-  font-size:16px;
-  letter-spacing:0.18em;
-  color:var(--charr);
-  font-weight:300;
-}
-.nav-brand sub{
-  display:block;
-  font-size:7.5px;
-  letter-spacing:0.32em;
-  text-transform:uppercase;
-  color:var(--dust);
-  font-style:italic;
-  line-height:1;
-  margin-top:1px;
-}
-.nav-icons{display:flex;gap:0;}
-.ni{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--soil);}
-.ni svg{width:18px;height:18px;stroke-width:1.1;}
+.tag-amber { color: var(--amber); background: rgba(212,136,58,0.1); border-color: rgba(212,136,58,0.25); }
+.tag-red   { color: var(--danger); background: rgba(196,90,58,0.1); border-color: rgba(196,90,58,0.25); }
 
-/* ── MAIN ── */
-main{padding-top:50px;padding-bottom:56px;}
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: var(--max);
+  height: 52px;
+  background: rgba(13,15,14,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+}
+/* corner bracket marks — technical UI motif */
+.nav::before, .nav::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  width: 20px; height: 5px;
+  border-bottom: 1px solid var(--signal);
+  border-left: 1px solid var(--signal);
+}
+.nav::before { left: 0; }
+.nav::after  { right: 0; border-left: none; border-right: 1px solid var(--signal); }
 
-/* ── HERO ── */
-.hero{
-  min-height:calc(100svh - 50px);
-  padding:48px 20px 56px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  position:relative;
-  overflow:hidden;
+.nav-left { display: flex; flex-direction: column; gap: 1px; }
+.nav-brand {
+  font-family: var(--cond);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
 }
-/* large background kanji — wabi texture */
-.hero-kanji{
-  position:absolute;
-  top:-10px;right:-20px;
-  font-size:260px;
-  font-weight:300;
-  color:rgba(46,42,38,0.04);
-  line-height:1;
-  letter-spacing:-0.05em;
-  pointer-events:none;
-  user-select:none;
-  font-family:var(--serif);
+.nav-sub {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.15em;
+  color: var(--signal);
 }
-/* hand-drawn style brush stroke SVG */
-.hero-stroke{
-  position:absolute;
-  top:60px;left:0;right:0;
-  height:120px;
-  opacity:0.06;
+.nav-right { display: flex; gap: 2px; align-items: center; }
+.ni {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; color: var(--muted);
+  transition: color 0.2s;
 }
-.hero-season{
-  font-size:9px;
-  letter-spacing:0.45em;
-  text-transform:uppercase;
-  color:var(--dust);
-  margin-bottom:22px;
-  display:block;
-  opacity:0;
-  animation:wabi-in 1.2s 0.2s ease forwards;
+.ni:active { color: var(--signal); }
+.ni svg { width: 18px; height: 18px; stroke-width: 1.4; }
+.ni-cart { position: relative; }
+.cart-dot {
+  position: absolute; top: 9px; right: 9px;
+  width: 6px; height: 6px;
+  background: var(--signal); border-radius: 50%;
+  display: none;
 }
-.hero-h1{
-  font-size:clamp(52px,15vw,76px);
-  font-weight:300;
-  line-height:1;
-  letter-spacing:-0.01em;
-  color:var(--charr);
-  margin-bottom:0;
-  opacity:0;
-  animation:wabi-in 1.2s 0.45s ease forwards;
-}
-.hero-h1 em{
-  display:block;
-  font-style:italic;
-  color:var(--rust);
-  margin-top:4px;
-}
-/* imperfect horizontal rule */
-.hero-rule{
-  margin:32px 0;
-  width:100%;
-  height:1px;
-  position:relative;
-  opacity:0;
-  animation:wabi-in 1.2s 0.7s ease forwards;
-}
-.hero-rule::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;
-  width:72%;height:1px;
-  background:var(--fog);
-}
-.hero-rule::after{
-  content:'';
-  position:absolute;
-  top:3px;left:8%;
-  width:40%;height:1px;
-  background:var(--fog);
-  opacity:0.5;
-}
-.hero-body{
-  font-size:12.5px;
-  color:var(--soil);
-  line-height:2.1;
-  letter-spacing:0.06em;
-  max-width:230px;
-  opacity:0;
-  animation:wabi-in 1.2s 0.9s ease forwards;
-}
-.hero-actions{
-  margin-top:36px;
-  display:flex;align-items:center;gap:24px;
-  opacity:0;
-  animation:wabi-in 1.2s 1.1s ease forwards;
-}
-.btn-wabi{
-  font-size:10px;
-  letter-spacing:0.32em;
-  text-transform:uppercase;
-  color:var(--paper);
-  background:var(--charr);
-  padding:12px 26px;
-  display:inline-block;
-  position:relative;
-}
-/* slightly offset shadow for wabi feel */
-.btn-wabi::before{
-  content:'';
-  position:absolute;
-  inset:-1px;
-  border:1px solid var(--charr);
-  transform:translate(3px,3px);
-  z-index:-1;
-}
-.link-ghost{
-  font-size:12px;
-  font-style:italic;
-  color:var(--dust);
-  letter-spacing:0.05em;
-  border-bottom:1px solid var(--fog);
-  padding-bottom:1px;
-}
-/* scroll indicator */
-.hero-scroll{
-  position:absolute;bottom:28px;right:20px;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  opacity:0;
-  animation:fade-soft 1.4s 1.8s ease forwards;
-}
-.hero-scroll span{font-size:7.5px;letter-spacing:0.38em;text-transform:uppercase;color:var(--dust);writing-mode:vertical-rl;}
-.s-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--fog),transparent);animation:flicker 3s 2.5s infinite;}
+.cart-dot.on { display: block; }
 
-/* ── NOTCH DIVIDER ── */
-.notch-div{
-  padding:0 20px;
-  margin:8px 0;
-  display:flex;align-items:center;gap:12px;
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero {
+  min-height: calc(100svh - 52px);
+  padding: 40px 16px 60px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
 }
-.notch-div::before,.notch-div::after{content:'';flex:1;height:1px;background:var(--fog);}
-.notch-div span{font-size:8px;letter-spacing:0.4em;text-transform:uppercase;color:var(--dust);white-space:nowrap;font-style:italic;}
+/* grid overlay */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 100%, black 30%, transparent 100%);
+}
+/* topographic contour lines */
+.hero-topo {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60%;
+  opacity: 0.06;
+}
+/* large text mark */
+.hero-watermark {
+  position: absolute;
+  top: 20px; right: -8px;
+  font-family: var(--cond);
+  font-size: 160px;
+  font-weight: 600;
+  color: var(--white);
+  opacity: 0.025;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+/* HUD coordinates */
+.hero-coords {
+  position: absolute;
+  top: 16px; left: 16px;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--mid);
+  line-height: 1.8;
+  opacity: 0;
+  animation: sys-boot 0.6s 0.2s ease forwards;
+}
+.hero-coords span { display: block; }
+/* altitude indicator */
+.hero-alt {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--mid);
+  text-align: right;
+  line-height: 1.8;
+  opacity: 0;
+  animation: sys-boot 0.6s 0.4s ease forwards;
+}
+/* signal bars */
+.sig-bars {
+  display: flex; gap: 2px; align-items: flex-end;
+  margin-top: 3px;
+}
+.sig-bar {
+  width: 4px;
+  background: var(--signal);
+  border-radius: 1px;
+  opacity: 0.4;
+}
+.sig-bar.on { opacity: 1; }
 
-/* ── SECTION LABEL ── */
-.s-label{
-  font-size:8.5px;
-  letter-spacing:0.42em;
-  text-transform:uppercase;
-  color:var(--dust);
-  display:block;
-  margin-bottom:36px;
-  font-style:italic;
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--signal);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0;
+  animation: slide-up 0.8s 0.5s ease forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--signal);
+}
+.hero-h1 {
+  font-family: var(--cond);
+  font-size: clamp(56px, 16vw, 84px);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0;
+  animation: slide-up 0.8s 0.7s ease forwards;
+}
+.hero-h1 .accent { color: var(--signal); display: block; }
+.hero-rule {
+  margin: 24px 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--signal) 0%, var(--border) 60%, transparent 100%);
+  opacity: 0;
+  animation: slide-up 0.6s 0.9s ease forwards;
+}
+.hero-stats {
+  display: flex; gap: 0;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: slide-up 0.8s 1.0s ease forwards;
+}
+.stat-item {
+  flex: 1;
+  padding: 10px 0;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-val {
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--light);
+  display: block;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero-actions {
+  display: flex; gap: 10px;
+  opacity: 0;
+  animation: slide-up 0.8s 1.1s ease forwards;
+}
+.btn-tech {
+  flex: 1;
+  padding: 13px 16px;
+  background: var(--signal);
+  color: var(--night);
+  font-family: var(--cond);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.2s;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.btn-tech:active { background: var(--signal2); }
+.btn-tech svg { width: 14px; height: 14px; stroke-width: 2; }
+.btn-outline {
+  padding: 13px 16px;
+  background: none;
+  color: var(--light);
+  font-family: var(--cond);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, color 0.2s;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.btn-outline:active { border-color: var(--signal); color: var(--signal); }
+
+/* ─────────────────────────────────────────
+   SECTION HEADER
+───────────────────────────────────────── */
+.sec-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.sec-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--signal);
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-label::before {
+  content: '';
+  display: block;
+  width: 14px; height: 1px;
+  background: var(--signal);
+}
+.sec-title {
+  font-family: var(--cond);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.sec-link {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+}
+.sec-link svg { width: 10px; height: 10px; }
+
+/* ─────────────────────────────────────────
+   CATEGORIES
+───────────────────────────────────────── */
+.cat-section { padding: 48px 16px; }
+.cat-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cat-card {
+  background: var(--deep);
+  border: 1px solid var(--border);
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  display: block;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.cat-card:active { border-color: var(--signal); }
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent var(--border) transparent transparent;
+}
+.cat-card:active::before { border-color: transparent var(--signal) transparent transparent; }
+.cat-icon { margin-bottom: 14px; opacity: 0.6; }
+.cat-icon svg { width: 28px; height: 28px; stroke-width: 1; color: var(--signal); }
+.cat-num {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--mid);
+  display: block;
+  margin-bottom: 4px;
+}
+.cat-zh {
+  font-family: var(--cond);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  display: block;
+  text-transform: uppercase;
+}
+.cat-en {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 2px;
+}
+/* large bg number */
+.cat-bg-num {
+  position: absolute;
+  bottom: -8px; right: 8px;
+  font-family: var(--cond);
+  font-size: 72px;
+  font-weight: 600;
+  color: var(--white);
+  opacity: 0.03;
+  line-height: 1;
+  pointer-events: none;
 }
 
-/* ── CATEGORY LIST ── */
-.cat-section{padding:56px 20px;}
-.cat-item{
-  padding:18px 0;
-  border-bottom:1px solid;
-  border-image:linear-gradient(90deg,var(--fog) 0%,transparent 100%) 1;
-  display:flex;align-items:baseline;justify-content:space-between;
-  cursor:pointer;
-  transition:padding-left 0.3s;
+/* ─────────────────────────────────────────
+   PRODUCTS
+───────────────────────────────────────── */
+.prod-section { padding: 0 16px 56px; }
+.prod-filters {
+  display: flex; gap: 6px;
+  overflow-x: auto; scrollbar-width: none;
+  padding-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
 }
-.cat-item:first-of-type{border-top:1px solid;border-image:linear-gradient(90deg,var(--fog) 0%,transparent 100%) 1;}
-.cat-item:active{padding-left:8px;}
-.cat-zh{font-size:24px;font-weight:300;color:var(--charr);letter-spacing:0.08em;}
-.cat-en{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--dust);font-style:italic;margin-left:10px;}
-.cat-count{font-size:10px;color:var(--dust);letter-spacing:0.1em;}
+.prod-filters::-webkit-scrollbar { display: none; }
+.pf {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.pf.on {
+  border-color: var(--signal);
+  color: var(--night);
+  background: var(--signal);
+}
+.prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-/* ── PRODUCT GRID ── */
-.prod-section{padding:0 20px 64px;}
-.prod-filter{
-  display:flex;gap:0;
-  margin-bottom:32px;
-  overflow-x:auto;scrollbar-width:none;
+.p-card {
+  background: var(--deep);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: block;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
 }
-.prod-filter::-webkit-scrollbar{display:none;}
-.pf-btn{
-  background:none;border:none;cursor:pointer;
-  font-family:var(--serif);font-size:11px;font-weight:300;
-  color:var(--dust);
-  padding:6px 16px 6px 0;
-  letter-spacing:0.12em;
-  white-space:nowrap;
-  position:relative;
-  transition:color 0.25s;
+.p-card:active { border-color: var(--signal); }
+.p-img {
+  position: relative;
+  padding-bottom: 115%;
+  overflow: hidden;
 }
-.pf-btn.on{color:var(--charr);}
-.pf-btn.on::after{
-  content:'';position:absolute;bottom:0;left:0;
-  width:16px;height:1px;background:var(--rust);
+.p-img-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.5s ease;
 }
-.prod-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:28px 14px;
+.p-card:active .p-img-bg { transform: scale(1.04); }
+/* technical garment bg tones */
+.g1 { background: linear-gradient(160deg, #1A2018, #0F140E); }
+.g2 { background: linear-gradient(160deg, #1C1E1A, #12140F); }
+.g3 { background: linear-gradient(160deg, #1E1C18, #141210); }
+.g4 { background: linear-gradient(160deg, #181C18, #0E120E); }
+.g5 { background: linear-gradient(160deg, #1A1916, #111009); }
+.g6 { background: linear-gradient(160deg, #16181A, #0E1012); }
+.p-img-bg svg { opacity: 0.45; }
+/* HUD overlay on image */
+.p-hud {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 8px;
+  display: flex; justify-content: space-between; align-items: flex-end;
 }
-.prod-card{cursor:pointer;display:block;}
-.prod-card:active .p-img-wrap{opacity:0.88;}
-.p-img-wrap{
-  position:relative;
-  padding-bottom:130%;
-  overflow:hidden;
-  margin-bottom:12px;
-  transition:opacity 0.3s;
+.p-badge-wrap { display: flex; flex-direction: column; gap: 3px; }
+.p-spec {
+  font-family: var(--mono);
+  font-size: 7px;
+  color: rgba(143,191,74,0.7);
+  background: rgba(13,15,14,0.8);
+  padding: 2px 5px;
+  display: block;
+  letter-spacing: 0.08em;
 }
-.p-img-bg{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform 0.6s ease;
+.p-info { padding: 12px 10px 14px; }
+.p-name {
+  font-family: var(--cond);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--light);
+  line-height: 1.2;
+  margin-bottom: 4px;
 }
-.prod-card:active .p-img-bg{transform:scale(1.03);}
-/* wabi-sabi tones — all desaturated */
-.wa{background:#DEDAD4;}
-.wb{background:#D5D0CB;}
-.wc{background:#D9D3CB;}
-.wd{background:#D0CEC8;}
-.we{background:#D7D1CA;}
-.wf{background:#CECDCA;}
-.p-badge{
-  position:absolute;top:10px;left:10px;
-  font-size:7.5px;letter-spacing:0.22em;text-transform:uppercase;
-  padding:3px 8px;font-family:var(--serif);
+.p-mat {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 8px;
 }
-.pb-new{color:var(--paper);background:var(--charr);}
-.pb-eco{color:var(--paper);background:var(--soil);}
-.pb-sale{color:var(--paper);background:var(--rust);}
-.p-name{font-size:13.5px;font-weight:300;color:var(--charr);line-height:1.45;margin-bottom:3px;}
-.p-mat{font-size:9.5px;color:var(--dust);letter-spacing:0.1em;display:block;margin-bottom:5px;}
-.p-price{font-size:14px;color:var(--charr);}
-.p-orig{font-size:10px;color:var(--fog);text-decoration:line-through;margin-left:5px;}
+.p-price-row { display: flex; align-items: baseline; gap: 6px; }
+.p-price {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--signal);
+}
+.p-orig {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mid);
+  text-decoration: line-through;
+}
 
-/* ── WABI PHILOSOPHY ── */
-.wabi-section{
-  background:var(--charr);
-  padding:72px 20px;
-  position:relative;
-  overflow:hidden;
+/* ─────────────────────────────────────────
+   MISSION BLOCK
+───────────────────────────────────────── */
+.mission {
+  margin: 0 16px 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--signal);
+  padding: 36px 20px;
+  position: relative;
+  overflow: hidden;
 }
-.wabi-section::before{
-  content:'侘寂';
-  position:absolute;
-  bottom:-30px;right:-10px;
-  font-size:180px;
-  font-weight:300;
-  color:rgba(255,255,255,0.03);
-  line-height:1;
-  pointer-events:none;
-  user-select:none;
+.mission::before {
+  content: 'SYS//MISSION';
+  position: absolute;
+  top: 12px; right: 14px;
+  font-family: var(--mono);
+  font-size: 7.5px;
+  color: var(--mid);
+  letter-spacing: 0.1em;
 }
-.w-label{font-size:8.5px;letter-spacing:0.42em;text-transform:uppercase;color:rgba(176,168,158,0.5);display:block;margin-bottom:36px;font-style:italic;}
-.w-quote{
-  font-size:clamp(19px,5.5vw,24px);
-  font-weight:300;
-  color:#E8E4DF;
-  line-height:1.85;
-  letter-spacing:0.04em;
-  margin-bottom:32px;
+.mission-num {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--signal);
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 20px;
 }
-.w-quote em{font-style:italic;color:var(--rust);}
-/* dot separator */
-.w-dots{
-  display:flex;gap:6px;align-items:center;
-  margin-bottom:28px;
+.mission-h {
+  font-family: var(--cond);
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 18px;
 }
-.w-dot{width:3px;height:3px;border-radius:50%;background:var(--soil);}
-.w-dot:nth-child(2){width:5px;height:5px;background:var(--rust);}
-.w-dot:nth-child(3){background:var(--soil);opacity:0.5;}
-.w-body{font-size:11.5px;color:rgba(176,168,158,0.7);line-height:2.1;margin-bottom:32px;letter-spacing:0.04em;}
-.w-link{
-  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
-  color:rgba(176,168,158,0.6);
-  display:inline-flex;align-items:center;gap:12px;
-  border-bottom:1px solid rgba(176,168,158,0.2);
-  padding-bottom:4px;
+.mission-h .hl { color: var(--signal); }
+.mission-body {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
 }
-.w-link svg{width:14px;height:14px;stroke-width:1.1;}
+.mission-specs {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(0,0,0,0.3);
+  border-left: 2px solid var(--signal);
+}
+.mspec {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--base);
+  letter-spacing: 0.06em;
+}
+.mspec::before {
+  content: '▸';
+  color: var(--signal);
+  font-size: 8px;
+}
+.mission-link {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--signal);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(143,191,74,0.3);
+  padding-bottom: 3px;
+}
+.mission-link svg { width: 12px; height: 12px; }
+/* corner accent */
+.mission-corner {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 40px; height: 40px;
+  border-top: 1px solid var(--signal);
+  border-left: 1px solid var(--signal);
+  opacity: 0.3;
+}
 
-/* ── JOURNAL STRIP ── */
-.journal-section{padding:56px 20px;}
-.j-scroll{
-  display:flex;gap:14px;
-  overflow-x:auto;scrollbar-width:none;
-  margin-top:32px;
-  padding-bottom:4px;
-  -webkit-overflow-scrolling:touch;
+/* ─────────────────────────────────────────
+   FEATURE STRIP
+───────────────────────────────────────── */
+.feature-strip {
+  display: flex; overflow-x: auto; scrollbar-width: none;
+  padding: 24px 16px;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
 }
-.j-scroll::-webkit-scrollbar{display:none;}
-.j-card{
-  flex:0 0 175px;
-  display:block;
+.feature-strip::-webkit-scrollbar { display: none; }
+.feat {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 10px;
+  padding-right: 24px; margin-right: 24px;
+  border-right: 1px solid var(--border);
 }
-.j-img{
-  height:220px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+.feat:last-child { border-right: none; }
+.feat-icon { color: var(--signal); }
+.feat-icon svg { width: 18px; height: 18px; stroke-width: 1.2; }
+.feat-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--light);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+  display: block;
 }
-.j-img-inner{width:100%;height:100%;transition:transform 0.5s ease;}
-.j-card:active .j-img-inner{transform:scale(1.04);}
-.ji1{background:linear-gradient(160deg,#C8C2BB,#ADA69E);}
-.ji2{background:linear-gradient(160deg,#BEBAB4,#A8A39C);}
-.ji3{background:linear-gradient(160deg,#C5C1B8,#B0AAA2);}
-/* issue number — editorial */
-.j-issue{
-  position:absolute;bottom:10px;left:10px;
-  font-size:8px;letter-spacing:0.3em;
-  color:rgba(232,228,223,0.7);
-  font-style:italic;
+.feat-sub {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--mid);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.j-cat{font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:5px;}
-.j-title{font-size:13.5px;font-weight:300;color:var(--charr);line-height:1.55;}
 
-/* ── FOOTER ── */
-footer{
-  background:var(--charr);
-  padding:56px 20px 32px;
+/* ─────────────────────────────────────────
+   JOURNAL
+───────────────────────────────────────── */
+.journal-section { padding: 48px 0 48px 16px; }
+.j-scroll {
+  display: flex; gap: 10px;
+  overflow-x: auto; scrollbar-width: none;
+  padding-right: 16px; margin-top: 20px;
+  -webkit-overflow-scrolling: touch;
 }
-.ft-mark{
-  font-size:36px;
-  font-weight:300;
-  color:rgba(232,228,223,0.12);
-  letter-spacing:0.12em;
-  display:block;
-  margin-bottom:36px;
-  font-style:italic;
+.j-scroll::-webkit-scrollbar { display: none; }
+.j-card {
+  flex: 0 0 200px;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: block;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
 }
-.ft-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:28px 12px;
-  padding-bottom:36px;
-  border-bottom:1px solid rgba(176,168,158,0.12);
-  margin-bottom:28px;
+.j-img { height: 130px; position: relative; overflow: hidden; }
+.j-img-inner { width: 100%; height: 100%; transition: transform 0.5s; }
+.j-card:active .j-img-inner { transform: scale(1.05); }
+.ji1 { background: linear-gradient(140deg, #1E2B1A, #101810); }
+.ji2 { background: linear-gradient(140deg, #241E14, #181209); }
+.ji3 { background: linear-gradient(140deg, #1A1E24, #0E1218); }
+.j-label {
+  position: absolute; top: 8px; left: 8px;
 }
-.ft-group h6{
-  font-size:8px;letter-spacing:0.38em;text-transform:uppercase;
-  color:rgba(176,168,158,0.45);font-style:italic;margin-bottom:14px;
+.j-body { padding: 12px; }
+.j-cat {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--signal);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 5px;
 }
-.ft-group ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.ft-group li a{font-size:12px;color:rgba(176,168,158,0.65);letter-spacing:0.04em;}
-.ft-bottom{display:flex;justify-content:space-between;align-items:center;}
-.ft-social{display:flex;gap:14px;}
-.ft-social a{color:rgba(176,168,158,0.4);}
-.ft-social svg{width:15px;height:15px;stroke-width:1.1;display:block;}
-.ft-copy{font-size:8.5px;color:rgba(176,168,158,0.3);letter-spacing:0.12em;}
+.j-title {
+  font-family: var(--cond);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--light);
+  line-height: 1.45;
+  text-transform: uppercase;
+}
 
-/* ── BOTTOM NAV ── */
-.bnav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:var(--max);
-  height:54px;
-  background:rgba(232,228,223,0.94);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  display:flex;align-items:center;justify-content:space-around;
-  z-index:99;
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  padding: 48px 16px 32px;
 }
-/* asymmetric top border */
-.bnav::before{
-  content:'';position:absolute;top:0;left:10%;right:20%;
-  height:1px;background:var(--fog);
+.ft-logo-row {
+  display: flex; align-items: flex-end; gap: 12px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
 }
-.bnav::after{
-  content:'';position:absolute;top:2px;left:25%;right:5%;
-  height:1px;background:var(--fog);opacity:0.4;
+.ft-brand {
+  font-family: var(--cond);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
 }
-.nb{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;cursor:pointer;color:var(--dust);padding:4px 14px;}
-.nb.on{color:var(--charr);}
-.nb svg{width:20px;height:20px;stroke-width:1.1;}
-.nb-lbl{font-size:8px;letter-spacing:0.16em;text-transform:uppercase;font-family:var(--serif);}
-.nb.on .nb-lbl{color:var(--rust);}
+.ft-tagline {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+}
+.ft-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 28px 12px;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.ft-group h6 {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 14px;
+}
+.ft-group ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ft-group li a {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  font-family: var(--body);
+}
+.ft-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ft-social { display: flex; gap: 10px; }
+.ft-soc {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--mid);
+}
+.ft-soc svg { width: 14px; height: 14px; stroke-width: 1.2; }
+.ft-soc:active { border-color: var(--signal); color: var(--signal); }
+.ft-copy {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--mid);
+  letter-spacing: 0.08em;
+}
 
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity 1s ease,transform 1s ease;}
-.reveal.on{opacity:1;transform:none;}
+/* ─────────────────────────────────────────
+   BOTTOM NAV
+───────────────────────────────────────── */
+.bnav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: var(--max);
+  background: rgba(13,15,14,0.97);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-around;
+  height: 54px;
+  z-index: 99;
+}
+.bnav::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--signal) 50%, transparent 100%);
+  opacity: 0.4;
+}
+.nb {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; color: var(--mid);
+  padding: 4px 16px;
+  transition: color 0.2s;
+}
+.nb.on { color: var(--signal); }
+.nb svg { width: 20px; height: 20px; stroke-width: 1.2; }
+.nb-lbl {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
-/* ── KEYFRAMES ── */
-@keyframes wabi-in{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-@keyframes fade-soft{from{opacity:0;}to{opacity:0.55;}}
-@keyframes flicker{0%,100%{opacity:0.25;}40%{opacity:0.9;}70%{opacity:0.55;}}
+/* ─────────────────────────────────────────
+   REVEAL
+───────────────────────────────────────── */
+main { padding-top: 52px; padding-bottom: 54px; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.on { opacity: 1; transform: none; }
+
+/* ─────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes sys-boot {
+  0%   { opacity: 0; }
+  60%  { opacity: 0.4; }
+  100% { opacity: 1; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav class="nav">
-  <a href="#" class="nav-brand">
-    原野日常
-    <sub>Wildland Living</sub>
-  </a>
-  <div class="nav-icons">
+  <div class="nav-left">
+    <span class="nav-brand">原野日常</span>
+    <span class="nav-sub">WILDLAND LIVING // AW-2025</span>
+  </div>
+  <div class="nav-right">
     <button class="ni" aria-label="搜尋">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
     </button>
-    <button class="ni" aria-label="購物車">
+    <button class="ni ni-cart" aria-label="購物車" id="cartBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-dot" id="cartDot"></span>
     </button>
   </div>
 </nav>
 
 <main>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-kanji" aria-hidden="true">野</div>
-  <svg class="hero-stroke" viewBox="0 0 430 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M0 60 Q80 20 160 65 Q240 110 320 55 Q380 20 430 50" stroke="#2E2A26" stroke-width="40" stroke-linecap="round" fill="none"/>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <!-- topo lines SVG -->
+  <svg class="hero-topo" viewBox="0 0 430 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <ellipse cx="215" cy="180" rx="200" ry="120" stroke="#8FBF4A" stroke-width="0.5"/>
+    <ellipse cx="215" cy="180" rx="160" ry="95"  stroke="#8FBF4A" stroke-width="0.5"/>
+    <ellipse cx="215" cy="180" rx="120" ry="70"  stroke="#8FBF4A" stroke-width="0.5"/>
+    <ellipse cx="215" cy="180" rx="80"  ry="46"  stroke="#8FBF4A" stroke-width="0.5"/>
+    <ellipse cx="215" cy="180" rx="40"  ry="22"  stroke="#8FBF4A" stroke-width="0.5"/>
+    <line x1="0" y1="220" x2="430" y2="220" stroke="#8FBF4A" stroke-width="0.3" stroke-dasharray="4 8"/>
+    <line x1="215" y1="0" x2="215" y2="400" stroke="#8FBF4A" stroke-width="0.3" stroke-dasharray="4 8"/>
+    <circle cx="215" cy="180" r="3" fill="#8FBF4A"/>
+    <text x="220" y="178" font-family="monospace" font-size="8" fill="#8FBF4A" opacity="0.6">3,952m</text>
   </svg>
-  <span class="hero-season">AW 2025 · Autumn Winter Collection</span>
+  <div class="hero-watermark" aria-hidden="true">野</div>
+
+  <!-- HUD coords -->
+  <div class="hero-coords" aria-hidden="true">
+    <span>LAT  24°08'N</span>
+    <span>LNG 121°33'E</span>
+    <span>ALT  ——— m</span>
+  </div>
+  <div class="hero-alt" aria-hidden="true">
+    <span>SIG</span>
+    <div class="sig-bars">
+      <div class="sig-bar on" style="height:6px"></div>
+      <div class="sig-bar on" style="height:9px"></div>
+      <div class="sig-bar on" style="height:12px"></div>
+      <div class="sig-bar on" style="height:15px"></div>
+      <div class="sig-bar" style="height:18px"></div>
+    </div>
+  </div>
+
+  <div class="hero-eyebrow">AW-2025 // AUTUMN WINTER COLLECTION</div>
   <h1 class="hero-h1">
-    原野<em>日常</em>
+    FOR THE
+    <span class="accent">WILD</span>
   </h1>
   <div class="hero-rule"></div>
-  <p class="hero-body">
-    不完整的美。<br>
-    慢製，耐穿，<br>
-    為荒野而生。
-  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-val">3</span>
+      <span class="stat-label">品類</span>
+    </div>
+    <div class="stat-item" style="padding-left:16px;">
+      <span class="stat-val">39</span>
+      <span class="stat-label">件商品</span>
+    </div>
+    <div class="stat-item" style="padding-left:16px;">
+      <span class="stat-val">100%</span>
+      <span class="stat-label">永續材質</span>
+    </div>
+  </div>
   <div class="hero-actions">
-    <a href="#products" class="btn-wabi">探索新品</a>
-    <a href="#wabi" class="link-ghost">關於侘寂</a>
-  </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="s-line"></div>
-    <span>scroll</span>
+    <a href="#products" class="btn-tech">
+      探索新品
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#mission" class="btn-outline">品牌使命</a>
   </div>
 </section>
 
-<!-- DIVIDER -->
-<div class="notch-div"><span>品類 · Categories</span></div>
+<!-- ── FEATURE STRIP ── -->
+<div class="feature-strip reveal">
+  <div class="feat">
+    <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div><span class="feat-title">再生纖維</span><span class="feat-sub">Recycled Fiber</span></div>
+  </div>
+  <div class="feat">
+    <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg></div>
+    <div><span class="feat-title">防潑水處理</span><span class="feat-sub">DWR Coating</span></div>
+  </div>
+  <div class="feat">
+    <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <div><span class="feat-title">終身修補</span><span class="feat-sub">Lifetime Repair</span></div>
+  </div>
+  <div class="feat">
+    <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+    <div><span class="feat-title">台灣製造</span><span class="feat-sub">Made in Taiwan</span></div>
+  </div>
+</div>
 
-<!-- CATEGORIES -->
+<!-- ── CATEGORIES ── -->
 <section class="cat-section reveal">
-  <div class="cat-item">
-    <div><span class="cat-zh">外套</span><span class="cat-en">Outerwear</span></div>
-    <span class="cat-count">12 件</span>
+  <div class="sec-head">
+    <div>
+      <div class="sec-label">CATEGORIES // 品類</div>
+      <div class="sec-title">裝備選擇</div>
+    </div>
+    <a href="#" class="sec-link">全覽 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
-  <div class="cat-item">
-    <div><span class="cat-zh">上衣</span><span class="cat-en">Tops</span></div>
-    <span class="cat-count">18 件</span>
-  </div>
-  <div class="cat-item">
-    <div><span class="cat-zh">褲子</span><span class="cat-en">Bottoms</span></div>
-    <span class="cat-count">9 件</span>
-  </div>
-  <div class="cat-item">
-    <div><span class="cat-zh">配件</span><span class="cat-en">Accessories</span></div>
-    <span class="cat-count">6 件</span>
+  <div class="cat-grid">
+    <a href="#" class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 58 68" fill="none" stroke="currentColor" width="28" height="32"><path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/></svg></div>
+      <span class="cat-num">// 12 items</span>
+      <span class="cat-zh">外套</span>
+      <span class="cat-en">Outerwear</span>
+      <span class="cat-bg-num">01</span>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 54 62" fill="none" stroke="currentColor" width="28" height="32"><path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/></svg></div>
+      <span class="cat-num">// 18 items</span>
+      <span class="cat-zh">上衣</span>
+      <span class="cat-en">Tops</span>
+      <span class="cat-bg-num">02</span>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 48 68" fill="none" stroke="currentColor" width="24" height="32"><path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/><line x1="6" y1="4" x2="42" y2="4"/></svg></div>
+      <span class="cat-num">// 9 items</span>
+      <span class="cat-zh">褲子</span>
+      <span class="cat-en">Bottoms</span>
+      <span class="cat-bg-num">03</span>
+    </a>
+    <a href="#" class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0118 0"/></svg></div>
+      <span class="cat-num">// 6 items</span>
+      <span class="cat-zh">配件</span>
+      <span class="cat-en">Accessories</span>
+      <span class="cat-bg-num">04</span>
+    </a>
   </div>
 </section>
 
-<!-- DIVIDER -->
-<div class="notch-div"><span>精選商品 · Selected</span></div>
-
-<!-- PRODUCTS -->
+<!-- ── PRODUCTS ── -->
 <section class="prod-section reveal" id="products">
-  <div class="prod-filter" style="margin-top:32px;">
-    <button class="pf-btn on" onclick="pf(this)">全部</button>
-    <button class="pf-btn" onclick="pf(this)">外套</button>
-    <button class="pf-btn" onclick="pf(this)">上衣</button>
-    <button class="pf-btn" onclick="pf(this)">褲子</button>
+  <div class="sec-head" style="margin-bottom:0;">
+    <div>
+      <div class="sec-label">SELECTED // 精選商品</div>
+      <div class="sec-title">新品入庫</div>
+    </div>
+  </div>
+  <div class="prod-filters">
+    <button class="pf on" onclick="pf(this)">ALL</button>
+    <button class="pf" onclick="pf(this)">外套</button>
+    <button class="pf" onclick="pf(this)">上衣</button>
+    <button class="pf" onclick="pf(this)">褲子</button>
   </div>
   <div class="prod-grid">
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg wa">
-          <svg width="64" height="76" viewBox="0 0 58 68" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g1">
+          <svg width="66" height="80" viewBox="0 0 58 68" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/></svg>
         </div>
-        <span class="p-badge pb-new">New</span>
+        <div class="p-hud">
+          <div class="p-badge-wrap">
+            <span class="tag">NEW</span>
+          </div>
+          <span class="p-spec">GTX-PRO</span>
+        </div>
       </div>
-      <div class="p-name">山野防風外套</div>
-      <span class="p-mat">再生尼龍 · 防潑水</span>
-      <span class="p-price">NT$4,800</span>
+      <div class="p-info">
+        <div class="p-name">山野防風外套</div>
+        <span class="p-mat">RECYCLED NYLON // DWR</span>
+        <div class="p-price-row"><span class="p-price">NT$4,800</span></div>
+      </div>
     </a>
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg wb">
-          <svg width="64" height="76" viewBox="0 0 58 68" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/>
-            <line x1="16" y1="38" x2="42" y2="38"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g2">
+          <svg width="66" height="80" viewBox="0 0 58 68" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M10 10 L4 26 L16 30 L16 62 L42 62 L42 30 L54 26 L48 10 L36 18C33 22 25 22 22 18Z"/><line x1="16" y1="38" x2="42" y2="38"/></svg>
         </div>
-        <span class="p-badge pb-eco">永續</span>
+        <div class="p-hud">
+          <div class="p-badge-wrap">
+            <span class="tag">ECO</span>
+          </div>
+          <span class="p-spec">FLEECE-R</span>
+        </div>
       </div>
-      <div class="p-name">苔原刷毛外套</div>
-      <span class="p-mat">回收羊毛絨</span>
-      <span class="p-price">NT$3,200</span>
+      <div class="p-info">
+        <div class="p-name">苔原刷毛外套</div>
+        <span class="p-mat">RECYCLED WOOL // 2-WAY</span>
+        <div class="p-price-row"><span class="p-price">NT$3,200</span></div>
+      </div>
     </a>
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg wc">
-          <svg width="60" height="70" viewBox="0 0 54 62" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g3">
+          <svg width="62" height="74" viewBox="0 0 54 62" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M8 8 L0 22 L14 26 L14 58 L40 58 L40 26 L54 22 L46 8 L34 14C31 18 23 18 20 14Z"/></svg>
         </div>
-        <span class="p-badge pb-sale">特惠</span>
+        <div class="p-hud">
+          <div class="p-badge-wrap">
+            <span class="tag tag-amber">SALE</span>
+          </div>
+          <span class="p-spec">UPF-50+</span>
+        </div>
       </div>
-      <div class="p-name">曠野長袖上衣</div>
-      <span class="p-mat">有機棉 · 抗UV</span>
-      <span class="p-price">NT$1,480 <span class="p-orig">NT$1,880</span></span>
+      <div class="p-info">
+        <div class="p-name">曠野長袖上衣</div>
+        <span class="p-mat">ORGANIC COTTON // UV</span>
+        <div class="p-price-row"><span class="p-price">NT$1,480</span><span class="p-orig">NT$1,880</span></div>
+      </div>
     </a>
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg wd">
-          <svg width="60" height="70" viewBox="0 0 54 62" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M10 6 L2 20 L16 24 L16 56 L38 56 L38 24 L52 20 L44 6 L34 12C31 15 23 15 20 12Z"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g4">
+          <svg width="62" height="74" viewBox="0 0 54 62" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M10 6 L2 20 L16 24 L16 56 L38 56 L38 24 L52 20 L44 6 L34 12C31 15 23 15 20 12Z"/></svg>
+        </div>
+        <div class="p-hud">
+          <div class="p-badge-wrap">
+            <span class="tag">BEST</span>
+          </div>
+          <span class="p-spec">ORGANIC</span>
         </div>
       </div>
-      <div class="p-name">林徑短袖 T 恤</div>
-      <span class="p-mat">100% 有機棉</span>
-      <span class="p-price">NT$980</span>
+      <div class="p-info">
+        <div class="p-name">林徑短袖 T 恤</div>
+        <span class="p-mat">100% ORGANIC COTTON</span>
+        <div class="p-price-row"><span class="p-price">NT$980</span></div>
+      </div>
     </a>
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg we">
-          <svg width="52" height="78" viewBox="0 0 48 68" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/>
-            <line x1="6" y1="4" x2="42" y2="4"/>
-            <rect x="8" y="12" width="9" height="6" rx="1"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g5">
+          <svg width="54" height="82" viewBox="0 0 48 68" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/><line x1="6" y1="4" x2="42" y2="4"/><rect x="8" y="12" width="9" height="6" rx="1"/></svg>
         </div>
-        <span class="p-badge pb-eco">永續</span>
+        <div class="p-hud">
+          <div class="p-badge-wrap">
+            <span class="tag">ECO</span>
+          </div>
+          <span class="p-spec">CARGO-4P</span>
+        </div>
       </div>
-      <div class="p-name">溪谷工裝褲</div>
-      <span class="p-mat">再生棉混紡</span>
-      <span class="p-price">NT$3,600</span>
+      <div class="p-info">
+        <div class="p-name">溪谷工裝褲</div>
+        <span class="p-mat">RECYCLED COTTON MIX</span>
+        <div class="p-price-row"><span class="p-price">NT$3,600</span></div>
+      </div>
     </a>
 
-    <a href="#" class="prod-card">
-      <div class="p-img-wrap">
-        <div class="p-img-bg wf">
-          <svg width="52" height="78" viewBox="0 0 48 68" fill="none" stroke="rgba(46,42,38,0.22)" stroke-width="1">
-            <path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/>
-            <line x1="6" y1="4" x2="42" y2="4"/>
-          </svg>
+    <a href="#" class="p-card">
+      <div class="p-img">
+        <div class="p-img-bg g6">
+          <svg width="54" height="82" viewBox="0 0 48 68" fill="none" stroke="var(--signal)" stroke-width="0.8"><path d="M6 4 L4 36 L14 68 L24 68 L24 38 L24 68 L34 68 L44 36 L42 4Z"/><line x1="6" y1="4" x2="42" y2="4"/></svg>
+        </div>
+        <div class="p-hud">
+          <span class="p-spec">QUICK-DRY</span>
         </div>
       </div>
-      <div class="p-name">岩壁輕量長褲</div>
-      <span class="p-mat">彈性尼龍 · 快乾</span>
-      <span class="p-price">NT$2,800</span>
+      <div class="p-info">
+        <div class="p-name">岩壁輕量長褲</div>
+        <span class="p-mat">STRETCH NYLON // QD</span>
+        <div class="p-price-row"><span class="p-price">NT$2,800</span></div>
+      </div>
     </a>
 
   </div>
-  <div style="text-align:center;margin-top:40px;">
-    <a href="#" style="font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--dust);border-bottom:1px solid var(--fog);padding-bottom:3px;font-style:italic;">全部商品 · View All</a>
+  <div style="text-align:center;margin-top:28px;">
+    <a href="#" class="sec-link" style="justify-content:center;">VIEW ALL PRODUCTS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="10" height="10"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 
-<!-- WABI PHILOSOPHY -->
-<section class="wabi-section reveal" id="wabi">
-  <span class="w-label">Philosophy · 侘寂美學</span>
-  <p class="w-quote">
-    不完整，<br>
-    才是<em>真實</em>的美。<br>
-    每一件衣服，<br>
-    都帶著時間的痕跡。
+<!-- ── MISSION ── -->
+<div class="mission reveal" id="mission">
+  <span class="mission-num">// MISSION.001</span>
+  <h2 class="mission-h">
+    為<span class="hl">荒野</span>而生<br>
+    為日常而留
+  </h2>
+  <p class="mission-body">
+    每一件原野日常的服飾，都在山徑與城市的交界設計。我們不造快消品——只做值得修補、值得傳下去的裝備。
   </p>
-  <div class="w-dots">
-    <div class="w-dot"></div>
-    <div class="w-dot"></div>
-    <div class="w-dot"></div>
+  <div class="mission-specs">
+    <div class="mspec">FSC 認證永續材質，100% 可追溯來源</div>
+    <div class="mspec">台灣在地職人縫製，每件限量生產</div>
+    <div class="mspec">終身免費修補服務，對抗快消文化</div>
+    <div class="mspec">每售出一件，種植一棵樹</div>
   </div>
-  <p class="w-body">
-    原野日常以侘寂精神造衣——接受布料的細微不均、縫線的手工感，以及穿著後慢慢形成的皺折與褪色。這不是瑕疵，是生命的印記。
-  </p>
-  <a href="#" class="w-link">
-    閱讀品牌理念
+  <a href="#" class="mission-link">
+    完整品牌使命
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
-</section>
+  <div class="mission-corner"></div>
+</div>
 
-<!-- JOURNAL -->
-<div class="notch-div" style="margin-top:0;"><span>原野誌 · Journal</span></div>
+<!-- ── JOURNAL ── -->
 <section class="journal-section reveal">
-  <span class="s-label">近期文章</span>
+  <div style="padding-right:16px;">
+    <div class="sec-label">JOURNAL // 原野誌</div>
+    <div class="sec-title">近期內容</div>
+  </div>
   <div class="j-scroll">
     <a href="#" class="j-card">
       <div class="j-img ji1">
         <div class="j-img-inner"></div>
-        <span class="j-issue">No. 014</span>
+        <div class="j-label"><span class="tag">穿搭指南</span></div>
       </div>
-      <span class="j-cat">穿搭指南</span>
-      <span class="j-title">一件外套從百岳<br>穿到市區的方式</span>
+      <div class="j-body">
+        <span class="j-cat">ISSUE // 014</span>
+        <span class="j-title">一件外套從<br>百岳到市區</span>
+      </div>
     </a>
     <a href="#" class="j-card">
       <div class="j-img ji2">
         <div class="j-img-inner"></div>
-        <span class="j-issue">No. 013</span>
+        <div class="j-label"><span class="tag">永續製衣</span></div>
       </div>
-      <span class="j-cat">永續製衣</span>
-      <span class="j-title">再生纖維如何變成<br>你身上這件衣服</span>
+      <div class="j-body">
+        <span class="j-cat">ISSUE // 013</span>
+        <span class="j-title">再生纖維的<br>製造工序</span>
+      </div>
     </a>
     <a href="#" class="j-card">
       <div class="j-img ji3">
         <div class="j-img-inner"></div>
-        <span class="j-issue">No. 012</span>
+        <div class="j-label"><span class="tag tag-amber">職人訪談</span></div>
       </div>
-      <span class="j-cat">職人訪談</span>
-      <span class="j-title">與台灣縫製師傅<br>的一日工坊</span>
+      <div class="j-body">
+        <span class="j-cat">ISSUE // 012</span>
+        <span class="j-title">台灣縫製師傅<br>一日工坊</span>
+      </div>
     </a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer class="reveal">
-  <span class="ft-mark" aria-hidden="true">野</span>
+  <div class="ft-logo-row">
+    <span class="ft-brand">原野日常</span>
+    <div class="ft-tagline">
+      <span>WILDLAND LIVING CO., LTD.</span>
+      <span>FOR THE WILD // MADE IN TAIWAN</span>
+    </div>
+  </div>
   <div class="ft-grid">
     <div class="ft-group">
-      <h6>服飾</h6>
+      <h6>// 服飾</h6>
       <ul>
-        <li><a href="#">外套</a></li>
-        <li><a href="#">上衣</a></li>
-        <li><a href="#">褲子</a></li>
-        <li><a href="#">配件</a></li>
+        <li><a href="#">外套 Outerwear</a></li>
+        <li><a href="#">上衣 Tops</a></li>
+        <li><a href="#">褲子 Bottoms</a></li>
+        <li><a href="#">配件 Accessories</a></li>
       </ul>
     </div>
     <div class="ft-group">
-      <h6>品牌</h6>
+      <h6>// 品牌</h6>
       <ul>
-        <li><a href="#">品牌故事</a></li>
-        <li><a href="#">侘寂美學</a></li>
+        <li><a href="#">品牌使命</a></li>
         <li><a href="#">永續承諾</a></li>
+        <li><a href="#">原野誌</a></li>
       </ul>
     </div>
     <div class="ft-group">
-      <h6>服務</h6>
+      <h6>// 服務</h6>
       <ul>
         <li><a href="#">訂單查詢</a></li>
         <li><a href="#">尺寸指南</a></li>
@@ -716,7 +1206,7 @@ footer{
       </ul>
     </div>
     <div class="ft-group">
-      <h6>資訊</h6>
+      <h6>// 資訊</h6>
       <ul>
         <li><a href="#">隱私政策</a></li>
         <li><a href="#">服務條款</a></li>
@@ -726,44 +1216,61 @@ footer{
   </div>
   <div class="ft-bottom">
     <div class="ft-social">
-      <a href="#" aria-label="Instagram">
+      <a href="#" class="ft-soc" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
       </a>
-      <a href="#" aria-label="LINE">
+      <a href="#" class="ft-soc" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#" class="ft-soc" aria-label="LINE">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
       </a>
     </div>
-    <span class="ft-copy">© 2025 原野日常 · 台灣製造</span>
+    <span class="ft-copy">© 2025 原野日常</span>
   </div>
 </footer>
 
 </main>
 
-<!-- BOTTOM NAV -->
+<!-- ── BOTTOM NAV ── -->
 <nav class="bnav" aria-label="主導覽">
-  <button class="nb on" onclick="nb(this)">
+  <button class="nb on" onclick="setNb(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span class="nb-lbl">首頁</span>
+    <span class="nb-lbl">Home</span>
   </button>
-  <button class="nb" onclick="nb(this)">
+  <button class="nb" onclick="setNb(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    <span class="nb-lbl">品類</span>
+    <span class="nb-lbl">Shop</span>
   </button>
-  <button class="nb" onclick="nb(this)">
+  <button class="nb" onclick="setNb(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-    <span class="nb-lbl">收藏</span>
+    <span class="nb-lbl">Saved</span>
   </button>
-  <button class="nb" onclick="nb(this)">
+  <button class="nb" onclick="setNb(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span class="nb-lbl">我的</span>
+    <span class="nb-lbl">Profile</span>
   </button>
 </nav>
 
 <script>
-function nb(btn){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-function pf(btn){document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.08});
+function setNb(btn){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function pf(btn){document.querySelectorAll('.pf').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+document.getElementById('cartBtn').addEventListener('click',()=>{document.getElementById('cartDot').classList.toggle('on');});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Simulate altitude counter in hero
+let alt = 0;
+const altEl = document.querySelector('.hero-coords span:nth-child(3)');
+if(altEl){
+  const target = 2451;
+  const step = ()=>{ if(alt<target){alt=Math.min(alt+Math.floor(Math.random()*80+40),target);altEl.textContent='ALT  '+alt.toLocaleString()+'m';if(alt<target)setTimeout(step,60);} };
+  setTimeout(step,1200);
+}
 </script>
 </body>
 </html>
