@@ -26,6 +26,7 @@
 }
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--dark);font-family:'Noto Sans TC',sans-serif;font-weight:300;max-width:390px;margin:0 auto;position:relative;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;height:52px;background:#141910;z-index:99;pointer-events:none}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:100;background:transparent;border-bottom:0.5px solid transparent;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;transition:background 0.35s,border-color 0.35s,backdrop-filter 0.35s}
@@ -41,7 +42,7 @@ nav.scrolled .nav-icon{color:var(--dark)}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
 
 /* ── HERO ── */
-.hero{margin-top:52px;height:100svh;max-height:660px;min-height:580px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero{margin-top:0;padding-top:52px;height:100svh;max-height:660px;min-height:580px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
 .hero-bg{position:absolute;inset:0;
   background-image:url('images/hero-forest.jpg');
   background-size:cover;background-position:center 40%;
@@ -52,12 +53,12 @@ nav.scrolled .nav-icon{color:var(--dark)}
     rgba(20,26,18,0.0) 30%,
     rgba(20,26,18,0.55) 65%,
     rgba(20,26,18,0.92) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 24px 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-content{position:relative;z-index:2;padding:0 32px 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .hero-label{font-size:8px;letter-spacing:6px;color:var(--sand);text-transform:uppercase;opacity:0.45;margin-bottom:24px;font-weight:300;font-family:'Noto Sans TC',sans-serif}
 .hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.6;letter-spacing:10px;margin:0}
 .hero-rule{width:1px;height:36px;background:var(--sand);opacity:0.3;margin:22px auto}
 .hero-en{font-size:9px;letter-spacing:3px;color:rgba(232,226,216,0.32);text-transform:uppercase;margin:0 0 34px;line-height:1.9;font-family:'Noto Sans TC',sans-serif}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 26px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 26px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3}
 .hero-cta:active{background:rgba(200,184,154,0.1)}
 .hero-cta-arrow{opacity:0.5;margin-left:2px}
 
