@@ -30,10 +30,10 @@ body{background:var(--white);color:var(--dark);font-family:'Noto Sans TC',sans-s
 /* ── NAV ── */
 nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:100;background:transparent;border-bottom:0.5px solid transparent;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;transition:background 0.35s,border-color 0.35s,backdrop-filter 0.35s}
 nav.scrolled{background:rgba(253,252,250,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:0.5px solid rgba(74,82,64,0.12)}
-.logo-mark{display:flex;flex-direction:column;line-height:1}
-.logo-cn{font-family:'Noto Serif TC',serif;font-size:13px;font-weight:400;color:var(--white);letter-spacing:2px;transition:color 0.35s}
+.logo-mark{display:flex;flex-direction:column;gap:4px}
+.logo-cn{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:400;color:var(--white);letter-spacing:4px;transition:color 0.35s}
 nav.scrolled .logo-cn{color:var(--green)}
-.logo-en{font-size:8px;letter-spacing:3px;color:rgba(232,226,216,0.55);font-weight:400;text-transform:uppercase;margin-top:1px;transition:color 0.35s}
+.logo-en{font-size:8px;letter-spacing:4px;color:rgba(232,226,216,0.5);font-weight:400;text-transform:uppercase;transition:color 0.35s}
 nav.scrolled .logo-en{color:var(--sand)}
 .nav-icons{display:flex;gap:18px;align-items:center}
 .nav-icon{cursor:pointer;color:rgba(255,255,255,0.85);font-size:20px;position:relative;background:none;border:none;padding:4px;-webkit-tap-highlight-color:transparent;transition:color 0.35s}
