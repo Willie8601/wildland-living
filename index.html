@@ -139,6 +139,30 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 .footer-divider{height:0.5px;background:rgba(232,226,216,0.1);margin-bottom:20px}
 .footer-copy{font-size:10px;color:rgba(232,226,216,0.25);text-align:center;letter-spacing:1px}
 
+/* ── PRODUCT MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.55);z-index:300;align-items:flex-end}
+.modal-overlay.open{display:flex}
+.modal-panel{background:var(--white);width:100%;max-width:390px;margin:0 auto;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open .modal-panel{transform:translateY(0)}
+.modal-img{width:100%;aspect-ratio:1/1;background:#F0EDE8;position:relative;overflow:hidden}
+.modal-img img{width:100%;height:100%;object-fit:contain;padding:20px}
+.modal-tag{position:absolute;top:14px;left:14px;background:var(--green);color:var(--white);font-size:9px;letter-spacing:2px;padding:4px 9px}
+.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(44,44,42,0.55);border:none;color:#fff;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.modal-body{padding:22px 24px 36px}
+.modal-label{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:6px}
+.modal-name{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:300;color:var(--green);line-height:1.4;margin-bottom:14px}
+.modal-desc{font-size:12px;color:#777;line-height:1.9;margin-bottom:18px;padding-bottom:18px;border-bottom:0.5px solid var(--cream)}
+.modal-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.modal-meta-item{background:var(--light);padding:12px 14px}
+.modal-meta-label{font-size:9px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin-bottom:4px}
+.modal-meta-value{font-size:13px;color:var(--dark);font-weight:400}
+.modal-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:20px}
+.modal-price{font-size:22px;font-weight:500;color:var(--green)}
+.modal-orig{font-size:13px;color:#ccc;text-decoration:line-through}
+.modal-save{font-size:11px;color:#a0826a;background:#f5ede6;padding:3px 8px}
+.modal-add-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:16px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.modal-add-btn:active{background:#3a4132}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--green);color:var(--white);padding:10px 20px;font-size:12px;letter-spacing:1px;opacity:0;transition:all 0.3s;z-index:300;pointer-events:none;white-space:nowrap;border-radius:2px}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -222,126 +246,103 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
     <p class="sec-desc" style="margin-bottom:0">來自植物萃取，用完可以安心入土。<br>少帶一點，走得更遠。</p>
   </div>
   <div class="product-scroll" id="productScroll">
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
+
+    <div class="product-card" onclick="openModal(0)">
+      <div class="product-img" style="background:#F0EDE8">
         <img src="images/xxx-v5.png" alt="Men's XXX Organic Tee">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：L｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Men's XXX Organic Tee</p>
-        <p class="product-desc">三十年製衣經驗，重磅有機棉，越穿越有質感的經典單品</p>
+        <p class="product-desc">三十年製衣經驗，重磅有機棉，越穿越有質感</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$1,100</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$1,579</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物車">
+          <span class="product-price">NT$1,100</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
+
+    <div class="product-card" onclick="openModal(1)">
+      <div class="product-img" style="background:#F0EDE8">
         <img src="images/mrt-v5.png" alt="Men's Mr T Organic T-shirt">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(26,42,64,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：L｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Men's Mr T Organic T-shirt</p>
-        <p class="product-desc">100% 有機棉，環保染料，簡約質感與耐穿性的永續經典</p>
+        <p class="product-desc">100% 有機棉，環保染料，簡約質感永續經典</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$1,100</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$1,579</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Men\'s Mr T Organic T-shirt',1100)" aria-label="加入購物車">
+          <span class="product-price">NT$1,100</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Mr T Organic T-shirt',1100)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
+
+    <div class="product-card" onclick="openModal(2)">
+      <div class="product-img" style="background:#F0EDE8">
         <img src="images/greta-v3.png" alt="Women's Greta Organic Hoody">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：M｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Women's Greta Organic Hoody</p>
-        <p class="product-desc">有機棉刷毛布料，簡約雙層連帽，四季皆宜的永續保暖選擇</p>
+        <p class="product-desc">有機棉刷毛，簡約雙層連帽，四季皆宜保暖</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$1,800</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$2,590</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Women\'s Greta Organic Hoody',1800)" aria-label="加入購物車">
+          <span class="product-price">NT$1,800</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Women\'s Greta Organic Hoody',1800)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
+
+    <div class="product-card" onclick="openModal(3)">
+      <div class="product-img" style="background:#F0EDE8">
         <img src="images/ystwyth-v2.png" alt="Ystwyth Active Jacket">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">尺寸：M｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Ystwyth Active Jacket</p>
-        <p class="product-desc">再生塑料製成，無氟撥水，輕便好收納的永續戶外外套</p>
+        <p class="product-desc">再生塑料製成，無氟撥水，輕便好收納戶外外套</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$2,500</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$3,685</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物車">
+          <span class="product-price">NT$2,500</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
-        <img src="images/merino-red-v1.png" alt="Men's Long Sleeved Merino T-shirt Port Royale">
+
+    <div class="product-card" onclick="openModal(4)">
+      <div class="product-img" style="background:#F0EDE8">
+        <img src="images/merino-red-v1.png" alt="Men's Merino LS T-shirt 深紅">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">深紅 M｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Men's Merino LS T-shirt</p>
-        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
+        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣永續長袖</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$3,500</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$5,090</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Men\'s Merino LS T-shirt (深紅 M)',3500)" aria-label="加入購物車">
+          <span class="product-price">NT$3,500</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深紅 M)',3500)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-img" style="background:#F0EDE8;position:relative;overflow:hidden">
-        <img src="images/merino-navy-v1.png" alt="Men's Long Sleeved Merino T-shirt Total Eclipse">
+
+    <div class="product-card" onclick="openModal(5)">
+      <div class="product-img" style="background:#F0EDE8">
+        <img src="images/merino-navy-v1.png" alt="Men's Merino LS T-shirt 深藍">
         <span class="product-tag">熱銷</span>
-        <span style="position:absolute;bottom:10px;right:10px;background:rgba(44,44,42,0.6);color:#E8E2D8;font-size:9px;letter-spacing:1px;padding:3px 7px">深藍 L｜庫存：1</span>
       </div>
       <div class="product-info">
-        <p class="product-name">Men's Merino LS T-shirt</p>
-        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
+        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣永續長袖</p>
         <div class="product-bottom">
-          <div>
-            <span class="product-price">NT$3,500</span>
-            <span style="font-size:11px;color:#bbb;text-decoration:line-through;margin-left:6px">NT$5,090</span>
-          </div>
-          <button class="add-btn" onclick="addToCart('Men\'s Merino LS T-shirt (深藍 L)',3500)" aria-label="加入購物車">
+          <span class="product-price">NT$3,500</span>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深藍 L)',3500)" aria-label="加入購物車">
             <i class="ti ti-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>
     </div>
+
   </div>
   <div class="scroll-dots">
     <div class="dot active" id="d0"></div>
@@ -422,6 +423,38 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <p class="footer-copy">© 2025 原野日常有限公司 · Wildland Living Co., Ltd.</p>
 </footer>
 
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleModalOverlayClick(event)">
+  <div class="modal-panel" id="modalPanel">
+    <div class="modal-img" id="modalImg">
+      <img id="modalImgSrc" src="" alt="">
+      <span class="modal-tag" id="modalTag"></span>
+      <button class="modal-close" onclick="closeModal()" aria-label="關閉"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-label" id="modalLabel"></p>
+      <h2 class="modal-name" id="modalName"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-meta">
+        <div class="modal-meta-item">
+          <p class="modal-meta-label">尺寸</p>
+          <p class="modal-meta-value" id="modalSize"></p>
+        </div>
+        <div class="modal-meta-item">
+          <p class="modal-meta-label">庫存</p>
+          <p class="modal-meta-value" id="modalStock"></p>
+        </div>
+      </div>
+      <div class="modal-price-row">
+        <span class="modal-price" id="modalPrice"></span>
+        <span class="modal-orig" id="modalOrig"></span>
+        <span class="modal-save" id="modalSave"></span>
+      </div>
+      <button class="modal-add-btn" id="modalAddBtn">加入購物車</button>
+    </div>
+  </div>
+</div>
+
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-panel" id="cartPanel">
@@ -452,6 +485,56 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 <div class="toast" id="toast"></div>
 
 <script>
+const products = [
+  { label:'有機棉系列', name:"Men's XXX Organic Tee", img:'images/xxx-v5.png', tag:'熱銷',
+    desc:'這款 XXX T恤結合了三十年的製衣經驗，以全新剪裁搭配重磅細節與有機棉料，打造出極致耐穿且越穿越有質感的經典單品。The XXX T-shirt combines 30 years of expertise with a custom fit and premium organic cotton to create a durable, high-quality essential that ages beautifully.',
+    size:'L', stock:'1 件', price:1100, orig:1579, cartName:"Men's XXX Organic Tee" },
+  { label:'有機棉系列', name:"Men's Mr T Organic T-shirt", img:'images/mrt-v5.png', tag:'熱銷',
+    desc:'這款經典 T 恤採用友善環境的 100% 有機棉與環保染料，透過精細的縫製工法，將簡約質感與耐穿性完美結合，成就日常穿搭中的永續經典。Crafted from 100% organic cotton with eco-friendly dyes, this tee combines refined construction with a sustainable focus.',
+    size:'L', stock:'1 件', price:1100, orig:1579, cartName:"Men's Mr T Organic T-shirt" },
+  { label:'有機棉系列', name:"Women's Greta Organic Hoody", img:'images/greta-v3.png', tag:'熱銷',
+    desc:'這款 Greta 連帽衫採用高品質有機棉刷毛布料，結合簡約的雙層連帽設計與環保製程，為四季穿搭提供極致柔軟且友善環境的保暖選擇。The Greta hoodie features premium organic cotton fleece and eco-friendly construction, offering a soft, sustainable layering essential.',
+    size:'M', stock:'1 件', price:1800, orig:2590, cartName:"Women's Greta Organic Hoody" },
+  { label:'機能系列', name:'Ystwyth Active Jacket (Unisex)', img:'images/ystwyth-v2.png', tag:'熱銷',
+    desc:'這款 Ystwyth 防風外套完全由再生塑料製成，結合耐磨抗撕裂布料、無氟環保撥水塗層與機能口袋設計，是一款輕便好收納且兼顧環境永續的戶外單品。The Ystwyth is a durable, windproof shell crafted from recycled plastic bottles, featuring a PFC-free water-repellent finish.',
+    size:'M', stock:'1 件', price:2500, orig:3685, cartName:'Ystwyth Active Jacket' },
+  { label:'美利奴羊毛系列', name:"Men's Long Sleeved Merino T-shirt", img:'images/merino-red-v1.png', tag:'熱銷',
+    desc:'這款熱銷長袖 T 恤採用 100% 美利奴羊毛，具備卓越的天然控溫與透氣排汗機能，以簡約的經典剪裁提供全天候的舒適與永續穿著體驗。Our best-selling long-sleeve tee is crafted from 100% Merino wool, offering natural moisture-wicking and thermal regulation.',
+    size:'深紅 M', stock:'1 件', price:3500, orig:5090, cartName:"Men's Merino LS T-shirt (深紅 M)" },
+  { label:'美利奴羊毛系列', name:"Men's Long Sleeved Merino T-shirt", img:'images/merino-navy-v1.png', tag:'熱銷',
+    desc:'這款熱銷長袖 T 恤採用 100% 美利奴羊毛，具備卓越的天然控溫與透氣排汗機能，以簡約的經典剪裁提供全天候的舒適與永續穿著體驗。Our best-selling long-sleeve tee is crafted from 100% Merino wool, offering natural moisture-wicking and thermal regulation.',
+    size:'深藍 L', stock:'1 件', price:3500, orig:5090, cartName:"Men's Merino LS T-shirt (深藍 L)" },
+];
+
+function openModal(idx) {
+  const p = products[idx];
+  document.getElementById('modalImgSrc').src = p.img;
+  document.getElementById('modalImgSrc').alt = p.name;
+  document.getElementById('modalTag').textContent = p.tag;
+  document.getElementById('modalLabel').textContent = p.label;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalSize').textContent = p.size;
+  document.getElementById('modalStock').textContent = p.stock;
+  document.getElementById('modalPrice').textContent = 'NT$' + p.price.toLocaleString();
+  document.getElementById('modalOrig').textContent = 'NT$' + p.orig.toLocaleString();
+  const save = Math.round((1 - p.price/p.orig)*100);
+  document.getElementById('modalSave').textContent = '省 ' + save + '%';
+  document.getElementById('modalAddBtn').onclick = () => { addToCart(p.cartName, p.price); closeModal(); };
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleModalOverlayClick(e) {
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
 let cart = [];
 
 function addToCart(name, price) {
