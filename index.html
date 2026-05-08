@@ -37,21 +37,22 @@ nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-widt
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
 
 /* ── HERO ── */
-.hero{margin-top:60px;height:100svh;max-height:680px;min-height:600px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero{margin-top:60px;height:100svh;max-height:680px;min-height:600px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .hero-bg{position:absolute;inset:0;
-  background-image:url('https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&q=90&fit=crop&crop=center');
-  background-size:cover;background-position:center center;
-  filter:brightness(0.38) saturate(0.7)}
+  background-image:url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1200&q=90&fit=crop&crop=top');
+  background-size:cover;background-position:center top;
+  filter:brightness(0.35) saturate(0.6)}
 .hero-overlay{position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(15,22,12,0) 35%,rgba(15,22,12,0.92) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 28px 52px;display:flex;flex-direction:column;align-items:flex-start}
-.hero-kicker{font-size:9px;letter-spacing:5px;color:var(--sand);text-transform:uppercase;opacity:0.5;margin-bottom:28px;font-weight:300}
-.hero-title{font-family:'Noto Serif TC',serif;font-size:64px;font-weight:300;color:var(--white);line-height:1.1;letter-spacing:8px;margin-bottom:24px;writing-mode:horizontal-tb}
+  background:linear-gradient(to bottom,rgba(10,16,8,0.3) 0%,rgba(10,16,8,0.1) 40%,rgba(10,16,8,0.75) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 24px 52px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-kicker{font-size:8px;letter-spacing:6px;color:var(--sand);text-transform:uppercase;opacity:0.45;margin-bottom:36px;font-weight:300}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:42px;font-weight:300;color:var(--white);line-height:1.9;letter-spacing:10px;margin-bottom:0}
 .hero-title span{display:block}
-.hero-desc{font-size:9px;color:rgba(232,226,216,0.35);letter-spacing:3px;text-transform:uppercase;line-height:2.2;margin-bottom:40px}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;background:transparent;color:rgba(232,226,216,0.8);border:0.5px solid rgba(200,184,154,0.35);padding:13px 24px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s}
-.hero-cta:active{background:rgba(200,184,154,0.1);border-color:rgba(200,184,154,0.7)}
-.hero-cta-arrow{font-size:13px;opacity:0.6}
+.hero-rule{width:1px;height:40px;background:rgba(200,184,154,0.35);margin:28px auto}
+.hero-desc{font-size:9px;color:rgba(232,226,216,0.35);letter-spacing:3.5px;text-transform:uppercase;line-height:2.4;margin-bottom:40px}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.3);padding:13px 28px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s}
+.hero-cta:active{background:rgba(200,184,154,0.1);border-color:rgba(200,184,154,0.65)}
+.hero-cta-arrow{font-size:13px;opacity:0.55}
 
 /* ── SECTIONS ── */
 section{padding:44px 24px}
@@ -226,12 +227,12 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <div class="hero-content">
     <p class="hero-kicker">Wildland Living</p>
     <h1 class="hero-title">
-      <span>取</span>
-      <span>之</span>
-      <span>大</span>
-      <span>地</span>
+      <span>取之大地</span>
+      <span>用之日常</span>
+      <span>還之自然</span>
     </h1>
-    <p class="hero-desc">From the earth.&nbsp; For the everyday.&nbsp; Back to nature.</p>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">From the earth<br>For the everyday<br>Back to nature</p>
     <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
       探索選品 <span class="hero-cta-arrow">→</span>
     </button>
