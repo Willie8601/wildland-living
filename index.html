@@ -67,20 +67,21 @@ section{padding:44px 24px}
 .products-header{padding:0 24px 24px}
 .product-scroll{display:flex;gap:14px;padding:0 24px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .product-scroll::-webkit-scrollbar{display:none}
-.product-card{min-width:210px;scroll-snap-align:start;cursor:pointer}
-.product-img{height:260px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.product-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
-.product-img-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.prod-placeholder{width:80px;height:80px;border-radius:50%;background:rgba(74,82,64,0.1);display:flex;align-items:center;justify-content:center}
-.prod-placeholder i{font-size:32px;color:var(--green);opacity:0.4}
-.product-tag{position:absolute;top:12px;left:12px;background:var(--green);color:var(--white);font-size:9px;letter-spacing:2px;padding:4px 8px}
-.product-info{padding:14px 0 6px}
-.product-name{font-size:14px;color:var(--dark);margin-bottom:3px;font-weight:400}
-.product-desc{font-size:11px;color:#999;line-height:1.6;margin-bottom:10px}
-.product-bottom{display:flex;align-items:center;justify-content:space-between}
-.product-price{font-size:15px;color:var(--green);font-weight:500}
-.add-btn{width:32px;height:32px;background:var(--green);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background 0.2s;-webkit-tap-highlight-color:transparent}
+.product-card{min-width:200px;scroll-snap-align:start;cursor:pointer;background:var(--white)}
+.product-img{width:200px;height:200px;position:relative;overflow:hidden;background:#F0EDE8;flex-shrink:0}
+.product-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;padding:12px}
+.product-tag{position:absolute;top:10px;left:10px;background:var(--green);color:var(--white);font-size:9px;letter-spacing:2px;padding:3px 7px;z-index:1}
+.product-info{padding:12px 0 8px}
+.product-name{font-size:12px;color:var(--dark);margin-bottom:5px;font-weight:400;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.product-desc{font-size:10px;color:#aaa;line-height:1.6;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:200px}
+.product-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:10px}
+.product-price{font-size:14px;color:var(--green);font-weight:500}
+.product-orig{font-size:10px;color:#ccc;text-decoration:line-through}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;max-width:200px}
+.add-btn{display:flex;align-items:center;gap:5px;background:var(--green);color:var(--white);border:none;cursor:pointer;padding:7px 12px;font-size:10px;letter-spacing:1px;font-family:'Noto Sans TC',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.add-btn i{font-size:12px}
 .add-btn:active{background:#3a4132}
+.detail-link{font-size:10px;color:var(--sand);letter-spacing:1px;text-decoration:none;border-bottom:0.5px solid var(--sand)}
 .scroll-dots{display:flex;gap:6px;padding:16px 24px 0;justify-content:center}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--cream);transition:all 0.3s}
 .dot.active{background:var(--green);width:16px;border-radius:3px}
@@ -248,96 +249,126 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <div class="product-scroll" id="productScroll">
 
     <div class="product-card" onclick="openModal(0)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/xxx-v5.png" alt="Men's XXX Organic Tee">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">三十年製衣經驗，重磅有機棉，越穿越有質感</p>
-        <div class="product-bottom">
+        <p class="product-name">Men's XXX Organic Tee</p>
+        <p class="product-desc">三十年製衣經驗，重磅有機棉，越穿越有質感的經典單品</p>
+        <div class="product-price-row">
           <span class="product-price">NT$1,100</span>
+          <span class="product-orig">NT$1,579</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(0)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
     </div>
 
     <div class="product-card" onclick="openModal(1)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/mrt-v5.png" alt="Men's Mr T Organic T-shirt">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">100% 有機棉，環保染料，簡約質感永續經典</p>
-        <div class="product-bottom">
+        <p class="product-name">Men's Mr T Organic T-shirt</p>
+        <p class="product-desc">100% 有機棉，環保染料，簡約質感與耐穿性的永續經典</p>
+        <div class="product-price-row">
           <span class="product-price">NT$1,100</span>
+          <span class="product-orig">NT$1,579</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(1)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Mr T Organic T-shirt',1100)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
     </div>
 
     <div class="product-card" onclick="openModal(2)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/greta-v3.png" alt="Women's Greta Organic Hoody">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">有機棉刷毛，簡約雙層連帽，四季皆宜保暖</p>
-        <div class="product-bottom">
+        <p class="product-name">Women's Greta Organic Hoody</p>
+        <p class="product-desc">有機棉刷毛布料，簡約雙層連帽，四季皆宜的永續保暖選擇</p>
+        <div class="product-price-row">
           <span class="product-price">NT$1,800</span>
+          <span class="product-orig">NT$2,590</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(2)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Women\'s Greta Organic Hoody',1800)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
     </div>
 
     <div class="product-card" onclick="openModal(3)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/ystwyth-v2.png" alt="Ystwyth Active Jacket">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">再生塑料製成，無氟撥水，輕便好收納戶外外套</p>
-        <div class="product-bottom">
+        <p class="product-name">Ystwyth Active Jacket (Unisex)</p>
+        <p class="product-desc">再生塑料製成，無氟撥水塗層，輕便好收納的永續戶外外套</p>
+        <div class="product-price-row">
           <span class="product-price">NT$2,500</span>
+          <span class="product-orig">NT$3,685</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(3)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
     </div>
 
     <div class="product-card" onclick="openModal(4)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/merino-red-v1.png" alt="Men's Merino LS T-shirt 深紅">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣永續長袖</p>
-        <div class="product-bottom">
+        <p class="product-name">Men's Merino LS T-shirt — Port Royale</p>
+        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
+        <div class="product-price-row">
           <span class="product-price">NT$3,500</span>
+          <span class="product-orig">NT$5,090</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(4)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深紅 M)',3500)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
     </div>
 
     <div class="product-card" onclick="openModal(5)">
-      <div class="product-img" style="background:#F0EDE8">
+      <div class="product-img">
         <img src="images/merino-navy-v1.png" alt="Men's Merino LS T-shirt 深藍">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣永續長袖</p>
-        <div class="product-bottom">
+        <p class="product-name">Men's Merino LS T-shirt — Total Eclipse</p>
+        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
+        <div class="product-price-row">
           <span class="product-price">NT$3,500</span>
+          <span class="product-orig">NT$5,090</span>
+        </div>
+        <div class="product-bottom">
+          <span class="detail-link" onclick="event.stopPropagation();openModal(5)">查看詳情</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深藍 L)',3500)" aria-label="加入購物車">
-            <i class="ti ti-plus" aria-hidden="true"></i>
+            <i class="ti ti-shopping-bag"></i> 加入
           </button>
         </div>
       </div>
