@@ -172,6 +172,17 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 .modal-add-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:16px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300}
 .modal-add-btn:active{background:#3a4132}
 
+.modal-select-label{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:10px}
+.modal-color-row{display:flex;gap:10px;flex-wrap:wrap}
+.modal-color-dot{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.modal-color-dot.active{border-color:var(--dark);box-shadow:0 0 0 2px var(--white),0 0 0 3.5px var(--dark)}
+.modal-size-row{display:flex;gap:8px;flex-wrap:wrap}
+.modal-size-btn{min-width:48px;padding:8px 12px;background:var(--light);border:0.5px solid transparent;font-size:12px;color:var(--dark);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.modal-size-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
+.modal-size-btn.sold-out{opacity:0.35;cursor:not-allowed;text-decoration:line-through}
+.sold-out-text{font-size:9px}
+.modal-add-btn:disabled{background:#ccc;cursor:not-allowed}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--green);color:var(--white);padding:10px 20px;font-size:12px;letter-spacing:1px;opacity:0;transition:all 0.3s;z-index:300;pointer-events:none;white-space:nowrap;border-radius:2px}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -468,7 +479,21 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
       <p class="modal-label" id="modalLabel"></p>
       <h2 class="modal-name" id="modalName"></h2>
       <p class="modal-desc" id="modalDesc"></p>
-      <div class="modal-meta">
+
+      <!-- Color selector (hidden when only 1 color) -->
+      <div id="modalColorWrap" style="display:none;margin-bottom:18px">
+        <p class="modal-select-label">顏色 <span id="modalColorName" style="color:var(--dark);font-weight:400"></span></p>
+        <div class="modal-color-row" id="modalColorRow"></div>
+      </div>
+
+      <!-- Size selector (hidden when only 1 size) -->
+      <div id="modalSizeWrap" style="display:none;margin-bottom:20px">
+        <p class="modal-select-label">尺寸</p>
+        <div class="modal-size-row" id="modalSizeRow"></div>
+      </div>
+
+      <!-- Static single-option display -->
+      <div class="modal-meta" id="modalMetaStatic">
         <div class="modal-meta-item">
           <p class="modal-meta-label">尺寸</p>
           <p class="modal-meta-value" id="modalSize"></p>
@@ -478,6 +503,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
           <p class="modal-meta-value" id="modalStock"></p>
         </div>
       </div>
+
       <div class="modal-price-row">
         <span class="modal-price" id="modalPrice"></span>
         <span class="modal-orig" id="modalOrig"></span>
@@ -518,67 +544,164 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 <div class="toast" id="toast"></div>
 
 <script>
+// ── Product Catalog ──
+// 每個商品支援多顏色 × 多尺寸
+// 新增顏色：在 colors 陣列加一筆 { name, hex, img, sizes:[{ size, stock, cartName }] }
+// 新增尺寸：在對應 color.sizes 陣列加一筆
+const catalog = [
+  {
+    id: 0,
+    label: '有機棉系列',
+    name: "Men's XXX Organic Tee",
+    tag: '熱銷',
+    price: 1100, orig: 1579,
+    desc: '這款 XXX T恤結合了三十年的製衣經驗，以全新剪裁搭配重磅細節與有機棉料，打造出極致耐穿且越穿越有質感的經典單品。The XXX T-shirt combines 30 years of expertise with a custom fit and premium organic cotton to create a durable, high-quality essential that ages beautifully.',
+    colors: [
+      { name: 'Moonless Night', hex: '#2C2C2A', img: 'images/p-xxx.png',
+        sizes: [{ size: 'L', stock: 1, cartName: "Men's XXX Organic Tee — L" }] }
+    ]
+  },
+  {
+    id: 1,
+    label: '有機棉系列',
+    name: "Men's Mr T Organic T-shirt",
+    tag: '熱銷',
+    price: 1100, orig: 1579,
+    desc: '這款經典 T 恤採用友善環境的 100% 有機棉與環保染料，透過精細的縫製工法，將簡約質感與耐穿性完美結合，成就日常穿搭中的永續經典。Crafted from 100% organic cotton with eco-friendly dyes, this tee combines refined construction with a sustainable focus.',
+    colors: [
+      { name: 'Total Eclipse', hex: '#2C3E5A', img: 'images/p-mrt.png',
+        sizes: [{ size: 'L', stock: 1, cartName: "Men's Mr T Organic T-shirt — L" }] }
+    ]
+  },
+  {
+    id: 2,
+    label: '有機棉系列',
+    name: "Women's Greta Organic Hoody",
+    tag: '熱銷',
+    price: 1800, orig: 2590,
+    desc: '這款 Greta 連帽衫採用高品質有機棉刷毛布料，結合簡約的雙層連帽設計與環保製程，為四季穿搭提供極致柔軟且友善環境的保暖選擇。The Greta hoodie features premium organic cotton fleece and eco-friendly construction, offering a soft, sustainable layering essential.',
+    colors: [
+      { name: 'Green Gables', hex: '#3B5A40', img: 'images/p-greta.png',
+        sizes: [{ size: 'M', stock: 1, cartName: "Women's Greta Organic Hoody — M" }] }
+    ]
+  },
+  {
+    id: 3,
+    label: '機能系列',
+    name: 'Ystwyth Active Jacket (Unisex)',
+    tag: '熱銷',
+    price: 2500, orig: 3685,
+    desc: '這款 Ystwyth 防風外套完全由再生塑料製成，結合耐磨抗撕裂布料、無氟環保撥水塗層與機能口袋設計，是一款輕便好收納且兼顧環境永續的戶外單品。The Ystwyth is a durable, windproof shell crafted from recycled plastic bottles, featuring a PFC-free water-repellent finish.',
+    colors: [
+      { name: 'Blue Night', hex: '#4A5E7A', img: 'images/p-ystwyth.png',
+        sizes: [{ size: 'M', stock: 1, cartName: 'Ystwyth Active Jacket — M' }] }
+    ]
+  },
+  {
+    id: 4,
+    label: '美利奴羊毛系列',
+    name: "Men's Long Sleeved Merino T-shirt",
+    tag: '熱銷',
+    price: 3500, orig: 5090,
+    desc: '這款熱銷長袖 T 恤採用 100% 美利奴羊毛，具備卓越的天然控溫與透氣排汗機能，以簡約的經典剪裁提供全天候的舒適與永續穿著體驗。Our best-selling long-sleeve tee is crafted from 100% Merino wool, offering natural moisture-wicking and thermal regulation.',
+    colors: [
+      { name: 'Port Royale', hex: '#6B2737', img: 'images/p-merino-red.png',
+        sizes: [{ size: 'M', stock: 1, cartName: "Men's Merino LS T-shirt — Port Royale M" }] },
+      { name: 'Total Eclipse', hex: '#2C3E5A', img: 'images/p-merino-navy.png',
+        sizes: [{ size: 'L', stock: 1, cartName: "Men's Merino LS T-shirt — Total Eclipse L" }] }
+    ]
+  },
+];
+
+// Card-level state (for the Merino card color switcher)
 const merinoVariants = [
-  { img:'images/p-merino-red.png',  label:'Port Royale — 深紅 M', cartName:"Men's Merino LS T-shirt (深紅 M)",  modalIdx:4 },
-  { img:'images/p-merino-navy.png', label:'Total Eclipse — 深藍 L', cartName:"Men's Merino LS T-shirt (深藍 L)", modalIdx:5 },
+  { img: 'images/p-merino-red.png',  label: 'Port Royale — 深紅 M', cartName: "Men's Merino LS T-shirt — Port Royale M" },
+  { img: 'images/p-merino-navy.png', label: 'Total Eclipse — 深藍 L', cartName: "Men's Merino LS T-shirt — Total Eclipse L" },
 ];
 let merinoSelected = 0;
-
 function selectMerino(idx) {
   merinoSelected = idx;
   document.getElementById('merinoImg').src = merinoVariants[idx].img;
   document.getElementById('merinoColorLabel').textContent = merinoVariants[idx].label;
-  [0,1].forEach(i => {
-    document.getElementById('merino-dot-'+i).classList.toggle('active', i===idx);
-  });
+  [0,1].forEach(i => document.getElementById('merino-dot-'+i).classList.toggle('active', i===idx));
 }
-
 function merinoAddCart() {
-  const v = merinoVariants[merinoSelected];
-  addToCart(v.cartName, 3500);
+  addToCart(merinoVariants[merinoSelected].cartName, 3500);
 }
 
-const products = [
-  { label:'有機棉系列', name:"Men's XXX Organic Tee", img:'images/xxx-v5.png', tag:'熱銷',
-    desc:'這款 XXX T恤結合了三十年的製衣經驗，以全新剪裁搭配重磅細節與有機棉料，打造出極致耐穿且越穿越有質感的經典單品。The XXX T-shirt combines 30 years of expertise with a custom fit and premium organic cotton to create a durable, high-quality essential that ages beautifully.',
-    size:'L', stock:'1 件', price:1100, orig:1579, cartName:"Men's XXX Organic Tee" },
-  { label:'有機棉系列', name:"Men's Mr T Organic T-shirt", img:'images/mrt-v5.png', tag:'熱銷',
-    desc:'這款經典 T 恤採用友善環境的 100% 有機棉與環保染料，透過精細的縫製工法，將簡約質感與耐穿性完美結合，成就日常穿搭中的永續經典。Crafted from 100% organic cotton with eco-friendly dyes, this tee combines refined construction with a sustainable focus.',
-    size:'L', stock:'1 件', price:1100, orig:1579, cartName:"Men's Mr T Organic T-shirt" },
-  { label:'有機棉系列', name:"Women's Greta Organic Hoody", img:'images/greta-v3.png', tag:'熱銷',
-    desc:'這款 Greta 連帽衫採用高品質有機棉刷毛布料，結合簡約的雙層連帽設計與環保製程，為四季穿搭提供極致柔軟且友善環境的保暖選擇。The Greta hoodie features premium organic cotton fleece and eco-friendly construction, offering a soft, sustainable layering essential.',
-    size:'M', stock:'1 件', price:1800, orig:2590, cartName:"Women's Greta Organic Hoody" },
-  { label:'機能系列', name:'Ystwyth Active Jacket (Unisex)', img:'images/ystwyth-v2.png', tag:'熱銷',
-    desc:'這款 Ystwyth 防風外套完全由再生塑料製成，結合耐磨抗撕裂布料、無氟環保撥水塗層與機能口袋設計，是一款輕便好收納且兼顧環境永續的戶外單品。The Ystwyth is a durable, windproof shell crafted from recycled plastic bottles, featuring a PFC-free water-repellent finish.',
-    size:'M', stock:'1 件', price:2500, orig:3685, cartName:'Ystwyth Active Jacket' },
-  { label:'美利奴羊毛系列', name:"Men's Long Sleeved Merino T-shirt", img:'images/merino-red-v1.png', tag:'熱銷',
-    desc:'這款熱銷長袖 T 恤採用 100% 美利奴羊毛，具備卓越的天然控溫與透氣排汗機能，以簡約的經典剪裁提供全天候的舒適與永續穿著體驗。Our best-selling long-sleeve tee is crafted from 100% Merino wool, offering natural moisture-wicking and thermal regulation.',
-    size:'深紅 M', stock:'1 件', price:3500, orig:5090, cartName:"Men's Merino LS T-shirt (深紅 M)" },
-  { label:'美利奴羊毛系列', name:"Men's Long Sleeved Merino T-shirt", img:'images/merino-navy-v1.png', tag:'熱銷',
-    desc:'這款熱銷長袖 T 恤採用 100% 美利奴羊毛，具備卓越的天然控溫與透氣排汗機能，以簡約的經典剪裁提供全天候的舒適與永續穿著體驗。Our best-selling long-sleeve tee is crafted from 100% Merino wool, offering natural moisture-wicking and thermal regulation.',
-    size:'深藍 L', stock:'1 件', price:3500, orig:5090, cartName:"Men's Merino LS T-shirt (深藍 L)" },
-];
+// ── Modal state ──
+let modalProduct = null;
+let modalColorIdx = 0;
+let modalSizeIdx  = 0;
 
-function openModal(idx) {
-  // For merino (idx=4), use currently selected variant
-  const actualIdx = (idx === 4) ? (merinoSelected === 1 ? 5 : 4) : idx;
-  const p = products[actualIdx];
-  document.getElementById('modalImgSrc').src = p.img;
+function openModal(catalogId) {
+  // Merino card: open on currently selected color
+  const startColor = (catalogId === 4) ? merinoSelected : 0;
+  renderModal(catalogId, startColor, 0);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderModal(catalogId, colorIdx, sizeIdx) {
+  const p = catalog[catalogId];
+  const c = p.colors[colorIdx];
+  const s = c.sizes[sizeIdx];
+  modalProduct  = p;
+  modalColorIdx = colorIdx;
+  modalSizeIdx  = sizeIdx;
+
+  document.getElementById('modalImgSrc').src = c.img;
   document.getElementById('modalImgSrc').alt = p.name;
   document.getElementById('modalTag').textContent = p.tag;
   document.getElementById('modalLabel').textContent = p.label;
   document.getElementById('modalName').textContent = p.name;
   document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalSize').textContent = p.size;
-  document.getElementById('modalStock').textContent = p.stock;
   document.getElementById('modalPrice').textContent = 'NT$' + p.price.toLocaleString();
   document.getElementById('modalOrig').textContent = 'NT$' + p.orig.toLocaleString();
-  const save = Math.round((1 - p.price/p.orig)*100);
-  document.getElementById('modalSave').textContent = '省 ' + save + '%';
-  document.getElementById('modalAddBtn').onclick = () => { addToCart(p.cartName, p.price); closeModal(); };
-  const overlay = document.getElementById('modalOverlay');
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('modalSave').textContent = '省 ' + Math.round((1 - p.price/p.orig)*100) + '%';
+
+  // ── Color selector ──
+  const hasColors = p.colors.length > 1;
+  document.getElementById('modalColorWrap').style.display = hasColors ? 'block' : 'none';
+  if (hasColors) {
+    document.getElementById('modalColorName').textContent = '— ' + c.name;
+    const row = document.getElementById('modalColorRow');
+    row.innerHTML = p.colors.map((col, i) =>
+      `<button class="modal-color-dot ${i===colorIdx?'active':''}"
+        style="background:${col.hex}"
+        onclick="renderModal(${catalogId},${i},0)"
+        aria-label="${col.name}"></button>`
+    ).join('');
+  }
+
+  // ── Size selector ──
+  const hasSizes = c.sizes.length > 1;
+  document.getElementById('modalSizeWrap').style.display = hasSizes ? 'block' : 'none';
+  document.getElementById('modalMetaStatic').style.display = hasSizes ? 'none' : 'grid';
+  if (hasSizes) {
+    const row = document.getElementById('modalSizeRow');
+    row.innerHTML = c.sizes.map((sz, i) =>
+      `<button class="modal-size-btn ${i===sizeIdx?'active':''} ${sz.stock===0?'sold-out':''}"
+        onclick="${sz.stock>0 ? `renderModal(${catalogId},${colorIdx},${i})` : ''}"
+        ${sz.stock===0?'disabled':''}>
+        ${sz.size}${sz.stock===0?' <span class="sold-out-text">售完</span>':''}</button>`
+    ).join('');
+  } else {
+    document.getElementById('modalSize').textContent = s.size;
+    document.getElementById('modalStock').textContent = s.stock > 0 ? s.stock + ' 件' : '售完';
+  }
+
+  // ── Add to cart ──
+  const btn = document.getElementById('modalAddBtn');
+  if (s.stock > 0) {
+    btn.disabled = false;
+    btn.textContent = '加入購物車';
+    btn.onclick = () => { addToCart(s.cartName, p.price); closeModal(); };
+  } else {
+    btn.disabled = true;
+    btn.textContent = '已售完';
+    btn.onclick = null;
+  }
 }
 
 function closeModal() {
