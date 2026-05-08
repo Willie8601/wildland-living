@@ -57,7 +57,7 @@ nav.scrolled .nav-icon{color:var(--dark)}
 .hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.6;letter-spacing:10px;margin:0}
 .hero-rule{width:1px;height:36px;background:var(--sand);opacity:0.3;margin:22px auto}
 .hero-en{font-size:9px;letter-spacing:3px;color:rgba(232,226,216,0.32);text-transform:uppercase;margin:0 0 34px;line-height:1.9;font-family:'Noto Sans TC',sans-serif}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 32px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3;box-sizing:border-box}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 28px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3;box-sizing:border-box;max-width:calc(100% - 64px)}
 .hero-cta:active{background:rgba(200,184,154,0.1)}
 .hero-cta-arrow{opacity:0.5;margin-left:2px}
 
@@ -68,7 +68,7 @@ section{padding:44px 24px}
 .sec-desc{font-size:13px;color:#6a6860;line-height:1.9;margin-bottom:28px}
 
 /* ── PHILOSOPHY ── */
-.phil-band{background:var(--light);padding:44px 24px}
+.phil-band{background:var(--light);padding:44px 24px;scroll-margin-top:52px}
 .phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
 .phil-card{background:var(--white);padding:20px 16px;border:0.5px solid rgba(74,82,64,0.12)}
 .phil-icon{width:32px;height:32px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
@@ -78,7 +78,7 @@ section{padding:44px 24px}
 .phil-desc{font-size:11px;color:#888;line-height:1.7}
 
 /* ── PRODUCTS ── */
-.products-section{padding:48px 0 36px}
+.products-section{padding:48px 0 36px;scroll-margin-top:52px}
 .products-header{padding:0 24px 28px}
 .product-scroll{display:flex;gap:0;padding:0;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .product-scroll::-webkit-scrollbar{display:none}
@@ -105,7 +105,7 @@ section{padding:44px 24px}
 .dot.active{background:var(--green);width:20px;border-radius:2px}
 
 /* ── STORY ── */
-.story-band{background:var(--green);padding:52px 28px;text-align:center}
+.story-band{background:var(--green);padding:52px 28px;text-align:center;scroll-margin-top:52px}
 .story-quote{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:300;color:var(--white);line-height:1.8;margin-bottom:18px}
 .story-quote-en{font-size:10px;letter-spacing:2.5px;color:var(--sand);opacity:0.7;line-height:1.9}
 .story-divider{width:32px;height:0.5px;background:var(--sand);margin:22px auto;opacity:0.4}
@@ -114,7 +114,7 @@ section{padding:44px 24px}
 
 /* ── CART ── */
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.5);z-index:200}
-.cart-panel{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--white);z-index:201;border-radius:16px 16px 0 0;max-height:78vh;display:none;flex-direction:column}
+.cart-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--white);z-index:201;border-radius:16px 16px 0 0;max-height:82vh;flex-direction:column}
 .cart-header{padding:20px 24px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid var(--cream);flex-shrink:0}
 .cart-title{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--green);font-weight:300}
 .cart-close{background:none;border:none;color:var(--dark);cursor:pointer;font-size:22px;padding:4px}
@@ -139,7 +139,7 @@ section{padding:44px 24px}
 .checkout-btn:active{background:#3a4132}
 
 /* ── SOCIAL ── */
-.social-section{padding:40px 24px;background:var(--light)}
+.social-section{padding:40px 24px;background:var(--light);scroll-margin-top:52px}
 .social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
 .social-card{background:var(--white);border:0.5px solid rgba(74,82,64,0.12);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
 .social-icon{width:36px;height:36px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -898,6 +898,7 @@ function openCart() {
   document.getElementById('cartOverlay').style.display = 'block';
   const panel = document.getElementById('cartPanel');
   panel.style.display = 'flex';
+  panel.style.flexDirection = 'column';
 }
 
 function closeCart() {
