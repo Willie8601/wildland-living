@@ -212,8 +212,12 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 .menu-item:active{background:var(--light)}
 .menu-item-arrow{font-size:14px;color:var(--sand);opacity:0.6}
 .menu-divider{height:0.5px;background:var(--cream);margin:20px 24px}
-.menu-social{padding:0 24px;display:flex;gap:20px;margin-bottom:24px}
-.menu-social-icon{color:var(--green);font-size:20px;text-decoration:none;opacity:0.7}
+.menu-logo-wrap{display:flex;flex-direction:column;gap:2px}
+.menu-logo-en{font-size:8px;letter-spacing:4px;color:var(--sand);text-transform:uppercase;font-family:'Noto Sans TC',sans-serif;opacity:0.7}
+.menu-social{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 24px;margin-bottom:8px}
+.menu-social-btn{display:flex;align-items:center;gap:10px;padding:11px 14px;border:0.5px solid rgba(74,82,64,0.12);color:var(--dark);text-decoration:none;font-size:12px;font-family:'Noto Sans TC',sans-serif;transition:background 0.15s}
+.menu-social-btn i{font-size:17px;color:var(--green)}
+.menu-social-btn:active{background:var(--light)}
 .menu-footer{padding:20px 24px;border-top:0.5px solid var(--cream)}
 .menu-footer-text{font-size:9px;color:#bbb;letter-spacing:2px;line-height:1.8}
 
@@ -262,7 +266,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 </div>
 
 <!-- PHILOSOPHY -->
-<div class="phil-band">
+<div class="phil-band" id="philosophy">
   <p class="sec-label">Our Philosophy</p>
   <h2 class="sec-title">四大品牌核心</h2>
   <div class="phil-grid">
@@ -434,7 +438,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 </div>
 
 <!-- STORY -->
-<div class="story-band">
+<div class="story-band" id="story">
   <p class="story-quote">一條布、一個包，<br>少帶一點，走得更遠。</p>
   <p class="story-quote-en">One cloth, one bag.<br>Carry less. Go further.</p>
   <div class="story-divider"></div>
@@ -445,7 +449,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 </div>
 
 <!-- SOCIAL -->
-<div class="social-section">
+<div class="social-section" id="social">
   <p class="sec-label">Connect With Us</p>
   <h2 class="sec-title">找到我們</h2>
   <div class="social-grid">
@@ -552,48 +556,87 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 <!-- SIDE MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 <div class="menu-panel" id="menuPanel">
+
   <div class="menu-header">
-    <span class="menu-logo">原野日常</span>
+    <div class="menu-logo-wrap">
+      <span class="menu-logo">原野日常</span>
+      <span class="menu-logo-en">Wildland Living</span>
+    </div>
     <button class="menu-close" onclick="closeMenu()" aria-label="關閉">
       <i class="ti ti-x"></i>
     </button>
   </div>
+
   <div class="menu-body">
-    <p class="menu-section-label">導覽</p>
-    <a class="menu-item" onclick="closeMenu();document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">
-      首頁 <i class="ti ti-chevron-right menu-item-arrow"></i>
-    </a>
-    <a class="menu-item" onclick="closeMenu();document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-      本季選品 <i class="ti ti-chevron-right menu-item-arrow"></i>
-    </a>
-    <a class="menu-item" onclick="closeMenu();document.querySelector('.story-band').scrollIntoView({behavior:'smooth'})">
-      品牌故事 <i class="ti ti-chevron-right menu-item-arrow"></i>
-    </a>
-    <a class="menu-item" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
-      蝦皮商店 <i class="ti ti-chevron-right menu-item-arrow"></i>
-    </a>
+
+    <!-- 頁面導覽 -->
+    <p class="menu-section-label">頁面</p>
+    <button class="menu-item" onclick="menuGo('hero')">
+      <span>首頁</span><i class="ti ti-chevron-right menu-item-arrow"></i>
+    </button>
+    <button class="menu-item" onclick="menuGo('products')">
+      <span>本季選品</span><i class="ti ti-chevron-right menu-item-arrow"></i>
+    </button>
+    <button class="menu-item" onclick="menuGo('philosophy')">
+      <span>品牌理念</span><i class="ti ti-chevron-right menu-item-arrow"></i>
+    </button>
+    <button class="menu-item" onclick="menuGo('story')">
+      <span>品牌故事</span><i class="ti ti-chevron-right menu-item-arrow"></i>
+    </button>
+    <button class="menu-item" onclick="menuGo('social')">
+      <span>找到我們</span><i class="ti ti-chevron-right menu-item-arrow"></i>
+    </button>
+
     <div class="menu-divider"></div>
-    <p class="menu-section-label">聯絡我們</p>
+
+    <!-- 購物 -->
+    <p class="menu-section-label">購物</p>
+    <button class="menu-item" onclick="closeMenu();openCart()">
+      <span>購物車</span><i class="ti ti-shopping-bag menu-item-arrow"></i>
+    </button>
+    <a class="menu-item" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
+      <span>蝦皮商店</span><i class="ti ti-external-link menu-item-arrow"></i>
+    </a>
+
+    <div class="menu-divider"></div>
+
+    <!-- 互動 -->
+    <p class="menu-section-label">互動</p>
     <a class="menu-item" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">
-      LINE 官方帳號 <i class="ti ti-chevron-right menu-item-arrow"></i>
+      <span>LINE 聯絡我們</span><i class="ti ti-brand-line menu-item-arrow"></i>
     </a>
     <a class="menu-item" href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">
-      市場問卷 <i class="ti ti-chevron-right menu-item-arrow"></i>
+      <span>市場問卷</span><i class="ti ti-external-link menu-item-arrow"></i>
     </a>
     <a class="menu-item" href="https://willie8601.github.io/feedback-form/customer-feedback.html" target="_blank" rel="noopener">
-      售後滿意度調查 <i class="ti ti-chevron-right menu-item-arrow"></i>
+      <span>售後滿意度調查</span><i class="ti ti-external-link menu-item-arrow"></i>
     </a>
+
     <div class="menu-divider"></div>
-    <div style="padding:0 24px 16px">
-      <p class="menu-section-label" style="margin-bottom:16px">社群</p>
-      <div class="menu-social">
-        <a class="menu-social-icon" href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-        <a class="menu-social-icon" href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-        <a class="menu-social-icon" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener" aria-label="LINE"><i class="ti ti-brand-line"></i></a>
-        <a class="menu-social-icon" href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" aria-label="Linktree"><i class="ti ti-link"></i></a>
-      </div>
+
+    <!-- 社群 -->
+    <p class="menu-section-label">社群</p>
+    <div class="menu-social">
+      <a class="menu-social-btn" href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener">
+        <i class="ti ti-brand-instagram"></i>
+        <span>Instagram</span>
+      </a>
+      <a class="menu-social-btn" href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener">
+        <i class="ti ti-brand-facebook"></i>
+        <span>Facebook</span>
+      </a>
+      <a class="menu-social-btn" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">
+        <i class="ti ti-brand-line"></i>
+        <span>LINE</span>
+      </a>
+      <a class="menu-social-btn" href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">
+        <i class="ti ti-link"></i>
+        <span>Linktree</span>
+      </a>
     </div>
+
   </div>
+
   <div class="menu-footer">
     <p class="menu-footer-text">取之大地，用之日常，還之自然<br>© 2025 原野日常有限公司</p>
   </div>
@@ -883,6 +926,16 @@ function closeMenu() {
   document.getElementById('menuOverlay').classList.remove('open');
   document.getElementById('menuPanel').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+function menuGo(id) {
+  closeMenu();
+  setTimeout(() => {
+    const el = id === 'hero'
+      ? document.querySelector('.hero')
+      : document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }, 300);
 }
 
 function showToast(msg) {
