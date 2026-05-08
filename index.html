@@ -37,16 +37,19 @@ nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-widt
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
 
 /* ── HERO ── */
-.hero{margin-top:60px;height:520px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 28px}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=85&fit=crop&crop=left,bottom');background-size:cover;background-position:left center;filter:brightness(0.55) saturate(0.7)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,38,28,0.1) 0%,rgba(30,38,28,0.75) 100%)}
-.hero-texture{position:absolute;inset:0;opacity:0.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.3) 2px,rgba(255,255,255,0.3) 3px),repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(255,255,255,0.1) 8px,rgba(255,255,255,0.1) 9px)}
-.hero-leaf{position:absolute;top:40px;right:-20px;width:200px;height:200px;border-radius:50% 0 50% 0;background:rgba(200,184,154,0.12);transform:rotate(20deg)}
-.hero-leaf2{position:absolute;top:80px;right:20px;width:120px;height:120px;border-radius:50% 0 50% 0;background:rgba(200,184,154,0.08);transform:rotate(-10deg)}
-.hero-tag{font-size:9px;letter-spacing:4px;color:var(--sand);text-transform:uppercase;margin-bottom:14px;opacity:0.8;position:relative;z-index:1}
-.hero-title{font-family:'Noto Serif TC',serif;font-size:30px;font-weight:300;color:var(--white);line-height:1.4;margin-bottom:12px;position:relative;z-index:1}
-.hero-sub{font-size:11px;color:rgba(232,226,216,0.65);letter-spacing:2px;margin-bottom:28px;position:relative;z-index:1}
-.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--sand);color:var(--dark);padding:12px 22px;font-size:12px;letter-spacing:2px;font-weight:400;cursor:pointer;border:none;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;position:relative;z-index:1}
+.hero{margin-top:60px;height:100svh;max-height:640px;min-height:540px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-bg{position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&q=90');
+  background-size:cover;background-position:50% 60%;
+  filter:brightness(0.42) saturate(0.55)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(20,28,18,0.9) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 28px 48px;display:flex;flex-direction:column}
+.hero-eyebrow{font-size:9px;letter-spacing:5px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:20px}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.3;margin-bottom:0;letter-spacing:3px}
+.hero-title-en{font-size:10px;color:rgba(232,226,216,0.4);letter-spacing:3px;text-transform:uppercase;margin-top:14px;margin-bottom:32px;line-height:1.8}
+.hero-rule{width:24px;height:0.5px;background:var(--sand);opacity:0.4;margin-bottom:32px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;width:fit-content;background:transparent;color:rgba(232,226,216,0.9);border:0.5px solid rgba(200,184,154,0.45);padding:13px 22px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:border-color 0.3s,background 0.3s}
+.hero-cta:active{background:rgba(200,184,154,0.15);border-color:rgba(200,184,154,0.8)}
 
 /* ── SECTIONS ── */
 section{padding:44px 24px}
@@ -192,8 +195,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .hero{animation:fadeUp 0.8s ease both}
-.hero-cta{transition:opacity 0.2s}
-.hero-cta:active{opacity:0.8}
+
 </style>
 </head>
 <body>
@@ -219,15 +221,15 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-texture"></div>
-  <div class="hero-leaf"></div>
-  <div class="hero-leaf2"></div>
-  <p class="hero-tag">Wildland Living 2025</p>
-  <h1 class="hero-title">取之大地<br>用之日常<br>還之自然</h1>
-  <p class="hero-sub">From the earth. For the everyday. Back to nature.</p>
-  <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-    探索選品 &nbsp;→
-  </button>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Wildland Living &nbsp;·&nbsp; 2025</p>
+    <h1 class="hero-title">取之大地<br>用之日常<br>還之自然</h1>
+    <p class="hero-title-en">From the earth.&nbsp; For the everyday.&nbsp; Back to nature.</p>
+    <div class="hero-rule"></div>
+    <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+      探索選品 &nbsp;→
+    </button>
+  </div>
 </div>
 
 <!-- PHILOSOPHY -->
