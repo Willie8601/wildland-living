@@ -37,19 +37,20 @@ nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-widt
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
 
 /* ── HERO ── */
-.hero{margin-top:60px;height:100svh;max-height:640px;min-height:540px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero{margin-top:60px;height:100svh;max-height:640px;min-height:560px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
 .hero-bg{position:absolute;inset:0;
-  background-image:url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&q=90');
-  background-size:cover;background-position:50% 60%;
-  filter:brightness(0.42) saturate(0.55)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(20,28,18,0.9) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 28px 48px;display:flex;flex-direction:column}
-.hero-eyebrow{font-size:9px;letter-spacing:5px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:20px}
-.hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.3;margin-bottom:0;letter-spacing:3px}
-.hero-title-en{font-size:10px;color:rgba(232,226,216,0.4);letter-spacing:3px;text-transform:uppercase;margin-top:14px;margin-bottom:32px;line-height:1.8}
-.hero-rule{width:24px;height:0.5px;background:var(--sand);opacity:0.4;margin-bottom:32px}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;width:fit-content;background:transparent;color:rgba(232,226,216,0.9);border:0.5px solid rgba(200,184,154,0.45);padding:13px 22px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:border-color 0.3s,background 0.3s}
-.hero-cta:active{background:rgba(200,184,154,0.15);border-color:rgba(200,184,154,0.8)}
+  background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=90&fit=crop&crop=center');
+  background-size:cover;background-position:center 55%;
+  filter:brightness(0.5) saturate(0.75) contrast(1.05)}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(26,35,20,0.15) 0%,rgba(26,35,20,0) 40%,rgba(26,35,20,0.88) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 30px 52px;display:flex;flex-direction:column;align-items:flex-start}
+.hero-kicker{font-size:9px;letter-spacing:5px;color:var(--sand);text-transform:uppercase;opacity:0.55;margin-bottom:22px;font-weight:300}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:40px;font-weight:300;color:var(--white);line-height:1.25;letter-spacing:4px;margin-bottom:18px}
+.hero-desc{font-size:10px;color:rgba(232,226,216,0.45);letter-spacing:2.5px;text-transform:uppercase;line-height:2;margin-bottom:36px}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;background:transparent;color:rgba(232,226,216,0.85);border:0.5px solid rgba(200,184,154,0.4);padding:13px 24px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s}
+.hero-cta:active{background:rgba(200,184,154,0.12);border-color:rgba(200,184,154,0.75)}
+.hero-cta-arrow{font-size:14px;opacity:0.7}
 
 /* ── SECTIONS ── */
 section{padding:44px 24px}
@@ -222,12 +223,11 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Wildland Living &nbsp;·&nbsp; 2025</p>
+    <p class="hero-kicker">Wildland Living</p>
     <h1 class="hero-title">取之大地<br>用之日常<br>還之自然</h1>
-    <p class="hero-title-en">From the earth.&nbsp; For the everyday.&nbsp; Back to nature.</p>
-    <div class="hero-rule"></div>
+    <p class="hero-desc">From the earth.&nbsp;&nbsp;For the everyday.<br>Back to nature.</p>
     <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-      探索選品 &nbsp;→
+      探索選品 <span class="hero-cta-arrow">→</span>
     </button>
   </div>
 </div>
