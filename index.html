@@ -143,6 +143,11 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 .footer-divider{height:0.5px;background:rgba(232,226,216,0.1);margin-bottom:20px}
 .footer-copy{font-size:10px;color:rgba(232,226,216,0.25);text-align:center;letter-spacing:1px}
 
+.color-selector{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.color-dot{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.color-dot.active{border-color:var(--dark);box-shadow:0 0 0 2px var(--white),0 0 0 3px var(--dark)}
+.color-label{font-size:10px;color:#999;letter-spacing:1px}
+
 /* ── PRODUCT MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.55);z-index:300;align-items:flex-end}
 .modal-overlay.open{display:flex}
@@ -336,41 +341,33 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
     </div>
 
     <div class="product-card" onclick="openModal(4)">
-      <div class="product-img-wrap">
-        <img src="images/p-merino-red.png" alt="Men's Merino LS T-shirt Port Royale">
+      <div class="product-img-wrap" id="merinoImgWrap">
+        <img src="images/p-merino-red.png" alt="Men's Merino LS T-shirt" id="merinoImg">
         <span class="product-tag">熱銷</span>
       </div>
       <div class="product-info">
-        <p class="product-series">Merino Wool — Port Royale</p>
+        <p class="product-series">Merino Wool</p>
         <h3 class="product-name">Men's Long Sleeved Merino T-shirt</h3>
         <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
-        <div class="product-footer">
-          <div class="product-pricing">
-            <span class="product-price">NT$3,500</span>
-            <span class="product-orig">NT$5,090</span>
-          </div>
-          <button class="cart-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深紅 M)',3500)" aria-label="加入購物車">
-            <i class="ti ti-shopping-bag"></i>加入購物車
+        <div class="color-selector" onclick="event.stopPropagation()">
+          <button class="color-dot active" id="merino-dot-0"
+            style="background:#6B2737"
+            onclick="selectMerino(0)"
+            aria-label="Port Royale 深紅 M">
           </button>
+          <button class="color-dot" id="merino-dot-1"
+            style="background:#2C3E5A"
+            onclick="selectMerino(1)"
+            aria-label="Total Eclipse 深藍 L">
+          </button>
+          <span class="color-label" id="merinoColorLabel">Port Royale — 深紅 M</span>
         </div>
-      </div>
-    </div>
-
-    <div class="product-card" onclick="openModal(5)">
-      <div class="product-img-wrap">
-        <img src="images/p-merino-navy.png" alt="Men's Merino LS T-shirt Total Eclipse">
-        <span class="product-tag">熱銷</span>
-      </div>
-      <div class="product-info">
-        <p class="product-series">Merino Wool — Total Eclipse</p>
-        <h3 class="product-name">Men's Long Sleeved Merino T-shirt</h3>
-        <p class="product-desc">100% 美利奴羊毛，天然控溫透氣，全天候舒適的永續長袖</p>
         <div class="product-footer">
           <div class="product-pricing">
             <span class="product-price">NT$3,500</span>
             <span class="product-orig">NT$5,090</span>
           </div>
-          <button class="cart-btn" onclick="event.stopPropagation();addToCart('Men\'s Merino LS T-shirt (深藍 L)',3500)" aria-label="加入購物車">
+          <button class="cart-btn" id="merinoCartBtn" onclick="event.stopPropagation();merinoAddCart()" aria-label="加入購物車">
             <i class="ti ti-shopping-bag"></i>加入購物車
           </button>
         </div>
@@ -379,14 +376,13 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 
   </div>
   <div class="product-nav">
-    <span class="product-counter" id="productCounter">01 / 06</span>
+    <span class="product-counter" id="productCounter">01 / 05</span>
     <div class="scroll-dots">
       <div class="dot active" id="d0"></div>
       <div class="dot" id="d1"></div>
       <div class="dot" id="d2"></div>
       <div class="dot" id="d3"></div>
       <div class="dot" id="d4"></div>
-      <div class="dot" id="d5"></div>
     </div>
   </div>
 </div>
@@ -522,6 +518,26 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 <div class="toast" id="toast"></div>
 
 <script>
+const merinoVariants = [
+  { img:'images/p-merino-red.png',  label:'Port Royale — 深紅 M', cartName:"Men's Merino LS T-shirt (深紅 M)",  modalIdx:4 },
+  { img:'images/p-merino-navy.png', label:'Total Eclipse — 深藍 L', cartName:"Men's Merino LS T-shirt (深藍 L)", modalIdx:5 },
+];
+let merinoSelected = 0;
+
+function selectMerino(idx) {
+  merinoSelected = idx;
+  document.getElementById('merinoImg').src = merinoVariants[idx].img;
+  document.getElementById('merinoColorLabel').textContent = merinoVariants[idx].label;
+  [0,1].forEach(i => {
+    document.getElementById('merino-dot-'+i).classList.toggle('active', i===idx);
+  });
+}
+
+function merinoAddCart() {
+  const v = merinoVariants[merinoSelected];
+  addToCart(v.cartName, 3500);
+}
+
 const products = [
   { label:'有機棉系列', name:"Men's XXX Organic Tee", img:'images/xxx-v5.png', tag:'熱銷',
     desc:'這款 XXX T恤結合了三十年的製衣經驗，以全新剪裁搭配重磅細節與有機棉料，打造出極致耐穿且越穿越有質感的經典單品。The XXX T-shirt combines 30 years of expertise with a custom fit and premium organic cotton to create a durable, high-quality essential that ages beautifully.',
@@ -544,7 +560,9 @@ const products = [
 ];
 
 function openModal(idx) {
-  const p = products[idx];
+  // For merino (idx=4), use currently selected variant
+  const actualIdx = (idx === 4) ? (merinoSelected === 1 ? 5 : 4) : idx;
+  const p = products[actualIdx];
   document.getElementById('modalImgSrc').src = p.img;
   document.getElementById('modalImgSrc').alt = p.name;
   document.getElementById('modalTag').textContent = p.tag;
@@ -658,13 +676,13 @@ function showToast(msg) {
 
 const scroll = document.getElementById('productScroll');
 scroll.addEventListener('scroll', () => {
-  const idx = Math.min(5, Math.round(scroll.scrollLeft / scroll.offsetWidth));
-  [0,1,2,3,4,5].forEach(i => {
+  const idx = Math.min(4, Math.round(scroll.scrollLeft / scroll.offsetWidth));
+  [0,1,2,3,4].forEach(i => {
     const d = document.getElementById('d'+i);
     if(d){ d.style.background = i===idx ? 'var(--green)' : 'var(--cream)'; d.style.width = i===idx ? '20px' : '4px'; }
   });
   const counter = document.getElementById('productCounter');
-  if(counter) counter.textContent = String(idx+1).padStart(2,'0') + ' / 06';
+  if(counter) counter.textContent = String(idx+1).padStart(2,'0') + ' / 05';
 });
 </script>
 </body>
