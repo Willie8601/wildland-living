@@ -52,12 +52,12 @@ nav.scrolled .nav-icon{color:var(--dark)}
     rgba(20,26,18,0.0) 30%,
     rgba(20,26,18,0.55) 65%,
     rgba(20,26,18,0.92) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 28px 56px;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+.hero-content{position:relative;z-index:2;padding:0 36px 56px;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;box-sizing:border-box}
 .hero-label{font-size:8px;letter-spacing:6px;color:var(--sand);text-transform:uppercase;opacity:0.45;margin-bottom:24px;font-weight:300;font-family:'Noto Sans TC',sans-serif}
 .hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.6;letter-spacing:10px;margin:0}
 .hero-rule{width:1px;height:36px;background:var(--sand);opacity:0.3;margin:22px auto}
 .hero-en{font-size:9px;letter-spacing:3px;color:rgba(232,226,216,0.32);text-transform:uppercase;margin:0 0 34px;line-height:1.9;font-family:'Noto Sans TC',sans-serif}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 28px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3;box-sizing:border-box;max-width:calc(100% - 64px)}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 28px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3}
 .hero-cta:active{background:rgba(200,184,154,0.1)}
 .hero-cta-arrow{opacity:0.5;margin-left:2px}
 
@@ -138,25 +138,22 @@ section{padding:44px 24px}
 .checkout-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:15px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent}
 .checkout-btn:active{background:#3a4132}
 
-/* ── SOCIAL ── */
-.social-section{padding:40px 24px;background:var(--light);scroll-margin-top:52px}
-.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
-.social-card{background:var(--white);border:0.5px solid rgba(74,82,64,0.12);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
-.social-icon{width:36px;height:36px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.social-icon i{font-size:18px;color:var(--green)}
-.social-info{min-width:0}
-.social-name{font-size:12px;color:var(--dark);font-weight:400;margin-bottom:1px}
-.social-handle{font-size:10px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.social-full{background:var(--white);border:0.5px solid rgba(74,82,64,0.12);padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;margin-top:10px}
-
-/* ── FOOTER ── */
-footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55);font-size:11px}
-.footer-logo{font-family:'Noto Serif TC',serif;font-size:16px;color:var(--sand);font-weight:300;margin-bottom:6px;letter-spacing:2px}
-.footer-slogan{font-size:10px;color:rgba(200,184,154,0.5);letter-spacing:2px;margin-bottom:28px}
-.footer-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
-.footer-link{color:rgba(232,226,216,0.5);text-decoration:none;font-size:11px;letter-spacing:1px}
-.footer-divider{height:0.5px;background:rgba(232,226,216,0.1);margin-bottom:20px}
-.footer-copy{font-size:10px;color:rgba(232,226,216,0.25);text-align:center;letter-spacing:1px}
+/* ── FOOTER (合併社群) ── */
+footer{background:var(--dark);padding:48px 24px 40px;color:rgba(232,226,216,0.55);font-size:11px;scroll-margin-top:52px}
+.footer-brand{margin-bottom:32px}
+.footer-logo{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--sand);font-weight:300;margin-bottom:6px;letter-spacing:3px}
+.footer-slogan{font-size:10px;color:rgba(200,184,154,0.4);letter-spacing:2px}
+.footer-section-label{font-size:8px;letter-spacing:4px;color:rgba(200,184,154,0.4);text-transform:uppercase;margin-bottom:14px}
+.footer-social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.footer-social-card{display:flex;align-items:center;gap:12px;padding:14px;border:0.5px solid rgba(232,226,216,0.1);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:border-color 0.2s}
+.footer-social-card:active{border-color:rgba(200,184,154,0.3)}
+.footer-social-card i{font-size:20px;color:var(--sand);opacity:0.7;flex-shrink:0}
+.footer-social-name{font-size:12px;color:rgba(232,226,216,0.7);font-weight:400;margin-bottom:1px}
+.footer-social-handle{font-size:10px;color:rgba(232,226,216,0.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.footer-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.footer-link{color:rgba(232,226,216,0.4);text-decoration:none;font-size:11px;letter-spacing:1px}
+.footer-divider{height:0.5px;background:rgba(232,226,216,0.08);margin-bottom:20px}
+.footer-copy{font-size:10px;color:rgba(232,226,216,0.2);text-align:center;letter-spacing:1px}
 
 .color-selector{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .color-dot{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
@@ -446,60 +443,56 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
   <p class="story-en">Wildland Living Co., Ltd.</p>
 </div>
 
-<!-- SOCIAL -->
-<div class="social-section" id="social">
-  <p class="sec-label">Connect With Us</p>
-  <h2 class="sec-title">找到我們</h2>
-  <div class="social-grid">
-    <a class="social-card" href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener">
-      <div class="social-icon"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
-      <div class="social-info">
-        <p class="social-name">Instagram</p>
-        <p class="social-handle">@wildland__living</p>
+<!-- FOOTER (合併找到我們) -->
+<footer id="social">
+  <!-- 品牌標語 -->
+  <div class="footer-brand">
+    <p class="footer-logo">原野日常</p>
+    <p class="footer-slogan">取之大地，用之日常，還之自然</p>
+  </div>
+
+  <!-- 社群連結 -->
+  <p class="footer-section-label">找到我們</p>
+  <div class="footer-social-grid">
+    <a class="footer-social-card" href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener">
+      <i class="ti ti-brand-instagram" aria-hidden="true"></i>
+      <div>
+        <p class="footer-social-name">Instagram</p>
+        <p class="footer-social-handle">@wildland__living</p>
       </div>
     </a>
-    <a class="social-card" href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener">
-      <div class="social-icon"><i class="ti ti-brand-facebook" aria-hidden="true"></i></div>
-      <div class="social-info">
-        <p class="social-name">Facebook</p>
-        <p class="social-handle">原野日常</p>
+    <a class="footer-social-card" href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener">
+      <i class="ti ti-brand-facebook" aria-hidden="true"></i>
+      <div>
+        <p class="footer-social-name">Facebook</p>
+        <p class="footer-social-handle">原野日常</p>
       </div>
     </a>
-    <a class="social-card" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">
-      <div class="social-icon"><i class="ti ti-brand-line" aria-hidden="true"></i></div>
-      <div class="social-info">
-        <p class="social-name">LINE</p>
-        <p class="social-handle">官方帳號</p>
+    <a class="footer-social-card" href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">
+      <i class="ti ti-brand-line" aria-hidden="true"></i>
+      <div>
+        <p class="footer-social-name">LINE</p>
+        <p class="footer-social-handle">官方帳號</p>
       </div>
     </a>
-    <a class="social-card" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
-      <div class="social-icon"><i class="ti ti-shopping-cart" aria-hidden="true"></i></div>
-      <div class="social-info">
-        <p class="social-name">Shopee</p>
-        <p class="social-handle">蝦皮購物</p>
+    <a class="footer-social-card" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
+      <i class="ti ti-shopping-cart" aria-hidden="true"></i>
+      <div>
+        <p class="footer-social-name">Shopee</p>
+        <p class="footer-social-handle">蝦皮購物</p>
       </div>
     </a>
   </div>
-  <a class="social-full" href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">
-    <div class="social-icon"><i class="ti ti-link" aria-hidden="true"></i></div>
-    <div class="social-info">
-      <p class="social-name">所有連結 Linktree</p>
-      <p class="social-handle">linktr.ee/wildland_living</p>
-    </div>
-    <i class="ti ti-chevron-right" style="margin-left:auto;color:#ccc;font-size:16px" aria-hidden="true"></i>
-  </a>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <p class="footer-logo">原野日常</p>
-  <p class="footer-slogan">取之大地，用之日常，還之自然</p>
+  <!-- 快速連結 -->
+  <div class="footer-divider"></div>
   <div class="footer-links">
     <a class="footer-link" href="https://willie8601.github.io/wildland-living/" target="_blank" rel="noopener">官方網站</a>
     <a class="footer-link" href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">蝦皮商店</a>
     <a class="footer-link" href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">市場問卷</a>
-
+    <a class="footer-link" href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">Linktree</a>
   </div>
+
   <div class="footer-divider"></div>
   <p class="footer-copy">© 2026 原野日常有限公司 · Wildland Living Co., Ltd.</p>
 </footer>
@@ -639,7 +632,7 @@ footer{background:var(--dark);padding:44px 24px 40px;color:rgba(232,226,216,0.55
 
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-<div class="cart-panel" id="cartPanel">
+<div class="cart-panel" id="cartPanel" style="display:none">
   <div class="cart-header">
     <span class="cart-title">購物清單</span>
     <button class="cart-close" onclick="closeCart()" aria-label="關閉">
