@@ -57,9 +57,13 @@ nav.scrolled .nav-icon{color:var(--dark)}
 .hero-title{font-family:'Noto Serif TC',serif;font-size:38px;font-weight:300;color:var(--white);line-height:1.6;letter-spacing:10px;margin:0}
 .hero-rule{width:1px;height:36px;background:var(--sand);opacity:0.3;margin:22px auto}
 .hero-en{font-size:9px;letter-spacing:3px;color:rgba(232,226,216,0.32);text-transform:uppercase;margin:0 0 34px;line-height:1.9;font-family:'Noto Sans TC',sans-serif}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.75);border:0.5px solid rgba(200,184,154,0.35);padding:12px 28px;font-size:10px;letter-spacing:3px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3}
-.hero-cta:active{background:rgba(200,184,154,0.1)}
-.hero-cta-arrow{opacity:0.5;margin-left:2px}
+.hero-cta-wrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:transparent;color:rgba(232,226,216,0.7);border:0.5px solid rgba(200,184,154,0.28);padding:13px 32px;font-size:10px;letter-spacing:4px;font-weight:300;cursor:pointer;font-family:'Noto Sans TC',sans-serif;-webkit-tap-highlight-color:transparent;transition:all 0.25s;position:relative;z-index:3}
+.hero-cta:active{background:rgba(200,184,154,0.08);border-color:rgba(200,184,154,0.5)}
+.hero-cta-arrow{opacity:0.45;margin-left:2px}
+.hero-scroll-hint{display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+.hero-scroll-line{width:0.5px;height:32px;background:linear-gradient(to bottom,rgba(200,184,154,0.35),transparent)}
+.hero-scroll-text{font-size:7px;letter-spacing:3px;color:rgba(200,184,154,0.28);text-transform:uppercase;font-family:'Noto Sans TC',sans-serif}
 
 /* ── SECTIONS ── */
 section{padding:44px 24px}
@@ -254,9 +258,15 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
     <h1 class="hero-title">取之大地<br>用之日常<br>還之自然</h1>
     <div class="hero-rule"></div>
     <p class="hero-en">From the earth<br>For the everyday<br>Back to nature</p>
-    <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-      探索選品 <span class="hero-cta-arrow">→</span>
-    </button>
+    <div class="hero-cta-wrap">
+      <button class="hero-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+        探索選品 <span class="hero-cta-arrow">→</span>
+      </button>
+      <div class="hero-scroll-hint">
+        <div class="hero-scroll-line"></div>
+        <span class="hero-scroll-text">Scroll</span>
+      </div>
+    </div>
   </div>
 </div>
 
