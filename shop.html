@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="原野日常 選品店 — 永續選材，簡約美學，為移動與探索而生。">
+<meta name="theme-color" content="#4A5240">
+<title>選品 — 原野日常 Wildland Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#4A5240;
+  --sand:#C8B89A;
+  --cream:#E8E2D8;
+  --dark:#2C2C2A;
+  --light:#F4F1EC;
+  --white:#FDFCFA;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--dark);font-family:'Noto Sans TC',sans-serif;font-weight:300;margin:0 auto;overflow-x:hidden;max-width:480px}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba(253,252,250,0.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:0.5px solid rgba(74,82,64,0.12);padding:10px 20px;display:flex;justify-content:space-between;align-items:center}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-back{background:none;border:none;color:var(--dark);cursor:pointer;font-size:20px;padding:4px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
+.logo-mark{display:flex;flex-direction:column;gap:1px}
+.logo-cn{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:400;color:var(--green);letter-spacing:4px}
+.logo-en{font-size:8px;letter-spacing:4px;color:var(--sand);font-weight:400;text-transform:uppercase}
+.nav-icons{display:flex;gap:16px;align-items:center}
+.nav-icon{cursor:pointer;color:var(--dark);font-size:20px;position:relative;background:none;border:none;padding:4px;-webkit-tap-highlight-color:transparent}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--green);color:var(--white);border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:28px 24px 0}
+.page-label{font-size:9px;letter-spacing:5px;color:var(--sand);text-transform:uppercase;margin-bottom:8px}
+.page-title{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:300;color:var(--green);letter-spacing:3px;margin-bottom:6px}
+.page-count{font-size:11px;color:rgba(44,44,42,0.4);letter-spacing:1px}
+
+/* ── FILTER BAR ── */
+.filter-bar{padding:16px 24px 0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{flex-shrink:0;padding:7px 14px;border:0.5px solid rgba(74,82,64,0.2);background:transparent;color:rgba(44,44,42,0.55);font-size:10px;letter-spacing:2px;font-family:'Noto Sans TC',sans-serif;font-weight:300;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all 0.2s;white-space:nowrap}
+.filter-chip.active{background:var(--green);color:var(--white);border-color:var(--green)}
+
+/* ── DIVIDER ── */
+.section-divider{height:0.5px;background:var(--cream);margin:20px 24px 0}
+
+/* ── PRODUCT GRID ── */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--cream);margin:20px 0 0}
+
+/* ── PRODUCT CARD ── */
+.pcard{background:var(--white);cursor:pointer;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent}
+.pcard-img{width:100%;aspect-ratio:3/4;background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pcard-img img{width:82%;height:82%;object-fit:contain;display:block;transition:transform 0.4s ease}
+.pcard:active .pcard-img img{transform:scale(0.95)}
+.pcard-badge{position:absolute;top:10px;left:10px;background:var(--green);color:var(--white);font-size:8px;letter-spacing:1.5px;padding:3px 7px;font-weight:300}
+.pcard-body{padding:12px 14px 16px}
+.pcard-series{font-size:8px;letter-spacing:2.5px;color:var(--sand);text-transform:uppercase;margin-bottom:4px}
+.pcard-name{font-size:12px;color:var(--dark);line-height:1.45;margin-bottom:10px;font-weight:300;min-height:36px}
+.pcard-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:6px}
+.pcard-pricing{display:flex;flex-direction:column;gap:1px}
+.pcard-price{font-size:14px;color:var(--green);font-weight:500}
+.pcard-orig{font-size:9px;color:rgba(44,44,42,0.3);text-decoration:line-through}
+.pcard-add{width:30px;height:30px;background:var(--green);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:background 0.15s}
+.pcard-add:active{background:#3d4433}
+
+/* ── FULL WIDTH CARD ── */
+.pcard-full{grid-column:1/-1;flex-direction:row;background:var(--light)}
+.pcard-full .pcard-img{width:48%;aspect-ratio:1/1;flex-shrink:0}
+.pcard-full .pcard-body{flex:1;padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.pcard-full .pcard-name{font-size:13px;min-height:auto;font-family:'Noto Serif TC',serif;font-weight:300}
+.pcard-full .pcard-price{font-size:16px}
+.pcard-full .pcard-add{width:36px;height:36px;font-size:18px}
+
+/* ── COLOR DOTS ON CARD ── */
+.pcard-colors{display:flex;gap:5px;margin-bottom:10px}
+.pcard-color-dot{width:12px;height:12px;border-radius:50%;border:1.5px solid transparent;background:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+.pcard-color-dot.active{border-color:var(--dark)}
+
+/* ── SUSTAINABILITY STRIP ── */
+.sustain-strip{background:var(--green);padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:1px}
+.sustain-icon{font-size:22px;color:rgba(232,226,216,0.6);flex-shrink:0}
+.sustain-text{font-size:11px;color:rgba(232,226,216,0.75);line-height:1.8;letter-spacing:0.5px}
+.sustain-text strong{color:rgba(232,226,216,0.95);font-weight:400}
+
+/* ── EMPTY STATE ── */
+.empty-state{padding:60px 24px;text-align:center;display:none}
+.empty-state i{font-size:36px;color:var(--cream);display:block;margin-bottom:12px}
+.empty-state p{font-size:13px;color:rgba(44,44,42,0.4)}
+
+.bottom-spacer{height:80px}
+
+/* ── BOTTOM TAB BAR ── */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(253,252,250,0.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:0.5px solid rgba(74,82,64,0.1);padding:10px 0 18px;display:flex;justify-content:space-around;z-index:100}
+.bottom-tab{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 16px;-webkit-tap-highlight-color:transparent;text-decoration:none}
+.bottom-tab i{font-size:22px;color:rgba(44,44,42,0.35);transition:color 0.15s}
+.bottom-tab.active i{color:var(--green)}
+.bottom-tab span{font-size:8px;letter-spacing:1.5px;color:rgba(44,44,42,0.35);text-transform:uppercase;font-family:'Noto Sans TC',sans-serif}
+.bottom-tab.active span{color:var(--green)}
+
+/* ── CART PANEL ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.5);z-index:200}
+.cart-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--white);z-index:201;border-radius:16px 16px 0 0;max-height:82vh;flex-direction:column;display:none}
+.cart-header{padding:20px 24px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid var(--cream);flex-shrink:0}
+.cart-title{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--green);font-weight:300}
+.cart-close{background:none;border:none;color:var(--dark);cursor:pointer;font-size:22px;padding:4px}
+.cart-body{padding:16px 24px;overflow-y:auto;flex:1}
+.cart-empty{text-align:center;padding:40px 0;color:rgba(44,44,42,0.4);font-size:13px}
+.cart-empty i{font-size:40px;color:var(--cream);display:block;margin-bottom:12px;opacity:0.8}
+.cart-item{display:flex;gap:14px;padding:14px 0;border-bottom:0.5px solid var(--cream);align-items:center}
+.cart-item-img{width:56px;height:56px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cart-item-img i{font-size:22px;color:var(--green);opacity:0.4}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:13px;color:var(--dark);margin-bottom:3px;font-weight:400}
+.cart-item-price{font-size:12px;color:var(--green)}
+.cart-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty-btn{width:26px;height:26px;background:var(--cream);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--dark);-webkit-tap-highlight-color:transparent}
+.qty-num{font-size:13px;min-width:20px;text-align:center}
+.cart-remove{color:rgba(44,44,42,0.3);cursor:pointer;background:none;border:none;font-size:18px;padding:4px}
+.cart-footer{padding:20px 24px;border-top:0.5px solid var(--cream);background:var(--white);flex-shrink:0;display:none}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:16px;align-items:baseline}
+.cart-total-label{font-size:13px;color:rgba(44,44,42,0.5)}
+.cart-total-price{font-size:18px;font-weight:500;color:var(--green)}
+.checkout-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:15px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent}
+.checkout-btn:active{background:#3d4433}
+
+/* ── PRODUCT DETAIL PANEL ── */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.55);z-index:300;align-items:flex-end}
+.detail-overlay.open{display:flex}
+.detail-panel{background:var(--white);width:100%;max-width:480px;margin:0 auto;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.35s cubic-bezier(.4,0,.2,1)}
+.detail-overlay.open .detail-panel{transform:translateY(0)}
+.detail-img{width:100%;aspect-ratio:1/1;background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.detail-img img{width:78%;height:78%;object-fit:contain}
+.detail-close{position:absolute;top:14px;right:14px;width:34px;height:34px;background:rgba(44,44,42,0.5);border:none;color:#fff;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+.detail-body{padding:24px 24px 40px}
+.detail-series{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:6px;display:block}
+.detail-name{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:300;color:var(--green);line-height:1.4;margin-bottom:10px}
+.detail-desc{font-size:12px;color:rgba(44,44,42,0.55);line-height:2;margin-bottom:18px;padding-bottom:18px;border-bottom:0.5px solid var(--cream)}
+.detail-select-label{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:10px;display:block}
+.detail-color-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.detail-color-btn{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.detail-color-btn.active{border-color:var(--dark);box-shadow:0 0 0 2px var(--white),0 0 0 3.5px var(--dark)}
+.detail-color-name{font-size:10px;color:rgba(44,44,42,0.5);letter-spacing:1px;margin-bottom:18px}
+.detail-size-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.detail-size-btn{min-width:50px;padding:9px 13px;background:var(--light);border:0.5px solid transparent;font-size:12px;color:var(--dark);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.detail-size-btn.active{background:var(--green);color:var(--white)}
+.detail-size-btn.sold-out{opacity:0.3;cursor:not-allowed;text-decoration:line-through}
+.detail-attrs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.detail-attr{background:var(--light);padding:12px 14px}
+.detail-attr-label{font-size:8px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin-bottom:4px}
+.detail-attr-value{font-size:12px;color:var(--dark);font-weight:400}
+.detail-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:20px}
+.detail-price{font-size:24px;font-weight:500;color:var(--green)}
+.detail-orig{font-size:13px;color:rgba(44,44,42,0.3);text-decoration:line-through}
+.detail-save{font-size:10px;color:var(--sand);background:rgba(200,184,154,0.15);padding:3px 9px}
+.detail-add-btn{width:100%;background:var(--green);color:var(--white);border:none;padding:16px;font-size:13px;letter-spacing:3px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.detail-add-btn:active{background:#3d4433}
+.detail-add-btn:disabled{background:#ccc;cursor:not-allowed}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--green);color:var(--white);padding:10px 20px;font-size:12px;letter-spacing:1px;opacity:0;transition:all 0.3s;z-index:400;pointer-events:none;white-space:nowrap;border-radius:2px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pcard{animation:fadeIn 0.4s ease both}
+.pcard:nth-child(1){animation-delay:.05s}
+.pcard:nth-child(2){animation-delay:.1s}
+.pcard:nth-child(3){animation-delay:.15s}
+.pcard:nth-child(4){animation-delay:.2s}
+.pcard:nth-child(5){animation-delay:.25s}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <button class="nav-back" onclick="window.location.href='index.html'" aria-label="返回首頁">
+      <i class="ti ti-arrow-left"></i>
+    </button>
+    <div class="logo-mark">
+      <span class="logo-cn">原野日常</span>
+      <span class="logo-en">Wildland Living</span>
+    </div>
+  </div>
+  <div class="nav-icons">
+    <button class="nav-icon" onclick="openCart()" aria-label="購物袋">
+      <i class="ti ti-shopping-bag"></i>
+      <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-label">Selected Items</p>
+  <h1 class="page-title">本季選品</h1>
+  <p class="page-count" id="productCount">共 5 件商品</p>
+</div>
+
+<!-- FILTER CHIPS -->
+<div class="filter-bar">
+  <button class="filter-chip active" onclick="filterProducts('all',this)">全部</button>
+  <button class="filter-chip" onclick="filterProducts('cotton',this)">有機棉</button>
+  <button class="filter-chip" onclick="filterProducts('merino',this)">美利奴羊毛</button>
+  <button class="filter-chip" onclick="filterProducts('jacket',this)">外套</button>
+  <button class="filter-chip" onclick="filterProducts('women',this)">女款</button>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- PRODUCT GRID -->
+<div class="product-grid" id="productGrid">
+
+  <!-- Card 0 — Men's XXX Organic Tee (featured full width) -->
+  <div class="pcard pcard-full" data-tags="cotton men" onclick="openDetail(0)">
+    <div class="pcard-img">
+      <img src="images/p-xxx.png" alt="Men's XXX Organic Tee">
+      <span class="pcard-badge">熱銷</span>
+    </div>
+    <div class="pcard-body">
+      <div>
+        <p class="pcard-series">Organic Cotton</p>
+        <h2 class="pcard-name">Men's XXX Organic Tee</h2>
+        <p style="font-size:11px;color:rgba(44,44,42,0.45);line-height:1.8;margin-bottom:12px">三十年製衣工藝，重磅有機棉，越穿越有質感</p>
+      </div>
+      <div class="pcard-foot">
+        <div class="pcard-pricing">
+          <span class="pcard-price">NT$1,100</span>
+          <span class="pcard-orig">NT$1,579</span>
+        </div>
+        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物袋">
+          <i class="ti ti-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 1 -->
+  <div class="pcard" data-tags="cotton men" onclick="openDetail(1)">
+    <div class="pcard-img">
+      <img src="images/p-mrt.png" alt="Men's Mr T Organic T-shirt">
+      <span class="pcard-badge">熱銷</span>
+    </div>
+    <div class="pcard-body">
+      <p class="pcard-series">Organic Cotton</p>
+      <h2 class="pcard-name">Men's Mr T Organic T-shirt</h2>
+      <div class="pcard-foot">
+        <div class="pcard-pricing">
+          <span class="pcard-price">NT$1,100</span>
+          <span class="pcard-orig">NT$1,579</span>
+        </div>
+        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s Mr T Organic T-shirt',1100)" aria-label="加入購物袋">
+          <i class="ti ti-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="pcard" data-tags="cotton women" onclick="openDetail(2)">
+    <div class="pcard-img">
+      <img src="images/p-greta.png" alt="Women's Greta Organic Hoody">
+      <span class="pcard-badge">熱銷</span>
+    </div>
+    <div class="pcard-body">
+      <p class="pcard-series">Organic Cotton</p>
+      <h2 class="pcard-name">Women's Greta Organic Hoody</h2>
+      <div class="pcard-foot">
+        <div class="pcard-pricing">
+          <span class="pcard-price">NT$1,800</span>
+          <span class="pcard-orig">NT$2,590</span>
+        </div>
+        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Women\'s Greta Organic Hoody',1800)" aria-label="加入購物袋">
+          <i class="ti ti-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="pcard" data-tags="jacket men" onclick="openDetail(3)">
+    <div class="pcard-img">
+      <img src="images/p-ystwyth.png" alt="Ystwyth Active Jacket">
+    </div>
+    <div class="pcard-body">
+      <p class="pcard-series">Recycled Shell</p>
+      <h2 class="pcard-name">Ystwyth Active Jacket</h2>
+      <div class="pcard-foot">
+        <div class="pcard-pricing">
+          <span class="pcard-price">NT$2,500</span>
+          <span class="pcard-orig">NT$3,685</span>
+        </div>
+        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物袋">
+          <i class="ti ti-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4 — Merino (full width) -->
+  <div class="pcard pcard-full" data-tags="merino men" onclick="openDetail(4)">
+    <div class="pcard-img">
+      <img src="images/p-merino-red.png" alt="Men's Merino LS T-shirt" id="merinoThumb">
+    </div>
+    <div class="pcard-body">
+      <p class="pcard-series">Merino Wool</p>
+      <h2 class="pcard-name">Men's Long Sleeved Merino T-shirt</h2>
+      <div class="pcard-colors" onclick="event.stopPropagation()">
+        <button class="pcard-color-dot active" id="mThumb0" style="background:#6B2737;border-color:#2C2C2A" onclick="switchMerinoThumb(0)" aria-label="Port Royale"></button>
+        <button class="pcard-color-dot" id="mThumb1" style="background:#2C3E5A" onclick="switchMerinoThumb(1)" aria-label="Total Eclipse"></button>
+      </div>
+      <div class="pcard-foot">
+        <div class="pcard-pricing">
+          <span class="pcard-price">NT$3,500</span>
+          <span class="pcard-orig">NT$5,090</span>
+        </div>
+        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s Long Sleeved Merino T-shirt',3500)" aria-label="加入購物袋">
+          <i class="ti ti-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUSTAINABILITY STRIP -->
+<div class="sustain-strip">
+  <i class="ti ti-leaf sustain-icon"></i>
+  <p class="sustain-text"><strong>來自植物萃取，用完可以安心入土。</strong><br>少帶一點，走得更遠。</p>
+</div>
+
+<!-- EMPTY STATE -->
+<div class="empty-state" id="emptyState">
+  <i class="ti ti-mood-empty"></i>
+  <p>此分類目前沒有商品</p>
+</div>
+
+<div class="bottom-spacer"></div>
+
+<!-- BOTTOM TAB BAR -->
+<div class="bottom-bar">
+  <a class="bottom-tab" href="index.html" aria-label="首頁">
+    <i class="ti ti-home"></i>
+    <span>首頁</span>
+  </a>
+  <button class="bottom-tab active" aria-label="選品">
+    <i class="ti ti-shirt"></i>
+    <span>選品</span>
+  </button>
+  <a class="bottom-tab" href="https://shopee.tw/pohaohuang86" target="_blank" aria-label="Shopee">
+    <i class="ti ti-shopping-cart"></i>
+    <span>Shopee</span>
+  </a>
+  <a class="bottom-tab" href="https://lin.ee/xdo3l23" target="_blank" aria-label="LINE">
+    <i class="ti ti-brand-line"></i>
+    <span>LINE</span>
+  </a>
+</div>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <span class="cart-title">購物袋</span>
+    <button class="cart-close" onclick="closeCart()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-body">
+    <div class="cart-empty" id="cartEmpty">
+      <i class="ti ti-shopping-bag"></i>購物袋是空的
+    </div>
+    <div id="cartItems"></div>
+  </div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="cart-total-row">
+      <span class="cart-total-label">小計</span>
+      <span class="cart-total-price" id="cartTotal">NT$0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">前往 Shopee 結帳 →</button>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL PANEL -->
+<div class="detail-overlay" id="detailOverlay" onclick="handleDetailOverlayClick(event)">
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-img">
+      <img id="detailImgSrc" src="" alt="">
+      <button class="detail-close" onclick="closeDetail()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="detail-body">
+      <span class="detail-series" id="detailSeries"></span>
+      <h2 class="detail-name" id="detailName"></h2>
+      <p class="detail-desc" id="detailDesc"></p>
+
+      <div id="detailColorWrap" style="display:none">
+        <span class="detail-select-label">顏色</span>
+        <div class="detail-color-row" id="detailColorRow"></div>
+        <p class="detail-color-name" id="detailColorName"></p>
+      </div>
+
+      <div id="detailSizeWrap" style="display:none">
+        <span class="detail-select-label">尺寸</span>
+        <div class="detail-size-row" id="detailSizeRow"></div>
+      </div>
+
+      <div class="detail-attrs" id="detailAttrs"></div>
+
+      <div class="detail-price-row">
+        <span class="detail-price" id="detailPrice"></span>
+        <span class="detail-orig" id="detailOrig"></span>
+        <span class="detail-save" id="detailSave"></span>
+      </div>
+      <button class="detail-add-btn" id="detailAddBtn">加入購物袋</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const catalog = [
+  {
+    id:0, series:'Organic Cotton', name:"Men's XXX Organic Tee",
+    desc:'三十年製衣工藝，重磅有機棉，採用傳統工序車縫。越穿越有質感的經典單品，是每個衣櫥的起點。',
+    img:'images/p-xxx.png', price:1100, orig:1579,
+    colors:null,
+    sizes:[{label:'L',stock:1}],
+    attrs:[{label:'材質',value:'100% 有機棉'},{label:'重量',value:'270 g/m²'},{label:'產地',value:'葡萄牙'},{label:'認證',value:'GOTS'}]
+  },
+  {
+    id:1, series:'Organic Cotton', name:"Men's Mr T Organic T-shirt",
+    desc:'100% 有機棉，環保染料製程，簡約版型設計。耐穿性與質感兼具的永續經典，Total Eclipse 深邃色系。',
+    img:'images/p-mrt.png', price:1100, orig:1579,
+    colors:null,
+    sizes:[{label:'L',stock:1}],
+    attrs:[{label:'材質',value:'100% 有機棉'},{label:'顏色',value:'Total Eclipse'},{label:'產地',value:'葡萄牙'},{label:'認證',value:'GOTS'}]
+  },
+  {
+    id:2, series:'Organic Cotton', name:"Women's Greta Organic Hoody",
+    desc:'有機棉刷毛布料，簡約雙層連帽設計。內裡柔軟保暖，外觀低調有型，四季皆宜的永續保暖選擇。',
+    img:'images/p-greta.png', price:1800, orig:2590,
+    colors:null,
+    sizes:[{label:'M',stock:1}],
+    attrs:[{label:'材質',value:'100% 有機棉刷毛'},{label:'顏色',value:'Green Gables'},{label:'產地',value:'葡萄牙'},{label:'認證',value:'GOTS'}]
+  },
+  {
+    id:3, series:'Recycled Shell', name:'Ystwyth Active Jacket (Unisex)',
+    desc:'100% 再生塑料製成外殼，無氟撥水塗層。輕便好收納，是你下一趟山行的永續旅伴。',
+    img:'images/p-ystwyth.png', price:2500, orig:3685,
+    colors:null,
+    sizes:[{label:'M',stock:1}],
+    attrs:[{label:'材質',value:'再生 Polyester'},{label:'顏色',value:'Blue Night'},{label:'版型',value:'Unisex'},{label:'功能',value:'無氟撥水'}]
+  },
+  {
+    id:4, series:'Merino Wool', name:"Men's Long Sleeved Merino T-shirt",
+    desc:'100% 美利奴羊毛，天然溫控透氣，不易異味。全天候舒適的永續長袖，城市到山林皆適用。',
+    img:'images/p-merino-red.png', price:3500, orig:5090,
+    colors:[
+      {label:'Port Royale — 深紅 M', hex:'#6B2737', img:'images/p-merino-red.png', sizes:[{label:'M',stock:1}]},
+      {label:'Total Eclipse — 深藍 L', hex:'#2C3E5A', img:'images/p-merino-navy.png', sizes:[{label:'L',stock:1}]}
+    ],
+    sizes:[{label:'M',stock:1}],
+    attrs:[{label:'材質',value:'100% 美利奴羊毛'},{label:'重量',value:'170 g/m²'},{label:'產地',value:'紐西蘭'},{label:'認證',value:'ZQ Merino'}]
+  }
+];
+
+let cart = [];
+let currentDetail = null;
+let selectedColor = 0;
+let selectedSize = 0;
+
+function filterProducts(tag, btn) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('#productGrid .pcard');
+  let visible = 0;
+  cards.forEach(card => {
+    const tags = card.dataset.tags || '';
+    const show = tag === 'all' || tags.includes(tag);
+    card.style.display = show ? '' : 'none';
+    if(show) visible++;
+  });
+  document.getElementById('productCount').textContent = '共 ' + visible + ' 件商品';
+  document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
+}
+
+function switchMerinoThumb(idx) {
+  const imgs = ['images/p-merino-red.png','images/p-merino-navy.png'];
+  document.getElementById('merinoThumb').src = imgs[idx];
+  [0,1].forEach(i => {
+    const d = document.getElementById('mThumb'+i);
+    d.classList.toggle('active', i===idx);
+    d.style.borderColor = i===idx ? '#2C2C2A' : 'transparent';
+  });
+}
+
+function openDetail(idx) {
+  const p = catalog[idx];
+  currentDetail = idx;
+  selectedColor = 0;
+  selectedSize = 0;
+  document.getElementById('detailImgSrc').src = p.img;
+  document.getElementById('detailImgSrc').alt = p.name;
+  document.getElementById('detailSeries').textContent = p.series;
+  document.getElementById('detailName').textContent = p.name;
+  document.getElementById('detailDesc').textContent = p.desc;
+  document.getElementById('detailPrice').textContent = 'NT$' + p.price.toLocaleString();
+  document.getElementById('detailOrig').textContent = 'NT$' + p.orig.toLocaleString();
+  const save = Math.round((1 - p.price/p.orig)*100);
+  document.getElementById('detailSave').textContent = '省 ' + save + '%';
+
+  const colorWrap = document.getElementById('detailColorWrap');
+  const colorRow = document.getElementById('detailColorRow');
+  if(p.colors && p.colors.length > 1) {
+    colorWrap.style.display = 'block';
+    colorRow.innerHTML = p.colors.map((c,i) => `
+      <button class="detail-color-btn ${i===0?'active':''}" style="background:${c.hex}" onclick="selectDetailColor(${i})" aria-label="${c.label}"></button>
+    `).join('');
+    document.getElementById('detailColorName').textContent = p.colors[0].label;
+  } else {
+    colorWrap.style.display = 'none';
+  }
+
+  const sizes = (p.colors && p.colors.length > 1) ? p.colors[0].sizes : p.sizes;
+  const sizeWrap = document.getElementById('detailSizeWrap');
+  if(sizes.length > 1) {
+    sizeWrap.style.display = 'block';
+    document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
+      <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>${s.label}</button>
+    `).join('');
+  } else {
+    sizeWrap.style.display = 'none';
+  }
+
+  document.getElementById('detailAttrs').innerHTML = p.attrs.map(a => `
+    <div class="detail-attr"><p class="detail-attr-label">${a.label}</p><p class="detail-attr-value">${a.value}</p></div>
+  `).join('');
+
+  document.getElementById('detailAddBtn').disabled = false;
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectDetailColor(idx) {
+  const p = catalog[currentDetail];
+  selectedColor = idx;
+  document.querySelectorAll('.detail-color-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  document.getElementById('detailColorName').textContent = p.colors[idx].label;
+  document.getElementById('detailImgSrc').src = p.colors[idx].img;
+  const sizes = p.colors[idx].sizes;
+  if(sizes.length > 1) {
+    document.getElementById('detailSizeWrap').style.display = 'block';
+    document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
+      <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>${s.label}</button>
+    `).join('');
+  }
+  selectedSize = 0;
+}
+
+function selectDetailSize(idx) {
+  selectedSize = idx;
+  document.querySelectorAll('.detail-size-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleDetailOverlayClick(e) {
+  if(e.target === document.getElementById('detailOverlay')) closeDetail();
+}
+
+document.getElementById('detailAddBtn').addEventListener('click', () => {
+  const p = catalog[currentDetail];
+  let name = p.name;
+  if(p.colors) name += ' — ' + p.colors[selectedColor].label;
+  addToCart(name, p.price);
+  closeDetail();
+});
+
+function addToCart(name, price) {
+  const existing = cart.find(i => i.name === name);
+  if(existing){ existing.qty++; } else { cart.push({name, price, qty:1}); }
+  updateCartUI();
+  showToast('已加入：' + name.split(' ').slice(0,3).join(' '));
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s,i) => s+i.qty, 0);
+  const total = cart.reduce((s,i) => s+i.price*i.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+  const empty = document.getElementById('cartEmpty');
+  const itemsEl = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if(cart.length === 0){
+    empty.style.display='block'; itemsEl.innerHTML=''; footer.style.display='none';
+  } else {
+    empty.style.display='none'; footer.style.display='block';
+    document.getElementById('cartTotal').textContent = 'NT$' + total.toLocaleString();
+    itemsEl.innerHTML = cart.map((item,idx) => `
+      <div class="cart-item">
+        <div class="cart-item-img"><i class="ti ti-leaf"></i></div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-price">NT$${item.price.toLocaleString()}</p>
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+          </div>
+        </div>
+        <button class="cart-remove" onclick="removeItem(${idx})"><i class="ti ti-x"></i></button>
+      </div>
+    `).join('');
+  }
+}
+
+function changeQty(idx, delta){ cart[idx].qty += delta; if(cart[idx].qty<=0) cart.splice(idx,1); updateCartUI(); }
+function removeItem(idx){ cart.splice(idx,1); updateCartUI(); }
+function openCart(){
+  document.getElementById('cartOverlay').style.display='block';
+  const p=document.getElementById('cartPanel'); p.style.display='flex'; p.style.flexDirection='column';
+}
+function closeCart(){ document.getElementById('cartOverlay').style.display='none'; document.getElementById('cartPanel').style.display='none'; }
+function checkout(){ window.open('https://shopee.tw/pohaohuang86','_blank'); }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+</script>
+</body>
+</html>
