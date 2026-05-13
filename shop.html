@@ -146,9 +146,12 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
 .detail-color-btn.active{border-color:var(--dark);box-shadow:0 0 0 2px var(--white),0 0 0 3.5px var(--dark)}
 .detail-color-name{font-size:10px;color:rgba(44,44,42,0.5);letter-spacing:1px;margin-bottom:18px}
 .detail-size-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.detail-size-btn{min-width:50px;padding:9px 13px;background:var(--light);border:0.5px solid transparent;font-size:12px;color:var(--dark);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all 0.2s;-webkit-tap-highlight-color:transparent}
+.detail-size-btn{min-width:60px;padding:9px 13px;background:var(--light);border:0.5px solid transparent;font-size:12px;color:var(--dark);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all 0.2s;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;align-items:center;gap:3px}
 .detail-size-btn.active{background:var(--green);color:var(--white)}
-.detail-size-btn.sold-out{opacity:0.3;cursor:not-allowed;text-decoration:line-through}
+.detail-size-btn.sold-out{opacity:0.3;cursor:not-allowed}
+.dsz-label{font-size:13px;font-weight:400}
+.dsz-stock{font-size:9px;letter-spacing:0.5px;opacity:0.65}
+.dsz-sold{opacity:0.5}
 .detail-attrs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
 .detail-attr{background:var(--light);padding:12px 14px}
 .detail-attr-label{font-size:8px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin-bottom:4px}
@@ -403,7 +406,7 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
       </div>
 
       <div id="detailSizeWrap" style="display:none">
-        <span class="detail-select-label">尺寸</span>
+        <span class="detail-select-label">尺寸 <span style="font-size:9px;color:rgba(44,44,42,0.35);letter-spacing:0;font-weight:300;margin-left:4px">· 點選確認庫存</span></span>
         <div class="detail-size-row" id="detailSizeRow"></div>
       </div>
 
@@ -528,14 +531,13 @@ function openDetail(idx) {
 
   const sizes = (p.colors && p.colors.length > 1) ? p.colors[0].sizes : p.sizes;
   const sizeWrap = document.getElementById('detailSizeWrap');
-  if(sizes.length > 1) {
-    sizeWrap.style.display = 'block';
-    document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
-      <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>${s.label}</button>
-    `).join('');
-  } else {
-    sizeWrap.style.display = 'none';
-  }
+  sizeWrap.style.display = 'block';
+  document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
+    <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>
+      <span class="dsz-label">${s.label}</span>
+      <span class="dsz-stock ${s.stock===0?'dsz-sold':''}">${s.stock>0?'剩 '+s.stock+' 件':'售完'}</span>
+    </button>
+  `).join('');
 
   document.getElementById('detailAttrs').innerHTML = p.attrs.map(a => `
     <div class="detail-attr"><p class="detail-attr-label">${a.label}</p><p class="detail-attr-value">${a.value}</p></div>
@@ -553,12 +555,13 @@ function selectDetailColor(idx) {
   document.getElementById('detailColorName').textContent = p.colors[idx].label;
   document.getElementById('detailImgSrc').src = p.colors[idx].img;
   const sizes = p.colors[idx].sizes;
-  if(sizes.length > 1) {
-    document.getElementById('detailSizeWrap').style.display = 'block';
-    document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
-      <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>${s.label}</button>
-    `).join('');
-  }
+  document.getElementById('detailSizeWrap').style.display = 'block';
+  document.getElementById('detailSizeRow').innerHTML = sizes.map((s,i) => `
+    <button class="detail-size-btn ${s.stock===0?'sold-out':''} ${i===0&&s.stock>0?'active':''}" onclick="selectDetailSize(${i})" ${s.stock===0?'disabled':''}>
+      <span class="dsz-label">${s.label}</span>
+      <span class="dsz-stock ${s.stock===0?'dsz-sold':''}">${s.stock>0?'剩 '+s.stock+' 件':'售完'}</span>
+    </button>
+  `).join('');
   selectedSize = 0;
 }
 
