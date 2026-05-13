@@ -73,13 +73,15 @@ section{padding:44px 24px}
 
 /* ── PHILOSOPHY ── */
 .phil-band{background:var(--light);padding:44px 24px;scroll-margin-top:52px}
-.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
-.phil-card{background:var(--white);padding:20px 16px;border:0.5px solid rgba(74,82,64,0.12)}
-.phil-icon{width:32px;height:32px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.phil-icon i{font-size:16px;color:var(--green)}
-.phil-kw{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:400;color:var(--green);margin-bottom:4px}
-.phil-kw-en{font-size:9px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin-bottom:8px}
-.phil-desc{font-size:11px;color:rgba(44,44,42,0.5);line-height:1.7}
+.phil-name-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 20px}
+.phil-name-card{background:var(--white);padding:22px 16px;border:0.5px solid rgba(74,82,64,0.12);text-align:center}
+.phil-name-icon{width:36px;height:36px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.phil-name-icon i{font-size:17px;color:var(--green)}
+.phil-name-cn{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:300;color:var(--green);letter-spacing:4px;margin-bottom:3px}
+.phil-name-en{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:12px;font-family:'Noto Sans TC',sans-serif}
+.phil-name-desc{font-size:11px;color:rgba(44,44,42,0.5);line-height:1.8;text-align:left}
+.phil-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+.phil-tag{font-size:10px;letter-spacing:2px;color:var(--green);border:0.5px solid rgba(74,82,64,0.25);padding:5px 12px;background:transparent;font-family:'Noto Sans TC',sans-serif}
 
 /* ── PRODUCTS ── */
 .products-section{padding:48px 0 36px;scroll-margin-top:52px}
@@ -119,16 +121,6 @@ section{padding:44px 24px}
 .story-block-label{font-size:8px;letter-spacing:5px;color:rgba(200,184,154,0.4);text-transform:uppercase;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;text-align:center}
 .story-body{font-size:12px;color:rgba(232,226,216,0.7);line-height:2.1;margin-bottom:10px}
 .story-body-en{font-size:10px;color:rgba(232,226,216,0.3);line-height:2;letter-spacing:0.5px;font-family:'Noto Sans TC',sans-serif}
-.story-name-grid{display:grid;grid-template-columns:1fr 0.5px 1fr;gap:0;margin-top:4px}
-.story-name-item{padding:4px 8px;text-align:center}
-.story-name-divider{background:rgba(200,184,154,0.2);margin:4px 0}
-.story-name-cn{font-family:'Noto Serif TC',serif;font-size:20px;color:var(--white);font-weight:300;letter-spacing:4px;margin-bottom:4px}
-.story-name-en-label{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:10px;font-family:'Noto Sans TC',sans-serif}
-.story-name-desc{font-size:10px;color:rgba(232,226,216,0.5);line-height:1.9}
-.story-pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.story-pillar{border:0.5px solid rgba(200,184,154,0.15);padding:16px 12px;text-align:center}
-.story-pillar-en{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:6px;font-family:'Noto Sans TC',sans-serif}
-.story-pillar-cn{font-family:'Noto Serif TC',serif;font-size:16px;color:var(--white);font-weight:300;letter-spacing:3px}
 .story-closing{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:300;color:rgba(232,226,216,0.85);line-height:2;letter-spacing:2px;margin-bottom:10px}
 .story-closing-en{font-size:9px;letter-spacing:1.5px;color:rgba(232,226,216,0.25);line-height:2;font-family:'Noto Sans TC',sans-serif;margin-bottom:24px}
 .story-brand-mark{font-size:9px;letter-spacing:5px;color:rgba(200,184,154,0.3);text-transform:uppercase;font-family:'Noto Sans TC',sans-serif}
@@ -296,33 +288,32 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
 
 <!-- PHILOSOPHY -->
 <div class="phil-band" id="philosophy">
-  <p class="sec-label">Our Philosophy</p>
-  <h2 class="sec-title">四大品牌核心</h2>
-  <div class="phil-grid">
-    <div class="phil-card">
-      <div class="phil-icon"><i class="ti ti-minimize" aria-hidden="true"></i></div>
-      <p class="phil-kw">簡約</p>
-      <p class="phil-kw-en">Minimal</p>
-      <p class="phil-desc">少而精，去除不必要，讓本質自己說話</p>
+  <p class="sec-label">Who We Are</p>
+  <h2 class="sec-title">原野日常</h2>
+  <p class="sec-desc">質樸探索者 × 永續生活家</p>
+
+  <div class="phil-name-grid">
+    <div class="phil-name-card">
+      <div class="phil-name-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
+      <p class="phil-name-cn">原野</p>
+      <p class="phil-name-en">Wildland</p>
+      <p class="phil-name-desc">代表自然本源與永續理念。產品取材於大地，回歸原始純淨的物質狀態，減少人為加工與化學負擔。</p>
     </div>
-    <div class="phil-card">
-      <div class="phil-icon"><i class="ti ti-diamond" aria-hidden="true"></i></div>
-      <p class="phil-kw">質感</p>
-      <p class="phil-kw-en">Crafted</p>
-      <p class="phil-desc">材質真實，工藝用心，值得長期使用</p>
+    <div class="phil-name-card">
+      <div class="phil-name-icon"><i class="ti ti-home" aria-hidden="true"></i></div>
+      <p class="phil-name-cn">日常</p>
+      <p class="phil-name-en">Living</p>
+      <p class="phil-name-desc">代表簡約美學與實用主義。將設計感無縫嵌入每日生活，主張「少而精」的減法哲學，讓永續成為習慣而非負擔。</p>
     </div>
-    <div class="phil-card">
-      <div class="phil-icon"><i class="ti ti-mountain" aria-hidden="true"></i></div>
-      <p class="phil-kw">戶外</p>
-      <p class="phil-kw-en">Outdoor</p>
-      <p class="phil-desc">扎根自然場景，為移動與探索而生</p>
-    </div>
-    <div class="phil-card">
-      <div class="phil-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
-      <p class="phil-kw">永續</p>
-      <p class="phil-kw-en">Sustainable</p>
-      <p class="phil-desc">以自然為本，選材誠實，回歸大地的循環</p>
-    </div>
+  </div>
+
+  <div class="phil-tags">
+    <span class="phil-tag">沉靜</span>
+    <span class="phil-tag">誠實</span>
+    <span class="phil-tag">克制</span>
+    <span class="phil-tag">溫潤</span>
+    <span class="phil-tag">務實</span>
+    <span class="phil-tag">感知力強</span>
   </div>
 </div>
 
@@ -481,51 +472,6 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
     <p class="story-block-label">Brand Origin</p>
     <p class="story-body">原野日常從一個簡單的信念出發：永續不應該是負擔，而是一種習慣。我們相信，真正好的東西不需要過度包裝，不需要促銷話術，只需要誠實地說清楚它從哪裡來、用什麼做的、能陪你走多遠。</p>
     <p class="story-body-en">Wildland Living was born from a simple belief — that sustainability shouldn't be a burden, but a habit. Good things don't need loud packaging or clever marketing. They just need to be honest about where they come from, what they're made of, and how long they'll last.</p>
-  </div>
-
-  <div class="story-divider"></div>
-
-  <!-- 品牌名稱解析 -->
-  <div class="story-block">
-    <p class="story-block-label">The Name</p>
-    <div class="story-name-grid">
-      <div class="story-name-item">
-        <p class="story-name-cn">原野</p>
-        <p class="story-name-en-label">Wildland</p>
-        <p class="story-name-desc">自然本源與永續理念。產品取材於大地，回歸原始純淨的物質狀態，減少人為加工與化學負擔。</p>
-      </div>
-      <div class="story-name-divider"></div>
-      <div class="story-name-item">
-        <p class="story-name-cn">日常</p>
-        <p class="story-name-en-label">Living</p>
-        <p class="story-name-desc">簡約美學與實用主義。將設計感無縫嵌入每日生活，主張少而精的減法哲學。</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="story-divider"></div>
-
-  <!-- 四大關鍵詞 -->
-  <div class="story-block">
-    <p class="story-block-label">What We Stand For</p>
-    <div class="story-pillars">
-      <div class="story-pillar">
-        <p class="story-pillar-en">Sustainable</p>
-        <p class="story-pillar-cn">永續</p>
-      </div>
-      <div class="story-pillar">
-        <p class="story-pillar-en">Minimal</p>
-        <p class="story-pillar-cn">簡約</p>
-      </div>
-      <div class="story-pillar">
-        <p class="story-pillar-en">Crafted</p>
-        <p class="story-pillar-cn">質感</p>
-      </div>
-      <div class="story-pillar">
-        <p class="story-pillar-en">Outdoor</p>
-        <p class="story-pillar-cn">戶外</p>
-      </div>
-    </div>
   </div>
 
   <div class="story-divider"></div>
