@@ -92,7 +92,7 @@ section{padding:44px 24px}
 .product-img-wrap{width:100%;aspect-ratio:1/1;background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .product-img-wrap img{width:86%;height:86%;object-fit:contain;display:block;transition:transform 0.4s ease}
 .product-card:active .product-img-wrap img{transform:scale(0.97)}
-.product-tag{position:absolute;top:16px;left:16px;background:var(--green);color:var(--white);font-size:9px;letter-spacing:2px;padding:4px 9px}
+.product-tag{position:absolute;top:16px;left:16px;background:transparent;color:var(--sand);border:0.5px solid rgba(200,184,154,0.5);font-size:8px;letter-spacing:2px;padding:3px 8px;font-family:'Noto Sans TC',sans-serif}
 .product-info{padding:20px 24px 24px;background:var(--white)}
 .product-series{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;margin-bottom:6px}
 .product-name{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:300;color:var(--dark);line-height:1.4;margin-bottom:8px}
@@ -650,7 +650,7 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
   <div class="cart-body" id="cartBody">
     <div class="cart-empty" id="cartEmpty">
       <i class="ti ti-shopping-bag" aria-hidden="true"></i>
-      <p>購物車是空的</p>
+      <p>購物袋是空的</p>
       <p style="font-size:11px;margin-top:4px;color:rgba(44,44,42,0.3)">少帶一點，走得更遠</p>
     </div>
     <div id="cartItems"></div>
@@ -660,7 +660,7 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
       <span class="cart-total-label">小計</span>
       <span class="cart-total-price" id="cartTotal">NT$0</span>
     </div>
-    <button class="checkout-btn" onclick="checkout()">前往蝦皮結帳 →</button>
+    <button class="checkout-btn" onclick="checkout()">前往結帳 →</button>
   </div>
 </div>
 

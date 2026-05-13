@@ -57,7 +57,7 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
 .pcard-img{width:100%;aspect-ratio:3/4;background:var(--light);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .pcard-img img{width:82%;height:82%;object-fit:contain;display:block;transition:transform 0.4s ease}
 .pcard:active .pcard-img img{transform:scale(0.95)}
-.pcard-badge{position:absolute;top:10px;left:10px;background:var(--green);color:var(--white);font-size:8px;letter-spacing:1.5px;padding:3px 7px;font-weight:300}
+.pcard-badge{position:absolute;top:10px;left:10px;background:transparent;color:var(--sand);border:0.5px solid rgba(200,184,154,0.5);font-size:8px;letter-spacing:1.5px;padding:3px 7px;font-weight:300}
 .pcard-body{padding:12px 14px 16px}
 .pcard-series{font-size:8px;letter-spacing:2.5px;color:var(--sand);text-transform:uppercase;margin-bottom:4px}
 .pcard-name{font-size:12px;color:var(--dark);line-height:1.45;margin-bottom:10px;font-weight:300;min-height:36px}
@@ -65,8 +65,9 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
 .pcard-pricing{display:flex;flex-direction:column;gap:1px}
 .pcard-price{font-size:14px;color:var(--green);font-weight:500}
 .pcard-orig{font-size:9px;color:rgba(44,44,42,0.3);text-decoration:line-through}
-.pcard-add{width:30px;height:30px;background:var(--green);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:background 0.15s}
-.pcard-add:active{background:#3d4433}
+.pcard-add{width:30px;height:30px;background:transparent;color:var(--green);border:0.5px solid rgba(74,82,64,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:all 0.2s}
+.pcard-add:active{background:var(--green);color:var(--white);border-color:var(--green)}
+.pcard-tagline{font-size:10px;color:rgba(44,44,42,0.4);line-height:1.7;margin-bottom:10px;letter-spacing:0.3px}
 
 /* ── FULL WIDTH CARD ── */
 .pcard-full{grid-column:1/-1;flex-direction:row;background:var(--light)}
@@ -236,8 +237,8 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
           <span class="pcard-price">NT$1,100</span>
           <span class="pcard-orig">NT$1,579</span>
         </div>
-        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s XXX Organic Tee',1100)" aria-label="加入購物袋">
-          <i class="ti ti-plus"></i>
+        <button class="pcard-add" onclick="event.stopPropagation();openDetail(0)" aria-label="查看詳情">
+          <i class="ti ti-chevron-right"></i>
         </button>
       </div>
     </div>
@@ -252,13 +253,14 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
     <div class="pcard-body">
       <p class="pcard-series">Organic Cotton</p>
       <h2 class="pcard-name">Men's Mr T Organic T-shirt</h2>
+      <p class="pcard-tagline">有機棉，環保染料，耐穿是最好的永續</p>
       <div class="pcard-foot">
         <div class="pcard-pricing">
           <span class="pcard-price">NT$1,100</span>
           <span class="pcard-orig">NT$1,579</span>
         </div>
-        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s Mr T Organic T-shirt',1100)" aria-label="加入購物袋">
-          <i class="ti ti-plus"></i>
+        <button class="pcard-add" onclick="event.stopPropagation();openDetail(1)" aria-label="查看詳情">
+          <i class="ti ti-chevron-right"></i>
         </button>
       </div>
     </div>
@@ -273,13 +275,14 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
     <div class="pcard-body">
       <p class="pcard-series">Organic Cotton</p>
       <h2 class="pcard-name">Women's Greta Organic Hoody</h2>
+      <p class="pcard-tagline">有機棉刷毛，四季皆宜的溫柔選擇</p>
       <div class="pcard-foot">
         <div class="pcard-pricing">
           <span class="pcard-price">NT$1,800</span>
           <span class="pcard-orig">NT$2,590</span>
         </div>
-        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Women\'s Greta Organic Hoody',1800)" aria-label="加入購物袋">
-          <i class="ti ti-plus"></i>
+        <button class="pcard-add" onclick="event.stopPropagation();openDetail(2)" aria-label="查看詳情">
+          <i class="ti ti-chevron-right"></i>
         </button>
       </div>
     </div>
@@ -293,13 +296,14 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
     <div class="pcard-body">
       <p class="pcard-series">Recycled Shell</p>
       <h2 class="pcard-name">Ystwyth Active Jacket</h2>
+      <p class="pcard-tagline">再生寶特瓶製成，輕便好收納</p>
       <div class="pcard-foot">
         <div class="pcard-pricing">
           <span class="pcard-price">NT$2,500</span>
           <span class="pcard-orig">NT$3,685</span>
         </div>
-        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Ystwyth Active Jacket',2500)" aria-label="加入購物袋">
-          <i class="ti ti-plus"></i>
+        <button class="pcard-add" onclick="event.stopPropagation();openDetail(3)" aria-label="查看詳情">
+          <i class="ti ti-chevron-right"></i>
         </button>
       </div>
     </div>
@@ -322,8 +326,8 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
           <span class="pcard-price">NT$3,500</span>
           <span class="pcard-orig">NT$5,090</span>
         </div>
-        <button class="pcard-add" onclick="event.stopPropagation();addToCart('Men\'s Long Sleeved Merino T-shirt',3500)" aria-label="加入購物袋">
-          <i class="ti ti-plus"></i>
+        <button class="pcard-add" onclick="event.stopPropagation();openDetail(4)" aria-label="查看詳情">
+          <i class="ti ti-chevron-right"></i>
         </button>
       </div>
     </div>
@@ -334,7 +338,7 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
 <!-- SUSTAINABILITY STRIP -->
 <div class="sustain-strip">
   <i class="ti ti-leaf sustain-icon"></i>
-  <p class="sustain-text"><strong>來自植物萃取，用完可以安心入土。</strong><br>少帶一點，走得更遠。</p>
+  <p class="sustain-text"><strong>選材誠實，用得長久。</strong><br>少帶一點，走得更遠。</p>
 </div>
 
 <!-- EMPTY STATE -->
@@ -383,7 +387,7 @@ nav{position:sticky;top:0;width:100%;max-width:480px;z-index:100;background:rgba
       <span class="cart-total-label">小計</span>
       <span class="cart-total-price" id="cartTotal">NT$0</span>
     </div>
-    <button class="checkout-btn" onclick="checkout()">前往 Shopee 結帳 →</button>
+    <button class="checkout-btn" onclick="checkout()">前往結帳 →</button>
   </div>
 </div>
 
