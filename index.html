@@ -109,12 +109,29 @@ section{padding:44px 24px}
 .dot.active{background:var(--green);width:20px;border-radius:2px}
 
 /* ── STORY ── */
-.story-band{background:var(--green);padding:52px 28px;text-align:center;scroll-margin-top:52px}
-.story-quote{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:300;color:var(--white);line-height:1.8;margin-bottom:18px}
-.story-quote-en{font-size:10px;letter-spacing:2.5px;color:var(--sand);opacity:0.7;line-height:1.9}
-.story-divider{width:32px;height:0.5px;background:var(--sand);margin:22px auto;opacity:0.4}
-.story-body{font-size:12px;color:rgba(232,226,216,0.75);line-height:2.1;max-width:300px;margin:0 auto 28px}
-.story-en{font-size:9px;letter-spacing:4px;color:rgba(200,184,154,0.4);text-transform:uppercase;margin-top:4px}
+/* ── STORY ── */
+.story-band{background:var(--green);padding:56px 28px 60px;text-align:center;scroll-margin-top:52px}
+.story-eyebrow{font-size:8px;letter-spacing:6px;color:rgba(200,184,154,0.45);text-transform:uppercase;margin-bottom:24px;font-family:'Noto Sans TC',sans-serif}
+.story-quote{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:300;color:var(--white);line-height:1.75;letter-spacing:2px;margin-bottom:14px}
+.story-quote-en{font-size:10px;letter-spacing:1.5px;color:rgba(232,226,216,0.35);line-height:2;font-family:'Noto Sans TC',sans-serif}
+.story-divider{width:24px;height:0.5px;background:var(--sand);margin:32px auto;opacity:0.3}
+.story-block{text-align:left;margin-bottom:4px}
+.story-block-label{font-size:8px;letter-spacing:5px;color:rgba(200,184,154,0.4);text-transform:uppercase;margin-bottom:16px;font-family:'Noto Sans TC',sans-serif;text-align:center}
+.story-body{font-size:12px;color:rgba(232,226,216,0.7);line-height:2.1;margin-bottom:10px}
+.story-body-en{font-size:10px;color:rgba(232,226,216,0.3);line-height:2;letter-spacing:0.5px;font-family:'Noto Sans TC',sans-serif}
+.story-name-grid{display:grid;grid-template-columns:1fr 0.5px 1fr;gap:0;margin-top:4px}
+.story-name-item{padding:4px 8px;text-align:center}
+.story-name-divider{background:rgba(200,184,154,0.2);margin:4px 0}
+.story-name-cn{font-family:'Noto Serif TC',serif;font-size:20px;color:var(--white);font-weight:300;letter-spacing:4px;margin-bottom:4px}
+.story-name-en-label{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:10px;font-family:'Noto Sans TC',sans-serif}
+.story-name-desc{font-size:10px;color:rgba(232,226,216,0.5);line-height:1.9}
+.story-pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.story-pillar{border:0.5px solid rgba(200,184,154,0.15);padding:16px 12px;text-align:center}
+.story-pillar-en{font-size:9px;letter-spacing:3px;color:var(--sand);text-transform:uppercase;opacity:0.6;margin-bottom:6px;font-family:'Noto Sans TC',sans-serif}
+.story-pillar-cn{font-family:'Noto Serif TC',serif;font-size:16px;color:var(--white);font-weight:300;letter-spacing:3px}
+.story-closing{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:300;color:rgba(232,226,216,0.85);line-height:2;letter-spacing:2px;margin-bottom:10px}
+.story-closing-en{font-size:9px;letter-spacing:1.5px;color:rgba(232,226,216,0.25);line-height:2;font-family:'Noto Sans TC',sans-serif;margin-bottom:24px}
+.story-brand-mark{font-size:9px;letter-spacing:5px;color:rgba(200,184,154,0.3);text-transform:uppercase;font-family:'Noto Sans TC',sans-serif}
 
 /* ── CART ── */
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,42,0.5);z-index:200}
@@ -451,11 +468,73 @@ footer{background:var(--dark);padding:52px 28px 44px;scroll-margin-top:52px}
 
 <!-- STORY -->
 <div class="story-band" id="story">
-  <p class="story-quote">一條布、一個包，<br>少帶一點，走得更遠。</p>
-  <p class="story-quote-en">One cloth, one bag.<br>Carry less. Go further.</p>
+
+  <!-- 引言 -->
+  <p class="story-eyebrow">Our Story</p>
+  <p class="story-quote">不販賣生活風格，<br>只陪你找到與自然<br>和解的節奏。</p>
+  <p class="story-quote-en">We don't sell a lifestyle.<br>We help you find a rhythm<br>with nature.</p>
+
   <div class="story-divider"></div>
-  <p class="story-body">原野日常不販賣生活風格，而是陪伴你建立一種與自然和解的日常節奏。讓永續成為習慣，而非負擔。</p>
-  <p class="story-en">Wildland Living</p>
+
+  <!-- 品牌起點 -->
+  <div class="story-block">
+    <p class="story-block-label">Brand Origin</p>
+    <p class="story-body">原野日常從一個簡單的信念出發：永續不應該是負擔，而是一種習慣。我們相信，真正好的東西不需要過度包裝，不需要促銷話術，只需要誠實地說清楚它從哪裡來、用什麼做的、能陪你走多遠。</p>
+    <p class="story-body-en">Wildland Living was born from a simple belief — that sustainability shouldn't be a burden, but a habit. Good things don't need loud packaging or clever marketing. They just need to be honest about where they come from, what they're made of, and how long they'll last.</p>
+  </div>
+
+  <div class="story-divider"></div>
+
+  <!-- 品牌名稱解析 -->
+  <div class="story-block">
+    <p class="story-block-label">The Name</p>
+    <div class="story-name-grid">
+      <div class="story-name-item">
+        <p class="story-name-cn">原野</p>
+        <p class="story-name-en-label">Wildland</p>
+        <p class="story-name-desc">自然本源與永續理念。產品取材於大地，回歸原始純淨的物質狀態，減少人為加工與化學負擔。</p>
+      </div>
+      <div class="story-name-divider"></div>
+      <div class="story-name-item">
+        <p class="story-name-cn">日常</p>
+        <p class="story-name-en-label">Living</p>
+        <p class="story-name-desc">簡約美學與實用主義。將設計感無縫嵌入每日生活，主張少而精的減法哲學。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-divider"></div>
+
+  <!-- 四大關鍵詞 -->
+  <div class="story-block">
+    <p class="story-block-label">What We Stand For</p>
+    <div class="story-pillars">
+      <div class="story-pillar">
+        <p class="story-pillar-en">Sustainable</p>
+        <p class="story-pillar-cn">永續</p>
+      </div>
+      <div class="story-pillar">
+        <p class="story-pillar-en">Minimal</p>
+        <p class="story-pillar-cn">簡約</p>
+      </div>
+      <div class="story-pillar">
+        <p class="story-pillar-en">Crafted</p>
+        <p class="story-pillar-cn">質感</p>
+      </div>
+      <div class="story-pillar">
+        <p class="story-pillar-en">Outdoor</p>
+        <p class="story-pillar-cn">戶外</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-divider"></div>
+
+  <!-- 結語 -->
+  <p class="story-closing">如果喜歡，就用好它。<br>用壞了，再換一個。</p>
+  <p class="story-closing-en">If you love it, use it well.<br>When it wears out, get another.</p>
+  <p class="story-brand-mark">Wildland Living</p>
+
 </div>
 
 <!-- FOOTER -->
