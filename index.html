@@ -469,6 +469,11 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 
+/* 4 個商品時：四欄 */
+.products:has(> .product:nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .product {
   cursor: pointer;
   transition: transform 0.5s ease;
@@ -1054,8 +1059,9 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: row;
   z-index: 1;
 }
 
@@ -1064,6 +1070,8 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  flex: 1;
+  flex-shrink: 0;
 }
 
 .product-modal__visual svg {
@@ -1074,6 +1082,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .product-modal__body {
+  flex: 1;
+  flex-shrink: 0;
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
@@ -1083,19 +1093,50 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   top: var(--space-sm);
   right: var(--space-sm);
-  width: 36px;
-  height: 36px;
-  background: var(--mist);
+  width: 40px;
+  height: 40px;
+  background: rgba(242, 239, 230, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  border: 1px solid rgba(61, 74, 56, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
   color: var(--shade);
   z-index: 2;
-  transition: color 0.3s;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.3s,
+              border-color 0.3s;
+  /* 移除文字字符的影響——按鈕內容是 SVG */
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
 }
 
-.product-modal__close:hover { color: var(--wild); }
+.product-modal__close:hover {
+  background: var(--mist);
+  border-color: var(--wild);
+  transform: scale(1.05);
+}
+
+.product-modal__close:active {
+  transform: scale(0.95);
+}
+
+.product-modal__close svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--shade);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke 0.3s;
+}
+
+.product-modal__close:hover svg {
+  stroke: var(--wild);
+}
 
 .product-modal__no {
   font-size: 0.7rem;
@@ -1375,30 +1416,32 @@ a { color: inherit; text-decoration: none; }
   .product-modal { padding: 0; align-items: flex-end; }
 
   .product-modal__content {
-    grid-template-columns: 1fr;
+    flex-direction: column;  /* 手機版改成上下排列 */
     max-height: 92vh;
     width: 100%;
     max-width: 100%;
-    /* 從底部彈出的視覺 */
     border-radius: 0;
   }
 
   .product-modal__visual {
-    aspect-ratio: 4 / 3; /* 圖縮小一點，留空間給內容 */
-    max-height: 40vh;
+    /* 固定高度而非 aspect-ratio——避免 iOS Safari grid+scroll bug */
+    aspect-ratio: auto;
+    height: 38vh;
+    max-height: 38vh;
+    min-height: 280px;
+    flex: 0 0 auto;  /* 不縮、不長 */
   }
 
   .product-modal__body {
     padding: var(--space-sm) 1.25rem var(--space-sm);
-    /* 預留底部 CTA 空間，避免被遮住 */
     padding-bottom: 80px;
+    flex: 1 0 auto;
   }
 
   .product-modal__close {
     top: 0.75rem;
     right: 0.75rem;
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(31, 42, 30, 0.15);
+    box-shadow: 0 2px 12px rgba(31, 42, 30, 0.18);
   }
 
   /* 加入購物車 sticky 在 modal 底部 */
@@ -1786,6 +1829,23 @@ const PRODUCTS = [
     color: '#7B8568',
     accent: '#3D4A38',
     shape: 'hoody'
+  },
+  {
+    id: 'no004',
+    no: 'NO. 004',
+    name: 'Ystwyth 機能運動外套',
+    nameEn: "Ystwyth Active Jacket (unisex)",
+    price: 2580,
+    originalPrice: 3685,
+    sizes: ['M'],
+    stock: 1,
+    material: '100% 再生聚酯纖維',
+    origin: 'Made in India',
+    desc: '中磅防風機能外套，由回收寶特瓶再製而成。採用回收聚酯格紋布，勾到也不易撕裂；內襯同樣選用回收聚酯，貼膚舒適。表面經 PFC-free 環保撥水處理，雨水自然滑落不滲透；三段式可調帽兜，從容應對多變天候。兩色可選，搭配彈性下擺、雙翻蓋按釦前口袋、側邊按釦口袋及內側胸袋，收納一應俱全。前襟採用 YKK NATULON® 回收拉鍊，每個細節都經過深思。耐穿、永續、可收納 — 一件為實用而生的好外套。',
+    care: '機洗',
+    color: '#3D4A38',
+    accent: '#1F2A1E',
+    shape: 'jacket'
   }
 ];
 
@@ -1808,8 +1868,9 @@ function productSVG(product, large = false) {
   const isTee = product.shape === 'tee';
   const isHoody = product.shape === 'hoody';
 
-  // 內部細節：T 恤畫圓領、帽 T 畫袋鼠口袋與帽子、其他畫中央線
+  // 內部細節：T 恤畫圓領、帽 T 畫袋鼠口袋與帽子、外套畫拉鍊、其他畫中央線
   let detail = '';
+  const isJacket = product.shape === 'jacket';
   if (isTee) {
     detail = `<path d="M170,130 Q200,150 230,130" fill="none" stroke="#1F2A1E" stroke-width="1" stroke-opacity="0.3"/>`;
   } else if (isHoody) {
@@ -1821,6 +1882,13 @@ function productSVG(product, large = false) {
       <line x1="205" y1="155" x2="205" y2="195" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.3"/>
       <!-- 袋鼠口袋 -->
       <path d="M140,290 L260,290 L255,340 L145,340 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>`;
+  } else if (isJacket) {
+    detail = `
+      <!-- 中央開襟拉鍊 -->
+      <line x1="200" y1="120" x2="200" y2="400" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="2,3"/>
+      <!-- 兩側口袋 -->
+      <path d="M135,300 L185,300 L180,335 L140,335 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>
+      <path d="M215,300 L265,300 L260,335 L220,335 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>`;
   } else {
     detail = `<line x1="200" y1="120" x2="200" y2="400" stroke="#3D4A38" stroke-width="0.5" stroke-opacity="0.3"/>`;
   }
@@ -1892,7 +1960,11 @@ function openProductModal(id) {
 
   const content = document.getElementById('modalContent');
   content.innerHTML = `
-    <button class="product-modal__close" id="modalClose" aria-label="關閉">×</button>
+    <button class="product-modal__close" id="modalClose" aria-label="關閉">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1 L13 13 M13 1 L1 13" />
+      </svg>
+    </button>
     <div class="product-modal__visual">
       ${productSVG(p, true)}
     </div>
