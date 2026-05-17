@@ -500,11 +500,11 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   top: var(--space-sm);
   left: var(--space-sm);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.25em;
-  color: var(--shade);
-  background: rgba(242, 239, 230, 0.85);
-  padding: 0.3rem 0.6rem;
+  color: rgba(242, 239, 230, 0.85);
+  padding: 0.3rem 0;
+  /* 結構性資訊：弱化、無底色，只顯示在商品圖上 */
 }
 
 /* 庫存提示：誠實標示，不販賣焦慮 */
@@ -513,11 +513,14 @@ a { color: inherit; text-decoration: none; }
   top: var(--space-sm);
   right: var(--space-sm);
   font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--shade);
-  background: rgba(242, 239, 230, 0.85);
-  padding: 0.3rem 0.6rem;
-  border-left: 2px solid var(--wild);
+  background: rgba(242, 239, 230, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.35rem 0.7rem;
+  border-radius: 2px;
+  /* 重要資訊：實心、清楚 */
 }
 
 .product__info {
@@ -1377,10 +1380,20 @@ a { color: inherit; text-decoration: none; }
 
   .hero__cta .btn { width: 100%; }
 
-  /* Products 手機 */
-  .products {
+  /* Products 手機 — 強制單欄（覆蓋所有 :has() 規則） */
+  .products,
+  .products:has(> .product:only-child),
+  .products:has(> .product:nth-child(2):last-child),
+  .products:has(> .product:nth-child(4):last-child) {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    max-width: 100%;
+    gap: var(--space-md);
+    justify-content: stretch;
+  }
+
+  /* 手機版商品圖改 4:5（窄高一點，留出更多商品在第一屏） */
+  .product__visual {
+    aspect-ratio: 1 / 1;  /* 從 4:5 改為 1:1，高度減約 30% */
   }
 
   /* Story 手機 */
