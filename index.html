@@ -456,6 +456,19 @@ a { color: inherit; text-decoration: none; }
   gap: var(--space-md);
 }
 
+/* 只有 1 個商品時：置中、最大寬度限制 */
+.products:has(> .product:only-child) {
+  grid-template-columns: minmax(0, 480px);
+  justify-content: center;
+}
+
+/* 2 個商品時：兩欄 */
+.products:has(> .product:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .product {
   cursor: pointer;
   transition: transform 0.5s ease;
@@ -489,6 +502,19 @@ a { color: inherit; text-decoration: none; }
   padding: 0.3rem 0.6rem;
 }
 
+/* 庫存提示：誠實標示，不販賣焦慮 */
+.product__stock {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--shade);
+  background: rgba(242, 239, 230, 0.85);
+  padding: 0.3rem 0.6rem;
+  border-left: 2px solid var(--wild);
+}
+
 .product__info {
   padding: var(--space-xs) 0;
 }
@@ -515,6 +541,17 @@ a { color: inherit; text-decoration: none; }
   color: var(--shade);
   font-size: 0.95rem;
   letter-spacing: 0.1em;
+}
+
+.product__price-original {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--wild);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
 }
 
 /* ========================================
@@ -1093,6 +1130,19 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.1em;
 }
 
+.product-modal__price-original {
+  display: inline-block;
+  margin-left: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--wild);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+
 .product-modal__desc {
   color: var(--shade);
   font-size: 0.9rem;
@@ -1135,6 +1185,14 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: var(--space-xs);
 }
 
+.product-modal__stock-hint {
+  display: inline-block;
+  margin-left: 0.25rem;
+  color: var(--shade);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
 .product-modal__size-opts {
   display: flex;
   gap: 0.5rem;
@@ -1168,9 +1226,9 @@ a { color: inherit; text-decoration: none; }
    ======================================== */
 .toast {
   position: fixed;
-  bottom: var(--space-md);
+  top: 80px;  /* 從頂部 nav 下方出現 */
   left: 50%;
-  transform: translateX(-50%) translateY(100px);
+  transform: translateX(-50%) translateY(-150px);
   background: var(--shade);
   color: var(--mist);
   padding: 0.85rem var(--space-md);
@@ -1179,6 +1237,10 @@ a { color: inherit; text-decoration: none; }
   z-index: 300;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 10px 30px rgba(31, 42, 30, 0.2);
+  white-space: nowrap;
+  max-width: calc(100vw - 2rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .toast.is-show {
@@ -1479,7 +1541,7 @@ a { color: inherit; text-decoration: none; }
     <div class="section__head">
       <div>
         <h2 class="section__title">新品</h2>
-        <span class="section__title-en">NEW ARRIVAL · 03 ITEMS</span>
+        <span class="section__title-en" id="productsCount">NEW ARRIVAL</span>
       </div>
       <span class="section__meta">S / S 2 0 2 6</span>
     </div>
@@ -1677,46 +1739,92 @@ const PRODUCTS = [
   {
     id: 'no001',
     no: 'NO. 001',
-    name: '未漂白亞麻襯衫',
-    nameEn: 'Unbleached Linen Shirt',
-    price: 2880,
-    sizes: ['S', 'M', 'L', 'XL'],
-    material: '100% 歐洲亞麻',
-    origin: 'Made in Taiwan',
-    desc: '取自歐洲種植的亞麻原料，未經漂白處理，保留纖維的天然色澤。可水洗，越穿越柔軟，適合從會議到河堤散步的所有日常。亞麻會皺——這是它呼吸的方式。',
-    color: '#C9D1B8',
-    accent: '#7B8568'
+    name: '男款 XXX 有機棉 T',
+    nameEn: "Men's XXX Organic Tee",
+    price: 1105,
+    originalPrice: 1579,
+    sizes: ['L'],
+    stock: 1,  // 庫存（顯示「僅剩 N 件」用）
+    material: '100% 有機棉',
+    origin: 'Made in Bangladesh',
+    desc: '製作這件 T 恤時，我們把過去三十年做過的上千件版型重新攤開，從頭畫了一次。袖子收短一點，領口羅紋加厚一些，領片改用平接縫——這些細節不會第一眼被看見，但會在你穿過一整年之後慢慢回報你。布料是我們一直信任的 180g 有機棉，耐穿、耐洗，會跟著時間變得更柔軟。一件能陪你很久的 T 恤，本來就該是這樣。',
+    care: '30°C 機洗 · 自然晾乾',
+    color: '#3D4A38',
+    accent: '#1F2A1E',
+    shape: 'tee'
   },
   {
     id: 'no002',
     no: 'NO. 002',
-    name: '霧綠寬褲',
-    nameEn: 'Meadow Wide Pants',
-    price: 3280,
-    sizes: ['S', 'M', 'L'],
-    material: '70% 棉 / 30% 亞麻',
-    origin: 'Made in Taiwan',
-    desc: '寬鬆剪裁、垂墜感佳的日常褲款。從通勤會議到週末散步都自在。霧綠色取自品牌主色，沉穩而不沉重。',
-    color: '#7B8568',
-    accent: '#3D4A38'
+    name: '男款 Mr T 有機棉 T',
+    nameEn: "Men's Mr T Organic T-shirt",
+    price: 1105,
+    originalPrice: 1579,
+    sizes: ['L'],  // M 已售完，只剩 L
+    stock: 1,
+    material: '100% 有機棉',
+    origin: 'Made in India',
+    desc: '我們把熟悉的版型再做了一次。100% 有機棉，種植時不使用有害農藥——對你、對種棉花的人、對那塊土地都比較好。染色用的是 Oeko-Tex 100 認證染料，不會污染地下水。領口羅紋加厚，領片改用平接縫，這些細節會在你穿過一整年之後慢慢回報你。只要你願意好好對待它，這件 T 恤可以陪你很久。',
+    care: '30°C 機洗 · 自然晾乾',
+    color: '#3D4A38',
+    accent: '#1F2A1E',
+    shape: 'tee'
   },
   {
     id: 'no003',
     no: 'NO. 003',
-    name: '棉麻外套',
-    nameEn: 'Cotton-Linen Jacket',
-    price: 4580,
-    sizes: ['S', 'M', 'L', 'XL'],
-    material: '60% 棉 / 40% 亞麻',
-    origin: 'Made in Taiwan',
-    desc: '春秋過渡的中量級外套。可水洗、無內襯設計，輕巧好搭。微微的肩線結構，讓襯衫線條從會議延伸到山徑。',
-    color: '#3D4A38',
-    accent: '#7B8568'
+    name: '女款 Greta 有機棉連帽衫',
+    nameEn: "Women's Greta Organic Hoody",
+    price: 1813,
+    originalPrice: 2590,
+    sizes: ['M'],  // L 已售完，只剩 M
+    stock: 1,
+    material: '100% 有機棉',
+    origin: 'Made in Pakistan',
+    desc: '一件可以從十月穿到三月的帽 T。布料是 100% 有機棉的厚磅織造，內裡刷毛，摸起來像剛從烘乾機拿出來的那種柔軟。雙層帽兜不會塌，繩帶換成人字織，比塑膠繩耐用也好看。前面有兩個口袋，給冷天的手一個地方放。棉花種植不使用農藥，染料通過 Oeko-Tex 100 認證——對你、對農夫、對那塊土地都比較好。',
+    care: '30°C 機洗',
+    color: '#7B8568',  // 原野綠（中色調）
+    accent: '#3D4A38',
+    shape: 'hoody'      // 新增帽 T 形狀
   }
 ];
 
-// ---------- 生成商品視覺 SVG（每個商品有自己的色調） ----------
+// ---------- 生成商品視覺 SVG（每個商品有自己的色調與形狀） ----------
+const SHAPE_PATHS = {
+  // T 恤：短袖、圓領
+  tee: 'M150,130 Q200,115 250,130 L295,160 L320,200 L295,230 L275,210 L275,400 L125,400 L125,210 L105,230 L80,200 L105,160 Z',
+  // 帽 T：長袖、有帽兜
+  hoody: 'M155,135 Q200,80 245,135 L295,160 L325,260 L300,270 L290,250 L290,400 L110,400 L110,250 L100,270 L75,260 L105,160 Z',
+  // 襯衫：長袖、有領
+  shirt: 'M140,120 L260,120 L290,180 L270,200 L270,400 L130,400 L130,200 L110,180 Z',
+  // 褲款：雙腿
+  pants: 'M130,120 L270,120 L280,220 L240,400 L210,400 L200,250 L190,400 L160,400 L120,220 Z',
+  // 外套：寬肩、開襟
+  jacket: 'M130,120 L200,135 L270,120 L305,180 L280,210 L280,400 L120,400 L120,210 L95,180 Z',
+};
+
 function productSVG(product, large = false) {
+  const shape = SHAPE_PATHS[product.shape] || SHAPE_PATHS.shirt;
+  const isTee = product.shape === 'tee';
+  const isHoody = product.shape === 'hoody';
+
+  // 內部細節：T 恤畫圓領、帽 T 畫袋鼠口袋與帽子、其他畫中央線
+  let detail = '';
+  if (isTee) {
+    detail = `<path d="M170,130 Q200,150 230,130" fill="none" stroke="#1F2A1E" stroke-width="1" stroke-opacity="0.3"/>`;
+  } else if (isHoody) {
+    detail = `
+      <!-- 帽 T 帽兜的內部弧線 -->
+      <path d="M170,130 Q200,160 230,130" fill="none" stroke="#1F2A1E" stroke-width="1" stroke-opacity="0.35"/>
+      <!-- 中央帽繩 -->
+      <line x1="195" y1="155" x2="195" y2="195" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.3"/>
+      <line x1="205" y1="155" x2="205" y2="195" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.3"/>
+      <!-- 袋鼠口袋 -->
+      <path d="M140,290 L260,290 L255,340 L145,340 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>`;
+  } else {
+    detail = `<line x1="200" y1="120" x2="200" y2="400" stroke="#3D4A38" stroke-width="0.5" stroke-opacity="0.3"/>`;
+  }
+
   return `
     <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1726,11 +1834,11 @@ function productSVG(product, large = false) {
         </linearGradient>
       </defs>
       <rect width="400" height="500" fill="url(#grad-${product.id}-${large?'lg':'sm'})"/>
-      <!-- 風格示意：抽象服裝輪廓 -->
-      <g opacity="0.25">
-        <path d="M140,120 L260,120 L290,180 L270,200 L270,400 L130,400 L130,200 L110,180 Z"
+      <!-- 服裝輪廓 -->
+      <g opacity="0.22">
+        <path d="${shape}"
               fill="#F2EFE6" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.4"/>
-        <line x1="200" y1="120" x2="200" y2="400" stroke="#3D4A38" stroke-width="0.5" stroke-opacity="0.3"/>
+        ${detail}
       </g>
       <!-- 編號標籤 -->
       <text x="40" y="460" font-family="sans-serif" font-size="9" fill="#F2EFE6" fill-opacity="0.7" letter-spacing="3">${product.no}</text>
@@ -1744,16 +1852,29 @@ function productSVG(product, large = false) {
 // ---------- 渲染商品列表 ----------
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
+
+  // 更新商品數量顯示
+  const countEl = document.getElementById('productsCount');
+  if (countEl) {
+    const n = PRODUCTS.length;
+    const numStr = n < 10 ? '0' + n : String(n);
+    countEl.textContent = `NEW ARRIVAL · ${numStr} ${n === 1 ? 'ITEM' : 'ITEMS'}`;
+  }
+
   grid.innerHTML = PRODUCTS.map(p => `
     <article class="product" data-id="${p.id}">
       <div class="product__visual">
         ${productSVG(p)}
         <div class="product__no">${p.no}</div>
+        ${p.stock && p.stock <= 3 ? `<div class="product__stock">僅剩 ${p.stock} 件</div>` : ''}
       </div>
       <div class="product__info">
         <h3 class="product__name">${p.name}</h3>
         <div class="product__name-en">${p.nameEn}</div>
-        <div class="product__price">NT$ ${p.price.toLocaleString()}</div>
+        <div class="product__price">
+          NT$ ${p.price.toLocaleString()}
+          ${p.originalPrice ? `<span class="product__price-original">NT$ ${p.originalPrice.toLocaleString()}</span>` : ''}
+        </div>
       </div>
     </article>
   `).join('');
@@ -1779,7 +1900,10 @@ function openProductModal(id) {
       <div class="product-modal__no">${p.no} · S/S 2026</div>
       <h2 class="product-modal__name">${p.name}</h2>
       <div class="product-modal__name-en">${p.nameEn}</div>
-      <div class="product-modal__price">NT$ ${p.price.toLocaleString()}</div>
+      <div class="product-modal__price">
+        NT$ ${p.price.toLocaleString()}
+        ${p.originalPrice ? `<span class="product-modal__price-original">NT$ ${p.originalPrice.toLocaleString()}</span>` : ''}
+      </div>
 
       <div class="product-modal__desc">${p.desc}</div>
 
@@ -1794,12 +1918,15 @@ function openProductModal(id) {
         </div>
         <div class="product-modal__detail-row">
           <span class="product-modal__detail-label">CARE</span>
-          <span>冷水手洗 · 平鋪陰乾</span>
+          <span>${p.care || '冷水手洗 · 平鋪陰乾'}</span>
         </div>
       </div>
 
       <div class="product-modal__size">
-        <div class="product-modal__size-label">尺寸 SIZE</div>
+        <div class="product-modal__size-label">
+          尺寸 SIZE
+          ${p.stock && p.stock <= 3 ? `<span class="product-modal__stock-hint">· 僅剩 ${p.stock} 件</span>` : ''}
+        </div>
         <div class="product-modal__size-opts" id="sizeOpts">
           ${p.sizes.map((s, i) => `
             <button class="size-btn ${i===0?'is-active':''}" data-size="${s}">${s}</button>
@@ -1830,10 +1957,12 @@ function openProductModal(id) {
 
   document.getElementById('addToCartBtn').addEventListener('click', () => {
     const size = sizeOpts.querySelector('.size-btn.is-active').dataset.size;
-    addToCart(p.id, size);
-    closeProductModal();
-    showToast(`已加入購物車 · ${p.name} (${size})`);
-    openCart();
+    const ok = addToCart(p.id, size);
+    if (ok) {
+      closeProductModal();
+      showToast(`已加入購物車 · ${p.name} (${size})`);
+      openCart();
+    }
   });
 }
 
@@ -1858,8 +1987,16 @@ function saveCart(cart) {
 
 function addToCart(productId, size) {
   const cart = getCart();
+  const p = PRODUCTS.find(x => x.id === productId);
   const key = `${productId}__${size}`;
   const existing = cart.find(item => item.key === key);
+
+  // 庫存檢查：不能加超過庫存數量
+  const currentQty = existing ? existing.qty : 0;
+  if (p.stock && currentQty >= p.stock) {
+    showToast(`這款只剩 ${p.stock} 件，已在你的購物車裡`);
+    return false;
+  }
 
   if (existing) {
     existing.qty += 1;
@@ -1869,12 +2006,22 @@ function addToCart(productId, size) {
 
   saveCart(cart);
   renderCart();
+  return true;
 }
 
 function updateCartItem(key, delta) {
   const cart = getCart();
   const item = cart.find(x => x.key === key);
   if (!item) return;
+
+  // 庫存檢查
+  if (delta > 0) {
+    const p = PRODUCTS.find(x => x.id === item.productId);
+    if (p && p.stock && item.qty >= p.stock) {
+      showToast(`這款只剩 ${p.stock} 件`);
+      return;
+    }
+  }
 
   item.qty += delta;
   if (item.qty <= 0) {
