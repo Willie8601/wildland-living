@@ -1,2304 +1,3657 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="原野日常 Wildland Living — 把原野，穿在身上。守護敏感肌、耐穿耐洗、跨越場景的天然纖維服飾。">
-<meta name="theme-color" content="#7B8568">
-<title>原野日常 Wildland Living — 把原野，穿在身上</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>原野日常 Wildland Living｜把原野，穿在身上</title>
+<meta name="description" content="原野日常 Wildland Living — 為現代人而生的服飾品牌。少一點消費，多一點生活。" />
 
-<!-- Favicon (SVG，符合品牌「原」字標) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%237B8568'/%3E%3Ctext x='50' y='68' font-family='serif' font-size='62' fill='%23F2EFE6' text-anchor='middle' font-weight='600'%3E原%3C/text%3E%3C/svg%3E">
+<!-- Open Graph：分享到 Facebook、Line、Threads 時的預覽 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="原野日常 Wildland Living｜把原野，穿在身上" />
+<meta property="og:description" content="一件好衣，能跨越會議與山徑，守護肌膚、陪你長久。少一點消費，多一點生活。" />
+<meta property="og:site_name" content="原野日常 Wildland Living" />
+<meta property="og:locale" content="zh_TW" />
+<meta property="og:url" content="https://wildlandliving.tw/" />
+<!-- og:image：未來請上傳 1200×630 的品牌主視覺圖到 CDN，把路徑填這裡 -->
+<!-- <meta property="og:image" content="https://wildlandliving.tw/og-image.jpg" /> -->
 
-<!-- Klee One 字體（品牌規範主字體） -->
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="原野日常 Wildland Living｜把原野，穿在身上" />
+<meta name="twitter:description" content="一件好衣，能跨越會議與山徑。少一點消費，多一點生活。" />
+
+<!-- 主題色（手機書籤 / 行動瀏覽器 UI） -->
+<meta name="theme-color" content="#7B8568" />
+
+<!-- Klee One：中英文統一手書字體 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-/* ========================================
-   原野日常 Wildland Living
-   Brand Bible Vol.01 · 2026 Edition
-   ========================================
-   嚴格依品牌大全色彩系統與排版規範
-   60% Mist · 25% Wild · 10% Shade · 5% Meadow
-   ======================================== */
+/* ========================================================================
+   原野日常 Wildland Living · Brand-Compliant Stylesheet
+   依據 Brand Bible Vol.01 (2026)
+   ======================================================================== */
 
 :root {
-  /* 主色 Primary */
-  --wild: #7B8568;        /* 原野綠 */
-  --shade: #3D4A38;       /* 林影綠 */
+  /* --- 主色 Primary --- */
+  --wild:    #7B8568;   /* 原野綠 - Logo · 主視覺 · CTA */
+  --shade:   #3D4A38;   /* 林影綠 - 標題 · 重要文字 */
 
-  /* 底色 Base */
-  --mist: #F2EFE6;        /* 薄霧白 */
-  --meadow: #C9D1B8;      /* 淺草綠 */
+  /* --- 底色 Base --- */
+  --mist:    #F2EFE6;   /* 薄霧白 - 網頁底色（60%） */
+  --meadow:  #C9D1B8;   /* 淺草綠 - 區塊分隔 · 標籤底 */
 
-  /* 強調色 Accent */
-  --forest: #1F2A1E;      /* 深林墨 */
+  /* --- 強調 Accent --- */
+  --forest:  #1F2A1E;   /* 深林墨 - 內文 · 必要反差 */
 
-  /* 字體 */
-  --font-display: 'Klee One', 'Noto Serif TC', serif;
-  --font-body: 'Klee One', 'Noto Sans TC', sans-serif;
-  --font-dense: 'Noto Sans TC', sans-serif; /* 密集資訊用 */
+  /* --- 語意 --- */
+  --line:    #d8d5cb;
+  --line-soft: #e8e5dc;
+  --muted:   #6b6f5e;
 
-  /* 間距節奏 */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 8rem;
+  /* --- 字體 --- */
+  --font-display: 'Klee One', 'Noto Sans TC', serif;
+  --font-body:    'Klee One', 'Noto Sans TC', serif;
+  --font-sans:    'Noto Sans TC', sans-serif; /* 密集資訊用 */
 
-  /* 容器寬度 */
-  --max-width: 1280px;
-  --content-width: 960px;
+  /* --- 尺度 --- */
+  --max:   1240px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --radius: 2px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* 視覺隱藏但保留給螢幕閱讀器 */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  font-weight: 400;
-  background-color: var(--mist);
   color: var(--forest);
+  background: var(--mist);
   line-height: 1.95;
-  letter-spacing: 0.02em;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-img { max-width: 100%; display: block; }
+img, svg { display: block; max-width: 100%; }
+
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
 a { color: inherit; text-decoration: none; }
 
-/* ========================================
-   排版層級 (依品牌大全 Chapter 03)
-   ======================================== */
-.t-logo {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.12em;
+/* ========================================================================
+   全站排版工具
+   ======================================================================== */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 
-.t-heading {
+.hr-thin {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.h-display {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: 0.08em;
-  line-height: 1.6;
-}
-
-.t-label {
-  font-family: var(--font-body);
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-}
-
-.t-dense {
-  font-family: var(--font-dense);
-  font-weight: 300;
-  letter-spacing: 0.02em;
-  line-height: 1.7;
-}
-
-/* ========================================
-   通用元件
-   ======================================== */
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-md);
-}
-
-.divider-line {
-  width: 100%;
-  height: 1px;
-  background: var(--shade);
-  opacity: 0.2;
-}
-
-.divider-dotted {
-  width: 100%;
-  border-top: 1px dotted var(--shade);
-  opacity: 0.3;
-}
-
-/* 印章 (品牌大全 Chapter 05) */
-.stamp {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--wild);
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--wild);
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.stamp--round {
-  border-radius: 50%;
-}
-
-/* CTA 按鈕 */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-  padding: 0.85rem 2.5rem;
-  background: var(--wild);
-  color: var(--mist);
-  font-family: var(--font-body);
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  font-size: 0.875rem;
-  transition: background 0.4s ease;
-  cursor: pointer;
-}
-
-.btn:hover { background: var(--shade); }
-
-.btn--outline {
-  background: transparent;
+  line-height: 1.5;
   color: var(--shade);
-  border: 1px solid var(--shade);
 }
-.btn--outline:hover { background: var(--shade); color: var(--mist); }
 
-.btn--block { width: 100%; }
-
-/* ========================================
-   Navigation
-   ======================================== */
-.nav {
-  position: fixed;
+/* ========================================================================
+   01 · 頁首 Header
+   三層 Logo 系統：橫式主 Logo + 導覽 + 購物車
+   ======================================================================== */
+.site-header {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
   background: rgba(242, 239, 230, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(61, 74, 56, 0.08);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+  transition: z-index 0s linear .2s;
+}
+/* 選單開啟時，header 浮上 overlay 之上 */
+body.is-menu-open .site-header {
+  z-index: 220;
+  transition: z-index 0s linear 0s;
 }
 
-.nav__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 1.2rem var(--space-md);
+.site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 56px;
+  gap: 24px;
 }
 
-.nav__brand {
+.brand-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: 0.12em;
-  font-size: 1.05rem;
   color: var(--shade);
 }
-
-.nav__brand-en {
-  display: block;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
+.brand-mark__zh {
+  font-size: 15px;
+}
+.brand-mark__en {
+  font-size: 8.5px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
   margin-top: 2px;
+  font-weight: 400;
 }
 
-.nav__menu {
+.nav-primary {
   display: flex;
-  gap: var(--space-md);
-  list-style: none;
-  align-items: center;
-}
-
-.nav__menu a {
-  font-size: 0.875rem;
-  letter-spacing: 0.1em;
+  gap: 30px;
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
   color: var(--shade);
-  transition: color 0.3s;
 }
-
-.nav__menu a:hover { color: var(--wild); }
-
-.nav__cart {
+.nav-primary a {
   position: relative;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  transition: border-color 0.3s;
+  padding: 4px 0;
+  transition: color .2s;
 }
-
-.nav__cart:hover { border-color: var(--shade); }
-
-.nav__cart-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.nav__cart-count {
+.nav-primary a:hover { color: var(--wild); }
+.nav-primary a::after {
+  content: '';
   position: absolute;
-  top: 2px;
-  right: 2px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  background: var(--wild);
-  color: var(--mist);
-  border-radius: 50%;
-  font-size: 0.65rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0;
-}
-
-.nav__cart-count:empty,
-.nav__cart-count[data-count="0"] { display: none; }
-
-.nav__toggle {
-  display: none;
-  width: 28px;
-  height: 28px;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-}
-
-.nav__toggle span {
-  display: block;
-  width: 100%;
+  left: 0; bottom: -2px;
   height: 1px;
-  background: var(--shade);
-  transition: transform 0.3s, opacity 0.3s;
+  width: 0;
+  background: var(--wild);
+  transition: width .3s ease;
 }
+.nav-primary a:hover::after { width: 100%; }
 
-/* ========================================
-   Hero (品牌大全 §02 官網首頁規範)
-   ======================================== */
-.hero {
-  min-height: 100vh;
+.header-tools {
   display: flex;
   align-items: center;
-  padding: var(--space-xl) 0 var(--space-lg);
-  position: relative;
-  overflow: hidden;
+  gap: 14px;
 }
 
-.hero__inner {
+.cart-btn {
+  position: relative;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  transition: all .2s;
+}
+.cart-btn:hover { background: var(--wild); color: var(--mist); border-color: var(--wild); }
+.cart-btn svg { width: 15px; height: 15px; }
+.cart-count {
+  position: absolute;
+  top: -3px; right: -3px;
+  min-width: 16px; height: 16px;
+  padding: 0 4px;
+  background: var(--shade);
+  color: var(--mist);
+  border-radius: 8px;
+  font-size: 9.5px;
+  font-weight: 600;
+  display: grid; place-items: center;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.cart-count[hidden] { display: none; }
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 14px 0 12px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--shade);
+  transition: all .25s ease;
+  position: relative;
+  z-index: 220; /* 高於 menu-overlay */
+}
+.menu-toggle:hover {
+  background: var(--wild);
+  border-color: var(--wild);
+  color: var(--mist);
+}
+.menu-toggle__icon {
+  width: 16px;
+  height: 10px;
+  position: relative;
+  display: inline-block;
+}
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1.2px;
+  background: currentColor;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), top .25s ease .1s;
+}
+.menu-toggle__icon::before { top: 2px; }
+.menu-toggle__icon::after  { top: 7px; }
+.menu-toggle__label { line-height: 1; }
+.menu-toggle__label-close { display: none; }
+
+/* 開啟時：兩條線變 X，文字切換 */
+.menu-toggle.is-open {
+  background: var(--shade);
+  border-color: var(--shade);
+  color: var(--mist);
+}
+.menu-toggle.is-open .menu-toggle__icon::before {
+  top: 4.5px;
+  transform: rotate(45deg);
+  transition: top .25s ease, transform .35s cubic-bezier(.2,.7,.2,1) .1s;
+}
+.menu-toggle.is-open .menu-toggle__icon::after {
+  top: 4.5px;
+  transform: rotate(-45deg);
+  transition: top .25s ease, transform .35s cubic-bezier(.2,.7,.2,1) .1s;
+}
+.menu-toggle.is-open .menu-toggle__label-open { display: none; }
+.menu-toggle.is-open .menu-toggle__label-close { display: inline; }
+
+@media (max-width: 820px) {
+  .nav-primary { display: none; }
+  .menu-toggle { display: inline-flex; }
+}
+
+/* ========================================================================
+   全螢幕選單覆蓋 MOBILE MENU OVERLAY
+   ======================================================================== */
+.menu-overlay {
+  position: fixed;
+  top: 0; right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--mist);
+  z-index: 210;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition: transform .55s cubic-bezier(.7, 0, .2, 1), visibility 0s linear .55s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.menu-overlay.is-open {
+  visibility: visible;
+  transform: translateX(0);
+  transition: transform .55s cubic-bezier(.7, 0, .2, 1), visibility 0s linear 0s;
+}
+
+/* 上方留 header 高度 */
+.menu-overlay__inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 96px var(--gutter) 40px;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---- 通用：eyebrow 標籤（短線 + 文字） ---- */
+.menu-eyebrow {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.menu-eyebrow i {
+  width: 24px; height: 1px;
+  background: var(--wild);
+}
+
+/* ============================================================
+   第一層：主要動作（兩個大字級 CTA）
+   ============================================================ */
+.menu-primary {
+  margin-bottom: clamp(40px, 5vw, 60px);
+}
+.menu-primary__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-primary__list li {
+  border-bottom: 1px solid var(--line);
+}
+.menu-primary__list li:first-child { border-top: 1px solid var(--line); }
+
+.menu-primary__list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 4px;
+  transition: padding-left .35s cubic-bezier(.2,.7,.2,1);
+  /* 進場初始 */
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .55s ease, padding-left .35s cubic-bezier(.2,.7,.2,1);
+}
+.menu-overlay.is-open .menu-primary__list li:nth-child(1) a { transform: translateY(0); opacity: 1; transition-delay: .18s; }
+.menu-overlay.is-open .menu-primary__list li:nth-child(2) a { transform: translateY(0); opacity: 1; transition-delay: .25s; }
+
+.menu-primary__list a:hover { padding-left: 16px; }
+
+.menu-primary__zh {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(26px, 5.6vw, 38px);
+  color: var(--shade);
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  transition: color .25s;
+}
+.menu-primary__list a:hover .menu-primary__zh { color: var(--wild); }
+.menu-primary__en {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 400;
+  transform: translateY(-3px);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   第二層：分組導覽（SHOP / READ 兩組）
+   ============================================================ */
+.menu-groups {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(32px, 4vw, 44px) 0;
+  border-top: 1px dotted var(--line);
+  border-bottom: 1px dotted var(--line);
+  margin-bottom: clamp(28px, 3vw, 40px);
+  /* 進場 */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .55s ease .32s, transform .55s ease .32s;
+}
+.menu-overlay.is-open .menu-groups { opacity: 1; transform: translateY(0); }
+
+.menu-group__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  color: var(--wild);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.menu-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-group li { margin-bottom: 14px; }
+.menu-group li:last-child { margin-bottom: 0; }
+
+.menu-group a {
+  display: block;
+  padding: 4px 0;
+  transition: padding-left .25s ease;
+}
+.menu-group a:hover { padding-left: 8px; }
+
+.menu-group__name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--shade);
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  margin-bottom: 2px;
+  transition: color .25s;
+}
+.menu-group a:hover .menu-group__name { color: var(--wild); }
+.menu-group__hint {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   第三層：工具列（橫向三項）
+   ============================================================ */
+.menu-utility {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(32px, 4vw, 48px);
+  /* 進場 */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .55s ease .42s, transform .55s ease .42s;
+}
+.menu-overlay.is-open .menu-utility { opacity: 1; transform: translateY(0); }
+
+.menu-utility__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--mist);
+  transition: background .2s ease;
+}
+.menu-utility__item:hover { background: var(--meadow); }
+
+.menu-utility__label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--shade);
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+.menu-utility__meta {
+  font-size: 10.5px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* ============================================================
+   底部：品牌 + 社群
+   ============================================================ */
+.menu-overlay__foot {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .5s ease .55s, transform .5s ease .55s;
+}
+.menu-overlay.is-open .menu-overlay__foot {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .menu-overlay__inner { padding: 88px var(--gutter) 32px; }
+  .menu-primary__list a { padding: 22px 4px; }
+  .menu-primary__en { display: none; }
+
+  .menu-groups { grid-template-columns: 1fr; gap: 28px; }
+
+  .menu-utility {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+
+  .menu-overlay__foot { flex-direction: column; align-items: stretch; gap: 24px; }
+  .menu-overlay__social { align-items: flex-start; }
+}
+.menu-overlay__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1.2;
+}
+.menu-overlay__brand-zh {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--shade);
+}
+.menu-overlay__brand-en {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  color: var(--muted);
+}
+
+.menu-overlay__social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+.menu-overlay__social-row {
+  display: flex;
+  gap: 10px;
+}
+.menu-overlay__social-row a {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--shade);
+  transition: all .2s ease;
+}
+.menu-overlay__social-row a:hover {
+  background: var(--wild);
+  border-color: var(--wild);
+  color: var(--mist);
+}
+.menu-overlay__social-row svg { width: 15px; height: 15px; }
+.menu-overlay__social-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ========================================================================
+   02 · Hero 區
+   ======================================================================== */
+.hero {
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) 0 clamp(56px, 8vw, 110px);
+  overflow: hidden;
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
   align-items: center;
 }
 
-.hero__label {
-  color: var(--wild);
-  margin-bottom: var(--space-md);
-  opacity: 0;
-  animation: fadeUp 0.8s 0.2s forwards;
+.hero__season {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.hero__season span {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+}
+.hero__season i {
+  width: 28px; height: 1px;
+  background: var(--wild);
+  display: inline-block;
 }
 
 .hero__title {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: clamp(38px, 6.4vw, 84px);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
   color: var(--shade);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  line-height: 1.4;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-md);
-  opacity: 0;
-  animation: fadeUp 0.8s 0.4s forwards;
+  margin-bottom: 24px;
 }
 
-.hero__title-en {
-  display: block;
-  font-size: 0.7em;
-  letter-spacing: 0.25em;
+.hero__title em {
+  font-style: normal;
   color: var(--wild);
-  margin-top: 0.5rem;
-  font-weight: 400;
 }
 
-.hero__desc {
-  color: var(--shade);
-  margin-bottom: var(--space-md);
-  max-width: 28em;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.6s forwards;
+.hero__en {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.3vw, 16px);
+  letter-spacing: 0.42em;
+  color: var(--muted);
+  margin-bottom: 36px;
+  text-transform: uppercase;
 }
+
+.hero__lede {
+  font-size: 15.5px;
+  line-height: 2.0;
+  color: var(--forest);
+  max-width: 480px;
+  margin-bottom: 44px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: var(--wild);
+  color: var(--mist);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  border-radius: var(--radius);
+  transition: all .25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn:hover { background: var(--shade); transform: translateY(-1px); }
+.btn--ghost {
+  background: transparent;
+  color: var(--shade);
+  border: 1px solid var(--shade);
+}
+.btn--ghost:hover { background: var(--shade); color: var(--mist); }
+.btn svg { width: 14px; height: 14px; }
 
 .hero__cta {
   display: flex;
-  gap: var(--space-sm);
-  align-items: center;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.8s forwards;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* Hero 視覺區塊 — 用 SVG 做風格示意（符合霧綠色系與極簡） */
+/* Hero 視覺 — SVG illustration（晨霧裡的窗邊） */
 .hero__visual {
   position: relative;
   aspect-ratio: 4 / 5;
-  background: var(--meadow);
+  background: linear-gradient(170deg, #e6e2d4 0%, #d4d8c4 100%);
+  border-radius: 2px;
   overflow: hidden;
-  opacity: 0;
-  animation: fadeIn 1.2s 0.3s forwards;
+  box-shadow: 0 12px 60px -20px rgba(31, 42, 30, 0.18);
 }
-
 .hero__visual::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    rgba(242, 239, 230, 0.3) 0%,
-    rgba(123, 133, 104, 0.15) 60%,
-    rgba(61, 74, 56, 0.25) 100%);
+  background:
+    radial-gradient(ellipse at 30% 25%, rgba(255,253,245,0.55) 0%, transparent 55%),
+    linear-gradient(180deg, transparent 0%, rgba(123,133,104,0.08) 100%);
 }
-
-.hero__visual-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero__stamp {
-  position: absolute;
-  bottom: var(--space-md);
-  right: var(--space-md);
-  width: 60px;
-  height: 60px;
-  background: var(--mist);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--wild);
-  font-size: 1.75rem;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* ========================================
-   Section 通用
-   ======================================== */
-.section {
-  padding: var(--space-xl) 0;
-}
-
-.section__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: var(--space-lg);
-  gap: var(--space-md);
-  flex-wrap: wrap;
-}
-
-.section__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--shade);
-  font-size: 1.75rem;
-  letter-spacing: 0.1em;
-}
-
-.section__title-en {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
-  text-transform: uppercase;
-  margin-top: 0.5rem;
-  display: block;
-}
-
-.section__meta {
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: var(--wild);
-  text-transform: uppercase;
-}
-
-/* ========================================
-   Products Grid
-   ======================================== */
-.products {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-}
-
-/* 只有 1 個商品時：置中、最大寬度限制 */
-.products:has(> .product:only-child) {
-  grid-template-columns: minmax(0, 480px);
-  justify-content: center;
-}
-
-/* 2 個商品時：兩欄 */
-.products:has(> .product:nth-child(2):last-child) {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* 4 個商品時：四欄 */
-.products:has(> .product:nth-child(4):last-child) {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.product {
-  cursor: pointer;
-  transition: transform 0.5s ease;
-}
-
-.product:hover { transform: translateY(-4px); }
-
-.product__visual {
+.hero__visual svg {
   position: relative;
-  aspect-ratio: 4 / 5;
-  background: var(--meadow);
-  overflow: hidden;
-  margin-bottom: var(--space-sm);
-}
-
-.product__visual-svg {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
 }
 
-.product__no {
+.hero__seal {
   position: absolute;
-  top: var(--space-sm);
-  left: var(--space-sm);
-  font-size: 0.68rem;
-  letter-spacing: 0.25em;
-  color: rgba(242, 239, 230, 0.85);
-  padding: 0.3rem 0;
-  /* 結構性資訊：弱化、無底色，只顯示在商品圖上 */
-}
-
-/* 庫存提示：誠實標示，不販賣焦慮 */
-.product__stock {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: var(--shade);
-  background: rgba(242, 239, 230, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.35rem 0.7rem;
+  bottom: 32px;
+  right: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: rgba(242, 239, 230, 0.85);
+  border: 1px solid var(--line);
   border-radius: 2px;
-  /* 重要資訊：實心、清楚 */
-}
-
-.product__info {
-  padding: var(--space-xs) 0;
-}
-
-.product__name {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
   color: var(--shade);
-  font-size: 1.05rem;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.25rem;
+}
+.hero__seal i {
+  width: 14px; height: 1px;
+  background: var(--shade);
+  opacity: 0.45;
 }
 
-.product__name-en {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  color: var(--wild);
-  text-transform: uppercase;
-  margin-bottom: var(--space-xs);
+@media (max-width: 820px) {
+  .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero__visual { aspect-ratio: 5/4; max-height: 480px; }
+  .hero__seal { bottom: 18px; right: 18px; font-size: 9.5px; padding: 7px 12px; }
 }
 
-.product__price {
-  font-family: var(--font-body);
-  color: var(--shade);
-  font-size: 0.95rem;
-  letter-spacing: 0.1em;
-}
-
-.product__price-original {
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--wild);
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-  letter-spacing: 0.08em;
-  opacity: 0.7;
-}
-
-/* ========================================
-   Story 區塊 (品牌大全中版故事)
-   ======================================== */
-.story {
-  background: var(--meadow);
-  padding: var(--space-xl) 0;
-}
-
-.story__inner {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: var(--space-lg);
-  align-items: center;
-}
-
-.story__visual {
-  aspect-ratio: 3 / 4;
-  background: var(--wild);
-  position: relative;
-  overflow: hidden;
-}
-
-.story__visual-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.story__label {
-  color: var(--shade);
-  margin-bottom: var(--space-md);
-}
-
-.story__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--shade);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1.7;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-md);
-}
-
-.story__body {
-  color: var(--shade);
-  line-height: 2;
-  margin-bottom: var(--space-md);
-}
-
-.story__body p { margin-bottom: 1rem; }
-
-/* ========================================
-   品牌價值（三個關鍵詞）
-   ======================================== */
+/* ========================================================================
+   03 · 三大價值主張 VALUES
+   ======================================================================== */
 .values {
-  background: var(--mist);
-  padding: var(--space-xl) 0;
+  padding: clamp(72px, 10vw, 120px) 0;
+  background: linear-gradient(180deg, var(--mist) 0%, rgba(201, 209, 184, 0.18) 100%);
+  border-top: 1px solid var(--line-soft);
 }
 
 .values__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
+  gap: clamp(24px, 3vw, 48px);
 }
 
-.value {
+.value-card {
   text-align: center;
-  padding: var(--space-md) var(--space-sm);
-  border-top: 1px solid var(--wild);
+  padding: clamp(28px, 3vw, 40px) clamp(20px, 2vw, 32px);
 }
-
-.value__num {
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
-  margin-bottom: var(--space-sm);
+.value-card__icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 24px;
+  display: grid; place-items: center;
+  border: 1px solid var(--shade);
+  border-radius: 50%;
+  color: var(--shade);
 }
-
-.value__title {
+.value-card__icon svg { width: 28px; height: 28px; }
+.value-card h3 {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 19px;
   color: var(--shade);
-  font-size: 1.5rem;
-  letter-spacing: 0.15em;
-  margin-bottom: 0.5rem;
-}
-
-.value__title-en {
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
-  margin-bottom: var(--space-sm);
-  text-transform: uppercase;
-}
-
-.value__desc {
-  color: var(--shade);
-  font-size: 0.95rem;
-  line-height: 1.9;
-  max-width: 18em;
-  margin: 0 auto;
-}
-
-/* ========================================
-   電子報訂閱
-   ======================================== */
-.newsletter {
-  background: var(--shade);
-  color: var(--mist);
-  padding: var(--space-xl) 0;
-}
-
-.newsletter__inner {
-  max-width: 560px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.newsletter__label {
-  color: var(--meadow);
-  margin-bottom: var(--space-md);
-}
-
-.newsletter__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3vw, 2rem);
   letter-spacing: 0.1em;
-  margin-bottom: var(--space-sm);
-  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.value-card p {
+  font-size: 14px;
+  line-height: 2.0;
+  color: var(--forest);
+  max-width: 280px;
+  margin: 0 auto;
 }
 
-.newsletter__desc {
-  font-size: 0.95rem;
-  line-height: 1.9;
-  color: var(--meadow);
-  margin-bottom: var(--space-md);
+@media (max-width: 760px) {
+  .values__grid { grid-template-columns: 1fr; gap: 12px; }
+  .value-card { padding: 20px 0; }
+  .value-card__icon { width: 52px; height: 52px; margin-bottom: 16px; }
+  .value-card__icon svg { width: 22px; height: 22px; }
 }
 
-.newsletter__form {
+/* ========================================================================
+   04 · 品牌信念區 MANIFESTO
+   ======================================================================== */
+/* ========================================================================
+   04 · 商品區 / Section Heads
+   ======================================================================== */
+.products {
+  padding: clamp(72px, 10vw, 130px) 0;
+}
+
+.section-head {
   display: flex;
-  gap: 0;
-  border: 1px solid var(--meadow);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(48px, 6vw, 76px);
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
 }
-
-.newsletter__input {
-  flex: 1;
-  padding: 0.85rem 1.25rem;
-  background: transparent;
-  border: none;
-  color: var(--mist);
-  font-family: var(--font-body);
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
+.section-head--center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: clamp(40px, 5vw, 64px);
 }
-
-.newsletter__input::placeholder { color: rgba(201, 209, 184, 0.6); }
-.newsletter__input:focus { outline: none; background: rgba(201, 209, 184, 0.08); }
-
-.newsletter__submit {
-  padding: 0.85rem 1.5rem;
-  background: var(--meadow);
-  color: var(--shade);
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.newsletter__submit:hover { background: var(--mist); }
-
-/* ========================================
-   Footer
-   ======================================== */
-.footer {
-  background: var(--mist);
-  padding: var(--space-lg) 0 var(--space-md);
-  border-top: 1px solid rgba(61, 74, 56, 0.1);
-}
-
-.footer__grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-}
-
-.footer__brand-title {
+.section-head__title h2 {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: clamp(28px, 4vw, 44px);
   color: var(--shade);
-  font-size: 1.1rem;
-  letter-spacing: 0.12em;
-  margin-bottom: var(--space-xs);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
 }
-
-.footer__brand-en {
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
-  margin-bottom: var(--space-sm);
-}
-
-.footer__tagline {
-  font-size: 0.85rem;
+.section-head--center h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(26px, 3.6vw, 40px);
   color: var(--shade);
-  line-height: 1.8;
-  max-width: 20em;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
 }
-
-.footer__col-title {
-  font-size: 0.7rem;
+.section-head--center .eyebrow {
+  display: block;
+  margin-bottom: 14px;
+}
+.section-head__lede {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-top: 14px;
+}
+.section-head__title .eyebrow { margin-bottom: 12px; display: block; }
+.section-head__meta {
+  font-family: var(--font-display);
+  font-size: 12px;
   letter-spacing: 0.3em;
-  color: var(--wild);
+  color: var(--muted);
   text-transform: uppercase;
-  margin-bottom: var(--space-sm);
+  padding-bottom: 8px;
 }
 
-.footer__col ul { list-style: none; }
-.footer__col li { margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--shade); }
-.footer__col a:hover { color: var(--wild); }
+/* ========================================================================
+   05 · 品質誠實 QUALITY (改自原 promises 區塊)
+   ======================================================================== */
+.quality {
+  padding: clamp(72px, 10vw, 130px) 0;
+  background: linear-gradient(180deg, var(--mist) 0%, rgba(201, 209, 184, 0.18) 100%);
+  border-top: 1px solid var(--line-soft);
+}
+.quality__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 3.5vw, 48px);
+  max-width: 1020px;
+  margin: 0 auto;
+}
+.quality__item {
+  position: relative;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.quality__num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: var(--wild);
+  display: block;
+  margin-bottom: 14px;
+}
+.quality__item h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(16px, 1.6vw, 18px);
+  color: var(--shade);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.quality__item p {
+  font-size: 13.5px;
+  line-height: 2.0;
+  color: var(--forest);
+}
 
-.footer__bottom {
-  border-top: 1px dotted rgba(61, 74, 56, 0.2);
-  padding-top: var(--space-md);
-  display: flex;
-  justify-content: space-between;
+@media (max-width: 760px) {
+  .quality__grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ========================================================================
+   06 · 寫給你的信 FOUNDER
+   ======================================================================== */
+.founder {
+  padding: clamp(80px, 11vw, 140px) 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(123, 133, 104, 0.08) 0%, transparent 60%),
+    var(--mist);
+  position: relative;
+  overflow: hidden;
+}
+.founder__inner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.founder__mark {
+  display: block;
+  width: 1px;
+  height: 56px;
+  background: var(--shade);
+  margin: 0 auto 40px;
+  opacity: 0.6;
+}
+.founder__quote {
+  margin: 0;
+  font-style: normal;
+}
+.founder__quote p {
+  font-size: clamp(15px, 1.7vw, 17px);
+  line-height: 2.1;
+  color: var(--forest);
+  margin-bottom: 28px;
+}
+.founder__creed {
+  font-family: var(--font-display) !important;
+  font-weight: 600;
+  font-size: clamp(20px, 2.6vw, 28px) !important;
+  line-height: 1.95 !important;
+  letter-spacing: 0.08em;
+  color: var(--shade) !important;
+  padding: 24px 0 !important;
+  margin: 12px 0 28px !important;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.founder__sign {
+  display: inline-flex;
   align-items: center;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
+  gap: 14px;
+  margin-top: 32px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+.founder__sign-line {
+  width: 36px; height: 1px;
+  background: var(--muted);
+}
+.founder__sign-name { color: var(--shade); }
+.founder__sign-meta { opacity: 0.6; }
+
+@media (max-width: 600px) {
+  .founder__sign { flex-direction: column; gap: 6px; }
+  .founder__sign-line { width: 24px; }
+}
+
+/* ========================================================================
+   07 · 購物資訊 INFO (改自原 promises 區塊)
+   ======================================================================== */
+.info {
+  padding: clamp(72px, 10vw, 130px) 0 clamp(80px, 10vw, 140px);
+  background: linear-gradient(180deg, rgba(201, 209, 184, 0.18) 0%, #ebe7da 100%);
+  border-top: 1px solid var(--line-soft);
+}
+.info__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 3vw, 48px);
+  max-width: 980px;
+  margin: 0 auto;
+}
+.info__item {
+  text-align: center;
+  padding: clamp(28px, 3vw, 36px) clamp(20px, 2vw, 28px);
+  background: rgba(242, 239, 230, 0.7);
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.info__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -12px rgba(31, 42, 30, 0.12);
+}
+.info__icon {
+  width: 52px; height: 52px;
+  margin: 0 auto 20px;
+  display: grid; place-items: center;
   color: var(--wild);
 }
+.info__icon svg { width: 32px; height: 32px; }
+.info__item h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--shade);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.info__item p {
+  font-size: 13.5px;
+  line-height: 1.95;
+  color: var(--forest);
+}
+.info__item p strong {
+  color: var(--shade);
+  font-weight: 600;
+}
+.info__item p a {
+  color: var(--wild);
+  border-bottom: 1px solid currentColor;
+  white-space: nowrap;
+}
 
-/* ========================================
-   購物車 Drawer
-   ======================================== */
-.cart-drawer {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  max-width: 440px;
-  height: 100vh;
-  background: var(--mist);
-  z-index: 200;
-  transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+@media (max-width: 760px) {
+  .info__grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(28px, 4vw, 52px) clamp(24px, 3vw, 40px);
+}
+
+.card {
   display: flex;
   flex-direction: column;
-  box-shadow: -20px 0 40px rgba(31, 42, 30, 0.08);
+  cursor: pointer;
+  transition: transform .35s ease;
+}
+.card:hover { transform: translateY(-4px); }
+
+.card__visual {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--meadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+/* 不同主色調 A / B / C */
+.card__visual[data-tone="A"] { background: #DDE3CC; }
+.card__visual[data-tone="B"] { background: #C9D1B8; }
+.card__visual[data-tone="C"] { background: #8A9277; }
+
+.card__visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,253,245,0.18) 0%, transparent 40%, rgba(31,42,30,0.06) 100%);
+  pointer-events: none;
 }
 
-.cart-drawer.is-open { right: 0; }
-
-.cart-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(31, 42, 30, 0.3);
-  z-index: 150;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s, visibility 0.4s;
+.card__visual svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 62%;
+  height: 62%;
+  transition: transform .6s ease;
+}
+.card:hover .card__visual svg {
+  transform: translate(-50%, -50%) scale(1.04);
 }
 
-.cart-overlay.is-open {
-  opacity: 1;
-  visibility: visible;
+.card__no {
+  position: absolute;
+  top: 16px; left: 16px;
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  color: var(--shade);
+  background: rgba(242,239,230,0.86);
+  padding: 4px 9px;
+  border-radius: 2px;
 }
 
-.cart__head {
-  padding: var(--space-md);
+.card__low-stock {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--mist);
+  background: var(--shade);
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--shade);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.card__en {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.card__price {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--shade);
+  white-space: nowrap;
+  text-align: right;
+}
+.card__price del {
+  display: block;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-bottom: 2px;
+}
+
+/* ========================================================================
+   05 · 品牌故事
+   ======================================================================== */
+.story {
+  padding: clamp(56px, 8vw, 100px) 0 clamp(64px, 8vw, 110px);
+  background: var(--mist);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.story__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.story__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 46px);
+  color: var(--shade);
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.story__lede {
+  font-size: 15.5px;
+  line-height: 2.0;
+  margin-bottom: 32px;
+  color: var(--forest);
+}
+.story__lede p + p { margin-top: 18px; }
+.story__highlight {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(17px, 2vw, 19px) !important;
+  color: var(--shade) !important;
+  letter-spacing: 0.06em;
+  padding-top: 8px;
+}
+
+.story__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--wild);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--wild);
+  transition: gap .2s ease, color .2s;
+}
+.story__link:hover {
+  gap: 18px;
+  color: var(--shade);
+  border-bottom-color: var(--shade);
+}
+.story__link svg { width: 14px; height: 14px; }
+
+@media (max-width: 820px) {
+  .story__grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================================================
+   06 · Footer
+   ======================================================================== */
+.footer {
+  background: var(--shade);
+  color: var(--mist);
+  padding: clamp(56px, 8vw, 96px) 0 32px;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+.footer__col--brand { padding-right: 8px; }
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+}
+.footer__brand small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  font-weight: 400;
+  color: rgba(242, 239, 230, 0.65);
+  margin-top: 4px;
+}
+.footer__tag {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(242, 239, 230, 0.75);
+  max-width: 320px;
+  margin-bottom: 24px;
+}
+
+/* Linktree 入口按鈕 */
+.footer__linktree {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(242, 239, 230, 0.25);
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: rgba(242, 239, 230, 0.9);
+  transition: all .2s ease;
+}
+.footer__linktree:hover {
+  background: var(--wild);
+  border-color: var(--wild);
+  color: var(--mist);
+}
+.footer__linktree svg { width: 14px; height: 14px; }
+
+.footer h4 {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  color: rgba(242, 239, 230, 0.55);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 10px; }
+.footer li a {
+  font-size: 13.5px;
+  color: rgba(242, 239, 230, 0.85);
+  transition: color .2s;
+}
+.footer li a:hover { color: var(--meadow); }
+
+/* 社群圖示列：圖示 + 文字並排 */
+.social-list li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.social-list svg {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.social-list li a:hover svg { transform: translateX(2px); }
+
+.footer__bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(61, 74, 56, 0.1);
+  padding-top: 28px;
+  border-top: 1px solid rgba(242, 239, 230, 0.12);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(242, 239, 230, 0.55);
 }
 
-.cart__title {
+/* 平板：4 欄 → 2 欄（品牌列佔滿） */
+@media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 32px;
+  }
+  .footer__col--brand { grid-column: 1 / -1; }
+}
+/* 手機：全部單欄 */
+@media (max-width: 560px) {
+  .footer__grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer__col--brand { grid-column: auto; }
+  .footer__bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* ========================================================================
+   07 · 商品詳情 Modal
+   ======================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 42, 30, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; }
+
+.modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -45%);
+  width: min(960px, 94vw);
+  max-height: 90vh;
+  background: var(--mist);
+  border-radius: 2px;
+  z-index: 201;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .35s cubic-bezier(.2, .7, .2, 1);
+  overflow-y: auto;
+  box-shadow: 0 30px 80px -20px rgba(31,42,30,0.35);
+}
+.modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+}
+
+.modal__close {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(242, 239, 230, 0.9);
+  z-index: 2;
+  transition: background .2s;
+}
+.modal__close:hover { background: var(--wild); color: var(--mist); }
+.modal__close svg { width: 14px; height: 14px; }
+
+.modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal__visual {
+  aspect-ratio: 4 / 5;
+  position: relative;
+  overflow: hidden;
+}
+.modal__visual[data-tone="A"] { background: #DDE3CC; }
+.modal__visual[data-tone="B"] { background: #C9D1B8; }
+.modal__visual[data-tone="C"] { background: #8A9277; }
+.modal__visual svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%; height: 70%;
+}
+
+.modal__info {
+  padding: clamp(30px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__no {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.modal__name {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 26px;
   color: var(--shade);
-  font-size: 1.1rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.modal__en {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.modal__price {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--shade);
+  margin-bottom: 28px;
+}
+.modal__price del {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--muted);
+  margin-right: 10px;
 }
 
-.cart__close {
-  width: 32px;
-  height: 32px;
+.modal__desc {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--forest);
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  white-space: pre-line;
+}
+
+.spec-list {
+  list-style: none;
+  margin-bottom: 28px;
+}
+.spec-list li {
+  display: flex;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px dotted var(--line);
+}
+.spec-list li:last-child { border-bottom: none; }
+.spec-list dt {
+  width: 90px;
+  font-family: var(--font-display);
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.spec-list dd { flex: 1; color: var(--forest); }
+.spec-list a {
+  color: var(--wild);
+  border-bottom: 1px solid currentColor;
+  font-size: 12px;
+}
+
+.size-block {
+  margin-bottom: 28px;
+}
+.size-block__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.size-block__label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.size-chart-link {
+  font-size: 12px;
+  color: var(--wild);
+  border-bottom: 1px solid currentColor;
+  cursor: pointer;
+}
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.size-opt {
+  min-width: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--shade);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  border-radius: 2px;
+  transition: all .2s;
+}
+.size-opt:hover { border-color: var(--shade); }
+.size-opt.is-active {
+  background: var(--shade);
+  color: var(--mist);
+  border-color: var(--shade);
+}
+
+.stock-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+  letter-spacing: 0.04em;
+}
+.stock-note strong {
+  color: var(--shade);
+  font-weight: 600;
+}
+
+.add-row {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+.qty-stepper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+.qty-stepper button {
+  width: 42px; height: 50px;
+  font-size: 18px;
   color: var(--shade);
-  transition: color 0.3s;
+  transition: background .2s;
+}
+.qty-stepper button:hover { background: var(--meadow); }
+.qty-stepper span {
+  width: 36px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+.add-btn {
+  flex: 1;
+  background: var(--wild);
+  color: var(--mist);
+  font-family: var(--font-display);
+  letter-spacing: 0.25em;
+  font-size: 13px;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.add-btn:hover { background: var(--shade); }
+.add-btn:disabled { background: var(--line); cursor: not-allowed; }
+
+@media (max-width: 760px) {
+  .modal { width: 100vw; height: 100vh; max-height: 100vh; top: 0; left: 0; transform: none; border-radius: 0; }
+  .modal.is-open { transform: none; }
+  .modal__grid { grid-template-columns: 1fr; }
+  .modal__visual { aspect-ratio: 5/4; }
 }
 
-.cart__close:hover { color: var(--wild); }
+/* ========================================================================
+   08 · 購物車側欄
+   ======================================================================== */
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(460px, 100vw);
+  height: 100vh;
+  background: var(--mist);
+  z-index: 210;
+  transform: translateX(100%);
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -20px 0 60px -10px rgba(31, 42, 30, 0.2);
+}
+.cart-drawer.is-open { transform: translateX(0); }
 
-.cart__body {
+.cart-drawer__head {
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.cart-drawer__head h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  color: var(--shade);
+}
+.cart-drawer__head h3 small {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+  margin-left: 8px;
+  font-weight: 400;
+}
+
+.cart-drawer__body {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-md);
+  padding: 24px 28px;
 }
 
-.cart__empty {
-  text-align: center;
-  padding: var(--space-xl) var(--space-md);
-  color: var(--wild);
-}
-
-.cart__empty-stamp {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto var(--space-md);
-  border: 1px solid var(--wild);
-  border-radius: 50%;
+.cart-empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.75rem;
-  opacity: 0.5;
+  height: 100%;
+  text-align: center;
+  color: var(--muted);
+  gap: 18px;
 }
-
-.cart__empty-title {
+.cart-empty svg { width: 56px; height: 56px; opacity: 0.4; }
+.cart-empty p {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 14px;
   letter-spacing: 0.1em;
-  color: var(--shade);
-  margin-bottom: 0.5rem;
 }
-
-.cart__empty-text {
-  font-size: 0.85rem;
-  line-height: 1.9;
-  color: var(--wild);
+.cart-empty small {
+  font-size: 12px;
+  letter-spacing: 0.08em;
 }
 
 .cart-item {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: var(--space-sm);
-  padding: var(--space-sm) 0;
-  border-bottom: 1px dotted rgba(61, 74, 56, 0.2);
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px dotted var(--line);
 }
-
 .cart-item__visual {
   width: 80px;
-  height: 100px;
-  background: var(--meadow);
-  position: relative;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 2px;
   overflow: hidden;
+  position: relative;
 }
-
+.cart-item__visual[data-tone="A"] { background: #DDE3CC; }
+.cart-item__visual[data-tone="B"] { background: #C9D1B8; }
+.cart-item__visual[data-tone="C"] { background: #8A9277; }
 .cart-item__visual svg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%; height: 65%;
 }
 
-.cart-item__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.25rem 0;
-}
-
+.cart-item__body { flex: 1; min-width: 0; }
 .cart-item__name {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 14px;
   color: var(--shade);
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
 }
-
-.cart-item__variant {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--wild);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+.cart-item__meta {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
 }
-
+.cart-item__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-item__price {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--shade);
+}
 .cart-item__qty {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+.cart-item__qty button {
+  width: 28px; height: 28px;
+  font-size: 13px;
   color: var(--shade);
 }
-
-.cart-item__qty-btn {
-  width: 22px;
-  height: 22px;
-  border: 1px solid var(--wild);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  color: var(--wild);
-  transition: all 0.3s;
+.cart-item__qty button:hover { background: var(--meadow); }
+.cart-item__qty span {
+  width: 24px;
+  text-align: center;
+  font-size: 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
-
-.cart-item__qty-btn:hover {
-  background: var(--wild);
-  color: var(--mist);
-}
-
-.cart-item__right {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 0.25rem 0;
-}
-
-.cart-item__price {
-  font-size: 0.9rem;
-  color: var(--shade);
-  letter-spacing: 0.05em;
-}
-
 .cart-item__remove {
-  font-size: 0.7rem;
-  color: var(--wild);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: color 0.3s;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+  display: inline-block;
 }
-
 .cart-item__remove:hover { color: var(--shade); }
 
-.cart__foot {
-  padding: var(--space-md);
-  border-top: 1px solid rgba(61, 74, 56, 0.1);
-  background: var(--mist);
+.cart-drawer__foot {
+  padding: 24px 28px;
+  border-top: 1px solid var(--line);
+  background: rgba(201, 209, 184, 0.18);
 }
-
-.cart__summary {
+.cart-total {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--shade);
-  letter-spacing: 0.05em;
+  align-items: baseline;
+  margin-bottom: 8px;
 }
-
-.cart__summary--total {
+.cart-total dt {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+.cart-total dd {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1rem;
-  padding-top: var(--space-sm);
-  margin-top: var(--space-sm);
-  border-top: 1px dotted rgba(61, 74, 56, 0.2);
+  font-size: 22px;
+  color: var(--shade);
 }
-
-.cart__note {
-  font-size: 0.7rem;
-  color: var(--wild);
-  letter-spacing: 0.1em;
-  margin: var(--space-sm) 0;
-  text-align: center;
-  line-height: 1.7;
+.cart-shipping-note {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  margin-bottom: 16px;
 }
+.checkout-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--shade);
+  color: var(--mist);
+  font-family: var(--font-display);
+  letter-spacing: 0.3em;
+  font-size: 13px;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.checkout-btn:hover { background: var(--forest); }
 
-/* ========================================
-   產品 Modal
-   ======================================== */
-.product-modal {
+/* ========================================================================
+   09 · 結帳頁 Checkout
+   ======================================================================== */
+.checkout-page {
   position: fixed;
   inset: 0;
-  z-index: 250;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-md);
-}
-
-.product-modal.is-open { display: flex; }
-
-.product-modal__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(31, 42, 30, 0.5);
-  cursor: pointer;
-}
-
-.product-modal__content {
-  position: relative;
   background: var(--mist);
-  max-width: 880px;
-  width: 100%;
-  max-height: 90vh;
+  z-index: 220;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+.checkout-page.is-open { display: block; }
+
+.checkout-header {
+  border-bottom: 1px solid var(--line);
+  padding: 22px var(--gutter);
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--mist);
+  position: sticky;
+  top: 0;
   z-index: 1;
 }
+.checkout-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--shade);
+}
+.checkout-back:hover { color: var(--wild); }
+.checkout-back svg { width: 14px; height: 14px; }
 
-.product-modal__visual {
-  background: var(--meadow);
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  flex: 1;
-  flex-shrink: 0;
+.checkout-body {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 72px) var(--gutter);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
 }
 
-.product-modal__visual svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.checkout-form section {
+  margin-bottom: 44px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line);
 }
+.checkout-form section:last-child { border-bottom: none; }
 
-.product-modal__body {
-  flex: 1;
-  flex-shrink: 0;
-  padding: var(--space-md);
-  display: flex;
-  flex-direction: column;
-}
-
-.product-modal__close {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  width: 40px;
-  height: 40px;
-  background: rgba(242, 239, 230, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 50%;
-  border: 1px solid rgba(61, 74, 56, 0.12);
+.checkout-form h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--shade);
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--shade);
-  z-index: 2;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              background 0.3s,
-              border-color 0.3s;
-  /* 移除文字字符的影響——按鈕內容是 SVG */
-  font-size: 0;
-  line-height: 0;
-  padding: 0;
+  gap: 12px;
+}
+.checkout-form h3 i {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border: 1px solid var(--shade);
+  border-radius: 50%;
+  font-style: normal;
+  font-size: 12px;
 }
 
-.product-modal__close:hover {
-  background: var(--mist);
-  border-color: var(--wild);
-  transform: scale(1.05);
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
 }
+.form-grid--full { grid-template-columns: 1fr; }
 
-.product-modal__close:active {
-  transform: scale(0.95);
-}
-
-.product-modal__close svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--shade);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  transition: stroke 0.3s;
-}
-
-.product-modal__close:hover svg {
-  stroke: var(--wild);
-}
-
-.product-modal__no {
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--wild);
-  margin-bottom: var(--space-sm);
-}
-
-.product-modal__name {
+.field { display: flex; flex-direction: column; }
+.field label {
   font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--shade);
-  font-size: 1.5rem;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.25rem;
-}
-
-.product-modal__name-en {
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: var(--wild);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  margin-bottom: 8px;
   text-transform: uppercase;
-  margin-bottom: var(--space-md);
 }
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 253, 245, 0.5);
+  border-radius: 2px;
+  color: var(--forest);
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--wild);
+  background: #fff;
+}
+.field textarea { resize: vertical; min-height: 80px; }
 
-.product-modal__price {
+.pay-options { display: flex; flex-direction: column; gap: 10px; }
+.pay-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.pay-opt:hover { border-color: var(--shade); }
+.pay-opt input { accent-color: var(--shade); }
+.pay-opt__label {
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 14px;
   color: var(--shade);
-  font-size: 1.25rem;
-  margin-bottom: var(--space-md);
+  letter-spacing: 0.08em;
+}
+.pay-opt__hint {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: auto;
   letter-spacing: 0.1em;
 }
 
-.product-modal__price-original {
-  display: inline-block;
-  margin-left: 0.75rem;
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.9rem;
-  color: var(--wild);
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-  letter-spacing: 0.08em;
-  opacity: 0.65;
+.checkout-summary {
+  background: rgba(201, 209, 184, 0.22);
+  border: 1px solid var(--line-soft);
+  padding: 32px 28px;
+  border-radius: 2px;
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  max-height: calc(100vh - 130px);
+  overflow-y: auto;
 }
-
-.product-modal__desc {
+.checkout-summary h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.18em;
   color: var(--shade);
-  font-size: 0.9rem;
-  line-height: 2;
-  margin-bottom: var(--space-md);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.summary-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px dotted var(--line);
+  font-size: 13px;
+}
+.summary-item__visual {
+  width: 56px; height: 64px;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.summary-item__visual[data-tone="A"] { background: #DDE3CC; }
+.summary-item__visual[data-tone="B"] { background: #C9D1B8; }
+.summary-item__visual[data-tone="C"] { background: #8A9277; }
+.summary-item__visual svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%; height: 70%;
+}
+.summary-item__body { flex: 1; min-width: 0; }
+.summary-item__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--shade);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.summary-item__meta {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.summary-item__price {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--shade);
+  white-space: nowrap;
 }
 
-.product-modal__detail {
-  border-top: 1px dotted rgba(61, 74, 56, 0.3);
-  padding-top: var(--space-sm);
-  margin-bottom: var(--space-md);
+.summary-totals {
+  padding-top: 18px;
+  margin-top: 8px;
+  font-size: 13px;
 }
-
-.product-modal__detail-row {
+.summary-row {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  font-size: 0.8rem;
-  color: var(--shade);
-  letter-spacing: 0.05em;
-  border-bottom: 1px dotted rgba(61, 74, 56, 0.15);
+  padding: 6px 0;
+  color: var(--muted);
 }
-
-.product-modal__detail-label {
-  color: var(--wild);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-}
-
-.product-modal__size {
-  margin-bottom: var(--space-md);
-}
-
-.product-modal__size-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  color: var(--wild);
-  text-transform: uppercase;
-  margin-bottom: var(--space-xs);
-}
-
-.product-modal__stock-hint {
-  display: inline-block;
-  margin-left: 0.25rem;
-  color: var(--shade);
+.summary-row--final {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 16px;
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: 0.1em;
-}
-
-.product-modal__size-opts {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.size-btn {
-  min-width: 48px;
-  padding: 0.6rem 1rem;
-  border: 1px solid var(--wild);
-  background: transparent;
+  font-size: 18px;
   color: var(--shade);
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  transition: all 0.3s;
 }
 
-.size-btn:hover { background: rgba(123, 133, 104, 0.1); }
-.size-btn.is-active {
+.place-order-btn {
+  width: 100%;
+  margin-top: 28px;
+  padding: 18px;
   background: var(--shade);
-  border-color: var(--shade);
   color: var(--mist);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.place-order-btn:hover { background: var(--forest); }
+
+.checkout-note {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
 }
 
-.product-modal__add {
-  margin-top: auto;
+@media (max-width: 820px) {
+  .checkout-body { grid-template-columns: 1fr; }
+  .checkout-summary { position: static; max-height: none; }
+  .form-grid { grid-template-columns: 1fr; }
 }
 
-/* ========================================
-   Toast 提示
-   ======================================== */
+/* ========================================================================
+   10 · Toast / 訂單完成
+   ======================================================================== */
 .toast {
   position: fixed;
-  top: 80px;  /* 從頂部 nav 下方出現 */
+  bottom: 24px;
   left: 50%;
-  transform: translateX(-50%) translateY(-150px);
+  transform: translateX(-50%) translateY(20px);
   background: var(--shade);
   color: var(--mist);
-  padding: 0.85rem var(--space-md);
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  padding: 14px 24px;
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.16em;
   z-index: 300;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 30px rgba(31, 42, 30, 0.2);
-  white-space: nowrap;
-  max-width: calc(100vw - 2rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s ease;
+  box-shadow: 0 12px 30px -8px rgba(31,42,30,0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
 }
-
 .toast.is-show {
+  opacity: 1;
+  visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
+.toast svg { width: 16px; height: 16px; }
 
-/* ========================================
-   響應式 — 手機版（< 768px）
-   ======================================== */
-@media (max-width: 768px) {
-  :root {
-    --space-lg: 2.5rem;
-    --space-xl: 4rem;
-  }
-
-  .container { padding: 0 1.25rem; }
-
-  /* Nav 手機版 */
-  .nav__inner { padding: 0.9rem 1.25rem; }
-
-  .nav__menu {
-    position: fixed;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: var(--mist);
-    flex-direction: column;
-    gap: 0;
-    padding: var(--space-md) 1.25rem;
-    /* 完全藏在頁面上方外側：用 calc 確保不論 menu 多高都看不見 */
-    transform: translateY(calc(-100% - 80px));
-    visibility: hidden;
-    opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0s 0.4s,
-                opacity 0.3s;
-    box-shadow: 0 10px 30px rgba(31, 42, 30, 0.05);
-    border-bottom: 1px solid rgba(61, 74, 56, 0.1);
-  }
-
-  .nav__menu.is-open {
-    transform: translateY(0);
-    visibility: visible;
-    opacity: 1;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0s 0s,
-                opacity 0.3s;
-  }
-
-  .nav__menu li {
-    width: 100%;
-    padding: 0.85rem 0;
-    border-bottom: 1px dotted rgba(61, 74, 56, 0.15);
-  }
-
-  .nav__menu li:last-child { border: none; }
-
-  .nav__toggle {
-    display: flex;
-    margin-right: 0.5rem;
-  }
-
-  .nav__menu.is-open + .nav__toggle span:nth-child(1),
-  .nav__toggle.is-active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .nav__toggle.is-active span:nth-child(2) { opacity: 0; }
-  .nav__toggle.is-active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-
-  /* Hero 手機 */
-  .hero {
-    min-height: auto;
-    padding: 100px 0 var(--space-lg);
-  }
-
-  .hero__inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .hero__visual {
-    aspect-ratio: 3 / 4;
-    order: -1; /* 手機版圖在上 */
-    margin: 0 -1.25rem; /* 滿版到邊 */
-  }
-
-  .hero__cta {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero__cta .btn { width: 100%; }
-
-  /* Products 手機 — 強制單欄（覆蓋所有 :has() 規則） */
-  .products,
-  .products:has(> .product:only-child),
-  .products:has(> .product:nth-child(2):last-child),
-  .products:has(> .product:nth-child(4):last-child) {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-    gap: var(--space-md);
-    justify-content: stretch;
-  }
-
-  /* 手機版商品圖改 4:5（窄高一點，留出更多商品在第一屏） */
-  .product__visual {
-    aspect-ratio: 1 / 1;  /* 從 4:5 改為 1:1，高度減約 30% */
-  }
-
-  /* Story 手機 */
-  .story__inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .story__visual { margin: 0 -1.25rem; }
-
-  /* Values 手機 */
-  .values__grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .value { border-top: none; border-bottom: 1px solid var(--wild); padding-bottom: var(--space-md); }
-  .value:last-child { border: none; }
-
-  /* Footer 手機 */
-  .footer__grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .footer__bottom {
-    flex-direction: column;
-    gap: var(--space-xs);
-    text-align: center;
-  }
-
-  /* Modal 手機 — 幾乎滿版 + sticky CTA */
-  .product-modal { padding: 0; align-items: flex-end; }
-
-  .product-modal__content {
-    flex-direction: column;  /* 手機版改成上下排列 */
-    max-height: 92vh;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 0;
-  }
-
-  .product-modal__visual {
-    /* 固定高度而非 aspect-ratio——避免 iOS Safari grid+scroll bug */
-    aspect-ratio: auto;
-    height: 38vh;
-    max-height: 38vh;
-    min-height: 280px;
-    flex: 0 0 auto;  /* 不縮、不長 */
-  }
-
-  .product-modal__body {
-    padding: var(--space-sm) 1.25rem var(--space-sm);
-    padding-bottom: 80px;
-    flex: 1 0 auto;
-  }
-
-  .product-modal__close {
-    top: 0.75rem;
-    right: 0.75rem;
-    box-shadow: 0 2px 12px rgba(31, 42, 30, 0.18);
-  }
-
-  /* 加入購物車 sticky 在 modal 底部 */
-  .product-modal__add {
-    position: sticky;
-    bottom: 0;
-    background: var(--mist);
-    padding: var(--space-sm) 0 calc(var(--space-sm) + env(safe-area-inset-bottom, 0));
-    margin: 0 -1.25rem -2rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    border-top: 1px solid rgba(61, 74, 56, 0.1);
-  }
-
-  /* Section head 手機 */
-  .section__head { flex-direction: column; align-items: flex-start; }
-
-  /* Newsletter 手機 */
-  .newsletter__form { flex-direction: column; border: none; }
-  .newsletter__input {
-    border: 1px solid var(--meadow);
-    margin-bottom: 0.5rem;
-  }
-  .newsletter__submit { padding: 1rem; }
-
-  /* Cart drawer 手機 */
-  .cart-drawer { max-width: 100%; }
+.order-success {
+  position: fixed;
+  inset: 0;
+  background: var(--mist);
+  z-index: 230;
+  display: none;
+  place-items: center;
+}
+.order-success.is-show { display: grid; }
+.order-success__inner {
+  text-align: center;
+  padding: 0 var(--gutter);
+  max-width: 480px;
+}
+.order-success__check {
+  width: 64px; height: 64px;
+  margin: 0 auto 32px;
+  display: grid; place-items: center;
+  border: 1px solid var(--shade);
+  border-radius: 50%;
+  color: var(--shade);
+}
+.order-success__check svg {
+  width: 28px; height: 28px;
+}
+.order-success h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0.08em;
+  color: var(--shade);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.order-success p {
+  font-size: 14.5px;
+  line-height: 2;
+  color: var(--forest);
+  margin-bottom: 32px;
+}
+.order-success small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.order-success__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.order-success__note {
+  font-size: 12.5px !important;
+  line-height: 1.9 !important;
+  color: var(--muted) !important;
+  margin-bottom: 0 !important;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  max-width: 320px;
+  margin: 0 auto !important;
 }
 
-/* 平板過渡 */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .products { grid-template-columns: repeat(2, 1fr); }
-  .hero__inner { gap: var(--space-md); }
+/* ========================================================================
+   11 · 尺寸表 Modal（從商品詳情點開）
+   ======================================================================== */
+.size-chart-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 42, 30, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 240;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+}
+.size-chart-modal.is-open { opacity: 1; visibility: visible; }
+.size-chart-modal__inner {
+  background: var(--mist);
+  border-radius: 2px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(28px, 4vw, 48px);
+  position: relative;
+}
+.size-chart-modal__close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--meadow);
+}
+.size-chart-modal__close:hover { background: var(--wild); color: var(--mist); }
+.size-chart-modal__close svg { width: 14px; height: 14px; }
+
+.size-chart-modal h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--shade);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.size-chart-modal .eyebrow { margin-bottom: 28px; display: block; }
+
+.size-chart-modal h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: var(--shade);
+  margin: 24px 0 14px;
+  text-transform: uppercase;
 }
 
-/* 大螢幕 */
-@media (min-width: 1400px) {
-  .hero__title { font-size: 5rem; }
+.size-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: var(--font-sans);
 }
+.size-table th,
+.size-table td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+.size-table th {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--shade);
+  font-weight: 600;
+}
+.size-table tbody th {
+  color: var(--muted);
+  font-weight: 400;
+}
+.size-table tr:last-child td,
+.size-table tr:last-child th { border-bottom: none; }
+
+@media (max-width: 600px) {
+  .size-table { font-size: 11px; }
+  .size-table th, .size-table td { padding: 8px 4px; }
+}
+
+/* ========================================================================
+   12 · 視差／微動畫
+   ======================================================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.fade-up.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Body scroll lock 當 modal/drawer 開啟 */
+body.is-locked { overflow: hidden; }
+
 </style>
 </head>
 <body>
 
-<!-- ============ Navigation ============ -->
-<nav class="nav">
-  <div class="nav__inner">
-    <a href="#" class="nav__brand">
-      原野日常
-      <span class="nav__brand-en">WILDLAND LIVING</span>
+<!-- ====================================================================
+     HEADER
+     ==================================================================== -->
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="#top" class="brand-mark" aria-label="原野日常 首頁">
+      <span class="brand-mark__zh">原野日常</span>
+      <span class="brand-mark__en">WILDLAND LIVING</span>
     </a>
 
-    <ul class="nav__menu" id="navMenu">
-      <li><a href="#products">商品</a></li>
-      <li><a href="#story">故事</a></li>
-      <li><a href="#values">理念</a></li>
-      <li><a href="#newsletter">日記</a></li>
-    </ul>
+    <nav class="nav-primary" id="navPrimary">
+      <a href="#products">商品</a>
+      <a href="#story">故事</a>
+      <a href="#about">關於</a>
+      <a href="#contact">聯絡</a>
+    </nav>
 
-    <div style="display:flex; align-items:center; gap: 0.5rem;">
-      <button class="nav__toggle" id="navToggle" aria-label="選單">
-        <span></span><span></span><span></span>
-      </button>
-
-      <button class="nav__cart" id="cartBtn" aria-label="購物車">
-        <svg class="nav__cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.8h-7a2 2 0 0 1-2-1.8L5 7z"/>
-          <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+    <div class="header-tools">
+      <button class="cart-btn" id="cartOpen" aria-label="購物車">
+        <!-- Bag icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M5 8h14l-1 13H6L5 8z" />
+          <path d="M9 8a3 3 0 116 0" />
         </svg>
-        <span class="nav__cart-count" id="cartCount" data-count="0">0</span>
+        <span class="cart-count" id="cartCount" hidden>0</span>
       </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="選單" aria-expanded="false" aria-controls="menuOverlay">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+        <span class="menu-toggle__label">
+          <span class="menu-toggle__label-open">MENU</span>
+          <span class="menu-toggle__label-close">CLOSE</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ====================================================================
+     全螢幕選單覆蓋（行動版）
+     ==================================================================== -->
+<nav class="menu-overlay" id="menuOverlay" aria-label="主選單" aria-hidden="true">
+  <div class="menu-overlay__inner">
+
+    <!-- 主要動作：兩個大字級 CTA -->
+    <div class="menu-primary">
+      <span class="menu-eyebrow">
+        <i></i>
+        <span>START HERE</span>
+      </span>
+      <ul class="menu-primary__list">
+        <li>
+          <a href="#products" data-menu-link>
+            <span class="menu-primary__zh">選購這一季</span>
+            <span class="menu-primary__en">Shop the Season</span>
+          </a>
+        </li>
+        <li>
+          <a href="#story" data-menu-link>
+            <span class="menu-primary__zh">認識這個品牌</span>
+            <span class="menu-primary__en">About Wildland</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 分組導覽：兩組四項 -->
+    <div class="menu-groups">
+      <div class="menu-group">
+        <span class="menu-group__title">SHOP</span>
+        <ul>
+          <li>
+            <a href="#products" data-menu-link>
+              <span class="menu-group__name">新季商品</span>
+              <span class="menu-group__hint">S/S 2026 · 04 items</span>
+            </a>
+          </li>
+          <li>
+            <a href="#quality" data-menu-link>
+              <span class="menu-group__name">品質誠實</span>
+              <span class="menu-group__hint">三件我們不掩飾的事</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-menu-link data-action="openSizeChart">
+              <span class="menu-group__name">尺寸對照表</span>
+              <span class="menu-group__hint">男款・女款・中性款</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="menu-group">
+        <span class="menu-group__title">READ</span>
+        <ul>
+          <li>
+            <a href="#story" data-menu-link>
+              <span class="menu-group__name">衣櫃前的瞬間</span>
+              <span class="menu-group__hint">我們為什麼存在</span>
+            </a>
+          </li>
+          <li>
+            <a href="#values" data-menu-link>
+              <span class="menu-group__name">三件事做得不一樣</span>
+              <span class="menu-group__hint">守護肌膚・耐穿耐洗・跨越場景</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about" data-menu-link>
+              <span class="menu-group__name">寫給你的信</span>
+              <span class="menu-group__hint">關於這個品牌，與我</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 工具列：購物車、配送、聯絡 -->
+    <div class="menu-utility">
+      <a href="#" data-menu-link data-action="openCart" class="menu-utility__item">
+        <span class="menu-utility__label">購物車</span>
+        <span class="menu-utility__meta" id="menuCartCount">空的</span>
+      </a>
+      <a href="#promises" data-menu-link class="menu-utility__item">
+        <span class="menu-utility__label">配送與退換</span>
+        <span class="menu-utility__meta">滿 NT$ 3,000 免運</span>
+      </a>
+      <a href="mailto:hello@wildlandliving.tw" class="menu-utility__item">
+        <span class="menu-utility__label">聯絡我們</span>
+        <span class="menu-utility__meta">hello@wildlandliving.tw</span>
+      </a>
+    </div>
+
+    <div class="menu-overlay__foot">
+      <div class="menu-overlay__brand">
+        <span class="menu-overlay__brand-zh">原野日常</span>
+        <span class="menu-overlay__brand-en">WILDLAND LIVING</span>
+      </div>
+
+      <div class="menu-overlay__social">
+        <span class="menu-overlay__social-label">Follow</span>
+        <div class="menu-overlay__social-row">
+          <a href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+              <path d="M14 8h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7H14v-7h2.5l.5-3H14V8.5C14 8.2 14.2 8 14 8z"/>
+            </svg>
+          </a>
+          <a href="https://lin.ee/xdo3l23" target="_blank" rel="noopener" aria-label="LINE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+              <path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8c0 3.9 3.2 7.2 7.5 7.9.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .2-.2.9.8.5s5.3-3.1 7.2-5.3C20.4 14.9 21 13 21 11z"/>
+            </svg>
+          </a>
+          <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" aria-label="Linktree">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <line x1="12" y1="3" x2="12" y2="21"/>
+              <line x1="5" y1="9" x2="19" y2="9"/>
+              <line x1="6" y1="15" x2="12" y2="21"/>
+              <line x1="18" y1="15" x2="12" y2="21"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- ============ Hero ============ -->
+<main id="top">
+
+<!-- ====================================================================
+     HERO
+     ==================================================================== -->
 <section class="hero">
-  <div class="container">
-    <div class="hero__inner">
-      <div class="hero__text">
-        <p class="hero__label t-label">— S / S 2 0 2 6 —</p>
-        <h1 class="hero__title">
-          把原野，<br>穿在身上。
-          <span class="hero__title-en">WEAR THE WILD</span>
-        </h1>
-        <p class="hero__desc">
-          衣櫃塞滿，卻無衣可穿。<br>
-          我們為這個時代的矛盾而生——<br>
-          一件好衣，能跨越會議與山徑，<br>
-          守護肌膚、陪你長久。
-        </p>
-        <div class="hero__cta">
-          <a href="#products" class="btn">看 新 季 商 品</a>
-          <a href="#story" class="btn btn--outline">品 牌 故 事</a>
-        </div>
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <div class="hero__season">
+        <i></i>
+        <span>— S / S 2 0 2 6 —</span>
       </div>
 
-      <div class="hero__visual">
-        <!-- 風格示意 SVG：晨霧、留白、霧綠色階 -->
-        <svg class="hero__visual-svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="mistGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F2EFE6" stop-opacity="0.95"/>
-              <stop offset="50%" stop-color="#C9D1B8" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#7B8568" stop-opacity="0.5"/>
-            </linearGradient>
-            <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#7B8568" stop-opacity="0.6"/>
-              <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.85"/>
-            </linearGradient>
-          </defs>
+      <h1 class="hero__title">把<em>原野</em>，<br />穿在身上。</h1>
+      <div class="hero__en">WEAR · THE · WILD</div>
 
-          <!-- 背景天空 -->
-          <rect width="400" height="500" fill="url(#mistGrad)"/>
+      <p class="hero__lede">
+        為這個時代的矛盾而生——<br />
+        一件好衣，能跨越會議與山徑，<br />
+        守護肌膚、陪你長久。
+      </p>
 
-          <!-- 遠山層次 -->
-          <path d="M0,280 Q80,240 160,260 T320,250 L400,265 L400,500 L0,500 Z"
-                fill="#7B8568" fill-opacity="0.35"/>
-          <path d="M0,320 Q100,290 200,310 T400,305 L400,500 L0,500 Z"
-                fill="#3D4A38" fill-opacity="0.4"/>
-          <path d="M0,370 Q120,350 240,365 T400,360 L400,500 L0,500 Z"
-                fill="url(#mountainGrad)"/>
+      <div class="hero__cta">
+        <a href="#products" class="btn">
+          看新季商品
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <a href="#story" class="btn btn--ghost">
+          認識我們
+        </a>
+      </div>
+    </div>
 
-          <!-- 細線 (品牌大全 §05 線條系統) -->
-          <line x1="40" y1="430" x2="120" y2="430" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.6"/>
-          <line x1="40" y1="438" x2="80" y2="438" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.4"/>
+    <div class="hero__visual">
+      <!-- 「晨光裡的窗邊」極簡構圖 — 只保留「窗 + 光 + 一杯咖啡」三個元素，符合品牌留白原則 -->
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fffdf5" stop-opacity="0.8"/>
+            <stop offset="0.6" stop-color="#fffdf5" stop-opacity="0.15"/>
+            <stop offset="1" stop-color="#fffdf5" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="0.6" y2="1">
+            <stop offset="0" stop-color="#fffdf5" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#fffdf5" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
 
-          <!-- 留白點綴 -->
-          <circle cx="320" cy="80" r="2" fill="#F2EFE6" fill-opacity="0.6"/>
-        </svg>
+        <!-- 從左上斜下來的晨光 -->
+        <polygon points="0,0 400,0 400,180 260,500 0,500" fill="url(#g1)"/>
 
-        <div class="hero__stamp">原</div>
+        <!-- 窗框（細線、低調） -->
+        <rect x="80" y="110" width="240" height="240" fill="none" stroke="#3D4A38" stroke-width="1" opacity="0.35"/>
+        <line x1="200" y1="110" x2="200" y2="350" stroke="#3D4A38" stroke-width="0.8" opacity="0.3"/>
+        <line x1="80" y1="230" x2="320" y2="230" stroke="#3D4A38" stroke-width="0.8" opacity="0.3"/>
+
+        <!-- 從窗內透出的光暈 -->
+        <rect x="82" y="112" width="236" height="236" fill="url(#g2)"/>
+
+        <!-- 桌面線（地平線感） -->
+        <line x1="0" y1="408" x2="400" y2="408" stroke="#3D4A38" stroke-width="1.2" opacity="0.5"/>
+
+        <!-- 一杯咖啡（畫面中唯一的物件，靠右下） -->
+        <ellipse cx="270" cy="408" rx="26" ry="3.5" fill="#3D4A38" opacity="0.18"/>
+        <path d="M 250 408 L 254 452 Q 254 460 262 460 L 278 460 Q 286 460 286 452 L 290 408"
+              fill="none" stroke="#3D4A38" stroke-width="1.4"/>
+        <path d="M 290 418 Q 304 418 304 432 Q 304 446 290 446"
+              fill="none" stroke="#3D4A38" stroke-width="1.4"/>
+        <!-- 一縷蒸氣 -->
+        <path d="M 268 396 Q 272 388 268 380 Q 264 372 268 364"
+              fill="none" stroke="#3D4A38" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+      </svg>
+      <div class="hero__seal">
+        <span>S/S 2026</span>
+        <i></i>
+        <span>EDITION</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ Products ============ -->
-<section class="section" id="products">
-  <div class="container">
-    <div class="section__head">
-      <div>
-        <h2 class="section__title">新品</h2>
-        <span class="section__title-en" id="productsCount">NEW ARRIVAL</span>
-      </div>
-      <span class="section__meta">S / S 2 0 2 6</span>
-    </div>
-
-    <div class="products" id="productsGrid">
-      <!-- 商品由 JS 動態渲染 -->
-    </div>
-  </div>
-</section>
-
-<!-- ============ Story ============ -->
+<!-- ====================================================================
+     01 · 品牌故事鉤子 STORY HOOK
+     先讓訪客「對，我也這樣」產生共鳴
+     ==================================================================== -->
 <section class="story" id="story">
-  <div class="container">
-    <div class="story__inner">
-      <div class="story__visual">
-        <svg class="story__visual-svg" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="storyGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#C9D1B8" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.6"/>
-            </linearGradient>
-          </defs>
-          <rect width="300" height="400" fill="#7B8568"/>
-          <rect width="300" height="400" fill="url(#storyGrad)"/>
-          <!-- 簡約幾何線條 -->
-          <line x1="40" y1="60" x2="40" y2="340" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.4"/>
-          <line x1="260" y1="60" x2="260" y2="340" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.4"/>
-          <text x="150" y="210" font-family="serif" font-size="80" fill="#F2EFE6" fill-opacity="0.15" text-anchor="middle" font-weight="600">原</text>
-          <line x1="120" y1="350" x2="180" y2="350" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.5"/>
-        </svg>
-      </div>
+  <div class="wrap story__grid">
+    <div class="fade-up">
+      <span class="eyebrow">— Our Story —</span>
+      <h2 class="story__title">
+        衣櫃塞滿，<br />卻無衣可穿。
+      </h2>
+    </div>
 
-      <div class="story__text">
-        <p class="story__label t-label">— OUR STORY —</p>
-        <h2 class="story__title">那一刻，<br>你站在衣櫃前。</h2>
-        <div class="story__body">
-          <p>週一早晨七點，會議在九點，咖啡還沒喝完。衣櫃裡掛滿了衣服——快時尚買來的襯衫穿兩次就鬆垮，去年那件貴的化纖外套，讓你的肌膚又癢了起來。</p>
-          <p>我們相信，現代人需要的不是更多衣服，而是更少、但更對的衣服。一件能守護敏感肌、耐得住反覆洗滌、從會議室走到山徑都自在的衣服。</p>
-          <p>少一點消費，多一點生活。讓每個日子，都有一塊屬於你的原野。</p>
-        </div>
-        <a href="#values" class="btn btn--outline">了 解 更 多</a>
+    <div class="story__body fade-up">
+      <div class="story__lede">
+        <p>週一早晨七點，會議在九點，咖啡還沒喝完。衣櫃裡掛滿了衣服——快時尚買來的襯衫穿兩次就鬆垮，去年那件貴的化纖外套，讓你的肌膚又癢了起來。</p>
+        <p>這不是你的問題，是這個時代的問題。我們相信，現代人需要的不是更多衣服，而是更少、但更對的衣服。</p>
+        <p class="story__highlight">原野日常，誕生於這個信念。</p>
       </div>
+      <a href="#values" class="story__link">
+        看我們怎麼做
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ Values ============ -->
+<!-- ====================================================================
+     02 · 三大價值主張 VALUES
+     為什麼選我們：守護肌膚 · 耐穿耐洗 · 跨越場景
+     ==================================================================== -->
 <section class="values" id="values">
-  <div class="container">
-    <div class="section__head" style="justify-content:center; text-align:center; flex-direction:column; align-items:center;">
-      <div>
-        <h2 class="section__title">三 個 關 鍵 詞</h2>
-        <span class="section__title-en">BRAND PERSONALITY</span>
-      </div>
+  <div class="wrap">
+    <div class="section-head section-head--center fade-up">
+      <span class="eyebrow">— Why Wildland —</span>
+      <h2>三件事，我們做得不一樣</h2>
     </div>
 
     <div class="values__grid">
-      <div class="value">
-        <div class="value__num">— 01 —</div>
-        <h3 class="value__title">從容</h3>
-        <div class="value__title-en">COMPOSED</div>
-        <p class="value__desc">不疾不徐，不用力證明自己。給人一種品牌很穩、不需要催促你的安心感。</p>
+      <article class="value-card fade-up">
+        <div class="value-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 8 C 18 14, 14 22, 14 30 C 14 38, 18 42, 24 42 C 30 42, 34 38, 34 30 C 34 22, 30 14, 24 8 Z"/>
+            <path d="M20 28 Q 24 32 28 28"/>
+          </svg>
+        </div>
+        <h3>守護肌膚</h3>
+        <p>挑選對肌膚友善的天然纖維——有機棉、亞麻、再生聚酯。染色採 Oeko-Tex 100 認證染料，不讓污染滲入水源，也不在你身上留下化學殘留。</p>
+      </article>
+
+      <article class="value-card fade-up" style="transition-delay:.1s">
+        <div class="value-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="16"/>
+            <polyline points="24 14 24 24 31 28"/>
+          </svg>
+        </div>
+        <h3>耐穿耐洗</h3>
+        <p>從打版開始重新思考每一處細節：袖長略收、領口羅紋加厚、平車縫線。180g 有機棉、回收聚酯，反覆洗滌也撐得住——一件衣服，陪你好幾年。</p>
+      </article>
+
+      <article class="value-card fade-up" style="transition-delay:.2s">
+        <div class="value-card__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 36 L 18 22 L 26 30 L 40 12"/>
+            <polyline points="32 12 40 12 40 20"/>
+          </svg>
+        </div>
+        <h3>跨越場景</h3>
+        <p>剪裁簡約，從晨間會議到傍晚河堤散步都自在。一套衣服，跨越通勤、會議、週末出遊所有場景——讓你不再為「今天該穿什麼」浪費時間。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     03 · 新品 PRODUCTS
+     建立認知後再展示
+     ==================================================================== -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <div class="section-head__title">
+        <span class="eyebrow">New Arrival · S/S 2026</span>
+        <h2>新季商品</h2>
+        <p class="section-head__lede">四件好衣，從春天穿到夏末。<br />可單穿、可疊搭，每件都耐得住反覆洗滌。</p>
       </div>
-      <div class="value">
-        <div class="value__num">— 02 —</div>
-        <h3 class="value__title">明亮</h3>
-        <div class="value__title-en">LUMINOUS</div>
-        <p class="value__desc">不負能量、不販賣焦慮。讀完是鬆口氣，而不是更焦慮。</p>
+      <div class="section-head__meta" id="productCount">04 items</div>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <!-- 由 JS 渲染 -->
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     04 · 品質誠實 — 訪客剛看完商品的疑慮：「會皺嗎？」「值得嗎？」
+     ==================================================================== -->
+<section class="quality" id="quality">
+  <div class="wrap">
+    <div class="section-head section-head--center fade-up">
+      <span class="eyebrow">— What You Should Know —</span>
+      <h2>三件事，我們不掩飾</h2>
+      <p class="section-head__lede">誠實，是這個品牌最強的差異化。</p>
+    </div>
+
+    <div class="quality__grid">
+      <div class="quality__item fade-up">
+        <span class="quality__num">01</span>
+        <h4>亞麻會皺，棉麻會縮。</h4>
+        <p>這不是瑕疵，是天然纖維呼吸的方式。第一次洗滌會輕微縮水（約 3%），這是棉麻本性。</p>
       </div>
-      <div class="value">
-        <div class="value__num">— 03 —</div>
-        <h3 class="value__title">誠實</h3>
-        <div class="value__title-en">HONEST</div>
-        <p class="value__desc">亞麻會皺、洗後會縮、棉麻有手感差異——這些都直接說。誠實是我們最強的差異化。</p>
+      <div class="quality__item fade-up" style="transition-delay:.08s">
+        <span class="quality__num">02</span>
+        <h4>第一次穿不會最舒服。</h4>
+        <p>有機棉、亞麻越穿越柔軟、越洗越合身。給它時間，它會陪你好幾年。</p>
+      </div>
+      <div class="quality__item fade-up" style="transition-delay:.16s">
+        <span class="quality__num">03</span>
+        <h4>顏色不會永遠不變。</h4>
+        <p>未漂白與植物染色會隨時間溫和褪色——這是天然的痕跡，不是缺點。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ Newsletter ============ -->
-<section class="newsletter" id="newsletter">
-  <div class="container">
-    <div class="newsletter__inner">
-      <p class="newsletter__label t-label">— DAILY LETTER —</p>
-      <h2 class="newsletter__title">每月一封，<br>從原野寄來的信。</h2>
-      <p class="newsletter__desc">
-        少一點消費，多一點生活。<br>
-        我們不催你買東西，只想分享這個月學到的——<br>
-        關於亞麻、關於洗滌、關於慢下來的方式。
+<!-- ====================================================================
+     05 · 寫給你的信 — 一人公司的真實感、品牌信念融入
+     ==================================================================== -->
+<section class="founder" id="about">
+  <div class="wrap founder__inner">
+    <h2 class="sr-only">寫給你的信</h2>
+    <span class="founder__mark fade-up" aria-hidden="true"></span>
+
+    <blockquote class="founder__quote fade-up">
+      <p>我們不只是賣衣服，<br />我們提供一種新的生活提案——</p>
+      <p class="founder__creed">
+        少一點消費，多一點生活。<br />
+        少一點焦慮，多一點自在。<br />
+        少一點選擇，多一點自由。
       </p>
-      <form class="newsletter__form" id="newsletterForm">
-        <input type="email" class="newsletter__input" placeholder="你的 email" required>
-        <button type="submit" class="newsletter__submit">訂 閱</button>
-      </form>
+      <p>讓「穿得好」不再是奢侈，而是一種保護健康、節省時間、對環境負責的日常選擇。</p>
+    </blockquote>
+
+    <div class="founder__sign fade-up">
+      <span class="founder__sign-line"></span>
+      <span class="founder__sign-name">林 · 原野日常</span>
+      <span class="founder__sign-meta">2026 春</span>
     </div>
   </div>
 </section>
 
-<!-- ============ Footer ============ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
-      <div class="footer__brand">
-        <div class="footer__brand-title">原野日常</div>
-        <div class="footer__brand-en">WILDLAND LIVING</div>
-        <p class="footer__tagline">
-          把戶外的自由感、自然的純粹質地，帶進每一天的生活裡。
-        </p>
+<!-- ====================================================================
+     06 · 購物資訊 — 政策、運費、聯絡（冷資訊放在最後）
+     ==================================================================== -->
+<section class="info" id="promises">
+  <div class="wrap">
+    <div class="section-head section-head--center fade-up">
+      <span class="eyebrow">— Good to Know —</span>
+      <h2>購買之前，先告訴你這些</h2>
+    </div>
+
+    <div class="info__grid">
+      <div class="info__item fade-up">
+        <div class="info__icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="10" width="24" height="14" rx="1"/>
+            <path d="M 4 14 L 28 14"/>
+            <circle cx="10" cy="19" r="1.2"/>
+          </svg>
+        </div>
+        <h4>配送</h4>
+        <p>台灣本島運費 <strong>NT$ 80</strong>，滿 NT$ 3,000 <strong>免運</strong>。出貨後 3-5 個工作日送達。</p>
       </div>
+
+      <div class="info__item fade-up" style="transition-delay:.08s">
+        <div class="info__icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 8 6 L 24 6 L 26 28 L 6 28 Z"/>
+            <path d="M 12 12 L 20 12"/>
+            <path d="M 12 18 L 20 18"/>
+          </svg>
+        </div>
+        <h4>退換貨</h4>
+        <p>未洗滌、保留吊牌的商品，<strong>七天內</strong>接受退換貨。收到後 3 個工作日內處理退款。</p>
+      </div>
+
+      <div class="info__item fade-up" style="transition-delay:.16s">
+        <div class="info__icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 4 8 L 16 18 L 28 8"/>
+            <rect x="4" y="6" width="24" height="20" rx="1"/>
+          </svg>
+        </div>
+        <h4>聯絡我們</h4>
+        <p>沒有客服機器人。寫信到 <a href="mailto:hello@wildlandliving.tw">hello@wildlandliving.tw</a>，是我本人回覆你。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ====================================================================
+     FOOTER
+     ==================================================================== -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__col footer__col--brand">
+        <div class="footer__brand">
+          原野日常
+          <small>WILDLAND LIVING</small>
+        </div>
+        <p class="footer__tag">
+          把原野，穿在身上。<br />
+          少一點消費，多一點生活。
+        </p>
+        <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" class="footer__linktree">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="12" y1="3" x2="12" y2="21"/>
+            <line x1="5" y1="9" x2="19" y2="9"/>
+            <line x1="6" y1="15" x2="12" y2="21"/>
+            <line x1="18" y1="15" x2="12" y2="21"/>
+          </svg>
+          所有連結 · Linktree
+        </a>
+      </div>
+
       <div class="footer__col">
-        <div class="footer__col-title">SHOP</div>
+        <h4>SHOP</h4>
         <ul>
-          <li><a href="#products">新品上架</a></li>
-          <li><a href="#">尺寸指南</a></li>
-          <li><a href="#">洗滌方式</a></li>
-          <li><a href="#">退換貨</a></li>
+          <li><a href="#products">所有商品</a></li>
+          <li><a href="#" id="footerSizeChart">尺寸對照表</a></li>
+          <li><a href="#promises">配送與付款</a></li>
+          <li><a href="#promises">退換貨政策</a></li>
+          <li><a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">Shopee 賣場</a></li>
         </ul>
       </div>
+
       <div class="footer__col">
-        <div class="footer__col-title">ABOUT</div>
+        <h4>ABOUT</h4>
         <ul>
           <li><a href="#story">品牌故事</a></li>
-          <li><a href="#values">理念</a></li>
-          <li><a href="#">合作邀約</a></li>
+          <li><a href="#quality">品質誠實</a></li>
+          <li><a href="#about">寫給你的信</a></li>
+          <li><a href="mailto:hello@wildlandliving.tw">hello@wildlandliving.tw</a></li>
+          <li><a href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">分享你的想法</a></li>
         </ul>
       </div>
+
       <div class="footer__col">
-        <div class="footer__col-title">CONTACT</div>
-        <ul>
-          <li>hello@wildlandliving.tw</li>
-          <li>+886 0912 345 678</li>
-          <li>週一至週五 10-18</li>
+        <h4>FOLLOW</h4>
+        <ul class="social-list">
+          <li>
+            <a href="https://www.instagram.com/wildland__living/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/profile.php?id=61588538243124" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                <path d="M14 8h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7H14v-7h2.5l.5-3H14V8.5C14 8.2 14.2 8 14 8z"/>
+              </svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://lin.ee/xdo3l23" target="_blank" rel="noopener" aria-label="LINE 官方帳號">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                <path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8c0 3.9 3.2 7.2 7.5 7.9.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .2-.2.9.8.5s5.3-3.1 7.2-5.3C20.4 14.9 21 13 21 11z"/>
+              </svg>
+              <span>LINE</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
     <div class="footer__bottom">
-      <div>© 2026 WILDLAND LIVING · ALL RIGHTS RESERVED</div>
-      <div>WEAR THE WILD</div>
+      <span>© 2026 Wildland Living · All rights reserved</span>
+      <span>wildlandliving.tw</span>
     </div>
   </div>
 </footer>
 
-<!-- ============ Cart Drawer ============ -->
-<div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer">
-  <div class="cart__head">
-    <div class="cart__title">購物車</div>
-    <button class="cart__close" id="cartClose" aria-label="關閉">×</button>
-  </div>
-  <div class="cart__body" id="cartBody">
-    <!-- 由 JS 渲染 -->
-  </div>
-  <div class="cart__foot" id="cartFoot" style="display:none;">
-    <div class="cart__summary">
-      <span>小計</span>
-      <span id="cartSubtotal">NT$ 0</span>
-    </div>
-    <div class="cart__summary">
-      <span>運費</span>
-      <span>NT$ 80</span>
-    </div>
-    <div class="cart__summary cart__summary--total">
-      <span>合計</span>
-      <span id="cartTotal">NT$ 0</span>
-    </div>
-    <p class="cart__note">滿 NT$ 2,000 免運 · 7 天內可退換</p>
-    <button class="btn btn--block" id="checkoutBtn">前 往 結 帳</button>
-  </div>
-</aside>
+<!-- ====================================================================
+     商品詳情 MODAL
+     ==================================================================== -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal" id="productModal" role="dialog" aria-modal="true">
+  <button class="modal__close" id="modalClose" aria-label="關閉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <line x1="6" y1="6" x2="18" y2="18"/>
+      <line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+  <div class="modal__grid" id="modalContent"><!-- 由 JS 渲染 --></div>
+</div>
 
-<!-- ============ Product Modal ============ -->
-<div class="product-modal" id="productModal">
-  <div class="product-modal__overlay" id="modalOverlay"></div>
-  <div class="product-modal__content" id="modalContent">
+<!-- ====================================================================
+     購物車 DRAWER
+     ==================================================================== -->
+<div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true">
+  <div class="cart-drawer__head">
+    <h3>購物車 <small>CART</small></h3>
+    <button class="modal__close" id="cartClose" style="position: static;" aria-label="關閉">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="cart-drawer__body" id="cartBody">
     <!-- 由 JS 渲染 -->
+  </div>
+  <div class="cart-drawer__foot" id="cartFoot" style="display: none;">
+    <dl class="cart-total">
+      <dt>小計 SUBTOTAL</dt>
+      <dd id="cartTotal">NT$ 0</dd>
+    </dl>
+    <p class="cart-shipping-note">運費將於結帳時計算</p>
+    <button class="checkout-btn" id="goCheckout">前往結帳 CHECKOUT</button>
   </div>
 </div>
 
-<!-- ============ Toast ============ -->
-<div class="toast" id="toast"></div>
+<!-- ====================================================================
+     結帳頁 CHECKOUT
+     ==================================================================== -->
+<section class="checkout-page" id="checkoutPage">
+  <header class="checkout-header">
+    <button class="checkout-back" id="checkoutBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="15 6 9 12 15 18"/>
+      </svg>
+      回上一頁
+    </button>
+    <a href="#top" class="brand-mark">
+      <span class="brand-mark__zh">原野日常</span>
+      <span class="brand-mark__en">WILDLAND LIVING</span>
+    </a>
+    <span style="width:80px;"></span>
+  </header>
+
+  <div class="checkout-body">
+    <form class="checkout-form" id="checkoutForm" novalidate>
+      <section>
+        <h3><i>1</i>聯絡資訊</h3>
+        <div class="form-grid form-grid--full">
+          <div class="field">
+            <label>Email *</label>
+            <input type="email" name="email" required placeholder="hello@example.com">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>姓名 *</label>
+            <input type="text" name="name" required placeholder="王小明">
+          </div>
+          <div class="field">
+            <label>聯絡電話 *</label>
+            <input type="tel" name="phone" required placeholder="0912 345 678">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3><i>2</i>配送地址</h3>
+        <div class="form-grid">
+          <div class="field">
+            <label>城市 *</label>
+            <select name="city" required>
+              <option value="">請選擇</option>
+              <option>台北市</option><option>新北市</option><option>桃園市</option>
+              <option>台中市</option><option>台南市</option><option>高雄市</option>
+              <option>基隆市</option><option>新竹市</option><option>新竹縣</option>
+              <option>苗栗縣</option><option>彰化縣</option><option>南投縣</option>
+              <option>雲林縣</option><option>嘉義市</option><option>嘉義縣</option>
+              <option>屏東縣</option><option>宜蘭縣</option><option>花蓮縣</option>
+              <option>台東縣</option><option>澎湖縣</option><option>金門縣</option>
+              <option>連江縣</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>郵遞區號</label>
+            <input type="text" name="zip" placeholder="例：100">
+          </div>
+        </div>
+        <div class="form-grid form-grid--full">
+          <div class="field">
+            <label>詳細地址 *</label>
+            <input type="text" name="address" required placeholder="區、路、巷弄、號樓">
+          </div>
+          <div class="field">
+            <label>備註（選填）</label>
+            <textarea name="note" placeholder="例：希望平日 18:00 後送達"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3><i>3</i>付款方式</h3>
+        <div class="pay-options">
+          <label class="pay-opt">
+            <input type="radio" name="pay" value="credit" checked>
+            <span class="pay-opt__label">信用卡</span>
+            <span class="pay-opt__hint">Coming soon · 即將上線</span>
+          </label>
+          <label class="pay-opt">
+            <input type="radio" name="pay" value="atm">
+            <span class="pay-opt__label">ATM 轉帳</span>
+            <span class="pay-opt__hint">下單後 3 日內</span>
+          </label>
+          <label class="pay-opt">
+            <input type="radio" name="pay" value="cod">
+            <span class="pay-opt__label">貨到付款</span>
+            <span class="pay-opt__hint">加 NT$ 30 手續費</span>
+          </label>
+        </div>
+      </section>
+    </form>
+
+    <aside class="checkout-summary">
+      <h4>訂單明細 ORDER SUMMARY</h4>
+      <div id="summaryItems"><!-- JS render --></div>
+      <div class="summary-totals" id="summaryTotals">
+        <div class="summary-row">
+          <span>商品小計</span>
+          <span id="sumSubtotal">NT$ 0</span>
+        </div>
+        <div class="summary-row">
+          <span>運費</span>
+          <span id="sumShipping">NT$ 80</span>
+        </div>
+        <div class="summary-row summary-row--final">
+          <span>合計</span>
+          <span id="sumFinal">NT$ 0</span>
+        </div>
+      </div>
+      <button class="place-order-btn" id="placeOrder">完成訂購 PLACE ORDER</button>
+      <p class="checkout-note">
+        送出訂單即表示同意《購買條款》<br />
+        此為示範版面，金流功能將於串接後啟用
+      </p>
+    </aside>
+  </div>
+</section>
+
+<!-- ====================================================================
+     訂單完成
+     ==================================================================== -->
+<section class="order-success" id="orderSuccess">
+  <div class="order-success__inner">
+    <div class="order-success__check" aria-hidden="true">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 16 13 23 26 9"/>
+      </svg>
+    </div>
+    <h2>謝謝你選擇了一件，<br />而不是更多。</h2>
+    <p>
+      訂單已成功送出，我們會在 1-2 個工作日內<br />
+      確認備貨並寄出物流通知信。<br />
+      如有任何問題，寫信給我們：<br />
+      <strong>hello@wildlandliving.tw</strong>
+    </p>
+    <small id="orderNo">— ORDER NO. —</small>
+
+    <div class="order-success__actions">
+      <button class="btn btn--ghost" id="backHome">回到首頁</button>
+      <a class="btn" href="https://willie8601.github.io/feedback-form/customer-feedback.html" target="_blank" rel="noopener">
+        分享你的感受
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="order-success__note">
+      收到衣服後，若有任何想說的話，<br />
+      無論是好是壞，都歡迎讓我們知道。
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================
+     尺寸表 MODAL
+     ==================================================================== -->
+<div class="size-chart-modal" id="sizeChartModal">
+  <div class="size-chart-modal__inner">
+    <button class="size-chart-modal__close" id="sizeChartClose" aria-label="關閉">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="18" y1="6" x2="6" y2="18"/>
+      </svg>
+    </button>
+    <span class="eyebrow">SIZE GUIDE</span>
+    <h3>尺寸對照表</h3>
+
+    <h4>Men's & Unisex · 男款 / 中性款</h4>
+    <table class="size-table">
+      <thead>
+        <tr><th></th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>胸圍 Chest</th>
+          <td>81-86 cm</td><td>86-92 cm</td><td>92-97 cm</td>
+          <td>99-104 cm</td><td>104-109 cm</td><td>109-116 cm</td>
+        </tr>
+        <tr>
+          <th>腰圍 Waist</th>
+          <td>71 cm</td><td>76 cm</td><td>82 cm</td>
+          <td>86 cm</td><td>92 cm</td><td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Women's · 女款</h4>
+    <table class="size-table">
+      <thead>
+        <tr><th></th><th>8 / XS</th><th>10 / S</th><th>12 / M</th><th>14 / L</th><th>16 / XL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>胸圍 Chest</th>
+          <td>81 cm</td><td>86 cm</td><td>91 cm</td><td>97 cm</td><td>102 cm</td>
+        </tr>
+        <tr>
+          <th>腰圍 Waist</th>
+          <td>66 cm</td><td>71 cm</td><td>76 cm</td><td>82 cm</td><td>86 cm</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.9;">
+      ※ 此為「身材」對應的建議尺寸，並非衣服平量尺寸。<br />
+      ※ 亞麻 / 棉麻商品首次洗滌可能輕微縮水（約 3%），這是棉麻本性，不是瑕疵。
+    </p>
+  </div>
+</div>
+
+<!-- ====================================================================
+     Toast
+     ==================================================================== -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastMsg">已加入購物車</span>
+</div>
+
 
 <script>
-/* ============================================================
-   原野日常 Wildland Living · 互動邏輯
-   ============================================================
-   特別說明：
-   - 購物車狀態用 localStorage 持久化（重新整理不會清空）
-   - 商品資料寫在 PRODUCTS 陣列，未來改商品只改這裡
-   - 結帳按鈕目前是 alert 提示，串綠界時改 checkoutBtn 的處理
-   ============================================================ */
-
-// ---------- 商品資料（之後接後端時改成 fetch） ----------
+/* ========================================================================
+   資料層 · 商品資料表 (來自 /mnt/project/商品資料表.xlsx)
+   未來商品要新增/修改：編輯這個陣列即可
+   ======================================================================== */
 const PRODUCTS = [
   {
-    id: 'no001',
-    no: 'NO. 001',
+    no: '001',
     name: '男款 XXX 有機棉 T',
-    nameEn: "Men's XXX Organic Tee",
+    en: "Men's XXX Organic Tee",
     price: 1105,
-    originalPrice: 1579,
+    listPrice: 1579,
     sizes: ['L'],
     stock: 1,
+    type: 'tee',
     material: '100% 有機棉',
     origin: 'Made in Bangladesh',
-    desc: '我們把三十年來製作上萬件 T-shirt 的心得，全部重新歸零思考。剪裁從零打版，只為了找出最理想的輪廓 — 袖長略收、領口羅紋加厚，領圍採用平車縫線，每一處細節都經得起檢視。選用我們反覆驗證的 180g 有機棉，柔韌透氣，越穿越服貼。這不是一件追逐潮流的 T-shirt，而是會陪你走過好幾年，隨時間沉澱出個人風味的日常之選。',
-    care: '30°C 機洗 · 自然晾乾',
-    color: '#3D4A38',
-    accent: '#1F2A1E',
-    shape: 'tee'
+    desc: '我們把三十年來製作上萬件 T-shirt 的心得，全部重新歸零思考。剪裁從零打版，只為了找出最理想的輪廓 — 袖長略收、領口羅紋加厚，領圍採用平車縫線，每一處細節都經得起檢視。\n\n選用我們反覆驗證的 180g 有機棉，柔韌透氣，越穿越服貼。這不是一件追逐潮流的 T-shirt，而是會陪你走過好幾年，隨時間沉澱出個人風味的日常之選。',
+    care: '30°C 機洗 · 建議自然晾乾',
+    tone: 'C',
+    sizeGuide: 'men'
   },
   {
-    id: 'no002',
-    no: 'NO. 002',
+    no: '002',
     name: '男款 Mr T 有機棉 T',
-    nameEn: "Men's Mr T Organic T-shirt",
+    en: "Men's Mr T Organic T-shirt",
     price: 1105,
-    originalPrice: 1579,
+    listPrice: 1579,
     sizes: ['L'],
     stock: 1,
+    type: 'tee',
     material: '100% 有機棉',
     origin: 'Made in India',
-    desc: '熟悉的版型，依然是你愛不釋手的舒適輪廓。柔軟卻耐穿，這是一件為長久陪伴而生的 T-shirt。每一道車縫、每一處細節，都經過反覆琢磨，只為帶來日復一日的自在與耐用。採用 100% 有機棉，低環境負擔，種植過程不使用有害農藥 — 對你好、對農夫好、對土地更好。染色選用 Oeko-Tex 100 認證染料，不讓污染滲入水源。加厚領口羅紋搭配平車縫線收邊，細節經得起細看。只要好好對待它，這件 T-shirt 會陪你走上好長一段路。',
-    care: '30°C 機洗 · 自然晾乾',
-    color: '#3D4A38',
-    accent: '#1F2A1E',
-    shape: 'tee'
+    desc: '熟悉的版型，依然是你愛不釋手的舒適輪廓。柔軟卻耐穿，這是一件為長久陪伴而生的 T-shirt。每一道車縫、每一處細節，都經過反覆琢磨，只為帶來日復一日的自在與耐用。\n\n採用 100% 有機棉，低環境負擔，種植過程不使用有害農藥 — 對你好、對農夫好、對土地更好。染色選用 Oeko-Tex 100 認證染料，不讓污染滲入水源。\n\n加厚領口羅紋搭配平車縫線收邊，細節經得起細看。只要好好對待它，這件 T-shirt 會陪你走上好長一段路。',
+    care: '30°C 機洗 · 建議自然晾乾',
+    tone: 'C',
+    sizeGuide: 'men'
   },
   {
-    id: 'no003',
-    no: 'NO. 003',
+    no: '003',
     name: '女款 Greta 有機棉連帽衫',
-    nameEn: "Women's Greta Organic Hoody",
+    en: "Women's Greta Organic Hoody",
     price: 1813,
-    originalPrice: 2590,
+    listPrice: 2590,
     sizes: ['M'],
     stock: 1,
+    type: 'hoody',
     material: '100% 有機棉',
     origin: 'Made in Pakistan',
-    desc: '選用低環境負擔的 100% 有機棉頂級磨毛布料，外層柔軟起絨，觸感格外溫暖。雙層帽兜俐落不臃腫，搭配可調式人字織帶抽繩；前方雙口袋，讓冰冷的雙手隨時有處安放。100% 有機棉種植過程不使用有害農藥 — 對你、對農夫、對土地都更友善。染色採 Oeko-Tex 100 認證染料，不讓污染滲入水源。一件無論四季都能輕鬆疊穿的日常帽 T，把溫暖穿在身上。',
+    desc: '選用低環境負擔的 100% 有機棉頂級磨毛布料，外層柔軟起絨，觸感格外溫暖。雙層帽兜俐落不臃腫，搭配可調式人字織帶抽繩；前方雙口袋，讓冰冷的雙手隨時有處安放。\n\n100% 有機棉種植過程不使用有害農藥 — 對你、對農夫、對土地都更友善。染色採 Oeko-Tex 100 認證染料，不讓污染滲入水源。\n\n一件無論四季都能輕鬆疊穿的日常帽 T，把溫暖穿在身上。',
     care: '30°C 機洗',
-    color: '#7B8568',
-    accent: '#3D4A38',
-    shape: 'hoody'
+    tone: 'B',
+    sizeGuide: 'women'
   },
   {
-    id: 'no004',
-    no: 'NO. 004',
-    name: 'Ystwyth 機能運動外套',
-    nameEn: "Ystwyth Active Jacket (unisex)",
+    no: '004',
+    name: 'Ystwyth 機能運動外套（中性款）',
+    en: 'Ystwyth Active Jacket (unisex)',
     price: 2580,
-    originalPrice: 3685,
+    listPrice: 3685,
     sizes: ['M'],
     stock: 1,
+    type: 'jacket',
     material: '100% 再生聚酯纖維',
     origin: 'Made in India',
-    desc: '中磅防風機能外套，由回收寶特瓶再製而成。採用回收聚酯格紋布，勾到也不易撕裂；內襯同樣選用回收聚酯，貼膚舒適。表面經 PFC-free 環保撥水處理，雨水自然滑落不滲透；三段式可調帽兜，從容應對多變天候。兩色可選，搭配彈性下擺、雙翻蓋按釦前口袋、側邊按釦口袋及內側胸袋，收納一應俱全。前襟採用 YKK NATULON® 回收拉鍊，每個細節都經過深思。耐穿、永續、可收納 — 一件為實用而生的好外套。',
+    desc: '中磅防風機能外套，由回收寶特瓶再製而成。採用回收聚酯格紋布，勾到也不易撕裂；內襯同樣選用回收聚酯，貼膚舒適。表面經 PFC-free 環保撥水處理，雨水自然滑落不滲透；三段式可調帽兜，從容應對多變天候。\n\n兩色可選，搭配彈性下擺、雙翻蓋按釦前口袋、側邊按釦口袋及內側胸袋，收納一應俱全。前襟採用 YKK NATULON® 回收拉鍊，每個細節都經過深思。\n\n耐穿、永續、可收納 — 一件為實用而生的好外套。',
     care: '機洗',
-    color: '#3D4A38',
-    accent: '#1F2A1E',
-    shape: 'jacket'
+    tone: 'B',
+    sizeGuide: 'men'
   }
 ];
 
-// ---------- 生成商品視覺 SVG（每個商品有自己的色調與形狀） ----------
-const SHAPE_PATHS = {
-  // T 恤：短袖、圓領
-  tee: 'M150,130 Q200,115 250,130 L295,160 L320,200 L295,230 L275,210 L275,400 L125,400 L125,210 L105,230 L80,200 L105,160 Z',
-  // 帽 T：長袖、有帽兜
-  hoody: 'M155,135 Q200,80 245,135 L295,160 L325,260 L300,270 L290,250 L290,400 L110,400 L110,250 L100,270 L75,260 L105,160 Z',
-  // 襯衫：長袖、有領
-  shirt: 'M140,120 L260,120 L290,180 L270,200 L270,400 L130,400 L130,200 L110,180 Z',
-  // 褲款：雙腿
-  pants: 'M130,120 L270,120 L280,220 L240,400 L210,400 L200,250 L190,400 L160,400 L120,220 Z',
-  // 外套：寬肩、開襟
-  jacket: 'M130,120 L200,135 L270,120 L305,180 L280,210 L280,400 L120,400 L120,210 L95,180 Z',
+/* ========================================================================
+   SVG 商品款式示意圖（5 種輪廓，依品牌規範用極簡線條）
+   tee / hoody / shirt / pants / jacket
+   ======================================================================== */
+const PRODUCT_SVG = {
+  tee: `
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3D4A38" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 50 30 L 30 50 L 20 90 L 50 100 L 50 220 L 150 220 L 150 100 L 180 90 L 170 50 L 150 30 L 120 30 Q 100 50 80 30 Z"/>
+      <path d="M 80 30 Q 100 50 120 30"/>
+    </svg>`,
+  hoody: `
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3D4A38" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 60 40 Q 80 18 100 18 Q 120 18 140 40 L 165 55 L 178 100 L 150 110 L 150 225 L 50 225 L 50 110 L 22 100 L 35 55 Z"/>
+      <path d="M 70 40 Q 100 70 130 40"/>
+      <line x1="100" y1="100" x2="100" y2="180"/>
+      <path d="M 75 140 L 75 175 Q 100 195 125 175 L 125 140"/>
+    </svg>`,
+  shirt: `
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3D4A38" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 50 30 L 25 55 L 22 220 L 50 220 L 50 100 L 60 100 L 75 50 L 100 60 L 125 50 L 140 100 L 150 100 L 150 220 L 178 220 L 175 55 L 150 30 L 125 35 L 100 50 L 75 35 Z"/>
+      <line x1="100" y1="60" x2="100" y2="220"/>
+      <circle cx="100" cy="100" r="1.5" fill="#3D4A38"/>
+      <circle cx="100" cy="140" r="1.5" fill="#3D4A38"/>
+      <circle cx="100" cy="180" r="1.5" fill="#3D4A38"/>
+    </svg>`,
+  pants: `
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3D4A38" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 50 30 L 150 30 L 155 110 L 140 220 L 110 220 L 100 130 L 90 220 L 60 220 L 45 110 Z"/>
+      <line x1="100" y1="30" x2="100" y2="130"/>
+      <line x1="50" y1="40" x2="150" y2="40"/>
+    </svg>`,
+  jacket: `
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3D4A38" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M 40 35 L 22 60 L 18 100 L 40 105 L 40 225 L 100 225 L 100 60 L 90 35 L 50 35 Z"/>
+      <path d="M 160 35 L 178 60 L 182 100 L 160 105 L 160 225 L 100 225 L 100 60 L 110 35 L 150 35 Z"/>
+      <line x1="100" y1="60" x2="100" y2="225"/>
+      <line x1="50" y1="160" x2="80" y2="160"/>
+      <line x1="120" y1="160" x2="150" y2="160"/>
+    </svg>`
 };
 
-function productSVG(product, large = false) {
-  const shape = SHAPE_PATHS[product.shape] || SHAPE_PATHS.shirt;
-  const isTee = product.shape === 'tee';
-  const isHoody = product.shape === 'hoody';
+/* ========================================================================
+   狀態
+   ======================================================================== */
+const state = {
+  cart: [],                     // [{ id, no, name, en, price, size, qty, tone, type }]
+  activeProduct: null,
+  selectedSize: null,
+  selectedQty: 1
+};
 
-  // 內部細節：T 恤畫圓領、帽 T 畫袋鼠口袋與帽子、外套畫拉鍊、其他畫中央線
-  let detail = '';
-  const isJacket = product.shape === 'jacket';
-  if (isTee) {
-    detail = `<path d="M170,130 Q200,150 230,130" fill="none" stroke="#1F2A1E" stroke-width="1" stroke-opacity="0.3"/>`;
-  } else if (isHoody) {
-    detail = `
-      <!-- 帽 T 帽兜的內部弧線 -->
-      <path d="M170,130 Q200,160 230,130" fill="none" stroke="#1F2A1E" stroke-width="1" stroke-opacity="0.35"/>
-      <!-- 中央帽繩 -->
-      <line x1="195" y1="155" x2="195" y2="195" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.3"/>
-      <line x1="205" y1="155" x2="205" y2="195" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.3"/>
-      <!-- 袋鼠口袋 -->
-      <path d="M140,290 L260,290 L255,340 L145,340 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>`;
-  } else if (isJacket) {
-    detail = `
-      <!-- 中央開襟拉鍊 -->
-      <line x1="200" y1="120" x2="200" y2="400" stroke="#1F2A1E" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="2,3"/>
-      <!-- 兩側口袋 -->
-      <path d="M135,300 L185,300 L180,335 L140,335 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>
-      <path d="M215,300 L265,300 L260,335 L220,335 Z" fill="none" stroke="#1F2A1E" stroke-width="0.6" stroke-opacity="0.3"/>`;
-  } else {
-    detail = `<line x1="200" y1="120" x2="200" y2="400" stroke="#3D4A38" stroke-width="0.5" stroke-opacity="0.3"/>`;
-  }
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  return `
-    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="grad-${product.id}-${large?'lg':'sm'}" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="${product.color}" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="${product.accent}" stop-opacity="0.9"/>
-        </linearGradient>
-      </defs>
-      <rect width="400" height="500" fill="url(#grad-${product.id}-${large?'lg':'sm'})"/>
-      <!-- 服裝輪廓 -->
-      <g opacity="0.22">
-        <path d="${shape}"
-              fill="#F2EFE6" stroke="#F2EFE6" stroke-width="0.5" stroke-opacity="0.4"/>
-        ${detail}
-      </g>
-      <!-- 編號標籤 -->
-      <text x="40" y="460" font-family="sans-serif" font-size="9" fill="#F2EFE6" fill-opacity="0.7" letter-spacing="3">${product.no}</text>
-      <!-- 印章 -->
-      <circle cx="350" cy="450" r="22" fill="none" stroke="#F2EFE6" stroke-width="0.8" stroke-opacity="0.6"/>
-      <text x="350" y="458" font-family="serif" font-size="20" fill="#F2EFE6" fill-opacity="0.7" text-anchor="middle" font-weight="600">原</text>
-    </svg>
-  `;
-}
+const fmtPrice = n => 'NT$ ' + n.toLocaleString('en-US');
 
-// ---------- 渲染商品列表 ----------
+/* ========================================================================
+   渲染商品列表
+   ======================================================================== */
 function renderProducts() {
-  const grid = document.getElementById('productsGrid');
-
-  // 更新商品數量顯示
-  const countEl = document.getElementById('productsCount');
-  if (countEl) {
-    const n = PRODUCTS.length;
-    const numStr = n < 10 ? '0' + n : String(n);
-    countEl.textContent = `NEW ARRIVAL · ${numStr} ${n === 1 ? 'ITEM' : 'ITEMS'}`;
-  }
-
-  grid.innerHTML = PRODUCTS.map(p => `
-    <article class="product" data-id="${p.id}">
-      <div class="product__visual">
-        ${productSVG(p)}
-        <div class="product__no">${p.no}</div>
-        ${p.stock && p.stock <= 3 ? `<div class="product__stock">僅剩 ${p.stock} 件</div>` : ''}
+  const grid = $('#productGrid');
+  grid.innerHTML = PRODUCTS.map((p, i) => `
+    <article class="card fade-up" style="transition-delay:${i * 0.08}s" data-no="${p.no}">
+      <div class="card__visual" data-tone="${p.tone}">
+        <span class="card__no">N O · ${p.no}</span>
+        ${p.stock > 0 && p.stock <= 3 ? `<span class="card__low-stock">僅剩 ${p.stock} 件</span>` : ''}
+        ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
       </div>
-      <div class="product__info">
-        <h3 class="product__name">${p.name}</h3>
-        <div class="product__name-en">${p.nameEn}</div>
-        <div class="product__price">
-          NT$ ${p.price.toLocaleString()}
-          ${p.originalPrice ? `<span class="product__price-original">NT$ ${p.originalPrice.toLocaleString()}</span>` : ''}
+      <div class="card__info">
+        <div>
+          <div class="card__name">${p.name}</div>
+          <div class="card__en">${p.en}</div>
+        </div>
+        <div class="card__price">
+          ${p.listPrice && p.listPrice > p.price ? `<del>${fmtPrice(p.listPrice)}</del>` : ''}
+          ${fmtPrice(p.price)}
         </div>
       </div>
     </article>
   `).join('');
 
-  // 綁定點擊事件
-  grid.querySelectorAll('.product').forEach(el => {
-    el.addEventListener('click', () => openProductModal(el.dataset.id));
+  $('#productCount').textContent = String(PRODUCTS.length).padStart(2, '0') + ' items';
+
+  // 點擊卡片打開 modal
+  $$('.card', grid).forEach(card => {
+    card.addEventListener('click', () => openProduct(card.dataset.no));
   });
 }
 
-// ---------- 商品 Modal ----------
-function openProductModal(id) {
-  const p = PRODUCTS.find(x => x.id === id);
+/* ========================================================================
+   商品詳情 Modal
+   ======================================================================== */
+function openProduct(no) {
+  const p = PRODUCTS.find(x => x.no === no);
   if (!p) return;
+  state.activeProduct = p;
+  state.selectedSize = p.sizes[0] || null;
+  state.selectedQty = 1;
 
-  const content = document.getElementById('modalContent');
-  content.innerHTML = `
-    <button class="product-modal__close" id="modalClose" aria-label="關閉">
-      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1 L13 13 M13 1 L1 13" />
-      </svg>
-    </button>
-    <div class="product-modal__visual">
-      ${productSVG(p, true)}
+  $('#modalContent').innerHTML = `
+    <div class="modal__visual" data-tone="${p.tone}">
+      ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
     </div>
-    <div class="product-modal__body">
-      <div class="product-modal__no">${p.no} · S/S 2026</div>
-      <h2 class="product-modal__name">${p.name}</h2>
-      <div class="product-modal__name-en">${p.nameEn}</div>
-      <div class="product-modal__price">
-        NT$ ${p.price.toLocaleString()}
-        ${p.originalPrice ? `<span class="product-modal__price-original">NT$ ${p.originalPrice.toLocaleString()}</span>` : ''}
+    <div class="modal__info">
+      <div class="modal__no">N O · ${p.no} — S / S  2 0 2 6</div>
+      <h2 class="modal__name">${p.name}</h2>
+      <div class="modal__en">${p.en}</div>
+
+      <div class="modal__price">
+        ${p.listPrice && p.listPrice > p.price ? `<del>${fmtPrice(p.listPrice)}</del>` : ''}
+        ${fmtPrice(p.price)}
       </div>
 
-      <div class="product-modal__desc">${p.desc}</div>
+      <p class="modal__desc">${p.desc}</p>
 
-      <div class="product-modal__detail">
-        <div class="product-modal__detail-row">
-          <span class="product-modal__detail-label">MATERIAL</span>
-          <span>${p.material}</span>
-        </div>
-        <div class="product-modal__detail-row">
-          <span class="product-modal__detail-label">ORIGIN</span>
-          <span>${p.origin}</span>
-        </div>
-        <div class="product-modal__detail-row">
-          <span class="product-modal__detail-label">CARE</span>
-          <span>${p.care || '冷水手洗 · 平鋪陰乾'}</span>
-        </div>
-      </div>
+      <ul class="spec-list">
+        <li><dt>材質</dt><dd>${p.material}</dd></li>
+        <li><dt>產地</dt><dd>${p.origin}</dd></li>
+        <li><dt>洗滌</dt><dd>${p.care}</dd></li>
+      </ul>
 
-      <div class="product-modal__size">
-        <div class="product-modal__size-label">
-          尺寸 SIZE
-          ${p.stock && p.stock <= 3 ? `<span class="product-modal__stock-hint">· 僅剩 ${p.stock} 件</span>` : ''}
+      <div class="size-block">
+        <div class="size-block__head">
+          <span class="size-block__label">尺寸 SIZE</span>
+          <a class="size-chart-link" data-action="openSize">查看尺寸表 →</a>
         </div>
-        <div class="product-modal__size-opts" id="sizeOpts">
-          ${p.sizes.map((s, i) => `
-            <button class="size-btn ${i===0?'is-active':''}" data-size="${s}">${s}</button>
+        <div class="size-options">
+          ${p.sizes.map(s => `
+            <button type="button" class="size-opt ${s === state.selectedSize ? 'is-active' : ''}" data-size="${s}">${s}</button>
           `).join('')}
         </div>
+        ${p.stock > 0 && p.stock <= 3
+          ? `<p class="stock-note"><strong>誠實提示：</strong>此款僅剩 ${p.stock} 件</p>`
+          : ''}
       </div>
 
-      <div class="product-modal__add">
-        <button class="btn btn--block" id="addToCartBtn">加 入 購 物 車</button>
+      <div class="add-row">
+        <div class="qty-stepper">
+          <button type="button" data-action="qtyDown">−</button>
+          <span id="qtyNum">${state.selectedQty}</span>
+          <button type="button" data-action="qtyUp">+</button>
+        </div>
+        <button class="add-btn" id="addToCart" type="button">加入購物車 ADD TO CART</button>
       </div>
     </div>
   `;
 
-  document.getElementById('productModal').classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-
   // 綁定事件
-  document.getElementById('modalClose').addEventListener('click', closeProductModal);
-  document.getElementById('modalOverlay').addEventListener('click', closeProductModal);
-
-  const sizeOpts = document.getElementById('sizeOpts');
-  sizeOpts.querySelectorAll('.size-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      sizeOpts.querySelectorAll('.size-btn').forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
+  $$('.size-opt', $('#modalContent')).forEach(b => {
+    b.addEventListener('click', () => {
+      state.selectedSize = b.dataset.size;
+      $$('.size-opt', $('#modalContent')).forEach(x => x.classList.remove('is-active'));
+      b.classList.add('is-active');
     });
   });
+  $$('[data-action="qtyDown"]', $('#modalContent')).forEach(b =>
+    b.addEventListener('click', () => updateQty(-1)));
+  $$('[data-action="qtyUp"]', $('#modalContent')).forEach(b =>
+    b.addEventListener('click', () => updateQty(1)));
+  $('#addToCart').addEventListener('click', addCurrentToCart);
+  $$('[data-action="openSize"]', $('#modalContent')).forEach(b =>
+    b.addEventListener('click', openSizeChart));
 
-  document.getElementById('addToCartBtn').addEventListener('click', () => {
-    const size = sizeOpts.querySelector('.size-btn.is-active').dataset.size;
-    const ok = addToCart(p.id, size);
-    if (ok) {
-      closeProductModal();
-      showToast(`已加入購物車 · ${p.name} (${size})`);
-      openCart();
-    }
-  });
+  $('#productModal').classList.add('is-open');
+  $('#modalOverlay').classList.add('is-open');
+  document.body.classList.add('is-locked');
 }
 
-function closeProductModal() {
-  document.getElementById('productModal').classList.remove('is-open');
-  document.body.style.overflow = '';
+function closeProduct() {
+  $('#productModal').classList.remove('is-open');
+  $('#modalOverlay').classList.remove('is-open');
+  document.body.classList.remove('is-locked');
+  state.activeProduct = null;
 }
 
-// ---------- 購物車（localStorage 持久化） ----------
-const CART_KEY = 'wildland_cart_v1';
-
-function getCart() {
-  try {
-    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
-  } catch { return []; }
+function updateQty(delta) {
+  const p = state.activeProduct;
+  if (!p) return;
+  const max = p.stock;
+  state.selectedQty = Math.max(1, Math.min(max, state.selectedQty + delta));
+  $('#qtyNum').textContent = state.selectedQty;
 }
 
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  updateCartCount();
-}
+/* ========================================================================
+   購物車邏輯
+   ======================================================================== */
+function addCurrentToCart() {
+  const p = state.activeProduct;
+  if (!p || !state.selectedSize) return;
+  const id = `${p.no}__${state.selectedSize}`;
+  const existing = state.cart.find(x => x.id === id);
 
-function addToCart(productId, size) {
-  const cart = getCart();
-  const p = PRODUCTS.find(x => x.id === productId);
-  const key = `${productId}__${size}`;
-  const existing = cart.find(item => item.key === key);
-
-  // 庫存檢查：不能加超過庫存數量
-  const currentQty = existing ? existing.qty : 0;
-  if (p.stock && currentQty >= p.stock) {
-    showToast(`這款只剩 ${p.stock} 件，已在你的購物車裡`);
-    return false;
+  // 計算這個 SKU 在購物車中已有的數量 + 想加入的數量是否超過庫存
+  const wantedTotal = (existing ? existing.qty : 0) + state.selectedQty;
+  if (wantedTotal > p.stock) {
+    showToast(`此款僅剩 ${p.stock} 件，無法再加入`);
+    return;
   }
 
   if (existing) {
-    existing.qty += 1;
+    existing.qty = wantedTotal;
   } else {
-    cart.push({ key, productId, size, qty: 1 });
+    state.cart.push({
+      id, no: p.no, name: p.name, en: p.en,
+      price: p.price, size: state.selectedSize,
+      qty: state.selectedQty, tone: p.tone, type: p.type
+    });
   }
 
-  saveCart(cart);
   renderCart();
-  return true;
-}
-
-function updateCartItem(key, delta) {
-  const cart = getCart();
-  const item = cart.find(x => x.key === key);
-  if (!item) return;
-
-  // 庫存檢查
-  if (delta > 0) {
-    const p = PRODUCTS.find(x => x.id === item.productId);
-    if (p && p.stock && item.qty >= p.stock) {
-      showToast(`這款只剩 ${p.stock} 件`);
-      return;
-    }
-  }
-
-  item.qty += delta;
-  if (item.qty <= 0) {
-    saveCart(cart.filter(x => x.key !== key));
-  } else {
-    saveCart(cart);
-  }
-  renderCart();
-}
-
-function removeCartItem(key) {
-  saveCart(getCart().filter(x => x.key !== key));
-  renderCart();
-}
-
-function updateCartCount() {
-  const total = getCart().reduce((sum, item) => sum + item.qty, 0);
-  const el = document.getElementById('cartCount');
-  el.textContent = total;
-  el.setAttribute('data-count', total);
+  closeProduct();
+  openCart();
+  showToast('已加入購物車');
 }
 
 function renderCart() {
-  const body = document.getElementById('cartBody');
-  const foot = document.getElementById('cartFoot');
-  const cart = getCart();
+  const body = $('#cartBody');
+  const foot = $('#cartFoot');
+  const count = state.cart.reduce((s, i) => s + i.qty, 0);
 
-  if (cart.length === 0) {
+  // 更新數量徽章
+  const badge = $('#cartCount');
+  if (count > 0) {
+    badge.textContent = count;
+    badge.hidden = false;
+  } else {
+    badge.hidden = true;
+  }
+
+  // 同步選單裡的購物車數量
+  const menuBadge = $('#menuCartCount');
+  if (menuBadge) {
+    menuBadge.textContent = count > 0 ? `${count} 件商品` : '空的';
+  }
+
+  if (state.cart.length === 0) {
     body.innerHTML = `
-      <div class="cart__empty">
-        <div class="cart__empty-stamp">原</div>
-        <div class="cart__empty-title">購物車是空的</div>
-        <p class="cart__empty-text">
-          少一點消費，多一點生活。<br>
-          慢慢挑，沒有人催你。
-        </p>
-      </div>
-    `;
+      <div class="cart-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M5 8h14l-1 13H6L5 8z"/>
+          <path d="M9 8a3 3 0 116 0"/>
+        </svg>
+        <p>購物車裡還沒有商品</p>
+        <small>挑一件你願意慢慢穿的衣服。</small>
+      </div>`;
     foot.style.display = 'none';
     return;
   }
 
-  body.innerHTML = cart.map(item => {
-    const p = PRODUCTS.find(x => x.id === item.productId);
-    if (!p) return '';
-    return `
-      <div class="cart-item">
-        <div class="cart-item__visual">${productSVG(p)}</div>
-        <div class="cart-item__info">
-          <div>
-            <div class="cart-item__name">${p.name}</div>
-            <div class="cart-item__variant">${item.size} · ${p.nameEn.split(' ')[0]}</div>
-          </div>
-          <div class="cart-item__qty">
-            <button class="cart-item__qty-btn" data-action="dec" data-key="${item.key}">−</button>
-            <span>${item.qty}</span>
-            <button class="cart-item__qty-btn" data-action="inc" data-key="${item.key}">+</button>
-          </div>
-        </div>
-        <div class="cart-item__right">
-          <div class="cart-item__price">NT$ ${(p.price * item.qty).toLocaleString()}</div>
-          <button class="cart-item__remove" data-action="remove" data-key="${item.key}">移除</button>
-        </div>
+  body.innerHTML = state.cart.map(it => `
+    <div class="cart-item" data-id="${it.id}">
+      <div class="cart-item__visual" data-tone="${it.tone}">
+        ${PRODUCT_SVG[it.type] || PRODUCT_SVG.tee}
       </div>
-    `;
-  }).join('');
+      <div class="cart-item__body">
+        <div class="cart-item__name">${it.name}</div>
+        <div class="cart-item__meta">N O · ${it.no} / SIZE ${it.size}</div>
+        <div class="cart-item__foot">
+          <span class="cart-item__price">${fmtPrice(it.price * it.qty)}</span>
+          <div class="cart-item__qty">
+            <button data-action="ciDown">−</button>
+            <span>${it.qty}</span>
+            <button data-action="ciUp">+</button>
+          </div>
+        </div>
+        <a class="cart-item__remove" data-action="ciRemove">移除</a>
+      </div>
+    </div>
+  `).join('');
 
-  // 計算小計
-  const subtotal = cart.reduce((sum, item) => {
-    const p = PRODUCTS.find(x => x.id === item.productId);
-    return sum + (p ? p.price * item.qty : 0);
-  }, 0);
-
-  const shipping = subtotal >= 2000 ? 0 : 80;
-  document.getElementById('cartSubtotal').textContent = `NT$ ${subtotal.toLocaleString()}`;
-  document.getElementById('cartTotal').textContent = `NT$ ${(subtotal + shipping).toLocaleString()}`;
-
-  // 更新運費顯示
-  const shippingEl = foot.querySelector('.cart__summary:nth-child(2) span:last-child');
-  shippingEl.textContent = shipping === 0 ? '免運' : `NT$ ${shipping}`;
-
+  const subtotal = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+  $('#cartTotal').textContent = fmtPrice(subtotal);
   foot.style.display = 'block';
 
-  // 綁定數量按鈕
-  body.querySelectorAll('[data-action]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const key = btn.dataset.key;
-      const action = btn.dataset.action;
-      if (action === 'inc') updateCartItem(key, 1);
-      else if (action === 'dec') updateCartItem(key, -1);
-      else if (action === 'remove') removeCartItem(key);
-    });
+  // 綁定每個 item 的操作
+  $$('.cart-item', body).forEach(row => {
+    const id = row.dataset.id;
+    row.querySelector('[data-action="ciDown"]').addEventListener('click', () => changeCartQty(id, -1));
+    row.querySelector('[data-action="ciUp"]').addEventListener('click', () => changeCartQty(id, 1));
+    row.querySelector('[data-action="ciRemove"]').addEventListener('click', () => removeFromCart(id));
   });
+}
+
+function changeCartQty(id, delta) {
+  const item = state.cart.find(x => x.id === id);
+  if (!item) return;
+  const product = PRODUCTS.find(p => p.no === item.no);
+  const maxStock = product ? product.stock : 99;
+  const next = item.qty + delta;
+  if (next < 1) { removeFromCart(id); return; }
+  if (next > maxStock) {
+    showToast(`此款僅剩 ${maxStock} 件`);
+    return;
+  }
+  item.qty = next;
+  renderCart();
+}
+
+function removeFromCart(id) {
+  state.cart = state.cart.filter(x => x.id !== id);
+  renderCart();
 }
 
 function openCart() {
-  document.getElementById('cartDrawer').classList.add('is-open');
-  document.getElementById('cartOverlay').classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  $('#cartDrawer').classList.add('is-open');
+  $('#modalOverlay').classList.add('is-open');
+  document.body.classList.add('is-locked');
 }
-
 function closeCart() {
-  document.getElementById('cartDrawer').classList.remove('is-open');
-  document.getElementById('cartOverlay').classList.remove('is-open');
-  document.body.style.overflow = '';
+  $('#cartDrawer').classList.remove('is-open');
+  $('#modalOverlay').classList.remove('is-open');
+  if (!$('#productModal').classList.contains('is-open')) {
+    document.body.classList.remove('is-locked');
+  }
 }
 
-// ---------- Toast ----------
-let toastTimer;
+/* ========================================================================
+   結帳頁
+   ======================================================================== */
+function openCheckout() {
+  if (state.cart.length === 0) return;
+  renderSummary();
+  closeCart();
+  $('#checkoutPage').classList.add('is-open');
+  document.body.classList.remove('is-locked');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function closeCheckout() {
+  $('#checkoutPage').classList.remove('is-open');
+}
+
+function renderSummary() {
+  $('#summaryItems').innerHTML = state.cart.map(it => `
+    <div class="summary-item">
+      <div class="summary-item__visual" data-tone="${it.tone}">
+        ${PRODUCT_SVG[it.type] || PRODUCT_SVG.tee}
+      </div>
+      <div class="summary-item__body">
+        <div class="summary-item__name">${it.name}</div>
+        <div class="summary-item__meta">N O · ${it.no} / SIZE ${it.size} / 數量 ${it.qty}</div>
+      </div>
+      <div class="summary-item__price">${fmtPrice(it.price * it.qty)}</div>
+    </div>
+  `).join('');
+
+  const sub = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const shipping = sub >= 3000 ? 0 : 80;
+  const pay = ($('input[name="pay"]:checked') || {}).value;
+  const codFee = pay === 'cod' ? 30 : 0;
+  const final = sub + shipping + codFee;
+
+  $('#sumSubtotal').textContent = fmtPrice(sub);
+  $('#sumShipping').textContent = shipping === 0
+    ? '免運（滿 NT$ 3,000）'
+    : fmtPrice(shipping) + (codFee ? ` + 代收 ${fmtPrice(codFee)}` : '');
+  $('#sumFinal').textContent = fmtPrice(final);
+}
+
+/* ========================================================================
+   送出訂單（預留金流接口）
+   未來串接：在這個 function 內呼叫金流 API（綠界 / 藍新 / Stripe 等）
+   ======================================================================== */
+function placeOrder() {
+  const form = $('#checkoutForm');
+  // 簡易驗證
+  const required = ['email', 'name', 'phone', 'city', 'address'];
+  for (const f of required) {
+    const el = form.querySelector(`[name="${f}"]`);
+    if (!el || !el.value.trim()) {
+      showToast('請完成必填資訊');
+      el && el.focus();
+      return;
+    }
+  }
+  // Email 格式
+  const email = form.querySelector('[name="email"]').value;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('請輸入正確的 Email');
+    return;
+  }
+
+  // ===== 未來金流串接放這裡 =====
+  // 例如：
+  //   const orderPayload = { items: state.cart, customer: {...}, total: ... };
+  //   fetch('/api/checkout', { method: 'POST', body: JSON.stringify(orderPayload) })
+  //     .then(r => r.json()).then(({ paymentUrl }) => location.href = paymentUrl);
+  // ================================
+
+  // 模擬訂單成功
+  const orderNo = 'WL-' + new Date().getFullYear() +
+                  String(Date.now()).slice(-6);
+  $('#orderNo').textContent = '— ORDER NO. ' + orderNo + ' —';
+  $('#orderSuccess').classList.add('is-show');
+  closeCheckout();
+  state.cart = [];
+  renderCart();
+  form.reset();
+}
+
+/* ========================================================================
+   尺寸表
+   ======================================================================== */
+function openSizeChart() {
+  $('#sizeChartModal').classList.add('is-open');
+  document.body.classList.add('is-locked');
+}
+function closeSizeChart() {
+  $('#sizeChartModal').classList.remove('is-open');
+  if (!$('#productModal').classList.contains('is-open')) {
+    document.body.classList.remove('is-locked');
+  }
+}
+
+/* ========================================================================
+   Toast
+   ======================================================================== */
+let toastTimer = null;
 function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('is-show');
+  $('#toastMsg').textContent = msg;
+  const t = $('#toast');
+  t.classList.add('is-show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('is-show'), 2800);
+  toastTimer = setTimeout(() => t.classList.remove('is-show'), 2200);
 }
 
-// ---------- Nav 手機選單 ----------
-function setupNav() {
-  const toggle = document.getElementById('navToggle');
-  const menu = document.getElementById('navMenu');
-
-  toggle.addEventListener('click', () => {
-    menu.classList.toggle('is-open');
-    toggle.classList.toggle('is-active');
-  });
-
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      menu.classList.remove('is-open');
-      toggle.classList.remove('is-active');
+/* ========================================================================
+   進場動畫（IntersectionObserver）
+   ======================================================================== */
+function observeFadeIn() {
+  const els = $$('.fade-up');
+  // Fallback: 若瀏覽器不支援 IntersectionObserver，直接顯示全部
+  if (typeof IntersectionObserver === 'undefined') {
+    els.forEach(el => el.classList.add('is-in'));
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
     });
-  });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
 }
 
-// ---------- 結帳邏輯（之後串綠界改這裡） ----------
-function setupCheckout() {
-  document.getElementById('checkoutBtn').addEventListener('click', () => {
-    const cart = getCart();
-    if (cart.length === 0) return;
-
-    // ============================================
-    // TODO: 之後串綠界/藍新金流時改這段
-    // ============================================
-    // 串綠界範例邏輯：
-    // 1. 送購物車資料到後端 API（例如 /api/checkout）
-    // 2. 後端產生綠界訂單，回傳一段 HTML form
-    // 3. 前端把 form 寫進 DOM 並自動 submit 到綠界
-    //
-    // 目前先用 alert 模擬：
-    // ============================================
-    const summary = cart.map(item => {
-      const p = PRODUCTS.find(x => x.id === item.productId);
-      return `${p.name} (${item.size}) × ${item.qty}`;
-    }).join('\n');
-
-    alert(`即將前往結帳：\n\n${summary}\n\n（之後會串綠界/藍新金流）`);
-  });
-}
-
-// ---------- Newsletter ----------
-function setupNewsletter() {
-  document.getElementById('newsletterForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const input = e.target.querySelector('input');
-    showToast('謝謝你 · 我們會在每月第一週寄信給你');
-    input.value = '';
-  });
-}
-
-// ---------- 初始化 ----------
-document.addEventListener('DOMContentLoaded', () => {
+/* ========================================================================
+   初始化
+   ======================================================================== */
+function init() {
   renderProducts();
   renderCart();
-  updateCartCount();
-  setupNav();
-  setupCheckout();
-  setupNewsletter();
+  try { observeFadeIn(); } catch (e) {
+    // 即使動畫掛掉，也不能阻斷後續事件綁定
+    $$('.fade-up').forEach(el => el.classList.add('is-in'));
+  }
 
-  // 購物車按鈕
-  document.getElementById('cartBtn').addEventListener('click', openCart);
-  document.getElementById('cartClose').addEventListener('click', closeCart);
-  document.getElementById('cartOverlay').addEventListener('click', closeCart);
+  // Header
+  $('#cartOpen').addEventListener('click', openCart);
+  $('#cartClose').addEventListener('click', closeCart);
+
+  // 全螢幕選單 toggle
+  const menuBtn = $('#menuToggle');
+  const menuOverlay = $('#menuOverlay');
+  const toggleMenu = (force) => {
+    const willOpen = typeof force === 'boolean' ? force : !menuOverlay.classList.contains('is-open');
+    menuOverlay.classList.toggle('is-open', willOpen);
+    menuBtn.classList.toggle('is-open', willOpen);
+    menuBtn.setAttribute('aria-expanded', String(willOpen));
+    menuOverlay.setAttribute('aria-hidden', String(!willOpen));
+    document.body.classList.toggle('is-locked', willOpen);
+    document.body.classList.toggle('is-menu-open', willOpen);
+  };
+  menuBtn.addEventListener('click', () => toggleMenu());
+  // 點選單項後自動關閉，並處理 data-action（行為而非跳轉）
+  $$('[data-menu-link]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const action = a.dataset.action;
+      if (action) {
+        e.preventDefault();
+        toggleMenu(false);
+        // 等選單收完再開新面板，避免雙層動畫衝突
+        setTimeout(() => {
+          if (action === 'openCart') openCart();
+          else if (action === 'openSizeChart') openSizeChart();
+        }, 350);
+      } else {
+        toggleMenu(false);
+      }
+    });
+  });
+
+  // Modal
+  $('#modalClose').addEventListener('click', closeProduct);
+  $('#modalOverlay').addEventListener('click', () => {
+    closeProduct();
+    closeCart();
+  });
+
+  // Checkout
+  $('#goCheckout').addEventListener('click', openCheckout);
+  $('#checkoutBack').addEventListener('click', () => {
+    closeCheckout();
+    openCart();
+  });
+  $('#placeOrder').addEventListener('click', placeOrder);
+
+  // 付款方式改變時更新 summary
+  $$('input[name="pay"]').forEach(r =>
+    r.addEventListener('change', renderSummary)
+  );
+
+  // 訂單完成
+  $('#backHome').addEventListener('click', () => {
+    $('#orderSuccess').classList.remove('is-show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // 尺寸表
+  $('#sizeChartClose').addEventListener('click', closeSizeChart);
+  $('#sizeChartModal').addEventListener('click', e => {
+    if (e.target.id === 'sizeChartModal') closeSizeChart();
+  });
+  $('#footerSizeChart').addEventListener('click', e => {
+    e.preventDefault();
+    openSizeChart();
+  });
 
   // ESC 關閉
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
+      closeProduct();
       closeCart();
-      closeProductModal();
+      closeSizeChart();
+      if (menuOverlay.classList.contains('is-open')) toggleMenu(false);
     }
   });
-});
+}
+
+init();
 </script>
 
 </body>
