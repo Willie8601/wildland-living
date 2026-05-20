@@ -172,7 +172,7 @@ body.is-menu-open .site-header {
   font-size: 8.5px;
   letter-spacing: 0.32em;
   color: var(--muted);
-  margin-top: 2px;
+  margin-top: 6px;
   font-weight: 400;
 }
 
@@ -210,13 +210,13 @@ body.is-menu-open .site-header {
   position: relative;
   width: 36px; height: 36px;
   display: grid; place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+  border: none;
   background: transparent;
-  transition: all .2s;
+  color: var(--shade);
+  transition: color .2s, opacity .2s;
 }
-.cart-btn:hover { background: var(--wild); color: var(--mist); border-color: var(--wild); }
-.cart-btn svg { width: 15px; height: 15px; }
+.cart-btn:hover { color: var(--wild); }
+.cart-btn svg { width: 19px; height: 19px; }
 .cart-count {
   position: absolute;
   top: -3px; right: -3px;
@@ -236,28 +236,23 @@ body.is-menu-open .site-header {
 .menu-toggle {
   display: none;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  width: 36px;
   height: 36px;
-  padding: 0 14px 0 12px;
+  padding: 0;
   background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  border: none;
   color: var(--shade);
-  transition: all .25s ease;
+  transition: color .2s;
   position: relative;
   z-index: 220; /* 高於 menu-overlay */
 }
 .menu-toggle:hover {
-  background: var(--wild);
-  border-color: var(--wild);
-  color: var(--mist);
+  color: var(--wild);
 }
 .menu-toggle__icon {
-  width: 16px;
-  height: 10px;
+  width: 20px;
+  height: 12px;
   position: relative;
   display: inline-block;
 }
@@ -270,29 +265,24 @@ body.is-menu-open .site-header {
   background: currentColor;
   transition: transform .35s cubic-bezier(.2,.7,.2,1), top .25s ease .1s;
 }
-.menu-toggle__icon::before { top: 2px; }
-.menu-toggle__icon::after  { top: 7px; }
-.menu-toggle__label { line-height: 1; }
-.menu-toggle__label-close { display: none; }
+.menu-toggle__icon::before { top: 3px; }
+.menu-toggle__icon::after  { top: 9px; }
+.menu-toggle__label { display: none; }
 
-/* 開啟時：兩條線變 X，文字切換 */
+/* 開啟時：兩條線變 X */
 .menu-toggle.is-open {
-  background: var(--shade);
-  border-color: var(--shade);
-  color: var(--mist);
+  color: var(--shade);
 }
 .menu-toggle.is-open .menu-toggle__icon::before {
-  top: 4.5px;
+  top: 6px;
   transform: rotate(45deg);
   transition: top .25s ease, transform .35s cubic-bezier(.2,.7,.2,1) .1s;
 }
 .menu-toggle.is-open .menu-toggle__icon::after {
-  top: 4.5px;
+  top: 6px;
   transform: rotate(-45deg);
   transition: top .25s ease, transform .35s cubic-bezier(.2,.7,.2,1) .1s;
 }
-.menu-toggle.is-open .menu-toggle__label-open { display: none; }
-.menu-toggle.is-open .menu-toggle__label-close { display: inline; }
 
 @media (max-width: 820px) {
   .nav-primary { display: none; }
@@ -611,23 +601,6 @@ body.is-menu-open .site-header {
   align-items: center;
 }
 
-.hero__season {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.hero__season span {
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  color: var(--muted);
-}
-.hero__season i {
-  width: 28px; height: 1px;
-  background: var(--wild);
-  display: inline-block;
-}
-
 .hero__title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -690,7 +663,7 @@ body.is-menu-open .site-header {
   flex-wrap: wrap;
 }
 
-/* Hero 視覺 — Unsplash 圖片 + 品牌色調覆蓋 */
+/* Hero 視覺 — 真實照片（部署）+ SVG fallback（預覽） */
 .hero__visual {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -699,32 +672,43 @@ body.is-menu-open .site-header {
   overflow: hidden;
   box-shadow: 0 12px 60px -20px rgba(31, 42, 30, 0.18);
 }
-.hero__seal {
+
+/* 真實照片：依品牌 Brand Bible §05 後製規範微調
+   去飽和 0.85 / 對比 0.95 / 輕亮度 1.02 / 微藍綠偏移
+   呈現「晨霧裡的輕盈專業」氣味 */
+.hero__photo {
   position: absolute;
-  bottom: 32px;
-  right: 32px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  background: rgba(242, 239, 230, 0.85);
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  font-family: var(--font-display);
-  font-size: 10.5px;
-  letter-spacing: 0.28em;
-  color: var(--shade);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(0.95) brightness(1.02);
+  z-index: 2;
 }
-.hero__seal i {
-  width: 14px; height: 1px;
-  background: var(--shade);
-  opacity: 0.45;
+
+/* 圖片色調 overlay：薄霧白柔化 + 林影綠提色，讓圖片融入站體配色 */
+.hero__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(242, 239, 230, 0.25) 0%, rgba(242, 239, 230, 0) 40%),
+    linear-gradient(160deg, rgba(123, 133, 104, 0.08) 0%, rgba(61, 74, 56, 0.12) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* SVG fallback：墊在最底層，圖片載入成功時被遮住，失敗時可見 */
+.hero__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 @media (max-width: 820px) {
   .hero__grid { grid-template-columns: 1fr; gap: 40px; }
   .hero__visual { aspect-ratio: 5/4; max-height: 480px; }
-  .hero__seal { bottom: 18px; right: 18px; font-size: 9.5px; padding: 7px 12px; }
 }
 
 /* ========================================================================
@@ -2505,11 +2489,6 @@ body.is-locked { overflow: hidden; }
 <section class="hero">
   <div class="wrap hero__grid">
     <div class="hero__copy">
-      <div class="hero__season">
-        <i></i>
-        <span>— S / S 2 0 2 6 —</span>
-      </div>
-
       <h1 class="hero__title">把<em>原野</em>，<br />穿在身上。</h1>
       <div class="hero__en">WEAR · THE · WILD</div>
 
@@ -2534,8 +2513,26 @@ body.is-locked { overflow: hidden; }
     </div>
 
     <div class="hero__visual">
-                  <!-- 「晨光裡的窗邊」極簡構圖 — 只保留「窗 + 光 + 一杯咖啡」三個元素，符合品牌留白原則 -->
-      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!--
+        真實照片：霧中林徑（Ingmar @cinematicbyfuji on Unsplash）
+        Photo URL: https://unsplash.com/photos/misty-forest-path-leading-into-the-distance-qkBUTCyHuf4
+        對應品牌氣味「晨霧裡的輕盈專業」與隱喻「把山林帶進日常」
+        若 CDN 無法載入（例如 Claude App 預覽環境），會 fallback 到下方 SVG
+
+        ⚠️ 部署前請至 unsplash.com 取得正確 image URL 並替換下方 src，
+        例如：https://images.unsplash.com/photo-XXXXXXXXX?w=1200&q=80
+      -->
+      <img
+        class="hero__photo"
+        src="https://source.unsplash.com/qkBUTCyHuf4/1200x1500"
+        alt="霧中林徑——把原野穿在身上"
+        loading="eager"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='none';"
+      />
+      <div class="hero__photo-overlay" aria-hidden="true"></div>
+
+      <!-- Fallback：原本的「窗邊極簡構圖」SVG，圖片載入失敗時可見 -->
+      <svg class="hero__svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#fffdf5" stop-opacity="0.8"/>
@@ -2561,11 +2558,6 @@ body.is-locked { overflow: hidden; }
         <path d="M 268 396 Q 272 388 268 380 Q 264 372 268 364"
               fill="none" stroke="#3D4A38" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
       </svg>
-      <div class="hero__seal">
-        <span>S/S 2026</span>
-        <i></i>
-        <span>EDITION</span>
-      </div>
     </div>
   </div>
 </section>
@@ -3008,12 +3000,7 @@ body.is-locked { overflow: hidden; }
         <h3><i>3</i>付款方式</h3>
         <div class="pay-options">
           <label class="pay-opt">
-            <input type="radio" name="pay" value="credit" checked>
-            <span class="pay-opt__label">信用卡</span>
-            <span class="pay-opt__hint">Coming soon · 即將上線</span>
-          </label>
-          <label class="pay-opt">
-            <input type="radio" name="pay" value="atm">
+            <input type="radio" name="pay" value="atm" checked>
             <span class="pay-opt__label">ATM 轉帳</span>
             <span class="pay-opt__hint">下單後 3 日內</span>
           </label>
