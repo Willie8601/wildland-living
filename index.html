@@ -353,48 +353,151 @@ body.is-menu-open .site-header {
   margin: 0;
   padding: 0;
 }
-.menu-primary__list li {
+.menu-primary__list > li {
   border-bottom: 1px solid var(--line);
 }
-.menu-primary__list li:first-child { border-top: 1px solid var(--line); }
+.menu-primary__list > li:first-child { border-top: 1px solid var(--line); }
 
-.menu-primary__list a {
+/* 分組分隔線 */
+.menu-primary__list > li.menu-primary__divider {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 0;
+}
+.menu-primary__list > li.menu-primary__divider::before {
+  content: "";
+  display: block;
+  height: 12px;
+}
+
+.menu-primary__list > li > a,
+.menu-primary__list > li > details > summary {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding: 24px 4px;
-  transition: padding-left .35s cubic-bezier(.2,.7,.2,1);
+  padding: 14px 4px;
   /* 進場初始 */
   transform: translateY(20px);
   opacity: 0;
-  transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .55s ease, padding-left .35s cubic-bezier(.2,.7,.2,1);
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .55s ease, padding-left .35s cubic-bezier(.2,.7,.2,1), color .25s;
+  cursor: pointer;
+  list-style: none; /* details 預設箭頭 */
 }
-.menu-overlay.is-open .menu-primary__list li:nth-child(1) a { transform: translateY(0); opacity: 1; transition-delay: .18s; }
-.menu-overlay.is-open .menu-primary__list li:nth-child(2) a { transform: translateY(0); opacity: 1; transition-delay: .25s; }
+.menu-primary__list > li > details > summary::-webkit-details-marker { display: none; }
+.menu-primary__list > li > details > summary::marker { display: none; }
 
-.menu-primary__list a:hover { padding-left: 16px; }
+/* 7 項進場錯落（新品、男款、女款、故事、關於、聯絡＋第 7 項保險） */
+.menu-overlay.is-open .menu-primary__list > li:nth-child(1) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(1) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .18s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(2) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(2) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .25s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(3) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(3) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .32s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(4) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(4) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .39s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(5) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(5) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .46s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(6) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(6) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .53s; }
+.menu-overlay.is-open .menu-primary__list > li:nth-child(7) > a,
+.menu-overlay.is-open .menu-primary__list > li:nth-child(7) > details > summary { transform: translateY(0); opacity: 1; transition-delay: .60s; }
+
+.menu-primary__list > li > a:hover,
+.menu-primary__list > li > details > summary:hover { padding-left: 12px; }
 
 .menu-primary__zh {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(26px, 5.6vw, 38px);
+  font-size: clamp(20px, 4.4vw, 26px);
   color: var(--shade);
   letter-spacing: 0.06em;
   line-height: 1.2;
   transition: color .25s;
 }
-.menu-primary__list a:hover .menu-primary__zh { color: var(--wild); }
+.menu-primary__list > li > a:hover .menu-primary__zh,
+.menu-primary__list > li > details > summary:hover .menu-primary__zh { color: var(--wild); }
 .menu-primary__en {
   font-family: var(--font-display);
   font-size: 11px;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.30em;
   color: var(--muted);
   text-transform: uppercase;
   font-weight: 400;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   white-space: nowrap;
+  margin-left: auto;
+  margin-right: 12px;
 }
+
+/* ---- 手風琴 details ---- */
+.menu-accordion__chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.menu-primary__list > li > details[open] > summary .menu-accordion__chevron {
+  transform: rotate(180deg);
+}
+.menu-primary__list > li > details[open] > summary .menu-primary__zh {
+  color: var(--wild);
+}
+
+/* 子項 list（商品 ▾ 下一層：男款 ▾ / 女款 ▾） */
+.menu-sub__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 12px 16px;
+  border-left: 1px solid var(--line);
+  margin-left: 8px;
+  animation: subFadeIn .3s ease;
+}
+@keyframes subFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menu-sub__list > li + li { border-top: 1px solid var(--line); }
+
+/* 子項：直接是 <a> 連結（無孫項） */
+.menu-sub__list > li > a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px 10px 12px;
+  transition: padding-left .25s, color .25s;
+  cursor: pointer;
+}
+.menu-sub__list > li > a:hover { padding-left: 18px; }
+.menu-sub__list > li > a:hover .menu-sub__zh { color: var(--wild); }
+
+.menu-sub__zh {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--shade);
+  letter-spacing: 0.04em;
+}
+.menu-sub__en {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: 6px;
+}
+
+/* 即將上架（保留樣式以備將來用） */
+.menu-sub__empty {
+  cursor: not-allowed !important;
+  opacity: 0.4;
+}
+.menu-sub__empty:hover { padding-left: 12px !important; }
+.menu-sub__empty .menu-sub__zh,
+.menu-sub__empty .menu-sub__en { color: var(--muted) !important; }
 
 /* ============================================================
    第二層：分組導覽（SHOP / READ 兩組）
@@ -459,16 +562,35 @@ body.is-menu-open .site-header {
 }
 
 /* ============================================================
-   第三層：工具列（橫向三項）
+   分組標題：探索 / 選購工具 / 其他平台
+   ============================================================ */
+.menu-section {
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+.menu-section__label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease .35s, transform .5s ease .35s;
+}
+.menu-overlay.is-open .menu-section__label { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   工具列（橫向兩項，可掛 icon）
    ============================================================ */
 .menu-utility {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1px;
   background: var(--line);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  margin-bottom: clamp(32px, 4vw, 48px);
   /* 進場 */
   opacity: 0;
   transform: translateY(10px);
@@ -477,14 +599,27 @@ body.is-menu-open .site-header {
 .menu-overlay.is-open .menu-utility { opacity: 1; transform: translateY(0); }
 
 .menu-utility__item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 2px;
+  padding: 14px 16px;
   background: var(--mist);
   transition: background .2s ease;
+  align-items: center;
 }
 .menu-utility__item:hover { background: var(--meadow); }
+
+.menu-utility__icon {
+  grid-row: 1 / span 2;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--shade);
+}
+.menu-utility__icon svg { width: 20px; height: 20px; }
 
 .menu-utility__label {
   font-family: var(--font-display);
@@ -593,48 +728,108 @@ body.is-menu-open .site-header {
    ======================================================================== */
 .hero {
   position: relative;
-  padding: clamp(48px, 7vw, 96px) 0 clamp(56px, 8vw, 110px);
+  min-height: 88vh;
+  min-height: 88dvh; /* iOS 動態視窗高度 */
+  display: flex;
+  align-items: flex-end;
   overflow: hidden;
+  background: var(--mist);
 }
-.hero__grid {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
+
+/* 滿版背景圖層（SVG 或未來換 <img>） */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__svg,
+.hero__media > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 底部漸層：保證文字可讀，從透明→薄霧白 */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 60%;
+  background: linear-gradient(
+    to bottom,
+    rgba(242, 239, 230, 0) 0%,
+    rgba(242, 239, 230, 0.35) 45%,
+    rgba(242, 239, 230, 0.78) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 文字層 */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 0 clamp(56px, 9vh, 120px);
+}
+.hero__content-inner {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .hero__title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(38px, 6.4vw, 84px);
-  line-height: 1.25;
-  letter-spacing: 0.04em;
+  font-size: clamp(36px, 7vw, 72px);
+  line-height: 1.3;
+  letter-spacing: 0.06em;
   color: var(--shade);
-  margin-bottom: 24px;
+  margin: 0 0 18px;
 }
-
 .hero__title em {
   font-style: normal;
   color: var(--wild);
 }
-
 .hero__en {
   font-family: var(--font-display);
-  font-size: clamp(13px, 1.3vw, 16px);
+  font-size: clamp(11px, 1.1vw, 13px);
   letter-spacing: 0.42em;
   color: var(--muted);
-  margin-bottom: 36px;
   text-transform: uppercase;
+  margin: 0 0 40px;
 }
 
-.hero__lede {
-  font-size: 15.5px;
-  line-height: 2.0;
-  color: var(--forest);
-  max-width: 480px;
-  margin-bottom: 44px;
+/* 單一 CTA — 文字底線型，比按鈕更靜（極簡 / 內容電商感） */
+.hero__cta-single {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  color: var(--shade);
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--shade);
+  transition: gap .25s ease, color .25s ease, border-color .25s ease;
+}
+.hero__cta-single:hover {
+  gap: 18px;
+  color: var(--wild);
+  border-color: var(--wild);
+}
+.hero__cta-single svg { width: 16px; height: 16px; }
+
+@media (max-width: 600px) {
+  .hero { min-height: 78vh; min-height: 78dvh; }
+  .hero__content { padding-bottom: 40px; }
+  .hero__title { letter-spacing: 0.04em; }
+  .hero__en { margin-bottom: 28px; }
 }
 
+/* 通用按鈕（訂單成功頁、商品 modal 等共用） */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -646,11 +841,11 @@ body.is-menu-open .site-header {
   font-size: 14px;
   letter-spacing: 0.25em;
   border-radius: var(--radius);
+  border: 1px solid var(--wild);
   transition: all .25s ease;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
 }
-.btn:hover { background: var(--shade); transform: translateY(-1px); }
+.btn:hover { background: var(--shade); border-color: var(--shade); transform: translateY(-1px); }
 .btn--ghost {
   background: transparent;
   color: var(--shade);
@@ -658,33 +853,6 @@ body.is-menu-open .site-header {
 }
 .btn--ghost:hover { background: var(--shade); color: var(--mist); }
 .btn svg { width: 14px; height: 14px; }
-
-.hero__cta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* Hero 視覺 — 純 SVG 霧中林徑（無外部依賴） */
-.hero__visual {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  background: var(--mist);
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 12px 60px -20px rgba(31, 42, 30, 0.18);
-}
-.hero__svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@media (max-width: 820px) {
-  .hero__grid { grid-template-columns: 1fr; gap: 40px; }
-  .hero__visual { aspect-ratio: 5/4; max-height: 480px; }
-}
 
 /* ========================================================================
    03 · 三大價值主張 VALUES
@@ -1051,6 +1219,16 @@ body.is-menu-open .site-header {
   transition: transform .35s ease;
 }
 .card:hover { transform: translateY(-4px); }
+
+/* 從漢堡選單子項導引過來的商品：短暫高亮 */
+.card.is-highlight {
+  animation: cardHighlight 1.6s ease-out;
+}
+@keyframes cardHighlight {
+  0%   { box-shadow: 0 0 0 0 rgba(123, 133, 104, 0.0); transform: translateY(0); }
+  20%  { box-shadow: 0 0 0 6px rgba(123, 133, 104, 0.35); transform: translateY(-4px); }
+  100% { box-shadow: 0 0 0 0 rgba(123, 133, 104, 0); transform: translateY(0); }
+}
 
 /* 手機：一張接近滿寬，露出下一張的邊緣（暗示可滑動） */
 @media (max-width: 760px) {
@@ -2287,6 +2465,184 @@ body.is-locked { overflow: hidden; }
   .mobile-only { display: inline; }
 }
 
+/* ========================================================================
+   13 · 導航輔助 — Scroll Spy 進度指示器、回頂按鈕、下一段指引
+   ======================================================================== */
+
+/* Sticky header 滑動時加陰影（強化視覺存在感） */
+.site-header.is-scrolled {
+  box-shadow: 0 1px 12px rgba(31, 42, 30, 0.06);
+  background: rgba(242, 239, 230, 0.96);
+}
+
+/* ---- Scroll Spy 進度指示器 ---- */
+.scroll-spy {
+  position: fixed;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-12px);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.scroll-spy.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+.scroll-spy ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.scroll-spy a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--muted);
+  transition: color .25s ease;
+}
+.scroll-spy__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.2px solid var(--muted);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  flex-shrink: 0;
+}
+.scroll-spy__label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .25s ease, transform .25s ease;
+  white-space: nowrap;
+}
+.scroll-spy a:hover .scroll-spy__dot {
+  border-color: var(--wild);
+  transform: scale(1.2);
+}
+.scroll-spy a:hover .scroll-spy__label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--shade);
+}
+.scroll-spy a.is-active .scroll-spy__dot {
+  background: var(--wild);
+  border-color: var(--wild);
+  box-shadow: 0 0 0 4px rgba(123, 133, 104, 0.18);
+}
+.scroll-spy a.is-active .scroll-spy__label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--shade);
+  font-weight: 600;
+}
+
+/* 手機與小平板隱藏 spy（節省螢幕空間） */
+@media (max-width: 1024px) {
+  .scroll-spy { display: none; }
+}
+
+/* ---- 下一段指引 ---- */
+.next-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 0 4px;
+  margin: 24px auto 0;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color .25s ease, transform .25s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+.next-hint:hover {
+  color: var(--shade);
+  transform: translateY(2px);
+}
+.next-hint__label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.next-hint__title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--shade);
+}
+.next-hint__arrow {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  animation: nextHintFloat 2.4s ease-in-out infinite;
+}
+@keyframes nextHintFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+
+/* ---- 回頂浮動按鈕 ---- */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(242, 239, 230, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--shade);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease, background .25s ease, box-shadow .25s ease;
+  box-shadow: 0 2px 12px rgba(31, 42, 30, 0.08);
+}
+.back-to-top[hidden] { display: none; }
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--mist);
+  box-shadow: 0 4px 16px rgba(31, 42, 30, 0.12);
+  color: var(--wild);
+}
+.back-to-top svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 手機微調位置（避開底部安全區） */
+@media (max-width: 600px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
+  .back-to-top svg { width: 16px; height: 16px; }
+}
+
 </style>
 </head>
 <body>
@@ -2334,44 +2690,135 @@ body.is-locked { overflow: hidden; }
 <nav class="menu-overlay" id="menuOverlay" aria-label="主選單" aria-hidden="true">
   <div class="menu-overlay__inner">
 
-    <!-- 主導覽：四項，與桌機 nav-primary 一致 -->
-    <ul class="menu-primary__list">
-      <li>
-        <a href="#products" data-menu-link>
-          <span class="menu-primary__zh">商品</span>
-          <span class="menu-primary__en">Products</span>
-        </a>
-      </li>
-      <li>
-        <a href="#story" data-menu-link>
-          <span class="menu-primary__zh">故事</span>
-          <span class="menu-primary__en">Story</span>
-        </a>
-      </li>
-      <li>
-        <a href="#about" data-menu-link>
-          <span class="menu-primary__zh">關於</span>
-          <span class="menu-primary__en">About</span>
-        </a>
-      </li>
-      <li>
-        <a href="#contact" data-menu-link>
-          <span class="menu-primary__zh">聯絡</span>
-          <span class="menu-primary__en">Contact</span>
-        </a>
-      </li>
-    </ul>
+    <!-- 探索：內容優先（故事/關於 → 商品手風琴 → 聯絡） -->
+    <div class="menu-section">
+      <span class="menu-section__label">探索 · Explore</span>
+      <ul class="menu-primary__list">
+        <!-- 第一組：內容（訪客先理解品牌） -->
+        <li>
+          <a href="#story" data-menu-link>
+            <span class="menu-primary__zh">故事</span>
+            <span class="menu-primary__en">Story</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" data-menu-link>
+            <span class="menu-primary__zh">關於</span>
+            <span class="menu-primary__en">About</span>
+          </a>
+        </li>
 
-    <!-- 工具列：購物車與尺寸表 -->
-    <div class="menu-utility">
-      <a href="#" data-menu-link data-action="openCart" class="menu-utility__item">
-        <span class="menu-utility__label">購物車</span>
-        <span class="menu-utility__meta" id="menuCartCount">空的</span>
-      </a>
-      <a href="#" data-menu-link data-action="openSizeChart" class="menu-utility__item">
-        <span class="menu-utility__label">尺寸對照表</span>
-        <span class="menu-utility__meta">男款・女款・中性款</span>
-      </a>
+        <!-- 第二組：男款 / 女款（手風琴，直接展開上衣/外套） -->
+        <li class="menu-primary__divider menu-accordion">
+          <details>
+            <summary>
+              <span class="menu-primary__zh">男款</span>
+              <span class="menu-primary__en">Men</span>
+              <svg class="menu-accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </summary>
+            <ul class="menu-sub__list">
+              <li><a href="#products" data-menu-link data-scroll-to-no="001">
+                <span class="menu-sub__zh">上衣</span>
+                <span class="menu-sub__en">Tops</span>
+              </a></li>
+              <li><a href="#products" data-menu-link data-scroll-to-no="004">
+                <span class="menu-sub__zh">外套</span>
+                <span class="menu-sub__en">Outerwear</span>
+              </a></li>
+            </ul>
+          </details>
+        </li>
+
+        <li class="menu-accordion">
+          <details>
+            <summary>
+              <span class="menu-primary__zh">女款</span>
+              <span class="menu-primary__en">Women</span>
+              <svg class="menu-accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </summary>
+            <ul class="menu-sub__list">
+              <li><a href="#products" data-menu-link data-scroll-to-no="003">
+                <span class="menu-sub__zh">上衣</span>
+                <span class="menu-sub__en">Tops</span>
+              </a></li>
+              <li><a href="#products" data-menu-link data-scroll-to-no="004">
+                <span class="menu-sub__zh">外套</span>
+                <span class="menu-sub__en">Outerwear</span>
+              </a></li>
+            </ul>
+          </details>
+        </li>
+
+        <!-- 第三組：聯絡（要找你的人是更深層的訪客） -->
+        <li class="menu-primary__divider">
+          <a href="#contact" data-menu-link>
+            <span class="menu-primary__zh">聯絡</span>
+            <span class="menu-primary__en">Contact</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 選購工具 -->
+    <div class="menu-section">
+      <span class="menu-section__label">選購工具 · Shopping</span>
+      <div class="menu-utility">
+        <a href="#" data-menu-link data-action="openCart" class="menu-utility__item">
+          <span class="menu-utility__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 6h15l-2 11H8L6 6z"/>
+              <path d="M6 6L5 3H2"/>
+              <circle cx="10" cy="20" r="1.2"/>
+              <circle cx="17" cy="20" r="1.2"/>
+            </svg>
+          </span>
+          <span class="menu-utility__label">購物車</span>
+          <span class="menu-utility__meta" id="menuCartCount">空的</span>
+        </a>
+        <a href="#" data-menu-link data-action="openSizeChart" class="menu-utility__item">
+          <span class="menu-utility__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="9" width="18" height="6" rx="1"/>
+              <line x1="7" y1="9" x2="7" y2="12"/>
+              <line x1="11" y1="9" x2="11" y2="13"/>
+              <line x1="15" y1="9" x2="15" y2="12"/>
+              <line x1="19" y1="9" x2="19" y2="13"/>
+            </svg>
+          </span>
+          <span class="menu-utility__label">尺寸對照表</span>
+          <span class="menu-utility__meta">男・女・中性</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 其他平台 -->
+    <div class="menu-section">
+      <span class="menu-section__label">其他平台 · Elsewhere</span>
+      <div class="menu-utility">
+        <a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener" class="menu-utility__item">
+          <span class="menu-utility__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 8h14l-1.5 11h-11L5 8z"/>
+              <path d="M9 8a3 3 0 0 1 6 0"/>
+            </svg>
+          </span>
+          <span class="menu-utility__label">Shopee</span>
+          <span class="menu-utility__meta">蝦皮商城</span>
+        </a>
+        <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" class="menu-utility__item">
+          <span class="menu-utility__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3 L7 11 L9.5 11 L5.5 17 L9 17 L9 21 L15 21 L15 17 L18.5 17 L14.5 11 L17 11 Z"/>
+            </svg>
+          </span>
+          <span class="menu-utility__label">Linktree</span>
+          <span class="menu-utility__meta">所有連結</span>
+        </a>
+      </div>
     </div>
 
     <div class="menu-overlay__foot">
@@ -2400,12 +2847,6 @@ body.is-locked { overflow: hidden; }
               <path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8c0 3.9 3.2 7.2 7.5 7.9.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .2-.2.9.8.5s5.3-3.1 7.2-5.3C20.4 14.9 21 13 21 11z"/>
             </svg>
           </a>
-          <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" aria-label="Linktree">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <!-- 小樹 icon：呼應「原野」品牌、避開 Linktree 原生 logo 的視覺賭氣 -->
-              <path d="M12 3 L7 11 L9.5 11 L5.5 17 L9 17 L9 21 L15 21 L15 17 L18.5 17 L14.5 11 L17 11 Z"/>
-            </svg>
-          </a>
         </div>
       </div>
     </div>
@@ -2418,133 +2859,96 @@ body.is-locked { overflow: hidden; }
      HERO
      ==================================================================== -->
 <section class="hero">
-  <div class="wrap hero__grid">
-    <div class="hero__copy">
-      <h1 class="hero__title">把<em>原野</em>，<br />穿在身上。</h1>
+  <!--
+    Hero — 極簡版：一張靜止主視覺 + 標語 + 一個 CTA
+    目前主視覺用內嵌 SVG（霧中林徑），對應品牌氣味「晨霧裡的輕盈專業」
+    未來換成真實照片：把 .hero__media 內的 <svg> 換成 <img src="./hero.jpg" alt="..." />
+  -->
+  <div class="hero__media" aria-hidden="true">
+    <svg class="hero__svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F2EFE6"/>
+          <stop offset="55%" stop-color="#E8E8DC"/>
+          <stop offset="100%" stop-color="#D8DCC8"/>
+        </linearGradient>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C9D1B8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#C9D1B8" stop-opacity="0.7"/>
+        </linearGradient>
+        <radialGradient id="mistGrad" cx="50%" cy="55%" r="55%">
+          <stop offset="0%" stop-color="#F2EFE6" stop-opacity="0.85"/>
+          <stop offset="60%" stop-color="#F2EFE6" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="treeFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3D4A38" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.15"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="400" height="500" fill="url(#skyGrad)"/>
+      <g opacity="0.18" fill="#3D4A38">
+        <polygon points="0,290 25,210 50,290"/>
+        <polygon points="40,290 65,225 90,290"/>
+        <polygon points="80,290 105,200 130,290"/>
+        <polygon points="125,290 150,220 175,290"/>
+        <polygon points="170,290 195,205 220,290"/>
+        <polygon points="215,290 240,215 265,290"/>
+        <polygon points="255,290 280,200 305,290"/>
+        <polygon points="295,290 320,225 345,290"/>
+        <polygon points="335,290 360,210 385,290"/>
+        <polygon points="375,290 400,220 400,290"/>
+      </g>
+      <g opacity="0.35" fill="#3D4A38">
+        <polygon points="0,330 30,225 60,330"/>
+        <polygon points="50,330 85,210 120,330"/>
+        <polygon points="110,330 145,235 180,330"/>
+        <polygon points="170,330 205,215 240,330"/>
+        <polygon points="230,330 265,220 300,330"/>
+        <polygon points="290,330 325,230 360,330"/>
+        <polygon points="350,330 385,215 400,330"/>
+      </g>
+      <rect x="0" y="320" width="400" height="180" fill="url(#groundGrad)"/>
+      <path d="M 140 500 L 195 320 L 205 320 L 260 500 Z" fill="#F2EFE6" opacity="0.55"/>
+      <line x1="140" y1="500" x2="195" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
+      <line x1="260" y1="500" x2="205" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
+      <g fill="url(#treeFade)">
+        <polygon points="20,500 50,280 80,500"/>
+        <polygon points="55,500 90,310 125,500"/>
+        <polygon points="285,500 320,290 355,500"/>
+        <polygon points="335,500 370,305 400,500"/>
+      </g>
+      <g stroke="#3D4A38" stroke-width="1.2" opacity="0.4">
+        <line x1="50" y1="500" x2="50" y2="320"/>
+        <line x1="90" y1="500" x2="90" y2="340"/>
+        <line x1="320" y1="500" x2="320" y2="330"/>
+        <line x1="370" y1="500" x2="370" y2="345"/>
+      </g>
+      <rect x="0" y="0" width="400" height="500" fill="url(#mistGrad)"/>
+      <rect x="0" y="240" width="400" height="40" fill="#F2EFE6" opacity="0.5"/>
+      <rect x="0" y="280" width="400" height="30" fill="#F2EFE6" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <!-- 文字層：靠下置中 -->
+  <div class="hero__content">
+    <div class="wrap hero__content-inner">
+      <h1 class="hero__title">把<em>原野</em>，穿在身上。</h1>
       <div class="hero__en">WEAR · THE · WILD</div>
-
-      <p class="hero__lede">
-        為這個時代的矛盾而生——<br />
-        一件好衣，能跨越會議與山徑，<br />
-        守護肌膚、陪你長久。
-      </p>
-
-      <div class="hero__cta">
-        <a href="#products" class="btn">
-          看新季商品
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </a>
-        <a href="#story" class="btn btn--ghost">
-          認識我們
-        </a>
-      </div>
-    </div>
-
-    <div class="hero__visual">
-      <!--
-        Hero 視覺：霧中林徑（純 SVG，無外部依賴）
-        對應品牌氣味「晨霧裡的輕盈專業」與隱喻「把山林帶進日常」
-        遵循 Brand Bible §05 後製規範：低對比、霧氣感、留白
-        未來換成真實照時，把這個 SVG 換成 <img> 即可
-      -->
-      <svg class="hero__svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <!-- 晨光天空：上薄霧白、下淺草綠 -->
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#F2EFE6"/>
-            <stop offset="55%" stop-color="#E8E8DC"/>
-            <stop offset="100%" stop-color="#D8DCC8"/>
-          </linearGradient>
-          <!-- 地面：淺草綠漸入薄霧白 -->
-          <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#C9D1B8" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#C9D1B8" stop-opacity="0.7"/>
-          </linearGradient>
-          <!-- 霧氣 overlay：白色從中間往兩側暈開 -->
-          <radialGradient id="mistGrad" cx="50%" cy="55%" r="55%">
-            <stop offset="0%" stop-color="#F2EFE6" stop-opacity="0.85"/>
-            <stop offset="60%" stop-color="#F2EFE6" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
-          </radialGradient>
-          <!-- 樹的不透明度遞減（遠景越淡） -->
-          <linearGradient id="treeFade" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3D4A38" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.15"/>
-          </linearGradient>
-        </defs>
-
-        <!-- 背景：天空 -->
-        <rect x="0" y="0" width="400" height="500" fill="url(#skyGrad)"/>
-
-        <!-- 遠景樹影（最淡） -->
-        <g opacity="0.18" fill="#3D4A38">
-          <polygon points="0,290 25,210 50,290"/>
-          <polygon points="40,290 65,225 90,290"/>
-          <polygon points="80,290 105,200 130,290"/>
-          <polygon points="125,290 150,220 175,290"/>
-          <polygon points="170,290 195,205 220,290"/>
-          <polygon points="215,290 240,215 265,290"/>
-          <polygon points="255,290 280,200 305,290"/>
-          <polygon points="295,290 320,225 345,290"/>
-          <polygon points="335,290 360,210 385,290"/>
-          <polygon points="375,290 400,220 400,290"/>
-        </g>
-
-        <!-- 中景樹影（中等） -->
-        <g opacity="0.35" fill="#3D4A38">
-          <polygon points="0,330 30,225 60,330"/>
-          <polygon points="50,330 85,210 120,330"/>
-          <polygon points="110,330 145,235 180,330"/>
-          <polygon points="170,330 205,215 240,330"/>
-          <polygon points="230,330 265,220 300,330"/>
-          <polygon points="290,330 325,230 360,330"/>
-          <polygon points="350,330 385,215 400,330"/>
-        </g>
-
-        <!-- 地面 -->
-        <rect x="0" y="320" width="400" height="180" fill="url(#groundGrad)"/>
-
-        <!-- 林徑：往遠處收斂的兩條線（透視） -->
-        <path d="M 140 500 L 195 320 L 205 320 L 260 500 Z"
-              fill="#F2EFE6" opacity="0.55"/>
-        <line x1="140" y1="500" x2="195" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
-        <line x1="260" y1="500" x2="205" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
-
-        <!-- 近景樹（深、有細節） -->
-        <g fill="url(#treeFade)">
-          <!-- 左側兩棵 -->
-          <polygon points="20,500 50,280 80,500"/>
-          <polygon points="55,500 90,310 125,500"/>
-          <!-- 右側兩棵 -->
-          <polygon points="285,500 320,290 355,500"/>
-          <polygon points="335,500 370,305 400,500"/>
-        </g>
-
-        <!-- 樹幹 -->
-        <g stroke="#3D4A38" stroke-width="1.2" opacity="0.4">
-          <line x1="50" y1="500" x2="50" y2="320"/>
-          <line x1="90" y1="500" x2="90" y2="340"/>
-          <line x1="320" y1="500" x2="320" y2="330"/>
-          <line x1="370" y1="500" x2="370" y2="345"/>
-        </g>
-
-        <!-- 霧氣 overlay：覆蓋全圖、讓畫面有「霧裡」的呼吸 -->
-        <rect x="0" y="0" width="400" height="500" fill="url(#mistGrad)"/>
-
-        <!-- 細微的水平霧帶（增加氛圍） -->
-        <rect x="0" y="240" width="400" height="40" fill="#F2EFE6" opacity="0.5"/>
-        <rect x="0" y="280" width="400" height="30" fill="#F2EFE6" opacity="0.3"/>
-      </svg>
+      <a href="#story" class="hero__cta-single">
+        了解我們
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ====================================================================
      01 · 品牌故事鉤子 STORY HOOK
-     先讓訪客「對，我也這樣」產生共鳴
+     第一個內容——共鳴痛點，是內容電商的入口
      ==================================================================== -->
 <section class="story" id="story">
   <div class="wrap story__grid">
@@ -2561,8 +2965,8 @@ body.is-locked { overflow: hidden; }
         <p>這不是你的問題，是這個時代的問題。我們相信，現代人需要的不是更多衣服，而是更少、但更對的衣服。</p>
         <p class="story__highlight">原野日常，誕生於這個信念。</p>
       </div>
-      <a href="#values" class="story__link">
-        看我們怎麼做
+      <a href="#about" class="story__link">
+        繼續讀下去
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <line x1="5" y1="12" x2="19" y2="12"/>
           <polyline points="12 5 19 12 12 19"/>
@@ -2573,8 +2977,78 @@ body.is-locked { overflow: hidden; }
 </section>
 
 <!-- ====================================================================
-     02 · 三大價值主張 VALUES
-     為什麼選我們：守護肌膚 · 耐穿耐洗 · 跨越場景
+     02 · 新品 PRODUCTS — 共鳴痛點後，先看到貨（讓訪客知道你賣什麼）
+     ==================================================================== -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <div class="section-head__title">
+        <span class="eyebrow">New Arrival</span>
+        <h2>新季商品</h2>
+        <p class="section-head__lede">四件好衣，從春天穿到夏末。<br />可單穿、可疊搭，每件都耐得住反覆洗滌。</p>
+      </div>
+      <div class="products__nav">
+        <span class="section-head__meta" id="productCount">04 items</span>
+        <div class="products__arrows" aria-hidden="true">
+          <button class="products__arrow" id="prodPrev" aria-label="上一個商品">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 6 9 12 15 18"/>
+            </svg>
+          </button>
+          <button class="products__arrow" id="prodNext" aria-label="下一個商品">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 軌道包進 wrap，跟其他區塊一樣對齊邊距 -->
+  <div class="wrap">
+    <div class="products__track-wrap">
+      <div class="products__track" id="productGrid">
+        <!-- 由 JS 渲染商品卡 -->
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="products__progress" aria-hidden="true">
+      <div class="products__progress-bar"><span id="prodProgress"></span></div>
+      <span class="products__progress-text"><span id="prodCurrent">01</span> / <span id="prodTotal">04</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     03 · 寫給你的信 FOUNDER — 看到商品後，認識主理人是誰
+     ==================================================================== -->
+<section class="founder" id="about">
+  <div class="wrap founder__inner">
+    <h2 class="sr-only">寫給你的信</h2>
+    <span class="founder__mark fade-up" aria-hidden="true"></span>
+
+    <blockquote class="founder__quote fade-up">
+      <p>我們不只是賣衣服，<br />我們提供一種新的生活提案——</p>
+      <p class="founder__creed">
+        少一點消費，多一點生活。<br />
+        少一點焦慮，多一點自在。<br />
+        少一點選擇，多一點自由。
+      </p>
+      <p>讓「穿得好」不再是奢侈，而是一種保護健康、節省時間、對環境負責的日常選擇。</p>
+    </blockquote>
+
+    <div class="founder__sign fade-up">
+      <span class="founder__sign-line"></span>
+      <span class="founder__sign-name">W · 原野日常</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     04 · 三大價值主張 VALUES — 信念說完了，講做法
      ==================================================================== -->
 <section class="values" id="values">
   <div class="wrap">
@@ -2621,54 +3095,7 @@ body.is-locked { overflow: hidden; }
 </section>
 
 <!-- ====================================================================
-     03 · 新品 PRODUCTS
-     建立認知後再展示
-     ==================================================================== -->
-<section class="products" id="products">
-  <div class="wrap">
-    <div class="section-head fade-up">
-      <div class="section-head__title">
-        <span class="eyebrow">New Arrival</span>
-        <h2>新季商品</h2>
-        <p class="section-head__lede">四件好衣，從春天穿到夏末。<br />可單穿、可疊搭，每件都耐得住反覆洗滌。</p>
-      </div>
-      <div class="products__nav">
-        <span class="section-head__meta" id="productCount">04 items</span>
-        <div class="products__arrows" aria-hidden="true">
-          <button class="products__arrow" id="prodPrev" aria-label="上一個商品">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 6 9 12 15 18"/>
-            </svg>
-          </button>
-          <button class="products__arrow" id="prodNext" aria-label="下一個商品">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 6 15 12 9 18"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 軌道包進 wrap，跟其他區塊一樣對齊邊距 -->
-  <div class="wrap">
-    <div class="products__track-wrap">
-      <div class="products__track" id="productGrid">
-        <!-- 由 JS 渲染商品卡 -->
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="products__progress" aria-hidden="true">
-      <div class="products__progress-bar"><span id="prodProgress"></span></div>
-      <span class="products__progress-text"><span id="prodCurrent">01</span> / <span id="prodTotal">04</span></span>
-    </div>
-  </div>
-</section>
-
-<!-- ====================================================================
-     04 · 品質誠實 — 訪客剛看完商品的疑慮：「會皺嗎？」「值得嗎？」
+     05 · 品質誠實 QUALITY — 不掩飾缺點，更深一層信任
      ==================================================================== -->
 <section class="quality" id="quality">
   <div class="wrap">
@@ -2694,31 +3121,6 @@ body.is-locked { overflow: hidden; }
         <h4>顏色不會永遠不變。</h4>
         <p>未漂白與植物染色會隨時間溫和褪色——這是天然的痕跡，不是缺點。</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====================================================================
-     05 · 寫給你的信 — 一人公司的真實感、品牌信念融入
-     ==================================================================== -->
-<section class="founder" id="about">
-  <div class="wrap founder__inner">
-    <h2 class="sr-only">寫給你的信</h2>
-    <span class="founder__mark fade-up" aria-hidden="true"></span>
-
-    <blockquote class="founder__quote fade-up">
-      <p>我們不只是賣衣服，<br />我們提供一種新的生活提案——</p>
-      <p class="founder__creed">
-        少一點消費，多一點生活。<br />
-        少一點焦慮，多一點自在。<br />
-        少一點選擇，多一點自由。
-      </p>
-      <p>讓「穿得好」不再是奢侈，而是一種保護健康、節省時間、對環境負責的日常選擇。</p>
-    </blockquote>
-
-    <div class="founder__sign fade-up">
-      <span class="founder__sign-line"></span>
-      <span class="founder__sign-name">W · 原野日常</span>
     </div>
   </div>
 </section>
@@ -2773,6 +3175,31 @@ body.is-locked { overflow: hidden; }
 </section>
 
 </main>
+
+<!-- ====================================================================
+     Scroll Spy 進度指示器 — 桌機左側、顯示目前在哪一段
+     6 個 section：故事 / 商品 / 關於 / 價值 / 品質 / 購物資訊
+     ==================================================================== -->
+<nav class="scroll-spy" id="scrollSpy" aria-label="頁面區段導覽">
+  <ul>
+    <li><a href="#story"    data-spy="story"    aria-label="故事"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">故事</span></a></li>
+    <li><a href="#products" data-spy="products" aria-label="商品"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">商品</span></a></li>
+    <li><a href="#about"    data-spy="about"    aria-label="關於"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">關於</span></a></li>
+    <li><a href="#values"   data-spy="values"   aria-label="價值"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">價值</span></a></li>
+    <li><a href="#quality"  data-spy="quality"  aria-label="品質"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">品質</span></a></li>
+    <li><a href="#promises" data-spy="promises" aria-label="購物資訊"><span class="scroll-spy__dot"></span><span class="scroll-spy__label">購物資訊</span></a></li>
+  </ul>
+</nav>
+
+<!-- ====================================================================
+     回頂浮動按鈕 — 滑超過第一屏才顯示
+     ==================================================================== -->
+<button type="button" class="back-to-top" id="backToTop" aria-label="回到頂端" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
 
 
 <!-- ====================================================================
@@ -3283,6 +3710,33 @@ function renderProducts() {
 }
 
 /* ========================================================================
+   滾到指定商品：從漢堡選單子項觸發
+   先把頁面滾到 Products 區，再把 carousel 軌道捲到對應卡片，並短暫高亮
+   ======================================================================== */
+function scrollToProduct(no) {
+  const section = $('#products');
+  const card = document.querySelector(`#productGrid .card[data-no="${no}"]`);
+  if (!section) return;
+  // 1. 先把頁面捲到 Products section
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // 2. 等頁面捲動安頓後，把 carousel 內的對應卡片捲到視野（內部水平捲動）
+  if (card) {
+    setTimeout(() => {
+      const track = $('#productGrid');
+      if (!track) return;
+      const cardRect = card.getBoundingClientRect();
+      const trackRect = track.getBoundingClientRect();
+      // 想讓 card 的左緣對齊 track 左緣 + 一點偏移
+      const targetScroll = track.scrollLeft + (cardRect.left - trackRect.left) - 16;
+      track.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      // 3. 短暫高亮：加 class 動 1.6s 後移除
+      card.classList.add('is-highlight');
+      setTimeout(() => card.classList.remove('is-highlight'), 1600);
+    }, 600);
+  }
+}
+
+/* ========================================================================
    Carousel 控制：箭頭、進度條、邊界狀態
    ======================================================================== */
 function setupCarousel() {
@@ -3701,6 +4155,7 @@ function observeFadeIn() {
 function init() {
   renderProducts();
   renderCart();
+
   try { observeFadeIn(); } catch (e) {
     // 即使動畫掛掉，也不能阻斷後續事件綁定
     $$('.fade-up').forEach(el => el.classList.add('is-in'));
@@ -3723,10 +4178,11 @@ function init() {
     document.body.classList.toggle('is-menu-open', willOpen);
   };
   menuBtn.addEventListener('click', () => toggleMenu());
-  // 點選單項後自動關閉，並處理 data-action（行為而非跳轉）
+  // 點選單項後自動關閉，並處理 data-action（行為）或 data-scroll-to-no（滾到指定商品）
   $$('[data-menu-link]').forEach(a => {
     a.addEventListener('click', (e) => {
       const action = a.dataset.action;
+      const scrollToNo = a.dataset.scrollToNo;
       if (action) {
         e.preventDefault();
         toggleMenu(false);
@@ -3735,6 +4191,11 @@ function init() {
           if (action === 'openCart') openCart();
           else if (action === 'openSizeChart') openSizeChart();
         }, 350);
+      } else if (scrollToNo) {
+        // 滾到 Products 區、把對應商品 carousel 捲到指定卡片
+        e.preventDefault();
+        toggleMenu(false);
+        setTimeout(() => scrollToProduct(scrollToNo), 320);
       } else {
         toggleMenu(false);
       }
@@ -3786,6 +4247,137 @@ function init() {
       if (menuOverlay.classList.contains('is-open')) toggleMenu(false);
     }
   });
+
+  // 導航輔助：scroll spy、回頂按鈕、下一段指引、sticky header 陰影
+  setupNavAids();
+}
+
+/* ========================================================================
+   導航輔助：
+   - Scroll Spy 進度指示器（左側固定）
+   - 回頂浮動按鈕
+   - 每個 section 之間插「下一段：XX」指引
+   - Sticky header 滾動時加陰影
+   ======================================================================== */
+const SECTION_LABELS = {
+  story:    '故事',
+  products: '商品',
+  about:    '關於',
+  values:   '價值',
+  quality:  '品質',
+  promises: '購物資訊'
+};
+const SECTION_ORDER = ['story', 'products', 'about', 'values', 'quality', 'promises'];
+
+function setupNavAids() {
+  insertNextHints();
+  setupScrollSpy();
+  setupBackToTop();
+  setupHeaderShadow();
+}
+
+// 在相鄰 section 之間插入「下一段：XX」指引（在每個 section 結尾、不包括最後一個）
+function insertNextHints() {
+  for (let i = 0; i < SECTION_ORDER.length - 1; i++) {
+    const cur = document.getElementById(SECTION_ORDER[i]);
+    const nextId = SECTION_ORDER[i + 1];
+    const nextLabel = SECTION_LABELS[nextId];
+    if (!cur || !nextLabel) continue;
+    const hint = document.createElement('a');
+    hint.className = 'next-hint';
+    hint.href = '#' + nextId;
+    hint.innerHTML = `
+      <span class="next-hint__label">下一段</span>
+      <span class="next-hint__title">${nextLabel}</span>
+      <svg class="next-hint__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="5 12 12 19 19 12"/>
+      </svg>
+    `;
+    cur.appendChild(hint);
+  }
+}
+
+// Scroll Spy：用 IntersectionObserver 偵測哪個 section 在視野中央
+function setupScrollSpy() {
+  const spy = $('#scrollSpy');
+  if (!spy) return;
+  const links = $$('a[data-spy]', spy);
+  const linkMap = {};
+  links.forEach(a => linkMap[a.dataset.spy] = a);
+
+  // 平滑捲到指定區段
+  links.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // 監聽 section 進入視野（中段 40% 啟用，避免邊緣抖動）
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (entry.isIntersecting) {
+        links.forEach(a => a.classList.remove('is-active'));
+        if (linkMap[id]) linkMap[id].classList.add('is-active');
+      }
+    });
+  }, {
+    rootMargin: '-40% 0px -40% 0px',
+    threshold: 0
+  });
+
+  SECTION_ORDER.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // 滑出第一屏才顯示
+  let firstViewportPassed = false;
+  window.addEventListener('scroll', () => {
+    const passed = window.scrollY > window.innerHeight * 0.6;
+    if (passed !== firstViewportPassed) {
+      firstViewportPassed = passed;
+      spy.classList.toggle('is-visible', passed);
+    }
+  }, { passive: true });
+}
+
+// 回頂按鈕
+function setupBackToTop() {
+  const btn = $('#backToTop');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  let shown = false;
+  window.addEventListener('scroll', () => {
+    const should = window.scrollY > window.innerHeight * 0.6;
+    if (should !== shown) {
+      shown = should;
+      btn.hidden = !shown;
+      // 給一個 frame 後加 class，讓動畫可運作
+      if (shown) requestAnimationFrame(() => btn.classList.add('is-visible'));
+      else btn.classList.remove('is-visible');
+    }
+  }, { passive: true });
+}
+
+// Header 滾動時加陰影
+function setupHeaderShadow() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+  let scrolled = false;
+  window.addEventListener('scroll', () => {
+    const should = window.scrollY > 8;
+    if (should !== scrolled) {
+      scrolled = should;
+      header.classList.toggle('is-scrolled', scrolled);
+    }
+  }, { passive: true });
 }
 
 init();
