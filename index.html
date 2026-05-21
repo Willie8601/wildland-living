@@ -13,8 +13,6 @@
 <meta property="og:site_name" content="原野日常 Wildland Living" />
 <meta property="og:locale" content="zh_TW" />
 <meta property="og:url" content="https://wildlandliving.tw/" />
-<!-- og:image：未來請上傳 1200×630 的品牌主視覺圖到 CDN，把路徑填這裡 -->
-<!-- <meta property="og:image" content="https://wildlandliving.tw/og-image.jpg" /> -->
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -23,6 +21,10 @@
 
 <!-- 主題色（手機書籤 / 行動瀏覽器 UI） -->
 <meta name="theme-color" content="#7B8568" />
+
+<!-- Favicon：「原」字商標（base64 內嵌、無外部依賴） -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRjJFRkU2IiByeD0iMyIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyNCIgZm9udC1mYW1pbHk9IidLbGVlIE9uZScsICdOb3RvIFNlcmlmIFRDJywgc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzRDRBMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuWOnzwvdGV4dD4KPC9zdmc+Cg==" />
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRjJFRkU2IiByeD0iMyIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyNCIgZm9udC1mYW1pbHk9IidLbGVlIE9uZScsICdOb3RvIFNlcmlmIFRDJywgc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMzRDRBMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuWOnzwvdGV4dD4KPC9zdmc+Cg==" />
 
 <!-- Klee One：中英文統一手書字體 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -663,47 +665,20 @@ body.is-menu-open .site-header {
   flex-wrap: wrap;
 }
 
-/* Hero 視覺 — 真實照片（部署）+ SVG fallback（預覽） */
+/* Hero 視覺 — 純 SVG 霧中林徑（無外部依賴） */
 .hero__visual {
   position: relative;
   aspect-ratio: 4 / 5;
-  background: linear-gradient(170deg, #e6e2d4 0%, #d4d8c4 100%);
+  background: var(--mist);
   border-radius: 2px;
   overflow: hidden;
   box-shadow: 0 12px 60px -20px rgba(31, 42, 30, 0.18);
 }
-
-/* 真實照片：依品牌 Brand Bible §05 後製規範微調
-   去飽和 0.85 / 對比 0.95 / 輕亮度 1.02 / 微藍綠偏移
-   呈現「晨霧裡的輕盈專業」氣味 */
-.hero__photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.85) contrast(0.95) brightness(1.02);
-  z-index: 2;
-}
-
-/* 圖片色調 overlay：薄霧白柔化 + 林影綠提色，讓圖片融入站體配色 */
-.hero__photo-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(242, 239, 230, 0.25) 0%, rgba(242, 239, 230, 0) 40%),
-    linear-gradient(160deg, rgba(123, 133, 104, 0.08) 0%, rgba(61, 74, 56, 0.12) 100%);
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* SVG fallback：墊在最底層，圖片載入成功時被遮住，失敗時可見 */
 .hero__svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
 }
 
 @media (max-width: 820px) {
@@ -1052,14 +1027,11 @@ body.is-menu-open .site-header {
 .products__track-wrap {
   position: relative;
   margin-bottom: clamp(28px, 4vw, 40px);
-  /* 提供視覺呼吸 */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
 }
 .products__track {
   display: flex;
   gap: clamp(20px, 2.4vw, 36px);
-  padding: 12px var(--gutter) 12px;
+  padding: 12px 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -1068,14 +1040,6 @@ body.is-menu-open .site-header {
   -webkit-overflow-scrolling: touch;
 }
 .products__track::-webkit-scrollbar { display: none; }
-
-/* 桌機：左右留白 = wrap 邊距，第一張對齊左邊 */
-@media (min-width: 1241px) {
-  .products__track {
-    padding-left: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-    padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-  }
-}
 
 /* 每張卡片固定寬度，scroll-snap 對齊 */
 .card {
@@ -1091,7 +1055,7 @@ body.is-menu-open .site-header {
 /* 手機：一張接近滿寬，露出下一張的邊緣（暗示可滑動） */
 @media (max-width: 760px) {
   .card { flex: 0 0 78vw; }
-  .products__track { gap: 16px; padding: 12px var(--gutter); }
+  .products__track { gap: 16px; padding: 12px 0; }
 }
 
 /* 進度條 */
@@ -1163,18 +1127,6 @@ body.is-menu-open .site-header {
 }
 .card:hover .card__visual svg {
   transform: translate(-50%, -50%) scale(1.04);
-}
-
-.card__no {
-  position: absolute;
-  top: 16px; left: 16px;
-  font-family: var(--font-display);
-  font-size: 10.5px;
-  letter-spacing: 0.3em;
-  color: var(--shade);
-  background: rgba(242,239,230,0.86);
-  padding: 4px 9px;
-  border-radius: 2px;
 }
 
 .card__low-stock {
@@ -1338,26 +1290,25 @@ body.is-menu-open .site-header {
   margin-bottom: 24px;
 }
 
-/* Linktree 入口按鈕 */
+/* Linktree 入口：低調文字連結（與其他 footer 連結同等視覺） */
 .footer__linktree {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border: 1px solid rgba(242, 239, 230, 0.25);
-  border-radius: 2px;
+  gap: 8px;
+  padding: 0;
   font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  color: rgba(242, 239, 230, 0.9);
-  transition: all .2s ease;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: rgba(242, 239, 230, 0.85);
+  border-bottom: 1px solid rgba(242, 239, 230, 0.2);
+  padding-bottom: 4px;
+  transition: color .2s, border-color .2s;
 }
 .footer__linktree:hover {
-  background: var(--wild);
-  border-color: var(--wild);
   color: var(--mist);
+  border-bottom-color: var(--mist);
 }
-.footer__linktree svg { width: 14px; height: 14px; }
+.footer__linktree svg { width: 12px; height: 12px; opacity: 0.7; }
 
 .footer h4 {
   font-family: var(--font-display);
@@ -1491,13 +1442,6 @@ body.is-menu-open .site-header {
   flex-direction: column;
 }
 
-.modal__no {
-  font-family: var(--font-display);
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
 .modal__name {
   font-family: var(--font-display);
   font-weight: 600;
@@ -1649,6 +1593,12 @@ body.is-menu-open .site-header {
 }
 .add-btn {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 16px;
   background: var(--wild);
   color: var(--mist);
   font-family: var(--font-display);
@@ -1656,6 +1606,15 @@ body.is-menu-open .site-header {
   font-size: 13px;
   border-radius: 2px;
   transition: background .2s;
+}
+.add-btn__zh {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+}
+.add-btn__en {
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  opacity: 0.75;
 }
 .add-btn:hover { background: var(--shade); }
 .add-btn:disabled { background: var(--line); cursor: not-allowed; }
@@ -2305,6 +2264,28 @@ body.is-menu-open .site-header {
 /* Body scroll lock 當 modal/drawer 開啟 */
 body.is-locked { overflow: hidden; }
 
+/* 尊重使用者「減少動態效果」的系統偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* 手機才換行，桌機隱藏 */
+.mobile-only { display: none; }
+@media (max-width: 760px) {
+  .mobile-only { display: inline; }
+}
+
 </style>
 </head>
 <body>
@@ -2352,92 +2333,43 @@ body.is-locked { overflow: hidden; }
 <nav class="menu-overlay" id="menuOverlay" aria-label="主選單" aria-hidden="true">
   <div class="menu-overlay__inner">
 
-    <!-- 主要動作：兩個大字級 CTA -->
-    <div class="menu-primary">
-      <span class="menu-eyebrow">
-        <i></i>
-        <span>START HERE</span>
-      </span>
-      <ul class="menu-primary__list">
-        <li>
-          <a href="#products" data-menu-link>
-            <span class="menu-primary__zh">選購這一季</span>
-            <span class="menu-primary__en">Shop the Season</span>
-          </a>
-        </li>
-        <li>
-          <a href="#story" data-menu-link>
-            <span class="menu-primary__zh">認識這個品牌</span>
-            <span class="menu-primary__en">About Wildland</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!-- 主導覽：四項，與桌機 nav-primary 一致 -->
+    <ul class="menu-primary__list">
+      <li>
+        <a href="#products" data-menu-link>
+          <span class="menu-primary__zh">商品</span>
+          <span class="menu-primary__en">Products</span>
+        </a>
+      </li>
+      <li>
+        <a href="#story" data-menu-link>
+          <span class="menu-primary__zh">故事</span>
+          <span class="menu-primary__en">Story</span>
+        </a>
+      </li>
+      <li>
+        <a href="#about" data-menu-link>
+          <span class="menu-primary__zh">關於</span>
+          <span class="menu-primary__en">About</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact" data-menu-link>
+          <span class="menu-primary__zh">聯絡</span>
+          <span class="menu-primary__en">Contact</span>
+        </a>
+      </li>
+    </ul>
 
-    <!-- 分組導覽：兩組四項 -->
-    <div class="menu-groups">
-      <div class="menu-group">
-        <span class="menu-group__title">SHOP</span>
-        <ul>
-          <li>
-            <a href="#products" data-menu-link>
-              <span class="menu-group__name">新季商品</span>
-              <span class="menu-group__hint">S/S 2026 · 04 items</span>
-            </a>
-          </li>
-          <li>
-            <a href="#quality" data-menu-link>
-              <span class="menu-group__name">品質誠實</span>
-              <span class="menu-group__hint">三件我們不掩飾的事</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" data-menu-link data-action="openSizeChart">
-              <span class="menu-group__name">尺寸對照表</span>
-              <span class="menu-group__hint">男款・女款・中性款</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="menu-group">
-        <span class="menu-group__title">READ</span>
-        <ul>
-          <li>
-            <a href="#story" data-menu-link>
-              <span class="menu-group__name">衣櫃前的瞬間</span>
-              <span class="menu-group__hint">我們為什麼存在</span>
-            </a>
-          </li>
-          <li>
-            <a href="#values" data-menu-link>
-              <span class="menu-group__name">三件事做得不一樣</span>
-              <span class="menu-group__hint">守護肌膚・耐穿耐洗・跨越場景</span>
-            </a>
-          </li>
-          <li>
-            <a href="#about" data-menu-link>
-              <span class="menu-group__name">寫給你的信</span>
-              <span class="menu-group__hint">關於這個品牌，與我</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 工具列：購物車、配送、聯絡 -->
+    <!-- 工具列：購物車與尺寸表 -->
     <div class="menu-utility">
       <a href="#" data-menu-link data-action="openCart" class="menu-utility__item">
         <span class="menu-utility__label">購物車</span>
         <span class="menu-utility__meta" id="menuCartCount">空的</span>
       </a>
-      <a href="#promises" data-menu-link class="menu-utility__item">
-        <span class="menu-utility__label">配送與退換</span>
-        <span class="menu-utility__meta">滿 NT$ 3,000 免運</span>
-      </a>
-      <a href="mailto:hello@wildlandliving.tw" class="menu-utility__item">
-        <span class="menu-utility__label">聯絡我們</span>
-        <span class="menu-utility__meta">hello@wildlandliving.tw</span>
+      <a href="#" data-menu-link data-action="openSizeChart" class="menu-utility__item">
+        <span class="menu-utility__label">尺寸對照表</span>
+        <span class="menu-utility__meta">男款・女款・中性款</span>
       </a>
     </div>
 
@@ -2468,11 +2400,9 @@ body.is-locked { overflow: hidden; }
             </svg>
           </a>
           <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" aria-label="Linktree">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <line x1="12" y1="3" x2="12" y2="21"/>
-              <line x1="5" y1="9" x2="19" y2="9"/>
-              <line x1="6" y1="15" x2="12" y2="21"/>
-              <line x1="18" y1="15" x2="12" y2="21"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <!-- 小樹 icon：呼應「原野」品牌、避開 Linktree 原生 logo 的視覺賭氣 -->
+              <path d="M12 3 L7 11 L9.5 11 L5.5 17 L9 17 L9 21 L15 21 L15 17 L18.5 17 L14.5 11 L17 11 Z"/>
             </svg>
           </a>
         </div>
@@ -2514,49 +2444,98 @@ body.is-locked { overflow: hidden; }
 
     <div class="hero__visual">
       <!--
-        真實照片：霧中林徑（Ingmar @cinematicbyfuji on Unsplash）
-        Photo URL: https://unsplash.com/photos/misty-forest-path-leading-into-the-distance-qkBUTCyHuf4
+        Hero 視覺：霧中林徑（純 SVG，無外部依賴）
         對應品牌氣味「晨霧裡的輕盈專業」與隱喻「把山林帶進日常」
-        若 CDN 無法載入（例如 Claude App 預覽環境），會 fallback 到下方 SVG
-
-        ⚠️ 部署前請至 unsplash.com 取得正確 image URL 並替換下方 src，
-        例如：https://images.unsplash.com/photo-XXXXXXXXX?w=1200&q=80
+        遵循 Brand Bible §05 後製規範：低對比、霧氣感、留白
+        未來換成真實照時，把這個 SVG 換成 <img> 即可
       -->
-      <img
-        class="hero__photo"
-        src="https://source.unsplash.com/qkBUTCyHuf4/1200x1500"
-        alt="霧中林徑——把原野穿在身上"
-        loading="eager"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='none';"
-      />
-      <div class="hero__photo-overlay" aria-hidden="true"></div>
-
-      <!-- Fallback：原本的「窗邊極簡構圖」SVG，圖片載入失敗時可見 -->
       <svg class="hero__svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#fffdf5" stop-opacity="0.8"/>
-            <stop offset="0.6" stop-color="#fffdf5" stop-opacity="0.15"/>
-            <stop offset="1" stop-color="#fffdf5" stop-opacity="0"/>
+          <!-- 晨光天空：上薄霧白、下淺草綠 -->
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F2EFE6"/>
+            <stop offset="55%" stop-color="#E8E8DC"/>
+            <stop offset="100%" stop-color="#D8DCC8"/>
           </linearGradient>
-          <linearGradient id="g2" x1="0" y1="0" x2="0.6" y2="1">
-            <stop offset="0" stop-color="#fffdf5" stop-opacity="0.55"/>
-            <stop offset="1" stop-color="#fffdf5" stop-opacity="0"/>
+          <!-- 地面：淺草綠漸入薄霧白 -->
+          <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9D1B8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#C9D1B8" stop-opacity="0.7"/>
+          </linearGradient>
+          <!-- 霧氣 overlay：白色從中間往兩側暈開 -->
+          <radialGradient id="mistGrad" cx="50%" cy="55%" r="55%">
+            <stop offset="0%" stop-color="#F2EFE6" stop-opacity="0.85"/>
+            <stop offset="60%" stop-color="#F2EFE6" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
+          </radialGradient>
+          <!-- 樹的不透明度遞減（遠景越淡） -->
+          <linearGradient id="treeFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3D4A38" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.15"/>
           </linearGradient>
         </defs>
-        <polygon points="0,0 400,0 400,180 260,500 0,500" fill="url(#g1)"/>
-        <rect x="80" y="110" width="240" height="240" fill="none" stroke="#3D4A38" stroke-width="1" opacity="0.35"/>
-        <line x1="200" y1="110" x2="200" y2="350" stroke="#3D4A38" stroke-width="0.8" opacity="0.3"/>
-        <line x1="80" y1="230" x2="320" y2="230" stroke="#3D4A38" stroke-width="0.8" opacity="0.3"/>
-        <rect x="82" y="112" width="236" height="236" fill="url(#g2)"/>
-        <line x1="0" y1="408" x2="400" y2="408" stroke="#3D4A38" stroke-width="1.2" opacity="0.5"/>
-        <ellipse cx="270" cy="408" rx="26" ry="3.5" fill="#3D4A38" opacity="0.18"/>
-        <path d="M 250 408 L 254 452 Q 254 460 262 460 L 278 460 Q 286 460 286 452 L 290 408"
-              fill="none" stroke="#3D4A38" stroke-width="1.4"/>
-        <path d="M 290 418 Q 304 418 304 432 Q 304 446 290 446"
-              fill="none" stroke="#3D4A38" stroke-width="1.4"/>
-        <path d="M 268 396 Q 272 388 268 380 Q 264 372 268 364"
-              fill="none" stroke="#3D4A38" stroke-width="1" opacity="0.4" stroke-linecap="round"/>
+
+        <!-- 背景：天空 -->
+        <rect x="0" y="0" width="400" height="500" fill="url(#skyGrad)"/>
+
+        <!-- 遠景樹影（最淡） -->
+        <g opacity="0.18" fill="#3D4A38">
+          <polygon points="0,290 25,210 50,290"/>
+          <polygon points="40,290 65,225 90,290"/>
+          <polygon points="80,290 105,200 130,290"/>
+          <polygon points="125,290 150,220 175,290"/>
+          <polygon points="170,290 195,205 220,290"/>
+          <polygon points="215,290 240,215 265,290"/>
+          <polygon points="255,290 280,200 305,290"/>
+          <polygon points="295,290 320,225 345,290"/>
+          <polygon points="335,290 360,210 385,290"/>
+          <polygon points="375,290 400,220 400,290"/>
+        </g>
+
+        <!-- 中景樹影（中等） -->
+        <g opacity="0.35" fill="#3D4A38">
+          <polygon points="0,330 30,225 60,330"/>
+          <polygon points="50,330 85,210 120,330"/>
+          <polygon points="110,330 145,235 180,330"/>
+          <polygon points="170,330 205,215 240,330"/>
+          <polygon points="230,330 265,220 300,330"/>
+          <polygon points="290,330 325,230 360,330"/>
+          <polygon points="350,330 385,215 400,330"/>
+        </g>
+
+        <!-- 地面 -->
+        <rect x="0" y="320" width="400" height="180" fill="url(#groundGrad)"/>
+
+        <!-- 林徑：往遠處收斂的兩條線（透視） -->
+        <path d="M 140 500 L 195 320 L 205 320 L 260 500 Z"
+              fill="#F2EFE6" opacity="0.55"/>
+        <line x1="140" y1="500" x2="195" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
+        <line x1="260" y1="500" x2="205" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
+
+        <!-- 近景樹（深、有細節） -->
+        <g fill="url(#treeFade)">
+          <!-- 左側兩棵 -->
+          <polygon points="20,500 50,280 80,500"/>
+          <polygon points="55,500 90,310 125,500"/>
+          <!-- 右側兩棵 -->
+          <polygon points="285,500 320,290 355,500"/>
+          <polygon points="335,500 370,305 400,500"/>
+        </g>
+
+        <!-- 樹幹 -->
+        <g stroke="#3D4A38" stroke-width="1.2" opacity="0.4">
+          <line x1="50" y1="500" x2="50" y2="320"/>
+          <line x1="90" y1="500" x2="90" y2="340"/>
+          <line x1="320" y1="500" x2="320" y2="330"/>
+          <line x1="370" y1="500" x2="370" y2="345"/>
+        </g>
+
+        <!-- 霧氣 overlay：覆蓋全圖、讓畫面有「霧裡」的呼吸 -->
+        <rect x="0" y="0" width="400" height="500" fill="url(#mistGrad)"/>
+
+        <!-- 細微的水平霧帶（增加氛圍） -->
+        <rect x="0" y="240" width="400" height="40" fill="#F2EFE6" opacity="0.5"/>
+        <rect x="0" y="280" width="400" height="30" fill="#F2EFE6" opacity="0.3"/>
       </svg>
     </div>
   </div>
@@ -2648,7 +2627,7 @@ body.is-locked { overflow: hidden; }
   <div class="wrap">
     <div class="section-head fade-up">
       <div class="section-head__title">
-        <span class="eyebrow">New Arrival · S/S 2026</span>
+        <span class="eyebrow">New Arrival</span>
         <h2>新季商品</h2>
         <p class="section-head__lede">四件好衣，從春天穿到夏末。<br />可單穿、可疊搭，每件都耐得住反覆洗滌。</p>
       </div>
@@ -2670,10 +2649,12 @@ body.is-locked { overflow: hidden; }
     </div>
   </div>
 
-  <!-- 軌道：脫離 wrap，讓水平滾動能延伸到視窗邊緣 -->
-  <div class="products__track-wrap">
-    <div class="products__track" id="productGrid">
-      <!-- 由 JS 渲染商品卡 -->
+  <!-- 軌道包進 wrap，跟其他區塊一樣對齊邊距 -->
+  <div class="wrap">
+    <div class="products__track-wrap">
+      <div class="products__track" id="productGrid">
+        <!-- 由 JS 渲染商品卡 -->
+      </div>
     </div>
   </div>
 
@@ -2737,13 +2718,12 @@ body.is-locked { overflow: hidden; }
     <div class="founder__sign fade-up">
       <span class="founder__sign-line"></span>
       <span class="founder__sign-name">林 · 原野日常</span>
-      <span class="founder__sign-meta">2026 春</span>
     </div>
   </div>
 </section>
 
 <!-- ====================================================================
-     06 · 購物資訊 — 政策、運費、聯絡（冷資訊放在最後）
+     06 · 購物資訊 — 政策、運費、聯絡（冷資訊放在頁尾）
      ==================================================================== -->
 <section class="info" id="promises">
   <div class="wrap">
@@ -2762,7 +2742,7 @@ body.is-locked { overflow: hidden; }
           </svg>
         </div>
         <h4>配送</h4>
-        <p>台灣本島運費 <strong>NT$ 80</strong>，滿 NT$ 3,000 <strong>免運</strong>。出貨後 3-5 個工作日送達。</p>
+        <p>台灣本島運費 <strong>NT$ 100</strong>，滿 NT$ 3,000 <strong>免運</strong>。<br class="mobile-only">出貨後 3-5 個工作日送達。</p>
       </div>
 
       <div class="info__item fade-up" style="transition-delay:.08s">
@@ -2774,7 +2754,7 @@ body.is-locked { overflow: hidden; }
           </svg>
         </div>
         <h4>退換貨</h4>
-        <p>未洗滌、保留吊牌的商品，<strong>七天內</strong>接受退換貨。收到後 3 個工作日內處理退款。</p>
+        <p>未洗滌、保留吊牌的商品，<strong>七天內</strong>接受退換貨。<br class="mobile-only">收到後 3 個工作日內處理退款。</p>
       </div>
 
       <div class="info__item fade-up" style="transition-delay:.16s">
@@ -2785,7 +2765,7 @@ body.is-locked { overflow: hidden; }
           </svg>
         </div>
         <h4>聯絡我們</h4>
-        <p>沒有客服機器人。寫信到 <a href="mailto:hello@wildlandliving.tw">hello@wildlandliving.tw</a>，是我本人回覆你。</p>
+        <p>有任何問題、想跟我聊聊穿著或品牌，<br class="mobile-only">加 <a href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">LINE</a> 或寫信到 <a href="mailto:pohaohuang86@gmail.com">pohaohuang86@gmail.com</a>。</p>
       </div>
     </div>
   </div>
@@ -2810,12 +2790,6 @@ body.is-locked { overflow: hidden; }
           少一點消費，多一點生活。
         </p>
         <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" class="footer__linktree">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <line x1="12" y1="3" x2="12" y2="21"/>
-            <line x1="5" y1="9" x2="19" y2="9"/>
-            <line x1="6" y1="15" x2="12" y2="21"/>
-            <line x1="18" y1="15" x2="12" y2="21"/>
-          </svg>
           所有連結 · Linktree
         </a>
       </div>
@@ -2837,7 +2811,6 @@ body.is-locked { overflow: hidden; }
           <li><a href="#story">品牌故事</a></li>
           <li><a href="#quality">品質誠實</a></li>
           <li><a href="#about">寫給你的信</a></li>
-          <li><a href="mailto:hello@wildlandliving.tw">hello@wildlandliving.tw</a></li>
           <li><a href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">分享你的想法</a></li>
         </ul>
       </div>
@@ -3023,7 +2996,7 @@ body.is-locked { overflow: hidden; }
         </div>
         <div class="summary-row">
           <span>運費</span>
-          <span id="sumShipping">NT$ 80</span>
+          <span id="sumShipping">NT$ 100</span>
         </div>
         <div class="summary-row summary-row--final">
           <span>合計</span>
@@ -3054,7 +3027,7 @@ body.is-locked { overflow: hidden; }
       訂單已成功送出，我們會在 1-2 個工作日內<br />
       確認備貨並寄出物流通知信。<br />
       如有任何問題，寫信給我們：<br />
-      <strong>hello@wildlandliving.tw</strong>
+      <strong>pohaohuang86@gmail.com</strong>
     </p>
     <small id="orderNo">— ORDER NO. —</small>
 
@@ -3161,7 +3134,7 @@ const PRODUCTS = [
     type: 'tee',
     material: '100% 有機棉',
     origin: 'Made in Bangladesh',
-    desc: '我們把三十年來製作上萬件 T-shirt 的心得，全部重新歸零思考。剪裁從零打版，只為了找出最理想的輪廓 — 袖長略收、領口羅紋加厚，領圍採用平車縫線，每一處細節都經得起檢視。\n\n選用我們反覆驗證的 180g 有機棉，柔韌透氣，越穿越服貼。這不是一件追逐潮流的 T-shirt，而是會陪你走過好幾年，隨時間沉澱出個人風味的日常之選。',
+    desc: '我們把三十年來製作上萬件 T-shirt 的心得，全部重新歸零思考。剪裁從零打版，只為了找出最理想的輪廓 — 袖長略收、領口羅紋加厚，領圍採用平車縫線，每一處細節都經得起檢視。\n\n選用我們反覆驗證的 180g 有機棉，柔韌透氣，越穿越服貼。這不是一件追逐流行的 T-shirt，而是會陪你走過好幾年，隨時間沉澱出個人風味的日常之選。',
     care: '30°C 機洗 · 建議自然晾乾',
     tone: 'C',
     sizeGuide: 'men'
@@ -3193,7 +3166,7 @@ const PRODUCTS = [
     type: 'hoody',
     material: '100% 有機棉',
     origin: 'Made in Pakistan',
-    desc: '選用低環境負擔的 100% 有機棉頂級磨毛布料，外層柔軟起絨，觸感格外溫暖。雙層帽兜俐落不臃腫，搭配可調式人字織帶抽繩；前方雙口袋，讓冰冷的雙手隨時有處安放。\n\n100% 有機棉種植過程不使用有害農藥 — 對你、對農夫、對土地都更友善。染色採 Oeko-Tex 100 認證染料，不讓污染滲入水源。\n\n一件無論四季都能輕鬆疊穿的日常帽 T，把溫暖穿在身上。',
+    desc: '選用低環境負擔的 100% 有機棉磨毛布料，外層柔軟起絨，觸感格外溫暖。雙層帽兜俐落不臃腫，搭配可調式人字織帶抽繩；前方雙口袋，讓冰冷的雙手隨時有處安放。\n\n100% 有機棉種植過程不使用有害農藥 — 對你、對農夫、對土地都更友善。染色採 Oeko-Tex 100 認證染料，不讓污染滲入水源。\n\n一件無論四季都能輕鬆疊穿的日常帽 T，把溫暖穿在身上。',
     care: '30°C 機洗',
     tone: 'B',
     sizeGuide: 'women'
@@ -3281,7 +3254,6 @@ function renderProducts() {
   grid.innerHTML = PRODUCTS.map((p, i) => `
     <article class="card fade-up" data-no="${p.no}">
       <div class="card__visual" data-tone="${p.tone}">
-        <span class="card__no">N O · ${p.no}</span>
         ${p.stock > 0 && p.stock <= 3 ? `<span class="card__low-stock">僅剩 ${p.stock} 件</span>` : ''}
         ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
       </div>
@@ -3381,7 +3353,6 @@ function openProduct(no) {
       ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
     </div>
     <div class="modal__info">
-      <div class="modal__no">N O · ${p.no} — S / S  2 0 2 6</div>
       <h2 class="modal__name">${p.name}</h2>
       <div class="modal__en">${p.en}</div>
 
@@ -3409,7 +3380,7 @@ function openProduct(no) {
           `).join('')}
         </div>
         ${p.stock > 0 && p.stock <= 3
-          ? `<p class="stock-note"><strong>誠實提示：</strong>此款僅剩 ${p.stock} 件</p>`
+          ? `<p class="stock-note">僅剩 ${p.stock} 件</p>`
           : ''}
       </div>
 
@@ -3419,7 +3390,7 @@ function openProduct(no) {
           <span id="qtyNum">${state.selectedQty}</span>
           <button type="button" data-action="qtyUp">+</button>
         </div>
-        <button class="add-btn" id="addToCart" type="button">加入購物車 ADD TO CART</button>
+        <button class="add-btn" id="addToCart" type="button"><span class="add-btn__zh">加入購物車</span><span class="add-btn__en">ADD TO CART</span></button>
       </div>
     </div>
   `;
@@ -3624,7 +3595,7 @@ function renderSummary() {
   `).join('');
 
   const sub = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const shipping = sub >= 3000 ? 0 : 80;
+  const shipping = sub >= 3000 ? 0 : 100;
   const pay = ($('input[name="pay"]:checked') || {}).value;
   const codFee = pay === 'cod' ? 30 : 0;
   const final = sub + shipping + codFee;
