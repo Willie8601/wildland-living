@@ -1903,47 +1903,99 @@ body.is-menu-open .site-header {
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 22px;
 }
 .form-grid--full { grid-template-columns: 1fr; }
 
 .field { display: flex; flex-direction: column; }
-.field label {
-  font-family: var(--font-display);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  color: var(--muted);
-  margin-bottom: 8px;
-  text-transform: uppercase;
+
+/* ============================================================
+   Floating Label — 標籤在輸入框內、輸入或聚焦時彈到上方
+   設計理由：根本上避免 iOS 把獨立 label 自動 highlight 為可選文字
+   ============================================================ */
+.field--float {
+  position: relative;
+  display: block;
 }
-.field label .required {
-  display: inline-block;
-  margin-left: -0.18em; /* 抵銷父層 letter-spacing 造成的視覺空白 */
-  letter-spacing: 0;
-  color: var(--wild);
-  font-weight: 400;
-}
-.field input,
-.field select,
-.field textarea {
+.field--float input,
+.field--float select,
+.field--float textarea {
+  width: 100%;
   font-family: var(--font-body);
   font-size: 14px;
-  padding: 14px 16px;
+  padding: 22px 16px 10px;        /* 上 padding 多、留空間給浮起的 label */
   border: 1px solid var(--line);
-  background: rgba(255, 253, 245, 0.5);
   border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
   color: var(--forest);
-  outline: none;
   transition: border-color .2s, background .2s;
+  box-sizing: border-box;
 }
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color: var(--wild);
+.field--float input:focus,
+.field--float select:focus,
+.field--float textarea:focus {
+  outline: none;
+  border-color: var(--shade);
   background: #fff;
 }
-.field textarea { resize: vertical; min-height: 80px; }
+.field--float textarea { min-height: 90px; resize: vertical; }
 
+/* label：絕對定位、預設在輸入框中央偏左、像 placeholder */
+.field--float label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  pointer-events: none;            /* 防 label 被點到 / 被 iOS 偵測為可選 */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  background: transparent;
+  padding: 0 4px;
+  transition: top .18s ease, font-size .18s ease, color .18s ease, letter-spacing .18s ease;
+  text-transform: none;            /* floating 時不要 uppercase */
+}
+
+/* 浮起狀態：input 聚焦時 OR placeholder 已不顯示（代表有值）OR select 已選擇 */
+.field--float input:focus + label,
+.field--float input:not(:placeholder-shown) + label,
+.field--float textarea:focus + label,
+.field--float textarea:not(:placeholder-shown) + label,
+.field--float select:focus + label,
+.field--float select:valid + label {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+  transform-origin: left center;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--shade);
+  background: var(--mist);          /* 跟 checkout-body 背景一致、視覺切出輸入框邊框 */
+}
+
+/* textarea 的 label 不要垂直置中、固定在頂部 */
+.field--float textarea ~ label {
+  top: 22px;
+  transform: translateY(0);
+}
+.field--float textarea:focus + label,
+.field--float textarea:not(:placeholder-shown) + label {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+}
+
+/* select 的小箭頭 */
+.field--float select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%237B8568' stroke-width='1.4' d='M1 1l4 4 4-4'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 38px;
+}
 .pay-options { display: flex; flex-direction: column; gap: 10px; }
 .pay-opt {
   display: flex;
@@ -3003,7 +3055,7 @@ body.is-locked { overflow: hidden; }
   <div class="hero__content">
     <div class="wrap hero__content-inner">
       <h1 class="hero__title">把<em>原野</em>，穿在身上。</h1>
-      <div class="hero__en">WEAR · THE · WILD</div>
+      <div class="hero__en">WEAR THE WILD</div>
       <a href="#story" class="hero__cta-single">
         了解我們
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -3414,19 +3466,19 @@ body.is-locked { overflow: hidden; }
       <section>
         <h3><i>1</i>聯絡資訊</h3>
         <div class="form-grid form-grid--full">
-          <div class="field">
-            <label>Email <span class="required" aria-hidden="true">*</span></label>
-            <input type="email" name="email" required placeholder="hello@example.com">
+          <div class="field field--float">
+            <input type="email" name="email" id="fEmail" required placeholder=" ">
+            <label for="fEmail">Email</label>
           </div>
         </div>
         <div class="form-grid">
-          <div class="field">
-            <label>姓名 <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" name="name" required placeholder="王小明">
+          <div class="field field--float">
+            <input type="text" name="name" id="fName" required placeholder=" ">
+            <label for="fName">姓名</label>
           </div>
-          <div class="field">
-            <label>聯絡電話 <span class="required" aria-hidden="true">*</span></label>
-            <input type="tel" name="phone" required placeholder="0912 345 678">
+          <div class="field field--float">
+            <input type="tel" name="phone" id="fPhone" required placeholder=" ">
+            <label for="fPhone">聯絡電話</label>
           </div>
         </div>
       </section>
@@ -3434,10 +3486,9 @@ body.is-locked { overflow: hidden; }
       <section>
         <h3><i>2</i>配送地址</h3>
         <div class="form-grid">
-          <div class="field">
-            <label>城市 <span class="required" aria-hidden="true">*</span></label>
-            <select name="city" required>
-              <option value="">請選擇</option>
+          <div class="field field--float">
+            <select name="city" id="fCity" required>
+              <option value="" disabled selected hidden></option>
               <option>台北市</option><option>新北市</option><option>桃園市</option>
               <option>台中市</option><option>台南市</option><option>高雄市</option>
               <option>基隆市</option><option>新竹市</option><option>新竹縣</option>
@@ -3447,20 +3498,21 @@ body.is-locked { overflow: hidden; }
               <option>台東縣</option><option>澎湖縣</option><option>金門縣</option>
               <option>連江縣</option>
             </select>
+            <label for="fCity">城市</label>
           </div>
-          <div class="field">
-            <label>郵遞區號</label>
-            <input type="text" name="zip" placeholder="例：100">
+          <div class="field field--float">
+            <input type="text" name="zip" id="fZip" placeholder=" ">
+            <label for="fZip">郵遞區號</label>
           </div>
         </div>
         <div class="form-grid form-grid--full">
-          <div class="field">
-            <label>詳細地址 <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" name="address" required placeholder="區、路、巷弄、號樓">
+          <div class="field field--float">
+            <input type="text" name="address" id="fAddress" required placeholder=" ">
+            <label for="fAddress">詳細地址</label>
           </div>
-          <div class="field">
-            <label>備註（選填）</label>
-            <textarea name="note" placeholder="例：希望平日 18:00 後送達"></textarea>
+          <div class="field field--float">
+            <textarea name="note" id="fNote" rows="3" placeholder=" "></textarea>
+            <label for="fNote">備註（選填）</label>
           </div>
         </div>
       </section>
