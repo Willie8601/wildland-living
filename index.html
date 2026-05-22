@@ -537,6 +537,39 @@ body.is-menu-open .site-header {
   height: 18px;
 }
 
+.menu-overlay__external {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.menu-overlay__external a {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  position: relative;
+  padding-bottom: 2px;
+  transition: color .2s ease;
+}
+.menu-overlay__external a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+  transition: opacity .2s ease;
+}
+.menu-overlay__external a:hover {
+  color: var(--wild);
+}
+.menu-overlay__external a:hover::after {
+  opacity: 0.6;
+}
+
 /* 手機微調 */
 @media (max-width: 560px) {
   .menu-overlay__inner {
@@ -579,6 +612,7 @@ body.is-menu-open .site-header {
   z-index: 0;
 }
 .hero__svg,
+.hero__img,
 .hero__media > img {
   position: absolute;
   inset: 0;
@@ -587,17 +621,27 @@ body.is-menu-open .site-header {
   object-fit: cover;
 }
 
+/* 整體淡霧白覆蓋：把較陰的真實照片往「晨霧」氣味拉一點，貼品牌大全 */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(242, 239, 230, 0.22);
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* 底部漸層：保證文字可讀，從透明→薄霧白 */
 .hero::after {
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 60%;
+  height: 75%;
   background: linear-gradient(
     to bottom,
     rgba(242, 239, 230, 0) 0%,
-    rgba(242, 239, 230, 0.35) 45%,
-    rgba(242, 239, 230, 0.78) 100%
+    rgba(242, 239, 230, 0.55) 50%,
+    rgba(242, 239, 230, 0.92) 100%
   );
   z-index: 1;
   pointer-events: none;
@@ -908,8 +952,6 @@ body.is-menu-open .site-header {
   color: var(--shade) !important;
   padding: 24px 0 !important;
   margin: 12px 0 28px !important;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 .founder__sign {
   display: inline-flex;
@@ -921,16 +963,11 @@ body.is-menu-open .site-header {
   letter-spacing: 0.22em;
   color: var(--muted);
 }
-.founder__sign-line {
-  width: 36px; height: 1px;
-  background: var(--muted);
-}
 .founder__sign-name { color: var(--shade); }
 .founder__sign-meta { opacity: 0.6; }
 
 @media (max-width: 600px) {
   .founder__sign { flex-direction: column; gap: 6px; }
-  .founder__sign-line { width: 24px; }
 }
 
 /* ========================================================================
@@ -2565,36 +2602,81 @@ body.is-menu-open .site-header {
   text-transform: uppercase;
 }
 
+/* 尺寸表：極簡橫線式，貼品牌大全 §05 線條系統 */
+.size-table-wrap {
+  margin: 8px 0 0;
+}
 .size-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  table-layout: fixed;
 }
 .size-table th,
 .size-table td {
-  padding: 12px 8px;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
+  padding: 16px 4px;
+  text-align: center;
   font-weight: 400;
-}
-.size-table th {
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: 13px;
   color: var(--shade);
-  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.size-table thead th {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-weight: 500;
+  padding: 0 4px 12px;
+  border-bottom: 1px solid var(--shade);
 }
 .size-table tbody th {
+  text-align: left;
+  font-size: 12px;
   color: var(--muted);
-  font-weight: 400;
+  letter-spacing: 0.04em;
+  width: 24%;
+}
+.size-table tbody th .en {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-top: 2px;
+  text-transform: uppercase;
 }
 .size-table tr:last-child td,
 .size-table tr:last-child th { border-bottom: none; }
+.size-table td {
+  white-space: nowrap;
+}
+.size-table .unit {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 0;
+  margin-top: 3px;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+}
 
+/* 手機版：保留表格樣態，允許水平滾動 */
 @media (max-width: 600px) {
-  .size-table { font-size: 11px; }
-  .size-table th, .size-table td { padding: 8px 4px; }
+  .size-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-right: calc(var(--gutter) * -1);
+    padding-right: var(--gutter);
+  }
+  .size-table {
+    min-width: 480px;
+    table-layout: auto;
+  }
+  .size-table th,
+  .size-table td { padding: 14px 10px; font-size: 12px; }
+  .size-table tbody th { width: auto; white-space: nowrap; padding-right: 16px; }
 }
 
 /* ========================================================================
@@ -2913,27 +2995,9 @@ body.is-locked { overflow: hidden; }
         </details>
       </li>
       <li>
-        <a href="#" data-menu-link data-action="openCart">
-          <span class="menu-list__zh">購物車</span>
-          <span class="menu-list__en" id="menuCartCount">Cart</span>
-        </a>
-      </li>
-      <li>
         <a href="#" data-menu-link data-action="openSizeChart">
           <span class="menu-list__zh">尺寸對照表</span>
           <span class="menu-list__en">Size Guide</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">
-          <span class="menu-list__zh">Shopee</span>
-          <span class="menu-list__en">蝦皮商城</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">
-          <span class="menu-list__zh">Linktree</span>
-          <span class="menu-list__en">所有連結</span>
         </a>
       </li>
       <li>
@@ -2944,11 +3008,16 @@ body.is-locked { overflow: hidden; }
       </li>
     </ul>
 
-    <!-- 底部：品牌字樣 + 社群 -->
+    <!-- 底部：品牌字樣 + 外部連結 + 社群 -->
     <div class="menu-overlay__foot">
       <div class="menu-overlay__brand">
         <span class="menu-overlay__brand-zh">原野日常</span>
         <span class="menu-overlay__brand-en">WILDLAND LIVING</span>
+      </div>
+
+      <div class="menu-overlay__external">
+        <a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">在 Shopee 找我們</a>
+        <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener">所有連結 · Linktree</a>
       </div>
 
       <div class="menu-overlay__social">
@@ -2986,69 +3055,7 @@ body.is-locked { overflow: hidden; }
     未來換成真實照片：把 .hero__media 內的 <svg> 換成 <img src="./hero.jpg" alt="..." />
   -->
   <div class="hero__media" aria-hidden="true">
-    <svg class="hero__svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#F2EFE6"/>
-          <stop offset="55%" stop-color="#E8E8DC"/>
-          <stop offset="100%" stop-color="#D8DCC8"/>
-        </linearGradient>
-        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#C9D1B8" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#C9D1B8" stop-opacity="0.7"/>
-        </linearGradient>
-        <radialGradient id="mistGrad" cx="50%" cy="55%" r="55%">
-          <stop offset="0%" stop-color="#F2EFE6" stop-opacity="0.85"/>
-          <stop offset="60%" stop-color="#F2EFE6" stop-opacity="0.4"/>
-          <stop offset="100%" stop-color="#F2EFE6" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="treeFade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3D4A38" stop-opacity="0.55"/>
-          <stop offset="100%" stop-color="#3D4A38" stop-opacity="0.15"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="400" height="500" fill="url(#skyGrad)"/>
-      <g opacity="0.18" fill="#3D4A38">
-        <polygon points="0,290 25,210 50,290"/>
-        <polygon points="40,290 65,225 90,290"/>
-        <polygon points="80,290 105,200 130,290"/>
-        <polygon points="125,290 150,220 175,290"/>
-        <polygon points="170,290 195,205 220,290"/>
-        <polygon points="215,290 240,215 265,290"/>
-        <polygon points="255,290 280,200 305,290"/>
-        <polygon points="295,290 320,225 345,290"/>
-        <polygon points="335,290 360,210 385,290"/>
-        <polygon points="375,290 400,220 400,290"/>
-      </g>
-      <g opacity="0.35" fill="#3D4A38">
-        <polygon points="0,330 30,225 60,330"/>
-        <polygon points="50,330 85,210 120,330"/>
-        <polygon points="110,330 145,235 180,330"/>
-        <polygon points="170,330 205,215 240,330"/>
-        <polygon points="230,330 265,220 300,330"/>
-        <polygon points="290,330 325,230 360,330"/>
-        <polygon points="350,330 385,215 400,330"/>
-      </g>
-      <rect x="0" y="320" width="400" height="180" fill="url(#groundGrad)"/>
-      <path d="M 140 500 L 195 320 L 205 320 L 260 500 Z" fill="#F2EFE6" opacity="0.55"/>
-      <line x1="140" y1="500" x2="195" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
-      <line x1="260" y1="500" x2="205" y2="320" stroke="#3D4A38" stroke-width="0.6" opacity="0.35"/>
-      <g fill="url(#treeFade)">
-        <polygon points="20,500 50,280 80,500"/>
-        <polygon points="55,500 90,310 125,500"/>
-        <polygon points="285,500 320,290 355,500"/>
-        <polygon points="335,500 370,305 400,500"/>
-      </g>
-      <g stroke="#3D4A38" stroke-width="1.2" opacity="0.4">
-        <line x1="50" y1="500" x2="50" y2="320"/>
-        <line x1="90" y1="500" x2="90" y2="340"/>
-        <line x1="320" y1="500" x2="320" y2="330"/>
-        <line x1="370" y1="500" x2="370" y2="345"/>
-      </g>
-      <rect x="0" y="0" width="400" height="500" fill="url(#mistGrad)"/>
-      <rect x="0" y="240" width="400" height="40" fill="#F2EFE6" opacity="0.5"/>
-      <rect x="0" y="280" width="400" height="30" fill="#F2EFE6" opacity="0.3"/>
-    </svg>
+    <img src="./assets/hero.jpg" alt="" class="hero__img" loading="eager" fetchpriority="high" />
   </div>
 
   <!-- 文字層：靠下置中 -->
@@ -3152,7 +3159,7 @@ body.is-locked { overflow: hidden; }
     <span class="founder__mark fade-up" aria-hidden="true"></span>
 
     <blockquote class="founder__quote fade-up">
-      <p>我們不只是賣衣服，<br />我們提供一種新的生活提案——</p>
+      <p>我們不只是賣衣服，<br />我們提供一種新的生活提案</p>
       <p class="founder__creed">
         少一點消費，多一點生活。<br />
         少一點焦慮，多一點自在。<br />
@@ -3162,7 +3169,6 @@ body.is-locked { overflow: hidden; }
     </blockquote>
 
     <div class="founder__sign fade-up">
-      <span class="founder__sign-line"></span>
       <span class="founder__sign-name">W · 原野日常</span>
     </div>
   </div>
@@ -3335,8 +3341,7 @@ body.is-locked { overflow: hidden; }
           <small>WILDLAND LIVING</small>
         </div>
         <p class="footer__tag">
-          把原野，穿在身上。<br />
-          少一點消費，多一點生活。
+          把原野，穿在身上。
         </p>
         <a href="https://linktr.ee/wildland_living" target="_blank" rel="noopener" class="footer__linktree">
           所有連結 · Linktree
@@ -3350,7 +3355,7 @@ body.is-locked { overflow: hidden; }
           <li><a href="#" id="footerSizeChart">尺寸對照表</a></li>
           <li><a href="#promises">配送與付款</a></li>
           <li><a href="#promises">退換貨政策</a></li>
-          <li><a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">Shopee 賣場</a></li>
+          <li><a href="https://shopee.tw/pohaohuang86" target="_blank" rel="noopener">在 Shopee 找我們</a></li>
         </ul>
       </div>
 
@@ -3358,7 +3363,7 @@ body.is-locked { overflow: hidden; }
         <h4>ABOUT</h4>
         <ul>
           <li><a href="#story">品牌故事</a></li>
-          <li><a href="#quality">品質誠實</a></li>
+          <li><a href="#quality">我們不掩飾</a></li>
           <li><a href="#about">寫給你的信</a></li>
           <li><a href="https://willie8601.github.io/feedback-form/" target="_blank" rel="noopener">分享你的想法</a></li>
         </ul>
@@ -3683,40 +3688,60 @@ body.is-locked { overflow: hidden; }
     <h3>尺寸對照表</h3>
 
     <h4>Men's & Unisex · 男款 / 中性款</h4>
-    <table class="size-table">
-      <thead>
-        <tr><th></th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>胸圍 Chest</th>
-          <td>81-86 cm</td><td>86-92 cm</td><td>92-97 cm</td>
-          <td>99-104 cm</td><td>104-109 cm</td><td>109-116 cm</td>
-        </tr>
-        <tr>
-          <th>腰圍 Waist</th>
-          <td>71 cm</td><td>76 cm</td><td>82 cm</td>
-          <td>86 cm</td><td>92 cm</td><td>—</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr><th></th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>胸圍<span class="en">Chest</span></th>
+            <td>81–86<span class="unit">cm</span></td>
+            <td>86–92<span class="unit">cm</span></td>
+            <td>92–97<span class="unit">cm</span></td>
+            <td>99–104<span class="unit">cm</span></td>
+            <td>104–109<span class="unit">cm</span></td>
+            <td>109–116<span class="unit">cm</span></td>
+          </tr>
+          <tr>
+            <th>腰圍<span class="en">Waist</span></th>
+            <td>71<span class="unit">cm</span></td>
+            <td>76<span class="unit">cm</span></td>
+            <td>82<span class="unit">cm</span></td>
+            <td>86<span class="unit">cm</span></td>
+            <td>92<span class="unit">cm</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <h4>Women's · 女款</h4>
-    <table class="size-table">
-      <thead>
-        <tr><th></th><th>8 / XS</th><th>10 / S</th><th>12 / M</th><th>14 / L</th><th>16 / XL</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>胸圍 Chest</th>
-          <td>81 cm</td><td>86 cm</td><td>91 cm</td><td>97 cm</td><td>102 cm</td>
-        </tr>
-        <tr>
-          <th>腰圍 Waist</th>
-          <td>66 cm</td><td>71 cm</td><td>76 cm</td><td>82 cm</td><td>86 cm</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr><th></th><th>8 / XS</th><th>10 / S</th><th>12 / M</th><th>14 / L</th><th>16 / XL</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>胸圍<span class="en">Chest</span></th>
+            <td>81<span class="unit">cm</span></td>
+            <td>86<span class="unit">cm</span></td>
+            <td>91<span class="unit">cm</span></td>
+            <td>97<span class="unit">cm</span></td>
+            <td>102<span class="unit">cm</span></td>
+          </tr>
+          <tr>
+            <th>腰圍<span class="en">Waist</span></th>
+            <td>66<span class="unit">cm</span></td>
+            <td>71<span class="unit">cm</span></td>
+            <td>76<span class="unit">cm</span></td>
+            <td>82<span class="unit">cm</span></td>
+            <td>86<span class="unit">cm</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p style="font-size: 12px; color: var(--muted); margin-top: 24px; line-height: 1.9;">
       ※ 此為「身材」對應的建議尺寸，並非衣服平量尺寸。<br />
@@ -4121,12 +4146,6 @@ function renderCart() {
     badge.hidden = false;
   } else {
     badge.hidden = true;
-  }
-
-  // 同步選單裡的購物車數量（無商品時保持英文副標 "Cart"）
-  const menuBadge = $('#menuCartCount');
-  if (menuBadge) {
-    menuBadge.textContent = count > 0 ? `${count} 件商品` : 'Cart';
   }
 
   if (state.cart.length === 0) {
