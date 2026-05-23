@@ -720,10 +720,10 @@ body.is-menu-open .site-header {
   height: 16px;
 }
 
-/* ─── 左下：副標金句 ─── */
-.hero__sub-left {
+/* ─── 右下：副標金句 ─── */
+.hero__sub-right {
   position: absolute;
-  left: var(--gutter);
+  right: var(--gutter);
   bottom: clamp(50px, 8vh, 100px);
   display: flex;
   align-items: flex-start;
@@ -736,13 +736,14 @@ body.is-menu-open .site-header {
   background: rgba(242, 239, 230, 0.7);
   margin-top: 12px;
 }
-.hero__sub-left p {
+.hero__sub-right p {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(13px, 1.15vw, 15px);
   letter-spacing: 0.12em;
   line-height: 1.8;
   color: rgba(242, 239, 230, 0.92);
+  text-align: right;
 }
 
 /* ─── 右下：極小版權字 ─── */
@@ -796,8 +797,8 @@ body.is-menu-open .site-header {
     flex: 0 0 28px;
   }
 
-  /* 手機收掉左下副標與右下版權，避免遮蓋公路與擁擠 */
-  .hero__sub-left,
+  /* 手機收掉副標與版權，避免遮蓋公路與擁擠 */
+  .hero__sub-right,
   .hero__credit {
     display: none;
   }
