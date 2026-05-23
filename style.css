@@ -1768,10 +1768,28 @@ body.is-menu-open .site-header {
 .add-btn:disabled { background: var(--line); cursor: not-allowed; }
 
 @media (max-width: 760px) {
-  .modal { width: 100vw; height: 100vh; max-height: 100vh; top: 0; left: 0; transform: none; border-radius: 0; }
+  .modal {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    /* dvh：會隨 Safari/Chrome iOS 工具列收合自動調整可視高度，
+       原本 100vh 會把工具列那塊也算進去，導致 modal 比實際螢幕高，
+       底部加入購物車鈕就捲不到。 */
+    height: 100dvh;
+    max-height: 100dvh;
+    top: 0; left: 0;
+    transform: none;
+    border-radius: 0;
+  }
   .modal.is-open { transform: none; }
   .modal__grid { grid-template-columns: 1fr; }
   .modal__visual { aspect-ratio: 5/4; }
+
+  /* 內容區底部多留一截，確保 add-row 不會貼在瀏覽器工具列邊緣，
+     env(safe-area-inset-bottom) 對應 iPhone home indicator。 */
+  .modal__info {
+    padding-bottom: calc(clamp(30px, 4vw, 56px) + env(safe-area-inset-bottom, 0));
+  }
 }
 
 /* ========================================================================
