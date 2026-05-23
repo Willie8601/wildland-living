@@ -606,17 +606,21 @@ body.is-menu-open .site-header {
 /* ========================================================================
    02 · Hero 區
    ======================================================================== */
+/* ============================================================
+   HERO — 電影海報風
+   ── 圖片是主角，文字浮在上面而非被遮罩壓蓋
+   ── 大標白色 + 微陰影 / 左下徽記 / 副標細線 / 右下版權字
+   ============================================================ */
 .hero {
   position: relative;
-  min-height: 88vh;
-  min-height: 88dvh; /* iOS 動態視窗高度 */
+  min-height: 92vh;
+  min-height: 92dvh;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: var(--mist);
+  background: var(--shade);  /* 圖載入前的底色，避免閃白 */
 }
 
-/* 滿版背景圖層（SVG 或未來換 <img>） */
 .hero__media {
   position: absolute;
   inset: 0;
@@ -630,84 +634,197 @@ body.is-menu-open .site-header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* 微微調整色調，與品牌色更搭 */
+  filter: saturate(0.92) contrast(1.05);
 }
 
-/* 底部漸層：保證文字可讀，從透明→薄霧白 */
-.hero::after {
+/* 電影海報風暗角 — 左下與右上對角漸層，比舊版的霧白底淡 */
+.hero::before {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 70%;
-  background: linear-gradient(
-    to bottom,
-    rgba(242, 239, 230, 0) 0%,
-    rgba(242, 239, 230, 0.45) 50%,
-    rgba(242, 239, 230, 0.88) 100%
-  );
+  inset: 0;
+  background:
+    /* 左下角加重，承接大標的視覺重量 */
+    linear-gradient(
+      to top right,
+      rgba(31, 42, 30, 0.55) 0%,
+      rgba(31, 42, 30, 0.15) 35%,
+      transparent 60%
+    ),
+    /* 整體底部極淡漸層，僅做為文字可讀的保險 */
+    linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(31, 42, 30, 0.25) 100%
+    );
   z-index: 1;
   pointer-events: none;
 }
 
-/* 文字層 */
+/* 文字層 — 不再 flex 置中，改用絕對定位讓四個角各自有元素 */
 .hero__content {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 0 0 clamp(56px, 9vh, 120px);
 }
 .hero__content-inner {
-  text-align: center;
+  position: relative;
+  min-height: 92vh;
+  min-height: 92dvh;
+}
+
+/* 大標題區 — 靠左、貼底，但離邊保留呼吸 */
+.hero__head {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(80px, 12vh, 140px);
   max-width: 720px;
-  margin: 0 auto;
+}
+
+/* 副標細線金句 — 在大標上方，像電影海報的 tagline */
+.hero__sub {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.2vw, 15px);
+  letter-spacing: 0.16em;
+  color: rgba(242, 239, 230, 0.92);
+  margin: 0 0 22px;
+  padding-left: 38px;
+  position: relative;
+  line-height: 1.4;
+}
+/* 細線：副標前方的水平線，編輯感的標記 */
+.hero__sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 26px;
+  height: 1px;
+  background: rgba(242, 239, 230, 0.7);
 }
 
 .hero__title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(36px, 7vw, 72px);
-  line-height: 1.3;
-  letter-spacing: 0.06em;
-  color: var(--shade);
-  margin: 0 0 18px;
+  font-size: clamp(40px, 7.5vw, 84px);
+  line-height: 1.18;
+  letter-spacing: 0.04em;
+  color: #F5F2E9;
+  margin: 0 0 22px;
+  /* 微陰影，讓白字浮在圖上有重量 */
+  text-shadow: 0 2px 24px rgba(31, 42, 30, 0.35);
 }
 .hero__title em {
   font-style: normal;
-  color: var(--wild);
+  color: var(--meadow);  /* 淺草綠，跟原野綠對應但更亮 */
+  /* 在霧綠底色上更跳出來 */
+  text-shadow: 0 2px 18px rgba(31, 42, 30, 0.45);
 }
+
 .hero__en {
   font-family: var(--font-display);
   font-size: clamp(11px, 1.1vw, 13px);
   letter-spacing: 0.42em;
-  color: var(--muted);
+  color: rgba(242, 239, 230, 0.7);
   text-transform: uppercase;
-  margin: 0 0 40px;
+  margin: 0 0 36px;
 }
 
-/* 單一 CTA — 文字底線型，比按鈕更靜（極簡 / 內容電商感） */
+/* CTA — 改成白色底線、有電影感的字距 */
 .hero__cta-single {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   font-family: var(--font-display);
   font-size: 14px;
   letter-spacing: 0.22em;
-  color: var(--shade);
-  padding: 4px 2px;
-  border-bottom: 1px solid var(--shade);
-  transition: gap .25s ease, color .25s ease, border-color .25s ease;
+  color: #F5F2E9;
+  padding: 6px 2px;
+  border-bottom: 1px solid rgba(242, 239, 230, 0.85);
+  transition: gap .3s ease, color .3s ease, border-color .3s ease;
 }
 .hero__cta-single:hover {
-  gap: 18px;
-  color: var(--wild);
-  border-color: var(--wild);
+  gap: 22px;
+  color: var(--meadow);
+  border-color: var(--meadow);
 }
-.hero__cta-single svg { width: 16px; height: 16px; }
+.hero__cta-single svg {
+  width: 16px;
+  height: 16px;
+}
 
-@media (max-width: 600px) {
-  .hero { min-height: 78vh; min-height: 78dvh; }
-  .hero__content { padding-bottom: 40px; }
-  .hero__title { letter-spacing: 0.04em; }
-  .hero__en { margin-bottom: 28px; }
+/* 左下徽記 — 季別 / 編號，像電影海報的「Coming Soon · Spring 2026」 */
+.hero__badge {
+  position: absolute;
+  left: var(--gutter);
+  top: clamp(80px, 12vh, 140px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero__badge-line {
+  width: 28px;
+  height: 1px;
+  background: rgba(242, 239, 230, 0.6);
+}
+.hero__badge-text {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: rgba(242, 239, 230, 0.85);
+  text-transform: uppercase;
+}
+
+/* 右下角小字 — 像電影海報底角的版權標 */
+.hero__credit {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(40px, 6vh, 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: rgba(242, 239, 230, 0.55);
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 1.4;
+}
+.hero__credit span:nth-child(2) {
+  color: rgba(242, 239, 230, 0.35);
+  margin: 2px 0;
+}
+
+/* ──────────────────────────────────────
+   手機版：徽記縮小、右下角隱藏避免擁擠
+   ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero { min-height: 88vh; min-height: 88dvh; }
+  .hero__content-inner { min-height: 88vh; min-height: 88dvh; }
+  .hero__head {
+    bottom: clamp(60px, 9vh, 100px);
+    max-width: none;
+  }
+  .hero__title {
+    letter-spacing: 0.02em;
+    line-height: 1.22;
+  }
+  .hero__sub {
+    font-size: 12px;
+    padding-left: 32px;
+    margin-bottom: 18px;
+  }
+  .hero__sub::before { width: 22px; }
+  .hero__en { margin-bottom: 26px; }
+  .hero__badge {
+    top: clamp(60px, 9vh, 100px);
+  }
+  .hero__badge-text { font-size: 10px; letter-spacing: 0.26em; }
+  /* 手機版收掉右下角版權字，避免擁擠 */
+  .hero__credit { display: none; }
 }
 
 /* 通用按鈕（訂單成功頁、商品 modal 等共用） */
@@ -3185,18 +3302,40 @@ body.is-locked {
     <img src="hero.jpg" alt="晨霧中的林間小徑" class="hero__img" loading="eager" fetchpriority="high" decoding="async" width="1440" height="900" />
   </div>
 
-  <!-- 文字層：靠下置中 -->
+  <!-- 文字層：電影海報風 — 大標跨入、左下徽記、右下版權字 -->
   <div class="hero__content">
     <div class="wrap hero__content-inner">
-      <h1 class="hero__title">把<em>原野</em>，穿在身上。</h1>
-      <div class="hero__en">WEAR THE WILD</div>
-      <a href="#story" class="hero__cta-single">
-        了解我們
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </a>
+
+      <!-- 左下徽記 — 標明季別與編號，編輯感 -->
+      <div class="hero__badge" aria-hidden="true">
+        <span class="hero__badge-line"></span>
+        <span class="hero__badge-text">S/S 2026 · NO.01</span>
+      </div>
+
+      <!-- 主標題區 — 副標細線金句 + 大標 + CTA -->
+      <div class="hero__head">
+        <div class="hero__sub">一件好衣 · 跨越會議與山徑</div>
+        <h1 class="hero__title">
+          把<em>原野</em>，<br />
+          穿在身上。
+        </h1>
+        <div class="hero__en">WEAR THE WILD</div>
+        <a href="#story" class="hero__cta-single">
+          <span>了解我們的故事</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 右下角小字 — 電影海報常見的版權字樣式 -->
+      <div class="hero__credit" aria-hidden="true">
+        <span>Wildland Living Co.</span>
+        <span>—</span>
+        <span>2026</span>
+      </div>
+
     </div>
   </div>
 </section>
