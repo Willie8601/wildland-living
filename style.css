@@ -1790,6 +1790,12 @@ body.is-menu-open .site-header {
   .modal__info {
     padding-bottom: calc(clamp(30px, 4vw, 56px) + env(safe-area-inset-bottom, 0));
   }
+
+  /* 手機版按鈕降高，桌機維持原樣 */
+  .qty-stepper button { height: 42px; }
+  .add-btn { padding: 8px 16px; }
+  .add-btn__zh { font-size: 13.5px; }
+  .add-btn__en { font-size: 10px; }
 }
 
 /* ========================================================================
