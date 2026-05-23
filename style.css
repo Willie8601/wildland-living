@@ -265,6 +265,8 @@ body.is-menu-open .site-header {
   top: 0; right: 0;
   width: 100vw;
   height: 100vh;
+  /* dvh：避免底部選項被瀏覽器工具列遮住 */
+  height: 100dvh;
   background: var(--mist);
   z-index: 210;
   visibility: hidden;
@@ -1806,6 +1808,8 @@ body.is-menu-open .site-header {
   top: 0; right: 0;
   width: min(460px, 100vw);
   height: 100vh;
+  /* dvh：跟 modal 同樣道理，避免被 Safari/Chrome iOS 工具列吃掉底部 */
+  height: 100dvh;
   background: var(--mist);
   z-index: 210;
   transform: translateX(100%);
@@ -1945,6 +1949,8 @@ body.is-menu-open .site-header {
 
 .cart-drawer__foot {
   padding: 24px 28px;
+  /* 底部加上 iPhone 安全區，避免被 home indicator 蓋住 */
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0));
   border-top: 1px solid var(--line);
   background: rgba(201, 209, 184, 0.18);
 }
