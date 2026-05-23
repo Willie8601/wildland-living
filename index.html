@@ -319,12 +319,13 @@
     視覺邏輯：照片中段的公路引導視線進入畫面，文字分布讓視線繞一圈
   -->
   <div class="hero__media" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 768px)" srcset="hero-mobile.jpg" />
-      <img src="hero.jpg" alt="霧中蜿蜒的公路通往遠方的雪山" class="hero__img"
-           loading="eager" fetchpriority="high" decoding="async"
-           width="1600" height="1067" />
-    </picture>
+    <img src="hero.jpg"
+         srcset="hero-mobile.jpg 1400w, hero.jpg 1920w"
+         sizes="100vw"
+         alt="霧中蜿蜒的公路通往遠方的雪山"
+         class="hero__img"
+         loading="eager" fetchpriority="high" decoding="async"
+         width="1920" height="1280" />
   </div>
 
   <!-- 文字層 -->

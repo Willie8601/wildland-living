@@ -588,8 +588,13 @@ body.is-menu-open .site-header {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* 配合品牌氣味的細微調整 */
-  filter: saturate(0.95) brightness(0.95);
+  /* 提示瀏覽器以高品質演算法縮放圖片，行動裝置上明顯更銳利 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  /* 強制 GPU 合成層，避免在某些行動瀏覽器上被視為一般紋理而降採樣 */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* 注意：色調已在圖檔本身處理過，CSS 不再做 filter，避免手機 GPU 二次光柵化造成模糊 */
 }
 
 /* 漸層遮罩 — 三層，分別保護上中標題、左下副標、右下小字的可讀性 */
