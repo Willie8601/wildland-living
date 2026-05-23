@@ -1772,40 +1772,51 @@ body.is-menu-open .site-header {
     width: 100vw;
     height: 100vh;
     max-height: 100vh;
-    /* dvh 動態視窗高度：iOS Safari 把瀏覽器工具列也算進去，
-       100vh 會超出可視範圍，導致底部加入購物車鈕被遮。
-       100dvh 會隨工具列收合自動調整，是這類捲動容器的標準解。
-       舊瀏覽器 fallback 用上面的 100vh。 */
+    /* dvh 動態視窗高度，會隨瀏覽器工具列收合自動調整 */
     height: 100dvh;
     max-height: 100dvh;
     top: 0; left: 0;
     transform: none;
     border-radius: 0;
-    /* 用 flex 排版，讓 grid 內容可捲動 */
+    /* modal 本身不捲動，讓內部 grid 區捲動 */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* iOS 安全區（瀏海機底部 home indicator） */
-    padding-bottom: env(safe-area-inset-bottom);
   }
   .modal.is-open { transform: none; }
   .modal__grid {
     grid-template-columns: 1fr;
-    /* 讓內容可獨立捲動，且最後一個按鈕看得到 */
+    /* 內容區獨立捲動 */
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    /* 給底部多留一截，避免最後一個按鈕貼著螢幕邊 */
-    padding-bottom: 32px;
   }
   .modal__visual { aspect-ratio: 5/4; }
-  /* 關閉按鈕固定在右上，不跟著內容捲走 */
+
+  /* 關鍵修正:加入購物車按鈕條 sticky 在 modal 底部
+     不管 Safari/Chrome iOS 工具列在不在,按鈕永遠看得到 */
+  .modal__info .add-row {
+    position: sticky;
+    bottom: 0;
+    margin-top: 24px;
+    margin-left: calc(clamp(30px, 4vw, 56px) * -1);
+    margin-right: calc(clamp(30px, 4vw, 56px) * -1);
+    margin-bottom: calc(clamp(30px, 4vw, 56px) * -1);
+    padding: 16px clamp(30px, 4vw, 56px);
+    /* 安全區 + 額外緩衝,給 Chrome iOS 底部工具列(約 50-90px)留位置 */
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    background: var(--mist);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 16px -8px rgba(31, 42, 30, 0.08);
+    z-index: 5;
+  }
+
+  /* 關閉按鈕固定在右上,不跟著內容捲走 */
   .modal__close {
     position: fixed;
     top: max(14px, env(safe-area-inset-top));
     right: 14px;
   }
-  /* modal 自身就是捲動容器時關掉外層 overflow，避免雙層捲軸 */
-  .modal { overflow: hidden; }
 }
 
 /* ========================================================================
