@@ -684,11 +684,13 @@ body.is-menu-open .site-header {
 
 .hero__en {
   font-family: var(--font-display);
-  font-size: clamp(11px, 1.1vw, 13px);
+  font-size: clamp(12px, 1.2vw, 15px);
   letter-spacing: 0.5em;
-  color: rgba(242, 239, 230, 0.65);
+  color: rgba(242, 239, 230, 0.9);
   text-transform: uppercase;
   margin: 0;
+  /* 極淡陰影,避免在淡色背景區糊掉,但不影響「晨霧」氛圍 */
+  text-shadow: 0 1px 8px rgba(31, 42, 30, 0.25);
 }
 
 /* ─── 中下：CTA，疊在公路前段，視線最終焦點 ─── */
