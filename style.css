@@ -2627,13 +2627,16 @@ body.is-menu-open .site-header {
   background: var(--mist);
   z-index: 230;
   display: none;
-  place-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 48px 0;
 }
-.order-success.is-show { display: grid; }
+.order-success.is-show { display: block; }
 .order-success__inner {
   text-align: center;
   padding: 0 var(--gutter);
   max-width: 480px;
+  margin: 0 auto;
 }
 .order-success__check {
   width: 64px; height: 64px;
