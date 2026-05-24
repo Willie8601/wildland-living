@@ -2057,6 +2057,19 @@ body.is-menu-open .site-header {
   transform: translate(-50%, -50%);
   width: 65%; height: 65%;
 }
+/* 有真實照片時：背景換成薄霧白，圖片用 contain 不切到 */
+.cart-item__visual--has-image,
+.cart-item__visual--has-image[data-tone="A"],
+.cart-item__visual--has-image[data-tone="B"],
+.cart-item__visual--has-image[data-tone="C"] {
+  background: var(--mist);
+}
+.cart-item__visual--has-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
 .cart-item__body { flex: 1; min-width: 0; }
 .cart-item__name {
@@ -2647,6 +2660,19 @@ body.is-menu-open .site-header {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 70%; height: 70%;
+}
+/* 有真實照片時 */
+.summary-item__visual--has-image,
+.summary-item__visual--has-image[data-tone="A"],
+.summary-item__visual--has-image[data-tone="B"],
+.summary-item__visual--has-image[data-tone="C"] {
+  background: var(--mist);
+}
+.summary-item__visual--has-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .summary-item__body { flex: 1; min-width: 0; }
 .summary-item__name {

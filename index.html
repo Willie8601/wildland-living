@@ -1557,7 +1557,8 @@ function addCurrentToCart() {
     state.cart.push({
       id, no: p.no, name: p.name, en: p.en,
       price: p.price, size: state.selectedSize,
-      qty: state.selectedQty, tone: p.tone, type: p.type
+      qty: state.selectedQty, tone: p.tone, type: p.type,
+      image: (Array.isArray(p.images) && p.images.length > 0) ? p.images[0] : null
     });
   }
 
@@ -1598,10 +1599,19 @@ function renderCart() {
     return;
   }
 
-  body.innerHTML = state.cart.map(it => `
+  body.innerHTML = state.cart.map(it => {
+    // 相容舊購物車：若 item 沒有 image 欄位，從 PRODUCTS 查
+    if (it.image === undefined) {
+      const p = PRODUCTS.find(x => x.no === it.no);
+      it.image = (p && Array.isArray(p.images) && p.images.length > 0) ? p.images[0] : null;
+    }
+    return `
     <div class="cart-item" data-id="${it.id}">
-      <div class="cart-item__visual" data-tone="${it.tone}">
-        ${PRODUCT_SVG[it.type] || PRODUCT_SVG.tee}
+      <div class="cart-item__visual ${it.image ? 'cart-item__visual--has-image' : ''}" data-tone="${it.tone}">
+        ${it.image
+          ? `<img src="${it.image}" alt="${it.name}" loading="lazy" decoding="async" />`
+          : (PRODUCT_SVG[it.type] || PRODUCT_SVG.tee)
+        }
       </div>
       <div class="cart-item__body">
         <div class="cart-item__name">${it.name}</div>
@@ -1617,7 +1627,8 @@ function renderCart() {
         <a class="cart-item__remove" data-action="ciRemove">移除</a>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   const subtotal = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
   $('#cartTotal').textContent = fmtPrice(subtotal);
@@ -1684,8 +1695,11 @@ function closeCheckout() {
 function renderSummary() {
   $('#summaryItems').innerHTML = state.cart.map(it => `
     <div class="summary-item">
-      <div class="summary-item__visual" data-tone="${it.tone}">
-        ${PRODUCT_SVG[it.type] || PRODUCT_SVG.tee}
+      <div class="summary-item__visual ${it.image ? 'summary-item__visual--has-image' : ''}" data-tone="${it.tone}">
+        ${it.image
+          ? `<img src="${it.image}" alt="${it.name}" loading="lazy" decoding="async" />`
+          : (PRODUCT_SVG[it.type] || PRODUCT_SVG.tee)
+        }
       </div>
       <div class="summary-item__body">
         <div class="summary-item__name">${it.name}</div>
