@@ -2858,6 +2858,16 @@ body.is-menu-open .site-header {
   .order-pay__amount strong {
     font-size: 22px;
   }
+  .order-pay__channels {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .order-pay__channels a {
+    flex: 1;
+    padding: 10px 12px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 560px) {
