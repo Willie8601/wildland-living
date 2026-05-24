@@ -2791,22 +2791,28 @@ body.is-menu-open .site-header {
 .order-pay__channels {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 .order-pay__channels a {
-  display: inline-block;
-  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.12em;
   color: var(--shade);
   background: var(--mist);
   border: 1px solid var(--line);
   border-radius: 999px;
   text-decoration: none;
+  -webkit-tap-highlight-color: rgba(123, 133, 104, 0.2);
+  touch-action: manipulation;
   transition: background .2s, border-color .2s;
 }
-.order-pay__channels a:hover {
+.order-pay__channels a:hover,
+.order-pay__channels a:active {
   background: var(--meadow);
   border-color: var(--wild);
 }
