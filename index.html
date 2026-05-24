@@ -760,8 +760,33 @@
   </header>
 
   <div class="checkout-body">
-    <form class="checkout-form" id="checkoutForm" novalidate>
+    <aside class="checkout-summary">
+      <div class="checkout-chapter">— I · YOUR PICKS —</div>
+      <h4>你選的這幾件</h4>
+
       <p class="checkout-intro">謝謝你信任我們，為你的衣櫃留一塊原野。</p>
+
+      <div id="summaryItems"><!-- JS render --></div>
+      <div class="summary-totals" id="summaryTotals">
+        <div class="summary-row">
+          <span>商品小計</span>
+          <span id="sumSubtotal">NT$ 0</span>
+        </div>
+        <div class="summary-row">
+          <span>運費</span>
+          <span id="sumShipping">NT$ 100</span>
+        </div>
+        <div class="summary-row summary-row--final">
+          <span>合計</span>
+          <span id="sumFinal">NT$ 0</span>
+        </div>
+      </div>
+    </aside>
+
+    <form class="checkout-form" id="checkoutForm" novalidate>
+      <div class="checkout-chapter">— II · YOUR DETAILS —</div>
+      <h4 class="checkout-form-title">填寫資訊</h4>
+
       <section>
         <h3><i>01</i>留下你的聯絡方式</h3>
         <div class="form-grid form-grid--full">
@@ -884,25 +909,7 @@
           </div>
         </div>
       </section>
-    </form>
 
-    <aside class="checkout-summary">
-      <h4>你選的這幾件 YOUR PICKS</h4>
-      <div id="summaryItems"><!-- JS render --></div>
-      <div class="summary-totals" id="summaryTotals">
-        <div class="summary-row">
-          <span>商品小計</span>
-          <span id="sumSubtotal">NT$ 0</span>
-        </div>
-        <div class="summary-row">
-          <span>運費</span>
-          <span id="sumShipping">NT$ 100</span>
-        </div>
-        <div class="summary-row summary-row--final">
-          <span>合計</span>
-          <span id="sumFinal">NT$ 0</span>
-        </div>
-      </div>
       <button class="place-order-btn" id="placeOrder">
         <span class="place-order-btn__main">完成訂購</span>
         <span class="place-order-btn__sub">一件對的衣服正在路上</span>
@@ -911,7 +918,7 @@
         送出訂單即表示同意《購買條款》<br />
         此為示範版面，金流功能將於串接後啟用
       </p>
-    </aside>
+    </form>
   </div>
 </section>
 
