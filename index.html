@@ -761,8 +761,9 @@
 
   <div class="checkout-body">
     <form class="checkout-form" id="checkoutForm" novalidate>
+      <p class="checkout-intro">謝謝你願意選一件，而不是更多。</p>
       <section>
-        <h3><i>1</i>聯絡資訊</h3>
+        <h3><i>01</i>留下你的聯絡方式</h3>
         <div class="form-grid form-grid--full">
           <div class="field field--float">
             <input type="email" name="email" id="fEmail" required placeholder=" ">
@@ -782,7 +783,7 @@
       </section>
 
       <section>
-        <h3><i>2</i>配送地址</h3>
+        <h3><i>02</i>寄送到哪裡</h3>
         <div class="form-grid">
           <div class="field field--float">
             <select name="city" id="fCity" required>
@@ -816,7 +817,7 @@
       </section>
 
       <section>
-        <h3><i>3</i>付款方式</h3>
+        <h3><i>03</i>選擇付款方式</h3>
         <div class="pay-options">
           <label class="pay-opt">
             <input type="radio" name="pay" value="qr" checked>
@@ -886,7 +887,7 @@
     </form>
 
     <aside class="checkout-summary">
-      <h4>訂單明細 ORDER SUMMARY</h4>
+      <h4>你選的這幾件 YOUR PICKS</h4>
       <div id="summaryItems"><!-- JS render --></div>
       <div class="summary-totals" id="summaryTotals">
         <div class="summary-row">
@@ -902,7 +903,10 @@
           <span id="sumFinal">NT$ 0</span>
         </div>
       </div>
-      <button class="place-order-btn" id="placeOrder">完成訂購 PLACE ORDER</button>
+      <button class="place-order-btn" id="placeOrder">
+        <span class="place-order-btn__main">完成訂購</span>
+        <span class="place-order-btn__sub">一件對的衣服正在路上</span>
+      </button>
       <p class="checkout-note">
         送出訂單即表示同意《購買條款》<br />
         此為示範版面，金流功能將於串接後啟用

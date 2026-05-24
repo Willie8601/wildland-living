@@ -1998,7 +1998,7 @@ body.is-menu-open .site-header {
 .checkout-page {
   position: fixed;
   inset: 0;
-  background: var(--mist);
+  background: #F7F4EB;
   z-index: 220;
   overflow-y: auto;
   display: none;
@@ -2011,7 +2011,7 @@ body.is-menu-open .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--mist);
+  background: #F7F4EB;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -2038,11 +2038,36 @@ body.is-menu-open .site-header {
 }
 
 .checkout-form section {
-  margin-bottom: 44px;
-  padding-bottom: 44px;
+  margin-bottom: 56px;
+  padding-bottom: 56px;
   border-bottom: 1px solid var(--line-soft);
+  position: relative;
 }
 .checkout-form section:last-child { border-bottom: none; }
+.checkout-form section:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #F7F4EB;
+  border: 1px solid var(--line);
+}
+
+.checkout-intro {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--shade);
+  margin: 0 0 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+  line-height: 1.7;
+  font-style: italic;
+}
 
 .checkout-form h3 {
   font-family: var(--font-display);
@@ -2056,15 +2081,17 @@ body.is-menu-open .site-header {
   gap: 14px;
 }
 .checkout-form h3 i {
-  width: 24px; height: 24px;
+  min-width: 34px;
+  height: 22px;
+  padding: 0 8px;
   display: grid; place-items: center;
   border: 1px solid var(--line);
-  border-radius: 50%;
+  border-radius: 2px;
   font-style: normal;
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 10.5px;
+  font-weight: 600;
   color: var(--muted);
-  letter-spacing: 0;
+  letter-spacing: 0.15em;
 }
 
 .form-grid {
@@ -2143,7 +2170,7 @@ body.is-menu-open .site-header {
   font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--shade);
-  background: var(--mist);          /* 跟 checkout-body 背景一致、視覺切出輸入框邊框 */
+  background: #F7F4EB;             /* 跟 checkout-page 背景一致、視覺切出輸入框邊框 */
 }
 
 /* textarea 的 label 不要垂直置中、固定在頂部 */
@@ -2431,22 +2458,35 @@ body.is-menu-open .site-header {
   padding-top: 16px;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 18px;
-  color: var(--shade);
+  font-size: 24px;
+  color: var(--forest);
 }
 
 .place-order-btn {
   width: 100%;
   margin-top: 28px;
-  padding: 18px;
+  padding: 16px;
   background: var(--shade);
   color: var(--mist);
   font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.3em;
   border-radius: 2px;
   transition: background .2s ease, transform .12s ease, box-shadow .2s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.place-order-btn__main {
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  font-weight: 600;
+}
+.place-order-btn__sub {
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+  font-weight: 400;
 }
 .place-order-btn:hover {
   background: var(--forest);
