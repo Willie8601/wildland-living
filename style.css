@@ -2152,6 +2152,11 @@ body.is-menu-open .site-header {
 .form-grid--full {
   grid-template-columns: 1fr;
 }
+/* 同一個 section 內、兩個 form-grid 上下相鄰時拉開間距,
+   讓 Email→姓名/電話、郵遞區號→詳細地址 不會擠在一起 */
+.form-grid + .form-grid {
+  margin-top: 22px;
+}
 /* 確保三個 section 內容開始位置都跟 h3 拉同距離 */
 .checkout-form h3 + .form-grid,
 .checkout-form h3 + .pay-options {
