@@ -761,7 +761,7 @@
 
   <div class="checkout-body">
     <form class="checkout-form" id="checkoutForm" novalidate>
-      <p class="checkout-intro">謝謝你願意選一件，而不是更多。</p>
+      <p class="checkout-intro">謝謝你信任我們，為你的衣櫃留一塊原野。</p>
       <section>
         <h3><i>01</i>留下你的聯絡方式</h3>
         <div class="form-grid form-grid--full">
@@ -1083,7 +1083,7 @@
    ======================================================================== */
 const PRODUCTS = [
   {
-    no: '001',
+    no: '01',
     name: '男款 XXX 有機棉 T',
     en: "Men's XXX Organic Tee",
     price: 1105,
@@ -1099,7 +1099,7 @@ const PRODUCTS = [
     sizeGuide: 'men'
   },
   {
-    no: '002',
+    no: '02',
     name: '男款 Mr T 有機棉 T',
     en: "Men's Mr T Organic T-shirt",
     price: 1105,
@@ -1115,7 +1115,7 @@ const PRODUCTS = [
     sizeGuide: 'men'
   },
   {
-    no: '003',
+    no: '03',
     name: '女款 Greta 有機棉連帽衫',
     en: "Women's Greta Organic Hoody",
     price: 1813,
@@ -1131,7 +1131,7 @@ const PRODUCTS = [
     sizeGuide: 'women'
   },
   {
-    no: '004',
+    no: '04',
     name: 'Ystwyth 機能運動外套（中性款）',
     en: 'Ystwyth Active Jacket (unisex)',
     price: 2580,
@@ -1226,6 +1226,11 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 const fmtPrice = n => 'NT$ ' + n.toLocaleString('en-US');
+
+/* 顯示用商品編號：去掉前綴的多餘 0，至少保留 2 位數
+   001 → 01、002 → 02、010 → 10、123 → 123（>=2 位的原樣）。
+   資料源不變，只影響畫面呈現。 */
+const fmtNo = no => String(parseInt(no, 10)).padStart(2, '0');
 
 /* ========================================================================
    背景捲動鎖定（iOS Safari 安全版）
@@ -1529,7 +1534,7 @@ function renderCart() {
       </div>
       <div class="cart-item__body">
         <div class="cart-item__name">${it.name}</div>
-        <div class="cart-item__meta">N O · ${it.no} / SIZE ${it.size}</div>
+        <div class="cart-item__meta">NO.${fmtNo(it.no)} / SIZE ${it.size}</div>
         <div class="cart-item__foot">
           <span class="cart-item__price">${fmtPrice(it.price * it.qty)}</span>
           <div class="cart-item__qty">
@@ -1613,7 +1618,7 @@ function renderSummary() {
       </div>
       <div class="summary-item__body">
         <div class="summary-item__name">${it.name}</div>
-        <div class="summary-item__meta">N O · ${it.no} / SIZE ${it.size} / 數量 ${it.qty}</div>
+        <div class="summary-item__meta">NO.${fmtNo(it.no)} / SIZE ${it.size} / 數量 ${it.qty}</div>
       </div>
       <div class="summary-item__price">${fmtPrice(it.price * it.qty)}</div>
     </div>
