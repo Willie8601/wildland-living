@@ -1737,7 +1737,7 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
   姓名：${customerName}
   電話：${form.querySelector('[name="phone"]').value.trim()}
   Email：${email}
-  地址：${form.querySelector('[name="city"]').value} ${form.querySelector('[name="zip"]').value.trim()} ${form.querySelector('[name="address"]').value.trim()}
+  地址：${form.querySelector('[name="zip"]').value.trim()} ${form.querySelector('[name="city"]').value} ${form.querySelector('[name="address"]').value.trim()}
   備註：${form.querySelector('[name="note"]').value.trim() || '（無）'}
 ━━━━━━━━━━━━━━━━━━━━━━━━`;
 
@@ -1766,7 +1766,7 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
           客人姓名: customerName,
           客人電話: form.querySelector('[name="phone"]').value.trim(),
           客人Email: email,
-          收件地址: `${form.querySelector('[name="city"]').value} ${form.querySelector('[name="zip"]').value.trim()} ${form.querySelector('[name="address"]').value.trim()}`,
+          收件地址: `${form.querySelector('[name="zip"]').value.trim()} ${form.querySelector('[name="city"]').value} ${form.querySelector('[name="address"]').value.trim()}`,
           備註: form.querySelector('[name="note"]').value.trim() || '（無）',
           付款方式: payLabel,
           商品明細: itemLines,
