@@ -1286,6 +1286,46 @@ body.is-menu-open .site-header {
   transform: translate(-50%, -50%) scale(1.04);
 }
 
+/* ====== 商品卡：真實照片版本 ====== */
+.card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .5s ease, transform .8s ease;
+}
+.card__img--main {
+  opacity: 1;
+  z-index: 1;
+}
+.card__img--hover {
+  opacity: 0;
+  z-index: 2;
+}
+.card--has-image:hover .card__img--main {
+  opacity: 0;
+  transform: scale(1.02);
+}
+.card--has-image:hover .card__img--hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+/* 沒第二張圖時，hover 讓主圖微放大 */
+.card--has-image:hover .card__img--main:only-of-type {
+  opacity: 1;
+}
+/* 觸控裝置不要 hover 效果，避免按一下就一直停在 hover 狀態 */
+@media (hover: none) {
+  .card--has-image:hover .card__img--main {
+    opacity: 1;
+    transform: none;
+  }
+  .card--has-image:hover .card__img--hover {
+    opacity: 0;
+  }
+}
+
 .card__low-stock {
   position: absolute;
   top: 16px; right: 16px;
@@ -1597,6 +1637,105 @@ body.is-menu-open .site-header {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 70%; height: 70%;
+}
+
+/* ====== 詳情 modal：真實照片 gallery ====== */
+.modal__visual--has-image {
+  background: var(--mist);
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+}
+.modal__gallery {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--mist);
+  overflow: hidden;
+}
+.modal__gallery-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: galleryFade .35s ease;
+}
+@keyframes galleryFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal__gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 253, 245, 0.85);
+  color: var(--shade);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .3s ease, background .3s ease;
+  -webkit-tap-highlight-color: rgba(123, 133, 104, 0.2);
+}
+.modal__gallery:hover .modal__gallery-nav,
+.modal__gallery-nav:focus-visible {
+  opacity: 1;
+}
+.modal__gallery-nav:hover {
+  background: var(--mist);
+}
+.modal__gallery-nav--prev { left: 12px; }
+.modal__gallery-nav--next { right: 12px; }
+.modal__gallery-nav svg { width: 18px; height: 18px; }
+/* 手機版：永遠顯示左右切換按鈕 */
+@media (hover: none) {
+  .modal__gallery-nav { opacity: 1; }
+}
+
+.modal__thumbs {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: var(--mist);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.modal__thumb {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 80px;
+  padding: 0;
+  border: 2px solid transparent;
+  background: transparent;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color .25s ease, transform .25s ease;
+  -webkit-tap-highlight-color: rgba(123, 133, 104, 0.2);
+}
+.modal__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.modal__thumb:hover {
+  transform: translateY(-2px);
+}
+.modal__thumb.is-active {
+  border-color: var(--wild);
+}
+@media (min-width: 768px) {
+  .modal__thumb {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 90px;
+  }
 }
 
 .modal__info {

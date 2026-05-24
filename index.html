@@ -1214,7 +1214,9 @@ const state = {
   cart: loadCartFromStorage(),  // [{ id, no, name, en, price, size, qty, tone, type }]
   activeProduct: null,
   selectedSize: null,
-  selectedQty: 1
+  selectedQty: 1,
+  activeImageIdx: 0,
+  switchImage: null
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -1252,11 +1254,25 @@ function unlockScroll() {
    ======================================================================== */
 function renderProducts() {
   const grid = $('#productGrid');
-  grid.innerHTML = PRODUCTS.map((p, i) => `
-    <article class="card fade-up" data-no="${p.no}">
+  grid.innerHTML = PRODUCTS.map((p, i) => {
+    // 判斷是否有真實商品照
+    const hasImages = Array.isArray(p.images) && p.images.length > 0;
+    const mainImg = hasImages ? p.images[0] : null;
+    const hoverImg = hasImages && p.images.length > 1 ? p.images[1] : null;
+
+    // 視覺區內容：有照片用 img，沒照片用 SVG
+    const visualInner = hasImages
+      ? `
+        <img class="card__img card__img--main" src="${mainImg}" alt="${p.name}" loading="lazy" decoding="async" />
+        ${hoverImg ? `<img class="card__img card__img--hover" src="${hoverImg}" alt="" loading="lazy" decoding="async" aria-hidden="true" />` : ''}
+      `
+      : (PRODUCT_SVG[p.type] || PRODUCT_SVG.tee);
+
+    return `
+    <article class="card fade-up ${hasImages ? 'card--has-image' : ''}" data-no="${p.no}">
       <div class="card__visual" data-tone="${p.tone}">
         ${p.stock > 0 && p.stock <= 3 ? `<span class="card__low-stock">僅剩 ${p.stock} 件</span>` : ''}
-        ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
+        ${visualInner}
       </div>
       <div class="card__info">
         <div>
@@ -1269,7 +1285,8 @@ function renderProducts() {
         </div>
       </div>
     </article>
-  `).join('');
+  `;
+  }).join('');
 
   $('#productCount').textContent = String(PRODUCTS.length).padStart(2, '0') + ' items';
   $('#prodTotal').textContent = String(PRODUCTS.length).padStart(2, '0');
@@ -1376,10 +1393,43 @@ function openProduct(no) {
   state.selectedSize = p.sizes[0] || null;
   state.selectedQty = 1;
 
+  // 判斷是否有真實商品照
+  const hasImages = Array.isArray(p.images) && p.images.length > 0;
+
+  // 視覺區：有照片用 gallery，沒照片用 SVG
+  const visualHTML = hasImages
+    ? `
+      <div class="modal__visual modal__visual--has-image" data-tone="${p.tone}">
+        <div class="modal__gallery">
+          <img class="modal__gallery-main" id="modalMainImg" src="${p.images[0]}" alt="${p.name}" decoding="async" />
+          ${p.images.length > 1 ? `
+            <button type="button" class="modal__gallery-nav modal__gallery-nav--prev" data-action="imgPrev" aria-label="上一張">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 6 9 12 15 18"/></svg>
+            </button>
+            <button type="button" class="modal__gallery-nav modal__gallery-nav--next" data-action="imgNext" aria-label="下一張">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+          ` : ''}
+        </div>
+        ${p.images.length > 1 ? `
+          <div class="modal__thumbs">
+            ${p.images.map((src, idx) => `
+              <button type="button" class="modal__thumb ${idx === 0 ? 'is-active' : ''}" data-idx="${idx}" aria-label="第 ${idx + 1} 張">
+                <img src="${src}" alt="" loading="lazy" decoding="async" />
+              </button>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `
+    : `
+      <div class="modal__visual" data-tone="${p.tone}">
+        ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
+      </div>
+    `;
+
   $('#modalContent').innerHTML = `
-    <div class="modal__visual" data-tone="${p.tone}">
-      ${PRODUCT_SVG[p.type] || PRODUCT_SVG.tee}
-    </div>
+    ${visualHTML}
     <div class="modal__info">
       <h2 class="modal__name">${p.name}</h2>
       <div class="modal__en">${p.en}</div>
@@ -1438,6 +1488,30 @@ function openProduct(no) {
   $('#addToCart').addEventListener('click', addCurrentToCart);
   $$('[data-action="openSize"]', $('#modalContent')).forEach(b =>
     b.addEventListener('click', openSizeChart));
+
+  // 圖片 gallery 切換
+  if (hasImages && p.images.length > 1) {
+    state.activeImageIdx = 0;
+    const switchImage = (newIdx) => {
+      const total = p.images.length;
+      state.activeImageIdx = ((newIdx % total) + total) % total; // 處理負數循環
+      $('#modalMainImg').src = p.images[state.activeImageIdx];
+      $$('.modal__thumb', $('#modalContent')).forEach((t, idx) => {
+        t.classList.toggle('is-active', idx === state.activeImageIdx);
+      });
+    };
+    $$('.modal__thumb', $('#modalContent')).forEach(thumb => {
+      thumb.addEventListener('click', () => switchImage(parseInt(thumb.dataset.idx, 10)));
+    });
+    $$('[data-action="imgPrev"]', $('#modalContent')).forEach(b =>
+      b.addEventListener('click', () => switchImage(state.activeImageIdx - 1)));
+    $$('[data-action="imgNext"]', $('#modalContent')).forEach(b =>
+      b.addEventListener('click', () => switchImage(state.activeImageIdx + 1)));
+    // 把切換函式存到 state，給鍵盤事件用
+    state.switchImage = switchImage;
+  } else {
+    state.switchImage = null;
+  }
 
   $('#productModal').classList.add('is-open');
   $('#modalOverlay').classList.add('is-open');
@@ -1939,13 +2013,23 @@ function init() {
     openSizeChart();
   });
 
-  // ESC 關閉
+  // ESC 關閉、左右鍵切換商品圖
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closeProduct();
       closeCart();
       closeSizeChart();
       if (menuOverlay.classList.contains('is-open')) toggleMenu(false);
+    }
+    // 商品 modal 開啟時，左右鍵切換圖片
+    if ($('#productModal').classList.contains('is-open') && state.switchImage) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        state.switchImage(state.activeImageIdx - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        state.switchImage(state.activeImageIdx + 1);
+      }
     }
   });
 
