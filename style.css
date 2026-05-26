@@ -1301,6 +1301,8 @@ body.is-menu-open .site-header {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  padding: 8%;                              /* 統一內距，讓每件衣服都有呼吸空間 */
+  box-sizing: border-box;
   transition: opacity .5s ease, transform .8s ease;
 }
 .card__img--main {
@@ -1669,7 +1671,10 @@ body.is-menu-open .site-header {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  padding: 4%;                              /* 內距避免邊緣裁切 */
+  box-sizing: border-box;
   display: block;
+  cursor: zoom-in;                          /* 提示可點擊放大 */
   animation: galleryFade .35s ease;
 }
 @keyframes galleryFade {
@@ -2814,6 +2819,108 @@ body.is-menu-open .site-header {
   transform: translateX(-50%) translateY(0);
 }
 .toast svg { width: 16px; height: 16px; }
+
+/* ====================================================================
+   圖片放大檢視 Lightbox
+   ==================================================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 42, 30, 0.92);
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  cursor: zoom-out;
+  animation: lightboxFadeIn .25s ease;
+}
+.lightbox.is-open {
+  display: flex;
+}
+@keyframes lightboxFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  cursor: default;
+  animation: lightboxImgIn .35s cubic-bezier(.2, .7, .2, 1);
+}
+@keyframes lightboxImgIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.lightbox__close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(242, 239, 230, 0.15);
+  color: var(--mist);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background .2s ease;
+  -webkit-tap-highlight-color: rgba(242, 239, 230, 0.2);
+}
+.lightbox__close:hover {
+  background: rgba(242, 239, 230, 0.28);
+}
+.lightbox__close svg { width: 20px; height: 20px; }
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(242, 239, 230, 0.15);
+  color: var(--mist);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background .2s ease;
+  -webkit-tap-highlight-color: rgba(242, 239, 230, 0.2);
+}
+.lightbox__nav:hover {
+  background: rgba(242, 239, 230, 0.28);
+}
+.lightbox__nav svg { width: 22px; height: 22px; }
+.lightbox__nav--prev { left: 20px; }
+.lightbox__nav--next { right: 20px; }
+.lightbox.is-single .lightbox__nav { display: none; }
+.lightbox__counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(242, 239, 230, 0.7);
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  background: rgba(31, 42, 30, 0.5);
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 2;
+}
+.lightbox.is-single .lightbox__counter { display: none; }
+@media (max-width: 600px) {
+  .lightbox { padding: 60px 12px; }
+  .lightbox__nav { width: 40px; height: 40px; }
+  .lightbox__nav--prev { left: 8px; }
+  .lightbox__nav--next { right: 8px; }
+}
 
 .order-success {
   position: fixed;

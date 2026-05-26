@@ -923,6 +923,26 @@
 </section>
 
 <!-- ====================================================================
+     圖片放大檢視 Lightbox
+     ==================================================================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="放大商品圖片">
+  <button class="lightbox__close" type="button" aria-label="關閉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="6" y1="6" x2="18" y2="18"/>
+      <line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="上一張">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 6 9 12 15 18"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="下一張">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 6 15 12 9 18"/></svg>
+  </button>
+  <img class="lightbox__img" id="lightboxImg" alt="" />
+  <div class="lightbox__counter" id="lightboxCounter"></div>
+</div>
+
+<!-- ====================================================================
      訂單完成
      ==================================================================== -->
 <section class="order-success" id="orderSuccess">
@@ -1517,6 +1537,16 @@ function openProduct(no) {
     state.switchImage = null;
   }
 
+  // 詳情頁主圖：點擊放大進 lightbox
+  if (hasImages) {
+    const mainImg = $('#modalMainImg');
+    if (mainImg) {
+      mainImg.addEventListener('click', () => {
+        openLightbox(p.images, state.activeImageIdx || 0);
+      });
+    }
+  }
+
   $('#productModal').classList.add('is-open');
   $('#modalOverlay').classList.add('is-open');
   lockScroll();
@@ -1527,6 +1557,53 @@ function closeProduct() {
   $('#modalOverlay').classList.remove('is-open');
   unlockScroll();
   state.activeProduct = null;
+}
+
+/* ========================================================================
+   Lightbox 圖片放大檢視
+   ======================================================================== */
+const lightboxState = {
+  images: [],
+  currentIdx: 0
+};
+
+function openLightbox(images, startIdx = 0) {
+  if (!images || images.length === 0) return;
+  lightboxState.images = images;
+  lightboxState.currentIdx = startIdx;
+  const lb = $('#lightbox');
+  lb.classList.add('is-open');
+  lb.classList.toggle('is-single', images.length === 1);
+  updateLightboxImage();
+  lockScroll();
+}
+
+function closeLightbox() {
+  $('#lightbox').classList.remove('is-open');
+  // 只有當其他需要鎖滾動的層都沒開時才解鎖
+  if (!$('#productModal').classList.contains('is-open') &&
+      !$('#cartDrawer').classList.contains('is-open')) {
+    unlockScroll();
+  }
+}
+
+function updateLightboxImage() {
+  const total = lightboxState.images.length;
+  const idx = lightboxState.currentIdx;
+  $('#lightboxImg').src = lightboxState.images[idx];
+  $('#lightboxCounter').textContent = `${idx + 1} / ${total}`;
+}
+
+function lightboxPrev() {
+  const total = lightboxState.images.length;
+  lightboxState.currentIdx = (lightboxState.currentIdx - 1 + total) % total;
+  updateLightboxImage();
+}
+
+function lightboxNext() {
+  const total = lightboxState.images.length;
+  lightboxState.currentIdx = (lightboxState.currentIdx + 1) % total;
+  updateLightboxImage();
 }
 
 function updateQty(delta) {
@@ -2033,6 +2110,24 @@ function init() {
 
   // ESC 關閉、左右鍵切換商品圖
   document.addEventListener('keydown', e => {
+    // Lightbox 開啟時優先處理
+    if ($('#lightbox').classList.contains('is-open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeLightbox();
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        lightboxPrev();
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        lightboxNext();
+        return;
+      }
+    }
     if (e.key === 'Escape') {
       closeProduct();
       closeCart();
@@ -2049,6 +2144,22 @@ function init() {
         state.switchImage(state.activeImageIdx + 1);
       }
     }
+  });
+
+  // Lightbox 事件
+  const lb = $('#lightbox');
+  lb.addEventListener('click', e => {
+    // 點背景（不是圖、不是按鈕）關閉
+    if (e.target === lb) closeLightbox();
+  });
+  $('.lightbox__close').addEventListener('click', closeLightbox);
+  $('.lightbox__nav--prev').addEventListener('click', e => {
+    e.stopPropagation();
+    lightboxPrev();
+  });
+  $('.lightbox__nav--next').addEventListener('click', e => {
+    e.stopPropagation();
+    lightboxNext();
   });
 
   // 導航輔助：scroll spy、回頂按鈕、下一段指引、sticky header 陰影
