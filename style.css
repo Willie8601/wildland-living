@@ -1725,9 +1725,9 @@ body.is-menu-open .site-header {
   flex: 0 0 64px;
   width: 64px;
   height: 80px;
-  padding: 0;
+  padding: 4px;
   border: 2px solid transparent;
-  background: transparent;
+  background: var(--mist);
   border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
@@ -1737,7 +1737,7 @@ body.is-menu-open .site-header {
 .modal__thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .modal__thumb:hover {
