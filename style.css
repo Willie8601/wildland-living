@@ -1683,19 +1683,21 @@ body.is-menu-open .site-header {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: none;
-  background: rgba(255, 253, 245, 0.85);
+  border: 1px solid rgba(61, 74, 56, 0.15);
+  background: rgba(255, 253, 245, 0.95);
   color: var(--shade);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity .3s ease, background .3s ease;
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(31, 42, 30, 0.08);
+  transition: background .3s ease, transform .2s ease, box-shadow .3s ease;
   -webkit-tap-highlight-color: rgba(123, 133, 104, 0.2);
+  z-index: 5;
 }
 .modal__gallery:hover .modal__gallery-nav,
 .modal__gallery-nav:focus-visible {
@@ -1703,13 +1705,23 @@ body.is-menu-open .site-header {
 }
 .modal__gallery-nav:hover {
   background: var(--mist);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 4px 12px rgba(31, 42, 30, 0.12);
+}
+.modal__gallery-nav:active {
+  transform: translateY(-50%) scale(0.96);
 }
 .modal__gallery-nav--prev { left: 12px; }
 .modal__gallery-nav--next { right: 12px; }
-.modal__gallery-nav svg { width: 18px; height: 18px; }
+.modal__gallery-nav svg { width: 22px; height: 22px; stroke-width: 2.2; }
 /* 手機版：永遠顯示左右切換按鈕 */
 @media (hover: none) {
   .modal__gallery-nav { opacity: 1; }
+}
+
+/* 拿掉縮圖預覽區 */
+.modal__thumbs {
+  display: none !important;
 }
 
 .modal__thumbs {
