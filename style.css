@@ -1727,12 +1727,13 @@ body.is-menu-open .site-header {
   width: 76px;
   height: 95px;
   padding: 4px;
-  border: 1px solid rgba(61, 74, 56, 0.12);
-  background: #FFFFFF;
+  border: none;
+  background: var(--mist);
   border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color .25s ease, transform .25s ease;
+  transition: opacity .25s ease, transform .25s ease;
+  opacity: 0.55;
   -webkit-tap-highlight-color: rgba(123, 133, 104, 0.2);
 }
 .modal__thumb img {
@@ -1744,11 +1745,10 @@ body.is-menu-open .site-header {
 }
 .modal__thumb:hover {
   transform: translateY(-2px);
+  opacity: 0.85;
 }
 .modal__thumb.is-active {
-  border-color: var(--wild);
-  border-width: 2px;
-  padding: 3px;
+  opacity: 1;
 }
 @media (min-width: 768px) {
   .modal__thumb {
