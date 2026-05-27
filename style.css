@@ -1725,8 +1725,8 @@ body.is-menu-open .site-header {
 .modal__thumb {
   flex: 0 0 76px;
   width: 76px;
-  height: 76px;
-  padding: 6px;
+  height: 100px;
+  padding: 8px 6px;
   border: 2px solid transparent;
   background: var(--mist);
   border-radius: 2px;
@@ -1752,7 +1752,7 @@ body.is-menu-open .site-header {
   .modal__thumb {
     flex: 0 0 84px;
     width: 84px;
-    height: 84px;
+    height: 110px;
   }
 }
 
