@@ -1168,6 +1168,36 @@ const PRODUCTS = [
 ];
 
 /* ========================================================================
+   Day 3 · 即時庫存同步
+   頁面載入後，向 Apps Script 詢問各商品最新庫存，回來後更新畫面。
+   抓取失敗時靜默略過，官網仍以 PRODUCTS 內建庫存正常運作。
+   ======================================================================== */
+async function syncStockFromSheet() {
+  if (typeof ORDER_ENDPOINT !== 'string' ||
+      ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
+  try {
+    const res = await fetch(ORDER_ENDPOINT + '?action=stock', { method: 'GET' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || data.result !== 'success' || !data.stock) return;
+
+    let changed = false;
+    PRODUCTS.forEach(p => {
+      const info = data.stock[p.no];   // 用官網的 '01'~'04' 當 key
+      if (info && typeof info.stock === 'number' && info.stock !== p.stock) {
+        p.stock = info.stock;
+        changed = true;
+      }
+    });
+
+    // 庫存有變動 → 重新渲染商品區，反映最新「僅剩 N 件 / 已售完」
+    if (changed) renderProducts();
+  } catch (e) {
+    // 靜默：連線失敗就維持內建庫存，不影響購物
+  }
+}
+
+/* ========================================================================
    SVG 商品款式示意圖（5 種輪廓，依品牌規範用極簡線條）
    tee / hoody / shirt / pants / jacket
    ======================================================================== */
@@ -1295,7 +1325,9 @@ function renderProducts() {
     return `
     <article class="card fade-up ${hasImages ? 'card--has-image' : ''}" data-no="${p.no}">
       <div class="card__visual" data-tone="${p.tone}">
-        ${p.stock > 0 && p.stock <= 3 ? `<span class="card__low-stock">僅剩 ${p.stock} 件</span>` : ''}
+        ${p.stock <= 0
+          ? `<span class="card__low-stock card__sold-out">已售完</span>`
+          : (p.stock <= 3 ? `<span class="card__low-stock">僅剩 ${p.stock} 件</span>` : '')}
         ${visualInner}
       </div>
       <div class="card__info">
@@ -1481,9 +1513,9 @@ function openProduct(no) {
             <button type="button" class="size-opt ${s === state.selectedSize ? 'is-active' : ''}" data-size="${s}">${s}</button>
           `).join('')}
         </div>
-        ${p.stock > 0 && p.stock <= 3
-          ? `<p class="stock-note">僅剩 ${p.stock} 件</p>`
-          : ''}
+        ${p.stock <= 0
+          ? `<p class="stock-note stock-note--sold">已售完</p>`
+          : (p.stock <= 3 ? `<p class="stock-note">僅剩 ${p.stock} 件</p>` : '')}
       </div>
 
       <div class="add-row">
@@ -1492,7 +1524,7 @@ function openProduct(no) {
           <span id="qtyNum">${state.selectedQty}</span>
           <button type="button" data-action="qtyUp">+</button>
         </div>
-        <button class="add-btn" id="addToCart" type="button"><span class="add-btn__zh">加入購物車</span><span class="add-btn__en">ADD TO CART</span></button>
+        <button class="add-btn" id="addToCart" type="button" ${p.stock <= 0 ? 'disabled' : ''}><span class="add-btn__zh">${p.stock <= 0 ? '已售完' : '加入購物車'}</span><span class="add-btn__en">${p.stock <= 0 ? 'SOLD OUT' : 'ADD TO CART'}</span></button>
       </div>
     </div>
   `;
@@ -1931,7 +1963,8 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
           運費: `NT$ ${shipping.toLocaleString()}`,
           貨到付款手續費: codFee > 0 ? `NT$ ${codFee}` : '無',
           應收總額: `NT$ ${finalTotal.toLocaleString()}`,
-          完整訂單: messageBody
+          完整訂單: messageBody,
+          items: state.cart.map(i => ({ no: i.no, size: i.size, qty: i.qty }))  // Day 3：供後端扣庫存
         })
       });
 
@@ -2025,6 +2058,7 @@ function observeFadeIn() {
 function init() {
   renderProducts();
   renderCart();
+  syncStockFromSheet();  // Day 3：背景抓 Sheet 即時庫存，抓到後更新畫面
 
   try { observeFadeIn(); } catch (e) {
     // 即使動畫掛掉，也不能阻斷後續事件綁定

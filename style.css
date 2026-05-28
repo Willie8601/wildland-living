@@ -1345,6 +1345,15 @@ body.is-menu-open .site-header {
   padding: 5px 10px;
   border-radius: 2px;
 }
+.card__sold-out {
+  color: #fff;
+  background: #3D4A38;
+  opacity: 0.92;
+}
+.stock-note--sold {
+  color: #8a5a4a;
+  font-weight: 600;
+}
 
 .card__info {
   display: flex;
