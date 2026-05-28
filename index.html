@@ -1172,13 +1172,34 @@ const PRODUCTS = [
    頁面載入後，向 Apps Script 詢問各商品最新庫存，回來後更新畫面。
    抓取失敗時靜默略過，官網仍以 PRODUCTS 內建庫存正常運作。
    ======================================================================== */
+
+// JSONP 抓取：用 script 標籤載入後端資料，繞過 Apps Script 的 CORS/302 限制
+function fetchStockJSONP() {
+  return new Promise((resolve, reject) => {
+    if (typeof ORDER_ENDPOINT !== 'string' ||
+        ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+      reject(new Error('no endpoint')); return;
+    }
+    const cbName = 'wlStockCb_' + Date.now();
+    const script = document.createElement('script');
+    let done = false;
+    const cleanup = () => {
+      done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+    window[cbName] = (data) => { if (!done) { cleanup(); resolve(data); } };
+    script.onerror = () => { if (!done) { cleanup(); reject(new Error('jsonp error')); } };
+    // 8 秒逾時保護
+    setTimeout(() => { if (!done) { cleanup(); reject(new Error('timeout')); } }, 8000);
+    script.src = ORDER_ENDPOINT + '?action=stock&callback=' + cbName;
+    document.body.appendChild(script);
+  });
+}
+
 async function syncStockFromSheet() {
-  if (typeof ORDER_ENDPOINT !== 'string' ||
-      ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
   try {
-    const res = await fetch(ORDER_ENDPOINT + '?action=stock', { method: 'GET' });
-    if (!res.ok) return;
-    const data = await res.json();
+    const data = await fetchStockJSONP();
     if (!data || data.result !== 'success' || !data.stock) return;
 
     let changed = false;
@@ -1206,14 +1227,10 @@ async function syncStockFromSheet() {
    抓到最新值後，若該商品正開著詳情頁，就重繪詳情頁反映真實庫存。
    ======================================================================== */
 async function refreshSingleStock(no) {
-  if (typeof ORDER_ENDPOINT !== 'string' ||
-      ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
   if (refreshSingleStock._busy) return;   // 防重入：上一次還沒跑完就不重複抓
   refreshSingleStock._busy = true;
   try {
-    const res = await fetch(ORDER_ENDPOINT + '?action=stock', { method: 'GET' });
-    if (!res.ok) return;
-    const data = await res.json();
+    const data = await fetchStockJSONP();
     if (!data || data.result !== 'success' || !data.stock) return;
 
     const p = PRODUCTS.find(x => x.no === no);
@@ -1908,7 +1925,7 @@ function renderSummary() {
    ======================================================================== */
 // ↓ Day 2：改用 Google Apps Script 直收訂單（取代 Formspree，省下 $90/月 的 Sheets 整合費）
 // 把下方網址換成你部署 Apps Script 後拿到的「網頁應用程式網址」(/exec 結尾)
-const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz0MBLmuHq2OR5BdUzXFAsA7hyrgt182kyTMP3Xr4CxF2dFEVi5Kqnedh0Gy-iYvDqV/exec';
+const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyzhE9epE_-j_X7PC83jeQ9vlzGU7El1PhbXjUFOaPwLCyA8XuQSXMrHq7Nmrg14PAm/exec';
 
 async function placeOrder() {
   const form = $('#checkoutForm');
