@@ -1202,6 +1202,42 @@ async function syncStockFromSheet() {
 }
 
 /* ========================================================================
+   Day 3 修正 · 打開商品詳情時，即時刷新「單一商品」的庫存
+   抓到最新值後，若該商品正開著詳情頁，就重繪詳情頁反映真實庫存。
+   ======================================================================== */
+async function refreshSingleStock(no) {
+  if (typeof ORDER_ENDPOINT !== 'string' ||
+      ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
+  if (refreshSingleStock._busy) return;   // 防重入：上一次還沒跑完就不重複抓
+  refreshSingleStock._busy = true;
+  try {
+    const res = await fetch(ORDER_ENDPOINT + '?action=stock', { method: 'GET' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || data.result !== 'success' || !data.stock) return;
+
+    const p = PRODUCTS.find(x => x.no === no);
+    if (!p) return;
+    const info = data.stock[no];
+    if (info && typeof info.stock === 'number' && info.stock !== p.stock) {
+      p.stock = info.stock;
+      // 同步更新商品列表卡片
+      renderProducts();
+      $$('#productGrid .card.fade-up').forEach(card => card.classList.add('is-in'));
+      // 若這個商品的詳情 modal 還開著，重繪它（按鈕、庫存提示會跟著更新）
+      const modalOpen = $('#productModal') && $('#productModal').classList.contains('is-open');
+      if (modalOpen && state.activeProduct && state.activeProduct.no === no) {
+        openProduct(no);
+      }
+    }
+  } catch (e) {
+    // 靜默
+  } finally {
+    refreshSingleStock._busy = false;
+  }
+}
+
+/* ========================================================================
    SVG 商品款式示意圖（5 種輪廓，依品牌規範用極簡線條）
    tee / hoody / shirt / pants / jacket
    ======================================================================== */
@@ -1453,6 +1489,10 @@ function openProduct(no) {
   state.selectedSize = p.sizes[0] || null;
   state.selectedQty = 1;
 
+  // Day 3 修正：打開詳情頁時，背景抓一次最新庫存，回來若有變動就重繪詳情頁，
+  // 避免「畫面顯示僅剩 1 件、按鈕可按，但實際已售完」的矛盾。
+  refreshSingleStock(no);
+
   // 判斷是否有真實商品照
   const hasImages = Array.isArray(p.images) && p.images.length > 0;
 
@@ -1656,6 +1696,13 @@ function updateQty(delta) {
 function addCurrentToCart() {
   const p = state.activeProduct;
   if (!p || !state.selectedSize) return;
+
+  // Day 3 修正：售完商品直接擋下，給清楚提示（而非令人困惑的「僅剩 0 件」）
+  if (p.stock <= 0) {
+    showToast('此款已售完');
+    return;
+  }
+
   const id = `${p.no}__${state.selectedSize}`;
   const existing = state.cart.find(x => x.id === id);
 
