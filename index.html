@@ -1823,7 +1823,9 @@ function renderSummary() {
    申請流程：https://formspree.io → 新增表單 → 收件信箱填 pohaohuang86@gmail.com
    申請完後，把下方 'YOUR_FORM_ID' 換成你的 Form ID（例如 'xnqkozab'）
    ======================================================================== */
-const FORMSPREE_ID = 'xkoevwkl'; // ← 已設定，訂單會寄到 pohaohuang86@gmail.com
+// ↓ Day 2：改用 Google Apps Script 直收訂單（取代 Formspree，省下 $90/月 的 Sheets 整合費）
+// 把下方網址換成你部署 Apps Script 後拿到的「網頁應用程式網址」(/exec 結尾)
+const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzxCBoR-lAHeXhLaC2igaxq3VvwEIuaqOHmpRoHgkCxV7Jyv7ijaVUh_sRcGMQHhZDyog/exec';
 
 async function placeOrder() {
   const form = $('#checkoutForm');
@@ -1906,20 +1908,18 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
   btnMain.textContent = '送出中…';
 
   try {
-    // 還沒設定 Formspree ID 時，發出警告但仍讓畫面跑完（方便你測試其他流程）
-    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-      console.warn('[原野日常] 尚未設定 Formspree ID，訂單未實際寄出。');
+    // 還沒設定 Apps Script 網址時，發出警告但仍讓畫面跑完（方便你測試其他流程）
+    if (ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+      console.warn('[原野日常] 尚未設定 Apps Script 網址，訂單未實際送出。');
     } else {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const res = await fetch(ORDER_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'text/plain;charset=utf-8'  // Apps Script 用 text/plain 才不會觸發 CORS 預檢
         },
         body: JSON.stringify({
-          _subject: subject,
-          _replyto: email, // 你回信時直接回給客人
           訂單編號: orderNo,
+          下單時間: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
           客人姓名: customerName,
           客人電話: form.querySelector('[name="phone"]').value.trim(),
           客人Email: email,
@@ -1936,7 +1936,7 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
       });
 
       if (!res.ok) {
-        throw new Error(`Formspree 回應狀態 ${res.status}`);
+        throw new Error(`訂單後端回應狀態 ${res.status}`);
       }
     }
 
