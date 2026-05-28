@@ -1191,7 +1191,11 @@ async function syncStockFromSheet() {
     });
 
     // 庫存有變動 → 重新渲染商品區，反映最新「僅剩 N 件 / 已售完」
-    if (changed) renderProducts();
+    if (changed) {
+      renderProducts();
+      // 重繪會產生全新卡片，需手動補上顯示狀態，否則停在 fade-up 透明狀態（圖片看似消失）
+      $$('#productGrid .card.fade-up').forEach(card => card.classList.add('is-in'));
+    }
   } catch (e) {
     // 靜默：連線失敗就維持內建庫存，不影響購物
   }
