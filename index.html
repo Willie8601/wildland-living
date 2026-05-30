@@ -177,6 +177,7 @@
       <a href="#story">故事</a>
       <a href="#about">關於</a>
       <a href="#contact">聯絡</a>
+      <a href="#" id="navOrderLookup">訂單查詢</a>
     </nav>
 
     <div class="header-tools">
@@ -2166,12 +2167,21 @@ function closeSizeChart() {
    沿用既有的 JSONP 機制（同 syncStockFromSheet），呼叫後端：
      ORDER_ENDPOINT?action=lookup&order=WL-xxx&email=xxx&callback=cb
    ======================================================================== */
-function openOrderLookup() {
+function openOrderLookup(prefill) {
   const result = $('#lookupResult');
   if (result) { result.hidden = true; result.innerHTML = ''; }
   $('#lookupPage').classList.add('is-open');
   unlockScroll();
   window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // 若帶入訂單編號 + Email（從信件連結點進來），自動填入並查詢
+  if (prefill && prefill.order && prefill.email) {
+    const noEl = $('#lookupOrderNo');
+    const emEl = $('#lookupEmail');
+    if (noEl) noEl.value = prefill.order;
+    if (emEl) emEl.value = prefill.email;
+    handleOrderLookup();
+  }
 }
 function closeOrderLookup() {
   $('#lookupPage').classList.remove('is-open');
@@ -2447,6 +2457,11 @@ function init() {
     e.preventDefault();
     openOrderLookup();
   });
+  const navLookup = $('#navOrderLookup');
+  if (navLookup) navLookup.addEventListener('click', e => {
+    e.preventDefault();
+    openOrderLookup();
+  });
 
   // ESC 關閉、左右鍵切換商品圖
   document.addEventListener('keydown', e => {
@@ -2505,6 +2520,20 @@ function init() {
 
   // 導航輔助：scroll spy、回頂按鈕、下一段指引、sticky header 陰影
   setupNavAids();
+
+  // 從信件連結點進來：?order=WL-xxx&email=xxx 自動開查詢並送出
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const qOrder = params.get('order');
+    const qEmail = params.get('email');
+    if (qOrder && qEmail) {
+      openOrderLookup({ order: qOrder.trim(), email: qEmail.trim() });
+      // 清掉網址列的查詢參數，避免訂單編號/Email 留在網址或被書籤、分享出去
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname + '#lookup');
+      }
+    }
+  } catch (e) { /* 參數解析失敗就忽略，不影響其他功能 */ }
 }
 
 /* ========================================================================
