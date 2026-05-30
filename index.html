@@ -258,6 +258,12 @@
         </details>
       </li>
       <li>
+        <a href="#" data-menu-link data-action="openOrderLookup">
+          <span class="menu-list__zh">訂單查詢</span>
+          <span class="menu-list__en">Order Status</span>
+        </a>
+      </li>
+      <li>
         <a href="#" data-menu-link data-action="openSizeChart">
           <span class="menu-list__zh">尺寸對照表</span>
           <span class="menu-list__en">Size Guide</span>
@@ -645,6 +651,7 @@
         <h4>SHOP</h4>
         <ul>
           <li><a href="#products">所有商品</a></li>
+          <li><a href="#" id="footerOrderLookup">訂單查詢</a></li>
           <li><a href="#" id="footerSizeChart">尺寸對照表</a></li>
           <li><a href="#promises">配送與付款</a></li>
           <li><a href="#promises">退換貨政策</a></li>
@@ -1000,6 +1007,57 @@
     <div class="order-success__actions">
       <button class="btn btn--ghost" id="backHome">回到首頁</button>
     </div>
+  </div>
+</section>
+
+<!-- ====================================================================
+     訂單查詢頁 ORDER LOOKUP
+     ==================================================================== -->
+<section class="lookup-page" id="lookupPage">
+  <header class="checkout-header">
+    <button class="checkout-back" id="lookupBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="15 6 9 12 15 18"/>
+      </svg>
+      回上一頁
+    </button>
+    <a href="#top" class="brand-mark" id="lookupBrandHome">
+      <span class="brand-mark__zh">原野日常</span>
+      <span class="brand-mark__en">WILDLAND LIVING</span>
+    </a>
+    <span style="width:80px;"></span>
+  </header>
+
+  <div class="lookup-body">
+    <div class="checkout-chapter">— ORDER STATUS —</div>
+    <h2 class="lookup-title">查詢你的訂單</h2>
+    <p class="lookup-intro">
+      輸入下單時的<strong>訂單編號</strong>與<strong>Email</strong>，<br />
+      即可查看目前的處理進度。
+    </p>
+
+    <form class="lookup-form" id="lookupForm" novalidate>
+      <div class="field field--float">
+        <input type="text" name="lookupOrderNo" id="lookupOrderNo" required placeholder=" " autocomplete="off">
+        <label for="lookupOrderNo">訂單編號（例如 WL-2026123456）</label>
+      </div>
+      <div class="field field--float">
+        <input type="email" name="lookupEmail" id="lookupEmail" required placeholder=" " autocomplete="email">
+        <label for="lookupEmail">下單時填寫的 Email</label>
+      </div>
+      <button type="submit" class="lookup-submit" id="lookupSubmit">
+        <span class="lookup-submit__main">查詢訂單 SEARCH</span>
+      </button>
+    </form>
+
+    <!-- 查詢結果（成功 / 找不到 / 錯誤，由 JS 切換顯示） -->
+    <div class="lookup-result" id="lookupResult" hidden></div>
+
+    <p class="lookup-note">
+      查不到訂單？可能是編號或 Email 有誤，<br />
+      也歡迎直接 <a href="https://lin.ee/xdo3l23" target="_blank" rel="noopener">LINE 我們</a>
+      或寫信到 <a href="mailto:pohaohuang86@gmail.com">pohaohuang86@gmail.com</a>。
+    </p>
   </div>
 </section>
 
@@ -2088,6 +2146,146 @@ function closeSizeChart() {
 }
 
 /* ========================================================================
+   訂單查詢 · Order Lookup
+   ────────────────────────────────────────────────────────────────────────
+   沿用既有的 JSONP 機制（同 syncStockFromSheet），呼叫 Apps Script：
+     ORDER_ENDPOINT?action=lookup&order=WL-xxx&email=xxx&callback=cb
+   後端比對「訂單編號 + Email」後回傳該筆訂單狀態。
+   ======================================================================== */
+function openOrderLookup() {
+  // 開啟前清空上一次的結果
+  const result = $('#lookupResult');
+  if (result) { result.hidden = true; result.innerHTML = ''; }
+  $('#lookupPage').classList.add('is-open');
+  unlockScroll();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function closeOrderLookup() {
+  $('#lookupPage').classList.remove('is-open');
+}
+
+// JSONP 查詢：用 script 標籤帶 callback，繞過 Apps Script 的 CORS/302 限制
+function fetchOrderStatusJSONP(orderNo, email) {
+  return new Promise((resolve, reject) => {
+    if (typeof ORDER_ENDPOINT !== 'string' ||
+        ORDER_ENDPOINT === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+      reject(new Error('no endpoint')); return;
+    }
+    const cbName = 'wlLookupCb_' + Date.now();
+    const script = document.createElement('script');
+    let done = false;
+    const cleanup = () => {
+      done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+    window[cbName] = (data) => { if (!done) { cleanup(); resolve(data); } };
+    script.onerror = () => { if (!done) { cleanup(); reject(new Error('jsonp error')); } };
+    setTimeout(() => { if (!done) { cleanup(); reject(new Error('timeout')); } }, 8000);
+    script.src = ORDER_ENDPOINT +
+      '?action=lookup' +
+      '&order=' + encodeURIComponent(orderNo) +
+      '&email=' + encodeURIComponent(email) +
+      '&callback=' + cbName;
+    document.body.appendChild(script);
+  });
+}
+
+async function handleOrderLookup(e) {
+  if (e) e.preventDefault();
+  const orderNo = $('#lookupOrderNo').value.trim();
+  const email = $('#lookupEmail').value.trim();
+  const result = $('#lookupResult');
+  const btn = $('#lookupSubmit');
+  const btnMain = btn.querySelector('.lookup-submit__main');
+
+  // 基本驗證
+  if (!orderNo) { showToast('請輸入訂單編號'); $('#lookupOrderNo').focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('請輸入正確的 Email'); $('#lookupEmail').focus(); return;
+  }
+
+  // 鎖按鈕、顯示查詢中
+  btn.disabled = true;
+  const originalText = btnMain.textContent;
+  btnMain.textContent = '查詢中…';
+  result.hidden = false;
+  result.className = 'lookup-result is-loading';
+  result.innerHTML = '<p class="lookup-result__loading">正在為你查詢…</p>';
+
+  try {
+    const data = await fetchOrderStatusJSONP(orderNo, email);
+
+    if (data && data.result === 'success' && data.found) {
+      const o = data.order || {};
+      const statusText = o.status || '備貨中';
+      const statusKey = mapStatusKey(statusText);
+      result.className = 'lookup-result is-found';
+      result.innerHTML = `
+        <div class="lookup-card">
+          <div class="lookup-card__head">
+            <span class="lookup-card__no">${escapeHtml(o.orderNo || orderNo)}</span>
+            <span class="lookup-status lookup-status--${statusKey}">${escapeHtml(statusText)}</span>
+          </div>
+          <dl class="lookup-card__meta">
+            ${o.orderTime ? `<div><dt>下單時間</dt><dd>${escapeHtml(o.orderTime)}</dd></div>` : ''}
+            ${o.total ? `<div><dt>訂單金額</dt><dd>${escapeHtml(o.total)}</dd></div>` : ''}
+            ${o.payment ? `<div><dt>付款方式</dt><dd>${escapeHtml(o.payment)}</dd></div>` : ''}
+          </dl>
+          ${renderStatusSteps(statusKey)}
+        </div>`;
+    } else {
+      result.className = 'lookup-result is-empty';
+      result.innerHTML = `
+        <div class="lookup-empty">
+          <p class="lookup-empty__title">查不到符合的訂單</p>
+          <p class="lookup-empty__hint">請再次確認訂單編號與 Email 是否與下單時一致。<br />若仍有問題，歡迎直接 LINE 或 Email 我們。</p>
+        </div>`;
+    }
+  } catch (err) {
+    result.className = 'lookup-result is-error';
+    result.innerHTML = `
+      <div class="lookup-empty">
+        <p class="lookup-empty__title">查詢暫時無法使用</p>
+        <p class="lookup-empty__hint">連線好像有點不順，請稍後再試一次，<br />或直接 LINE / Email 我們，我們會盡快回覆。</p>
+      </div>`;
+  } finally {
+    btn.disabled = false;
+    btnMain.textContent = originalText;
+  }
+}
+
+// 把後端回傳的中文狀態字，對應到一個 key（控制顏色 + 進度條）
+function mapStatusKey(text) {
+  const t = String(text);
+  if (/完成|送達|已取貨/.test(t)) return 'done';
+  if (/出貨|寄出|配送|運送中/.test(t)) return 'shipped';
+  if (/取消|退/.test(t)) return 'cancelled';
+  return 'preparing'; // 備貨中 / 處理中 / 其他
+}
+
+// 三段式進度條（備貨 → 出貨 → 完成）；取消狀態不顯示進度
+function renderStatusSteps(statusKey) {
+  if (statusKey === 'cancelled') return '';
+  const order = ['preparing', 'shipped', 'done'];
+  const labels = { preparing: '備貨中', shipped: '已出貨', done: '已完成' };
+  const curIdx = order.indexOf(statusKey);
+  const steps = order.map((k, i) => {
+    const state = i < curIdx ? 'is-past' : (i === curIdx ? 'is-current' : '');
+    return `<li class="lookup-step ${state}"><span class="lookup-step__dot"></span><span class="lookup-step__label">${labels[k]}</span></li>`;
+  }).join('');
+  return `<ol class="lookup-steps">${steps}</ol>`;
+}
+
+// 簡易 HTML 轉義，避免後端字串中的特殊字元破壞畫面
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* ========================================================================
    Toast
    ======================================================================== */
 let toastTimer = null;
@@ -2162,6 +2360,7 @@ function init() {
         setTimeout(() => {
           if (action === 'openCart') openCart();
           else if (action === 'openSizeChart') openSizeChart();
+          else if (action === 'openOrderLookup') openOrderLookup();
         }, 350);
       } else if (scrollToNo) {
         // 滾到 Products 區、把對應商品 carousel 捲到指定卡片
@@ -2189,6 +2388,11 @@ function init() {
   });
   $('#placeOrder').addEventListener('click', placeOrder);
 
+  // 訂單查詢
+  $('#lookupBack').addEventListener('click', closeOrderLookup);
+  $('#lookupBrandHome').addEventListener('click', closeOrderLookup);
+  $('#lookupForm').addEventListener('submit', handleOrderLookup);
+
   // 付款方式改變時更新 summary
   $$('input[name="pay"]').forEach(r =>
     r.addEventListener('change', renderSummary)
@@ -2208,6 +2412,10 @@ function init() {
   $('#footerSizeChart').addEventListener('click', e => {
     e.preventDefault();
     openSizeChart();
+  });
+  $('#footerOrderLookup').addEventListener('click', e => {
+    e.preventDefault();
+    openOrderLookup();
   });
 
   // ESC 關閉、左右鍵切換商品圖
@@ -2234,6 +2442,7 @@ function init() {
       closeProduct();
       closeCart();
       closeSizeChart();
+      closeOrderLookup();
       if (menuOverlay.classList.contains('is-open')) toggleMenu(false);
     }
     // 商品 modal 開啟時，左右鍵切換圖片
