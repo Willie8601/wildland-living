@@ -1011,7 +1011,7 @@
 </section>
 
 <!-- ====================================================================
-     訂單查詢頁 ORDER LOOKUP
+     訂單查詢頁 ORDER LOOKUP（內嵌，全螢幕覆蓋）
      ==================================================================== -->
 <section class="lookup-page" id="lookupPage">
   <header class="checkout-header">
@@ -1050,7 +1050,6 @@
       </button>
     </form>
 
-    <!-- 查詢結果（成功 / 找不到 / 錯誤，由 JS 切換顯示） -->
     <div class="lookup-result" id="lookupResult" hidden></div>
 
     <p class="lookup-note">
@@ -1983,26 +1982,47 @@ function renderSummary() {
    ======================================================================== */
 // ↓ Day 2：改用 Google Apps Script 直收訂單（取代 Formspree，省下 $90/月 的 Sheets 整合費）
 // 把下方網址換成你部署 Apps Script 後拿到的「網頁應用程式網址」(/exec 結尾)
-const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyzhE9epE_-j_X7PC83jeQ9vlzGU7El1PhbXjUFOaPwLCyA8XuQSXMrHq7Nmrg14PAm/exec';
+const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyKeVCyS86p7G-67Pb0VCTmt6NkAaW3SmczyZAZjppImnZ_mjoM4LSCz-PBWT9lJz1Y/exec';
+
+/* 驗證輔助：Email 格式、標記/清除錯誤、捲到欄位 */
+function isValidEmail(v) {
+  // 帳號@網域.頂級網域；網域與 TLD 不含空白，TLD 至少 2 碼
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
+}
+function flagField(el, on) {
+  if (!el) return;
+  const field = el.closest('.field') || el.parentElement;
+  if (field) field.classList.toggle('field--error', !!on);
+}
+function focusField(el) {
+  if (!el) return;
+  const field = el.closest('.field') || el;
+  field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => el.focus({ preventScroll: true }), 300);
+}
 
 async function placeOrder() {
   const form = $('#checkoutForm');
   const btn = $('#placeOrder');
 
-  // 簡易驗證
+  // 簡易驗證（任何一項不過 → 標紅、捲到該欄、不送出、不跳走）
   const required = ['email', 'name', 'phone', 'city', 'address'];
   for (const f of required) {
     const el = form.querySelector(`[name="${f}"]`);
     if (!el || !el.value.trim()) {
+      flagField(el, true);
       showToast('請完成必填資訊');
-      el && el.focus();
+      focusField(el);
       return;
     }
   }
-  // Email 格式
-  const email = form.querySelector('[name="email"]').value;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast('請輸入正確的 Email');
+  // Email 格式（更嚴謹：必須有帳號、@、網域、頂級網域）
+  const emailEl = form.querySelector('[name="email"]');
+  const email = emailEl.value.trim();
+  if (!isValidEmail(email)) {
+    flagField(emailEl, true);
+    showToast('請輸入正確的 Email，例如 name@example.com');
+    focusField(emailEl);
     return;
   }
   // 購物車不能是空的
@@ -2077,20 +2097,16 @@ ${codFee > 0 ? `  貨到付款手續費：NT$ ${codFee}\n` : ''}  ────�
         },
         body: JSON.stringify({
           訂單編號: orderNo,
-          下單時間: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
           客人姓名: customerName,
-          客人電話: form.querySelector('[name="phone"]').value.trim(),
           客人Email: email,
+          客人電話: form.querySelector('[name="phone"]').value.trim(),
           收件地址: `${form.querySelector('[name="zip"]').value.trim()} ${form.querySelector('[name="city"]').value} ${form.querySelector('[name="address"]').value.trim()}`,
-          備註: form.querySelector('[name="note"]').value.trim() || '（無）',
-          付款方式: payLabel,
           商品明細: itemLines,
-          小計: `NT$ ${sub.toLocaleString()}`,
-          運費: `NT$ ${shipping.toLocaleString()}`,
-          貨到付款手續費: codFee > 0 ? `NT$ ${codFee}` : '無',
-          應收總額: `NT$ ${finalTotal.toLocaleString()}`,
-          完整訂單: messageBody,
-          items: state.cart.map(i => ({ no: i.no, size: i.size, qty: i.qty }))  // Day 3：供後端扣庫存
+          應收總額: finalTotal,                 // 數字（讓本月報表能加總）
+          付款方式: payLabel,
+          備註: form.querySelector('[name="note"]').value.trim() || '（無）',
+          完整訂單: messageBody,                 // 供通知信／確認信內文
+          items: state.cart.map(i => ({ no: i.no, size: i.size, qty: i.qty }))  // 供後端扣庫存
         })
       });
 
@@ -2147,25 +2163,20 @@ function closeSizeChart() {
 
 /* ========================================================================
    訂單查詢 · Order Lookup
-   ────────────────────────────────────────────────────────────────────────
-   沿用既有的 JSONP 機制（同 syncStockFromSheet），呼叫 Apps Script：
+   沿用既有的 JSONP 機制（同 syncStockFromSheet），呼叫後端：
      ORDER_ENDPOINT?action=lookup&order=WL-xxx&email=xxx&callback=cb
-   後端比對「訂單編號 + Email」後回傳該筆訂單狀態。
    ======================================================================== */
 function openOrderLookup() {
-  // 開啟前清空上一次的結果
   const result = $('#lookupResult');
   if (result) { result.hidden = true; result.innerHTML = ''; }
   $('#lookupPage').classList.add('is-open');
   unlockScroll();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
-
 function closeOrderLookup() {
   $('#lookupPage').classList.remove('is-open');
 }
 
-// JSONP 查詢：用 script 標籤帶 callback，繞過 Apps Script 的 CORS/302 限制
 function fetchOrderStatusJSONP(orderNo, email) {
   return new Promise((resolve, reject) => {
     if (typeof ORDER_ENDPOINT !== 'string' ||
@@ -2200,13 +2211,11 @@ async function handleOrderLookup(e) {
   const btn = $('#lookupSubmit');
   const btnMain = btn.querySelector('.lookup-submit__main');
 
-  // 基本驗證
   if (!orderNo) { showToast('請輸入訂單編號'); $('#lookupOrderNo').focus(); return; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     showToast('請輸入正確的 Email'); $('#lookupEmail').focus(); return;
   }
 
-  // 鎖按鈕、顯示查詢中
   btn.disabled = true;
   const originalText = btnMain.textContent;
   btnMain.textContent = '查詢中…';
@@ -2216,24 +2225,27 @@ async function handleOrderLookup(e) {
 
   try {
     const data = await fetchOrderStatusJSONP(orderNo, email);
-
     if (data && data.result === 'success' && data.found) {
       const o = data.order || {};
-      const statusText = o.status || '備貨中';
-      const statusKey = mapStatusKey(statusText);
+      const shipText = o.shipStatus || '待備貨';
+      const payText = o.payStatus || '待付款';
+      const shipKey = mapShipKey(shipText);
+      const payKey = mapPayKey(payText);
       result.className = 'lookup-result is-found';
       result.innerHTML = `
         <div class="lookup-card">
           <div class="lookup-card__head">
             <span class="lookup-card__no">${escapeHtml(o.orderNo || orderNo)}</span>
-            <span class="lookup-status lookup-status--${statusKey}">${escapeHtml(statusText)}</span>
+            <span class="lookup-status lookup-status--${shipKey}">${escapeHtml(shipText)}</span>
           </div>
           <dl class="lookup-card__meta">
+            <div><dt>付款狀態</dt><dd><span class="lookup-pay lookup-pay--${payKey}">${escapeHtml(payText)}</span></dd></div>
             ${o.orderTime ? `<div><dt>下單時間</dt><dd>${escapeHtml(o.orderTime)}</dd></div>` : ''}
             ${o.total ? `<div><dt>訂單金額</dt><dd>${escapeHtml(o.total)}</dd></div>` : ''}
             ${o.payment ? `<div><dt>付款方式</dt><dd>${escapeHtml(o.payment)}</dd></div>` : ''}
+            ${(o.tracking && shipKey !== 'preparing') ? `<div><dt>物流單號</dt><dd>${escapeHtml((o.carrier ? o.carrier + ' ' : '') + o.tracking)}</dd></div>` : ''}
           </dl>
-          ${renderStatusSteps(statusKey)}
+          ${renderStatusSteps(shipKey)}
         </div>`;
     } else {
       result.className = 'lookup-result is-empty';
@@ -2256,20 +2268,24 @@ async function handleOrderLookup(e) {
   }
 }
 
-// 把後端回傳的中文狀態字，對應到一個 key（控制顏色 + 進度條）
-function mapStatusKey(text) {
+function mapShipKey(text) {
   const t = String(text);
-  if (/完成|送達|已取貨/.test(t)) return 'done';
-  if (/出貨|寄出|配送|運送中/.test(t)) return 'shipped';
-  if (/取消|退/.test(t)) return 'cancelled';
-  return 'preparing'; // 備貨中 / 處理中 / 其他
+  if (/取消/.test(t)) return 'cancelled';
+  if (/送達|已取貨|完成/.test(t)) return 'done';
+  if (/寄出|出貨|配送|運送中/.test(t)) return 'shipped';
+  return 'preparing'; // 待備貨 / 備貨中
+}
+function mapPayKey(text) {
+  const t = String(text);
+  if (/退款|退/.test(t)) return 'refunded';
+  if (/已付|付款完成/.test(t)) return 'paid';
+  return 'unpaid'; // 待付款
 }
 
-// 三段式進度條（備貨 → 出貨 → 完成）；取消狀態不顯示進度
 function renderStatusSteps(statusKey) {
   if (statusKey === 'cancelled') return '';
   const order = ['preparing', 'shipped', 'done'];
-  const labels = { preparing: '備貨中', shipped: '已出貨', done: '已完成' };
+  const labels = { preparing: '備貨中', shipped: '已寄出', done: '已送達' };
   const curIdx = order.indexOf(statusKey);
   const steps = order.map((k, i) => {
     const state = i < curIdx ? 'is-past' : (i === curIdx ? 'is-current' : '');
@@ -2278,7 +2294,6 @@ function renderStatusSteps(statusKey) {
   return `<ol class="lookup-steps">${steps}</ol>`;
 }
 
-// 簡易 HTML 轉義，避免後端字串中的特殊字元破壞畫面
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -2387,6 +2402,21 @@ function init() {
     openCart();
   });
   $('#placeOrder').addEventListener('click', placeOrder);
+
+  // Email 即時驗證：輸入時清除紅框；離開欄位時若格式錯就提示
+  const checkoutEmail = $('#fEmail');
+  if (checkoutEmail) {
+    checkoutEmail.addEventListener('input', () => flagField(checkoutEmail, false));
+    checkoutEmail.addEventListener('blur', () => {
+      const v = checkoutEmail.value.trim();
+      flagField(checkoutEmail, v !== '' && !isValidEmail(v));
+    });
+  }
+  // 其他必填欄位：重新輸入時清除紅框
+  ['name', 'phone', 'city', 'address'].forEach(f => {
+    const el = document.querySelector(`#checkoutForm [name="${f}"]`);
+    if (el) el.addEventListener('input', () => flagField(el, false));
+  });
 
   // 訂單查詢
   $('#lookupBack').addEventListener('click', closeOrderLookup);

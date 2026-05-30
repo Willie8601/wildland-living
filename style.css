@@ -3553,8 +3553,7 @@ body.is-locked {
 }
 
 /* ========================================================================
-   訂單查詢頁 · Order Lookup
-   全螢幕覆蓋，沿用結帳頁的 header / 浮動標籤輸入框
+   訂單查詢頁 · Order Lookup（內嵌，全螢幕覆蓋）
    ======================================================================== */
 .lookup-page {
   position: fixed;
@@ -3573,11 +3572,7 @@ body.is-locked {
   padding: clamp(40px, 6vw, 80px) var(--gutter) 80px;
   text-align: center;
 }
-
-.lookup-body .checkout-chapter {
-  text-align: center;
-  margin-bottom: 14px;
-}
+.lookup-body .checkout-chapter { text-align: center; margin-bottom: 14px; }
 
 .lookup-title {
   font-family: var(--font-display);
@@ -3587,21 +3582,10 @@ body.is-locked {
   color: var(--shade);
   margin: 0 0 18px;
 }
-.lookup-intro {
-  font-size: 14px;
-  line-height: 2;
-  color: var(--muted);
-  margin: 0 0 40px;
-}
+.lookup-intro { font-size: 14px; line-height: 2; color: var(--muted); margin: 0 0 40px; }
 .lookup-intro strong { color: var(--shade); font-weight: 600; }
 
-.lookup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  text-align: left;
-  margin-bottom: 8px;
-}
+.lookup-form { display: flex; flex-direction: column; gap: 16px; text-align: left; margin-bottom: 8px; }
 
 .lookup-submit {
   margin-top: 8px;
@@ -3614,179 +3598,92 @@ body.is-locked {
   cursor: pointer;
   transition: background .2s ease, transform .12s ease, box-shadow .2s ease;
 }
-.lookup-submit__main {
-  font-size: 14px;
-  letter-spacing: 0.3em;
-  font-weight: 600;
-}
-.lookup-submit:hover {
-  background: var(--forest);
-  box-shadow: 0 6px 18px -8px rgba(31, 42, 30, 0.35);
-}
+.lookup-submit__main { font-size: 14px; letter-spacing: 0.3em; font-weight: 600; }
+.lookup-submit:hover { background: var(--forest); box-shadow: 0 6px 18px -8px rgba(31,42,30,.35); }
 .lookup-submit:active { transform: translateY(1px); }
-.lookup-submit:disabled { opacity: 0.55; cursor: default; }
+.lookup-submit:disabled { opacity: .55; cursor: default; }
 
-/* ─── 查詢結果 ─── */
-.lookup-result {
-  margin-top: 36px;
-  text-align: left;
-}
+.lookup-result { margin-top: 36px; text-align: left; }
 .lookup-result__loading {
-  text-align: center;
-  font-size: 13.5px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  padding: 24px 0;
+  text-align: center; font-size: 13.5px; letter-spacing: 0.1em;
+  color: var(--muted); padding: 24px 0;
 }
 
 .lookup-card {
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(201, 209, 184, 0.16);
+  background: rgba(201,209,184,.16);
   overflow: hidden;
 }
 .lookup-card__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 18px 22px;
   border-bottom: 1px solid var(--line);
   background: var(--mist);
 }
 .lookup-card__no {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  color: var(--shade);
+  font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  letter-spacing: 0.08em; color: var(--shade);
 }
 .lookup-status {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  padding: 5px 14px;
-  border-radius: 999px;
-  white-space: nowrap;
+  font-family: var(--font-display); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.14em; padding: 5px 14px; border-radius: 999px; white-space: nowrap;
 }
 .lookup-status--preparing { background: #E4E0CF; color: #6b6122; }
 .lookup-status--shipped   { background: #C9D1B8; color: #3D4A38; }
 .lookup-status--done      { background: var(--shade); color: var(--mist); }
 .lookup-status--cancelled { background: #e4d5d0; color: #8a4b3a; }
 
-.lookup-card__meta {
-  margin: 0;
-  padding: 18px 22px 4px;
-}
+.lookup-card__meta { margin: 0; padding: 18px 22px 4px; }
 .lookup-card__meta > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 7px 0;
-  font-size: 13px;
-  border-bottom: 1px dashed var(--line-soft);
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 7px 0; font-size: 13px; border-bottom: 1px dashed var(--line-soft);
 }
 .lookup-card__meta > div:last-child { border-bottom: none; }
 .lookup-card__meta dt { color: var(--muted); margin: 0; }
-.lookup-card__meta dd {
-  margin: 0;
-  color: var(--shade);
-  font-weight: 600;
-  text-align: right;
-}
+.lookup-card__meta dd { margin: 0; color: var(--shade); font-weight: 600; text-align: right; }
 
-/* ─── 三段式進度條 ─── */
 .lookup-steps {
-  list-style: none;
-  margin: 0;
-  padding: 24px 22px 26px;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
+  list-style: none; margin: 0; padding: 24px 22px 26px;
+  display: flex; justify-content: space-between; position: relative;
 }
 .lookup-steps::before {
-  content: "";
-  position: absolute;
-  left: 44px;
-  right: 44px;
-  top: calc(24px + 7px);
-  height: 1px;
-  background: var(--line);
-  z-index: 0;
+  content: ""; position: absolute; left: 44px; right: 44px;
+  top: calc(24px + 7px); height: 1px; background: var(--line); z-index: 0;
 }
 .lookup-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 9px;
-  position: relative;
-  z-index: 1;
-  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 9px; position: relative; z-index: 1; flex: 1;
 }
 .lookup-step__dot {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--mist);
-  border: 1.5px solid var(--line);
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--mist); border: 1.5px solid var(--line);
   transition: background .2s, border-color .2s;
 }
 .lookup-step__label {
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--muted);
+  font-family: var(--font-display); font-size: 12px; letter-spacing: 0.08em; color: var(--muted);
 }
 .lookup-step.is-past .lookup-step__dot,
-.lookup-step.is-current .lookup-step__dot {
-  background: var(--wild);
-  border-color: var(--wild);
-}
-.lookup-step.is-current .lookup-step__dot {
-  box-shadow: 0 0 0 4px rgba(123, 133, 104, 0.22);
-}
-.lookup-step.is-current .lookup-step__label {
-  color: var(--shade);
-  font-weight: 600;
-}
+.lookup-step.is-current .lookup-step__dot { background: var(--wild); border-color: var(--wild); }
+.lookup-step.is-current .lookup-step__dot { box-shadow: 0 0 0 4px rgba(123,133,104,.22); }
+.lookup-step.is-current .lookup-step__label { color: var(--shade); font-weight: 600; }
 
-/* ─── 查無 / 錯誤 ─── */
 .lookup-empty {
-  text-align: center;
-  padding: 32px 20px;
-  border: 1px dashed var(--line);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.4);
+  text-align: center; padding: 32px 20px;
+  border: 1px dashed var(--line); border-radius: 4px;
+  background: rgba(255,255,255,.4);
 }
 .lookup-empty__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--shade);
-  margin: 0 0 10px;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display); font-weight: 600; font-size: 16px;
+  color: var(--shade); margin: 0 0 10px; letter-spacing: 0.04em;
 }
-.lookup-empty__hint {
-  font-size: 13px;
-  line-height: 1.9;
-  color: var(--muted);
-  margin: 0;
-}
+.lookup-empty__hint { font-size: 13px; line-height: 1.9; color: var(--muted); margin: 0; }
 
 .lookup-note {
-  margin-top: 44px;
-  font-size: 12px;
-  line-height: 1.9;
-  color: var(--muted);
-  text-align: center;
-  letter-spacing: 0.03em;
+  margin-top: 44px; font-size: 12px; line-height: 1.9;
+  color: var(--muted); text-align: center; letter-spacing: 0.03em;
 }
-.lookup-note a {
-  color: var(--wild);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+.lookup-note a { color: var(--wild); text-decoration: underline; text-underline-offset: 2px; }
 .lookup-note a:hover { color: var(--shade); }
 
 @media (max-width: 600px) {
@@ -3794,3 +3691,24 @@ body.is-locked {
   .lookup-card__head { padding: 16px 18px; }
   .lookup-card__meta { padding: 16px 18px 4px; }
 }
+
+/* ── 表單欄位錯誤狀態（信箱/必填驗證未過時）────────────────── */
+.field--error input,
+.field--error select,
+.field--error textarea {
+  border-color: #c0563f !important;
+  background: #fdf4f1 !important;
+}
+.field--error label { color: #c0563f !important; }
+
+/* ── 付款狀態小標籤（查詢結果內）─────────────────────────── */
+.lookup-pay {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 12px; border-radius: 999px;
+}
+.lookup-pay--unpaid   { background: #E4E0CF; color: #6b6122; }
+.lookup-pay--paid     { background: #C9D1B8; color: #3D4A38; }
+.lookup-pay--refunded { background: #e4d5d0; color: #8a4b3a; }
