@@ -918,7 +918,7 @@
         </div>
       </section>
 
-      <button class="place-order-btn" id="placeOrder">
+      <button type="button" class="place-order-btn" id="placeOrder">
         <span class="place-order-btn__main">完成訂購</span>
         <span class="place-order-btn__sub">一件對的衣服正在路上</span>
       </button>
@@ -2412,6 +2412,12 @@ function init() {
     openCart();
   });
   $('#placeOrder').addEventListener('click', placeOrder);
+  // 防止按 Enter 觸發表單提交而整頁跳走；一律走我們的驗證流程
+  const checkoutForm = $('#checkoutForm');
+  if (checkoutForm) checkoutForm.addEventListener('submit', e => {
+    e.preventDefault();
+    placeOrder();
+  });
 
   // Email 即時驗證：輸入時清除紅框；離開欄位時若格式錯就提示
   const checkoutEmail = $('#fEmail');
