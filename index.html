@@ -173,8 +173,8 @@
     </a>
 
     <nav class="nav-primary" id="navPrimary">
-      <a href="#products">商品</a>
       <a href="#story">故事</a>
+      <a href="#products">商品</a>
       <a href="#about">關於</a>
       <a href="#contact">聯絡</a>
       <a href="#" id="navOrderLookup">訂單查詢</a>
@@ -206,18 +206,12 @@
 <nav class="menu-overlay" id="menuOverlay" aria-label="主選單" aria-hidden="true">
   <div class="menu-overlay__inner">
 
-    <!-- 平鋪長列表：故事 / 關於 / 男款▾ / 女款▾ / 購物車 / 尺寸對照表 / Shopee / Linktree / 聯絡 -->
+    <!-- 平鋪長列表（順序對齊頁面動線）：故事 / 男款▾ / 女款▾ / 關於 / 聯絡 / 訂單查詢 / 尺寸對照表 -->
     <ul class="menu-list">
       <li>
         <a href="#story" data-menu-link>
           <span class="menu-list__zh">故事</span>
           <span class="menu-list__en">Story</span>
-        </a>
-      </li>
-      <li>
-        <a href="#about" data-menu-link>
-          <span class="menu-list__zh">關於</span>
-          <span class="menu-list__en">About</span>
         </a>
       </li>
       <li>
@@ -259,6 +253,18 @@
         </details>
       </li>
       <li>
+        <a href="#about" data-menu-link>
+          <span class="menu-list__zh">關於</span>
+          <span class="menu-list__en">About</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact" data-menu-link>
+          <span class="menu-list__zh">聯絡</span>
+          <span class="menu-list__en">Contact</span>
+        </a>
+      </li>
+      <li>
         <a href="#" data-menu-link data-action="openOrderLookup">
           <span class="menu-list__zh">訂單查詢</span>
           <span class="menu-list__en">Order Status</span>
@@ -268,12 +274,6 @@
         <a href="#" data-menu-link data-action="openSizeChart">
           <span class="menu-list__zh">尺寸對照表</span>
           <span class="menu-list__en">Size Guide</span>
-        </a>
-      </li>
-      <li>
-        <a href="#contact" data-menu-link>
-          <span class="menu-list__zh">聯絡</span>
-          <span class="menu-list__en">Contact</span>
         </a>
       </li>
     </ul>
